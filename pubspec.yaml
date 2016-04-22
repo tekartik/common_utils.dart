@@ -1,0 +1,7 @@
+name: tekartik_common_utils
+version: 0.0.1
+dependencies:
+  pub_semver: any
+dev_dependencies:
+  dev_test: any
+  test: any
