@@ -1,7 +1,8 @@
 name: tekartik_common_utils
-version: 0.1.0
+version: 0.1.1
 dependencies:
   pub_semver: any
+  func: any
 dev_dependencies:
   dev_test: any
   test: any

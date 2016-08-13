@@ -4,3 +4,4 @@ export 'dart:convert';
 export 'version_utils.dart';
 export 'dev_utils.dart';
 export 'log_utils.dart';
+export 'package:func/func.dart';

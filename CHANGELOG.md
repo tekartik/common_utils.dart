@@ -1,3 +1,7 @@
+# 0.1.1
+
+- export func
+
 # 0.1.0
 
 - add dev_utils, hash_code_utils, log_utils
