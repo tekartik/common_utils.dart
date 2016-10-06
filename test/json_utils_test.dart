@@ -13,6 +13,8 @@ void defineTests() {
       "key": ["value"]
     };
     expect(parseJsonObject('{"key":["value"]}'), equals(obj));
+    expect(parseJsonObject('{key:"value"}'), isNull);
+    expect(parseJsonObject('{1:"value"}'), isNull);
     expect(parseJsonObject('[{"key":"value"}]'), equals(null));
     expect(parseJsonObject('[{"key":"value"}]', {}), equals({}));
   });

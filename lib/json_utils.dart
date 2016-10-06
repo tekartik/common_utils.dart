@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-Map parseJsonObject(String text, [Map defaultMap = null]) {
+Map<String, dynamic> parseJsonObject(String text, [Map defaultMap = null]) {
   var map = _parse(text);
   if (map is Map) {
     return map;

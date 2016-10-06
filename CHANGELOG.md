@@ -1,3 +1,7 @@
+# 0.2.0
+
+- Add json_utils
+
 # 0.1.1
 
 - export func
