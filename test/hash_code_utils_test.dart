@@ -13,7 +13,4 @@ main() {
       expect(safeHashCode("hi".hashCode), "hi".hashCode);
     });
   });
-
-
-
 }

@@ -20,7 +20,6 @@ setupQuickLogging([Level level]) {
     _PrintHandler handler = new _PrintHandler();
     Logger.root.onRecord.listen((LogRecord logRecord) {
       handler.call(logRecord);
-
     });
     _quickLoggingSetup = true;
   }
@@ -28,18 +27,28 @@ setupQuickLogging([Level level]) {
     Logger.root.level = level;
     //log.info("QuickLoggingSetup");
   }
-
 }
 
 class _PrintHandler {
   void call(LogRecord logRecord) {
-    print("${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}");
+    print(
+        "${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}");
   }
 }
 
-final List<Level> LOG_LEVELS = [Level.OFF, Level.SHOUT, Level.SEVERE, Level.WARNING, Level.INFO, Level.CONFIG, Level.FINE, Level.FINER, Level.FINEST, Level.ALL];
+final List<Level> LOG_LEVELS = [
+  Level.OFF,
+  Level.SHOUT,
+  Level.SEVERE,
+  Level.WARNING,
+  Level.INFO,
+  Level.CONFIG,
+  Level.FINE,
+  Level.FINER,
+  Level.FINEST,
+  Level.ALL
+];
 Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
-
   if (levelText != null) {
     levelText = levelText.toUpperCase();
     for (Level level in LOG_LEVELS) {

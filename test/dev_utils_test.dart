@@ -18,7 +18,7 @@ void defineTests([bool disableOutput = true]) {
         debugDevPrintEnabled = true;
       }
     });
-    
+
     test('devPrint', () {
       debugDevPrint("dev print message");
     });

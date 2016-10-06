@@ -44,6 +44,4 @@ void defineTests() {
       expect(format0To1AsPercent(0.99999), equals('100.0'));
     });
   });
-
-
 }
