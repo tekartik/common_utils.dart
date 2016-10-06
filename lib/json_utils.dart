@@ -1,25 +1,26 @@
 import 'dart:convert';
 
 Map parseJsonObject(String text, [Map defaultMap = null]) {
-  try {
-    var map = JSON.decode(text);
-    if (!(map is Map)) {
-      return defaultMap;
-    }
+  var map = _parse(text);
+  if (map is Map) {
     return map;
-  } catch (e) {
-    return defaultMap;
   }
+  return defaultMap;
 }
 
 List parseJsonList(String text, [List defaultList = null]) {
-  try {
-    var list = JSON.decode(text);
-    if (!(list is List)) {
-      return defaultList;
-    }
+  var list = _parse(text);
+  if (list is List) {
     return list;
-  } catch (e) {
-    return defaultList;
   }
+  return defaultList;
+}
+
+_parse(String text) {
+  if (text != null) {
+    try {
+      return JSON.decode(text);
+    } catch (e) {}
+  }
+  return null;
 }
