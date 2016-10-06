@@ -1,6 +1,6 @@
 # 0.2.0
 
-- Add json_utils
+- Add json_utils, int_utils
 
 # 0.1.1
 
