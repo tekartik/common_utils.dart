@@ -8,7 +8,7 @@ void defineTests() {
     expect(() => int.parse(null), throws);
     expect(() => int.parse(''), throws);
     expect(() => int.parse('a'), throws);
-    expect(() => int.parse('3'), 3);
+    expect(int.parse('3'), 3);
     expect(() => int.parse('3.14'), throws);
   });
 

@@ -29,4 +29,22 @@ void defineTests() {
     expect(parseJsonList('{"key":"value"}'), isNull);
     expect(parseJsonList('{"key":"value"}', []), equals([]));
   });
+
+  test('jsonPretty', () {
+    expect(jsonPretty(null), isNull);
+    expect(jsonPretty(null, "nope"), "nope");
+    expect(jsonPretty("hi"), '"hi"');
+    expect(jsonPretty(1), '1');
+    expect(jsonPretty({}), "{}");
+    expect(jsonPretty([]), "[]");
+    Map obj = {
+      "key": ["value"]
+    };
+    expect(jsonPretty(obj), """
+{
+  "key": [
+    "value"
+  ]
+}""");
+  });
 }

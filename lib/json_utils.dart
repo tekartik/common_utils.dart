@@ -24,3 +24,12 @@ _parse(String text) {
   }
   return null;
 }
+
+String jsonPretty(dynamic collection, [String defaultString]) {
+  if (collection != null) {
+    try {
+      return const JsonEncoder.withIndent("  ").convert(collection);
+    } catch (e) {}
+  }
+  return defaultString;
+}
