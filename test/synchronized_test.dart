@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:tekartik_common_utils/synchronized.dart';
+import 'package:tekartik_common_utils/async_utils.dart';
 import 'package:dev_test/test.dart';
 
 void main() {
@@ -51,17 +52,23 @@ void main() {
     });
 
     test('perf', () async {
-      int count = 100;
+      Stopwatch sw = new Stopwatch();
+      sw.start();
+      int count = 10000;
       Lock lock = new Lock();
       List<Future> futures = [];
       List<int> list = [];
       for (int i = 0; i < count; i++) {
+        //await sleep(1);
         Future future = lock.synchronized(() async {
           list.add(i);
         });
         futures.add(future);
       }
       await Future.wait(futures);
+      expect(list, new List.generate(count, (i) => i));
+      print(sw.elapsed);
+      // 2016-10-05 10000 0:00:00.971284
     });
   });
 }

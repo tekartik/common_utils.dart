@@ -1,65 +1,46 @@
 import 'dart:async';
 
-import 'package:func/func.dart';
+import '../common_utils_import.dart';
 
 var _zoneTag = #tekartik_synchronized;
 
-class LockImpl {
-  bool locked = false;
-  int lockCount = 0;
+class _Task {
+  Completer completer = new Completer.sync();
+  Func0 fn;
+  _Task(this.fn);
+  Future get future => completer.future;
 
+}
+
+class LockImpl {
   LockImpl();
 
-  Completer completer;
-
-  Future lock() async {
-    if (!locked) {
-      lockCount++;
-      locked = true;
-      completer = new Completer.sync();
-      return;
-    }
-    if (Zone.current[_zoneTag] == true) {
-      lockCount++;
-      return;
-    }
-    // wait for previous to finish
-    await completer.future;
-    await lock();
-  }
+  List<_Task> _tasks = [];
 
   // Usage:
   // locker.synchronized(() { doStuff(); }
   //
   Future/*<T>*/ synchronized/*<T>*/(Func0/*<T>*/ fn) async {
-    await lock();
-    try {
-      return await runZoned(() async {
-        /*=T*/
-        var result = fn();
+    // Same zone run
+    if (Zone.current[_zoneTag] == true) {
+      return fn();
+    } else {
+      _Task task = new _Task(fn);
+      _tasks.add(task);
+      if (_tasks.length > 1) {
+        // wait previous
+        _Task previousTask = _tasks[_tasks.length - 2];
+        await previousTask.future;
+      }
 
-        if (result is Future) {
-          result = await result;
-        }
-        return result;
-      }, zoneValues: {_zoneTag: true});
-    } finally {
-      unlock();
+      try {
+        return await runZoned(() async {
+          return fn();
+        }, zoneValues: {_zoneTag: true});
+      } finally {
+        _tasks.remove(task);
+        task.completer.complete();
+      }
     }
-  }
-
-  void unlock() {
-    --lockCount;
-    if (lockCount < 0) {
-      throw new Exception("lockCount cannot be < 0");
-    } else if (lockCount == 0) {
-      locked = false;
-      completer.complete();
-    }
-  }
-
-  @override
-  String toString() {
-    return "Lock($locked)";
   }
 }
