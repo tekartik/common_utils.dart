@@ -40,7 +40,9 @@ void defineTests() {
     Map obj = {
       "key": ["value"]
     };
-    expect(jsonPretty(obj), """
+    expect(
+        jsonPretty(obj),
+        """
 {
   "key": [
     "value"

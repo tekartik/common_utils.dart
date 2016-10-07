@@ -6,4 +6,5 @@ dart:
   - dev
 before_script:
   - source $(pub run chrome_travis:env_rc)
-script: ./tool/travis.sh
+script:
+  - ./tool/travis.sh

@@ -1,3 +1,7 @@
+# 0.2.2
+
+- Add synchronized
+
 # 0.2.0
 
 - Add json_utils, int_utils
