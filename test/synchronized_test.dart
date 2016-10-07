@@ -49,5 +49,19 @@ void main() {
       await Future.wait([future1, future2]);
       expect(list, [1, 2, 3, 4]);
     });
+
+    test('perf', () async {
+      int count = 100;
+      Lock lock = new Lock();
+      List<Future> futures = [];
+      List<int> list = [];
+      for (int i = 0; i < count; i++) {
+        Future future = lock.synchronized(() async {
+          list.add(i);
+        });
+        futures.add(future);
+      }
+      await Future.wait(futures);
+    });
   });
 }

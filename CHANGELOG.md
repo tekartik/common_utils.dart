@@ -1,6 +1,6 @@
 # 0.2.2
 
-- Add synchronized
+- Add synchronized, async_utils
 
 # 0.2.0
 
