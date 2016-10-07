@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:func/func.dart';
 
+var _zoneTag = #tekartik_synchronized;
+
 class LockImpl {
   bool locked = false;
+  int lockCount = 0;
 
   LockImpl();
 
@@ -11,8 +14,13 @@ class LockImpl {
 
   Future lock() async {
     if (!locked) {
+      lockCount++;
       locked = true;
       completer = new Completer.sync();
+      return;
+    }
+    if (Zone.current[_zoneTag] == true) {
+      lockCount++;
       return;
     }
     // wait for previous to finish
@@ -26,21 +34,28 @@ class LockImpl {
   Future/*<T>*/ synchronized/*<T>*/(Func0/*<T>*/ fn) async {
     await lock();
     try {
-      /*=T*/
-      var result = fn();
+      return await runZoned(() async {
+        /*=T*/
+        var result = fn();
 
-      if (result is Future) {
-        result = await result;
-      }
-      return result;
+        if (result is Future) {
+          result = await result;
+        }
+        return result;
+      }, zoneValues: {_zoneTag: true});
     } finally {
       unlock();
     }
   }
 
   void unlock() {
-    locked = false;
-    completer.complete();
+    --lockCount;
+    if (lockCount < 0) {
+      throw new Exception("lockCount cannot be < 0");
+    } else if (lockCount == 0) {
+      locked = false;
+      completer.complete();
+    }
   }
 
   @override

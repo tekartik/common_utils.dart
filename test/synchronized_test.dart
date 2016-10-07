@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:tekartik_common_utils/synchronized.dart';
-import 'package:test/test.dart';
+import 'package:dev_test/test.dart';
 
 void main() {
   group('synchronized', () {
@@ -25,11 +25,29 @@ void main() {
         return 1234;
       });
       expect(list, isEmpty);
-      Future.wait([future1, future2, future3]);
+      await Future.wait([future1, future2, future3]);
       expect(await future1, isNull);
       expect(await future2, "text");
       expect(await future3, 1234);
       expect(list, [1, 2, 3]);
+    });
+
+    test('nested', () async {
+      Lock lock = new Lock();
+      List<int> list = [];
+      Future future1 = lock.synchronized(() async {
+        list.add(1);
+        await lock.synchronized(() async {
+          await new Duration(milliseconds: 10);
+          list.add(2);
+        });
+        list.add(3);
+      });
+      Future future2 = lock.synchronized(() {
+        list.add(4);
+      });
+      await Future.wait([future1, future2]);
+      expect(list, [1, 2, 3, 4]);
     });
   });
 }
