@@ -11,4 +11,4 @@ dartanalyzer --fatal-warnings \
   lib/json_utils.dart \
   lib/version_utils.dart
 
-pub run test -p vm,firefox
+pub run test -p vm,firefox,chrome
