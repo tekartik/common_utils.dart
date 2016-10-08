@@ -5,7 +5,6 @@
 import 'dart:async';
 
 import 'package:tekartik_common_utils/synchronized.dart';
-import 'package:tekartik_common_utils/async_utils.dart';
 import 'package:dev_test/test.dart';
 
 void main() {
@@ -69,6 +68,37 @@ void main() {
       expect(list, new List.generate(count, (i) => i));
       print(sw.elapsed);
       // 2016-10-05 10000 0:00:00.971284
+    });
+
+    test('throw', () async {
+      Lock lock = new Lock();
+      try {
+        await lock.synchronized(() {
+          throw "throwing";
+        });
+        fail("should throw");
+      } catch (e) {
+        expect(e is TestFailure, isFalse);
+      }
+    });
+
+    test('exception', () async {
+      Lock lock = new Lock();
+      List<int> list = [];
+      lock.synchronized(() async {
+        list.add(1);
+      });
+      // catch the error
+      lock.synchronized(() {
+          throw "throwing";
+        }).catchError((_) {
+        list.add(2);
+      });
+      // only wait the last one
+      await lock.synchronized(() async {
+        list.add(3);
+      });
+      expect(list, [1, 2, 3]);
     });
   });
 }
