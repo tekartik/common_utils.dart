@@ -61,14 +61,6 @@ SynchronizedLock _makeSynchronizedLock(dynamic lock) {
   return lock;
 }
 
-Future _asFuture(dynamic value) {
-  if (value is Future) {
-    return value;
-  } else {
-    return new Future.value(value);
-  }
-}
-
 Future _run(Func0 fn) {
   return new Future.sync(() {
     return runZoned(() {
@@ -117,43 +109,6 @@ Future _synchronized(SynchronizedLock lock, Func0 fn, {timeout: null}) {
     return previousTask.future.then((_) {
       return run();
     });
-  }
-}
-
-Future _synchronizedOld(SynchronizedLock lock, Func0 fn, {timeout: null}) {
-  List<_SynchronizedTask> tasks = lock._tasks;
-
-  // Same zone means re-entrant, so run directly
-  if (Zone.current[_zoneTag] == true) {
-    return new Future.sync(fn);
-  } else {
-    // Create the task and add it to our queue
-    _SynchronizedTask task = new _SynchronizedTask(fn);
-    tasks.add(task);
-
-    // From there we can be async
-    return () async {
-      // Only wait if there was another one running before
-      if (tasks.length > 1) {
-        _SynchronizedTask previousTask = tasks[tasks.length - 2];
-        await previousTask.future;
-      }
-
-      // Run in a zone and set a flag to allow re-entrant calls
-      try {
-        return await runZoned(() async {
-          if (fn != null) {
-            return fn();
-          }
-        }, zoneValues: {_zoneTag: true});
-      } finally {
-
-        // Cleanup
-        // remove from queue and complete
-        tasks.remove(task);
-        task.completer.complete();
-      }
-    }();
   }
 }
 

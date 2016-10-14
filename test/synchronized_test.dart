@@ -112,18 +112,16 @@ void main() {
         try {
           await synchronized(null, null);
           fail("should fail");
-        } on ArgumentError catch (e) {
+        } on ArgumentError catch (_) {
         }
       });
 
       test('string_lock', () async {
-        Completer completer = new Completer();
-
         await synchronized(new Object(), null);
         try {
           await synchronized(null, null);
           fail("should fail");
-        } on ArgumentError catch (e) {
+        } on ArgumentError catch (_) {
         }
       });
 
