@@ -7,5 +7,5 @@ export 'log_utils.dart';
 export 'json_utils.dart';
 export 'int_utils.dart';
 export 'async_utils.dart';
-export 'synchronized.dart';
+export 'package:synchronized/synchronized.dart';
 export 'package:func/func.dart';
