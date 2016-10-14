@@ -6,6 +6,8 @@ homepage: https://github.com/tekartik/tekartik_common_utils.dart
 dependencies:
   pub_semver: any
   func: any
+  synchronized:
+    git: git://github.com/tekartik/synchronized.dart
 dev_dependencies:
   dev_test: any
   test: any
