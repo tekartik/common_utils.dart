@@ -10,7 +10,6 @@ dartanalyzer --fatal-warnings \
   lib/log_utils.dart \
   lib/json_utils.dart \
   lib/version_utils.dart \
-  lib/synchronized.dart \
   lib/async_utils.dart \
 
 pub run test -p vm,firefox,chrome
