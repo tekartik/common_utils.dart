@@ -1,3 +1,7 @@
+# 0.2.3
+
+- Add env_utils, string_enum
+
 # 0.2.2
 
 - Add synchronized, async_utils
