@@ -9,6 +9,7 @@ dependencies:
   synchronized:
     git: git://github.com/tekartik/synchronized.dart
 dev_dependencies:
+  browser: any
   dev_test: any
   test: any
   chrome_travis:
