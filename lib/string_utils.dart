@@ -43,7 +43,7 @@ bool isEmpty(String text) {
   return ((text == null) || (text.length == 0));
 }
 
-String nonNull(String value, [String defaultValue]) =>
+String nonNull(String value, [String defaultValue = '']) =>
     value_utils.nonNull(value, defaultValue);
 
 String prefilled(String text, int len, String char) {
