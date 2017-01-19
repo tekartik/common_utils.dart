@@ -37,5 +37,6 @@ main() {
     expect(stru.nonNull("456", null), '456');
     expect(stru.nonNull(null, null), null);
     expect(stru.nonNull(null, "456"), "456");
+    expect(stru.nonNull(null), "");
   });
 }
