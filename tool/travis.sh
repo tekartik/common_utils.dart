@@ -11,5 +11,7 @@ dartanalyzer --fatal-warnings \
   lib/json_utils.dart \
   lib/version_utils.dart \
   lib/async_utils.dart \
+  lib/string_utils.dart \
+  lib/value_utils.dart \
 
 pub run test -p vm,firefox,chrome

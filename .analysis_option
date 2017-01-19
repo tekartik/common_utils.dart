@@ -1,7 +1,5 @@
 analyzer:
   strong-mode: true
-  exclude:
-    - test/synchronized_test.dart
 linter:
   rules:
     # see catalogue here: http://dart-lang.github.io/linter/lints/

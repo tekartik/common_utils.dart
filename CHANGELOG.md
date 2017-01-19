@@ -1,3 +1,7 @@
+# 0.2.4
+
+- Add string utils
+
 # 0.2.3
 
 - Add env_utils, string_enum
