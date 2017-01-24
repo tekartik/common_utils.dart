@@ -39,4 +39,13 @@ main() {
     expect(stru.nonNull(null, "456"), "456");
     expect(stru.nonNull(null), "");
   });
+
+  test('nonEmpty', () {
+    expect(stru.nonEmpty("456", null), '456');
+    expect(stru.nonEmpty("", null), isNull);
+    expect(stru.nonEmpty(null, "456"), "456");
+    expect(stru.nonEmpty(""), isNull);
+    expect(stru.nonEmpty(null), isNull);
+    expect(stru.nonEmpty("123"), "123");
+  });
 }
