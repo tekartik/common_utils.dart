@@ -1,3 +1,8 @@
+# 0.2.5
+
+- Add list utils
+- change waitAll, to take a list of methods
+
 # 0.2.4
 
 - Add string utils

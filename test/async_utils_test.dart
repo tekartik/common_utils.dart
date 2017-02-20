@@ -13,6 +13,47 @@ void main() {
       await sleep(50);
       expect(sw.elapsedMilliseconds, greaterThan(30));
       expect(sw.elapsedMilliseconds, lessThan(300));
+      await sleep();
+    });
+
+    test('waitAll', () async {
+      expect(await waitAll(null), isNull);
+      expect(await waitAll([]), isNull);
+      expect(
+          await waitAll([
+            () async {
+              return 0;
+            }
+          ]),
+          [0]);
+      expect(
+          await waitAll([
+            () async {
+              return 0;
+            },
+            () async {
+              sleep(1);
+              return 1;
+            }
+          ]),
+          [0, 1]);
+      expect(
+          waitAll([
+            () async {
+              throw 'fail';
+            }
+          ]),
+          throwsA('fail'));
+      expect(
+          waitAll([
+            () async {
+              return 0;
+            },
+            () async {
+              throw 'fail';
+            }
+          ]),
+          throwsA('fail'));
     });
   });
 }

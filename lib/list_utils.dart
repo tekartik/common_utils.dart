@@ -1,5 +1,7 @@
-/*
-T first<T>(List<T> ts) {
-return ts.length == 0 ? throw new ArgumentError('Empty list!') : ts[0];
+T first<T>(List<T> list) {
+  return isEmpty(list) ? null : list[0];
 }
-*/
+
+bool isEmpty(List list) {
+  return list == null || list.length == 0;
+}
