@@ -5,11 +5,11 @@ void main() => defineTests();
 
 void defineTests() {
   test('int.parse', () {
-    expect(() => int.parse(null), throws);
-    expect(() => int.parse(''), throws);
-    expect(() => int.parse('a'), throws);
+    expect(() => int.parse(null), throwsA(new isInstanceOf<ArgumentError>()));
+    expect(() => int.parse(''), throwsA(new isInstanceOf<FormatException>()));
+    expect(() => int.parse('a'), throwsA(new isInstanceOf<FormatException>()));
     expect(int.parse('3'), 3);
-    expect(() => int.parse('3.14'), throws);
+    expect(() => int.parse('3.14'), throwsA(new isInstanceOf<FormatException>()));
   });
 
   test('parseInt', () {

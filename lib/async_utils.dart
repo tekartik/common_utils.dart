@@ -7,7 +7,7 @@ Future sleep([int ms = 0]) {
   return new Future.delayed(new Duration(milliseconds: ms));
 }
 
-Future<List<T>> waitAll<T>(List<Func0<Future<T>>> computations) async {
+Future<List> waitAll(List<Func0<Future>> computations) async {
   if (isEmpty(computations)) {
     return null;
   }

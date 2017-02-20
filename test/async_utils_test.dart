@@ -2,6 +2,7 @@
 
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/async_utils.dart';
 
@@ -19,6 +20,9 @@ void main() {
     test('waitAll', () async {
       expect(await waitAll(null), isNull);
       expect(await waitAll([]), isNull);
+      expect(await waitAll([() async {
+
+      }]), [null]);
       expect(
           await waitAll([
             () async {
@@ -26,6 +30,14 @@ void main() {
             }
           ]),
           [0]);
+      expect(
+          await waitAll([
+            () async {},
+            () async {
+              await sleep(1);
+            }
+          ]),
+          [null, null]);
       expect(
           await waitAll([
             () async {
@@ -38,6 +50,16 @@ void main() {
           ]),
           [0, 1]);
       expect(
+          await waitAll([
+            () async {
+              return 0;
+            },
+            () async {
+              sleep(1);
+            }
+          ]),
+          [0, null]);
+      expect(
           waitAll([
             () async {
               throw 'fail';
@@ -54,6 +76,15 @@ void main() {
             }
           ]),
           throwsA('fail'));
+
+      Future<int> f1() async {
+        return 1;
+      }
+      Future<String> ft() async {
+        return "1";
+      }
+      expect(await
+          waitAll([f1, ft]), [1, "1"]);
     });
   });
 }
