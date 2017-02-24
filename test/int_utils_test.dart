@@ -9,7 +9,8 @@ void defineTests() {
     expect(() => int.parse(''), throwsA(new isInstanceOf<FormatException>()));
     expect(() => int.parse('a'), throwsA(new isInstanceOf<FormatException>()));
     expect(int.parse('3'), 3);
-    expect(() => int.parse('3.14'), throwsA(new isInstanceOf<FormatException>()));
+    expect(
+        () => int.parse('3.14'), throwsA(new isInstanceOf<FormatException>()));
   });
 
   test('parseInt', () {

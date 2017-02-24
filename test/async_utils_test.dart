@@ -20,9 +20,7 @@ void main() {
     test('waitAll', () async {
       expect(await waitAll(null), isNull);
       expect(await waitAll([]), isNull);
-      expect(await waitAll([() async {
-
-      }]), [null]);
+      expect(await waitAll([() async {}]), [null]);
       expect(
           await waitAll([
             () async {
@@ -80,11 +78,12 @@ void main() {
       Future<int> f1() async {
         return 1;
       }
+
       Future<String> ft() async {
         return "1";
       }
-      expect(await
-          waitAll([f1, ft]), [1, "1"]);
+
+      expect(await waitAll([f1, ft]), [1, "1"]);
     });
   });
 }
