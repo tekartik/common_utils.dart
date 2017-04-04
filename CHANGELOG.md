@@ -1,3 +1,7 @@
+# 0.2.7
+
+- add date_time_utils
+
 # 0.2.5
 
 - Add list utils
