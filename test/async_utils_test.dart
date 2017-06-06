@@ -102,5 +102,36 @@ void main() {
       expect(runner.done, isTrue);
       await future;
     });
+
+    test('onceRunner fail', () async {
+      bool shouldFail = true;
+      Future _count() async {
+        await sleep(5);
+        if (shouldFail) {
+          throw "should fail";
+        }
+      }
+
+      AsyncOnceRunner runner = new AsyncOnceRunner(_count);
+      try {
+        await runner.run();
+        fail('should have failed');
+      } catch (e) {
+        expect(e, "should fail");
+      }
+      expect(runner.done, isFalse);
+
+      try {
+        await runner.run();
+        fail('should have failed');
+      } catch (e) {
+        expect(e, "should fail");
+      }
+
+      shouldFail = false;
+      await runner.run();
+      expect(runner.done, isTrue);
+      await runner.run();
+    });
   });
 }
