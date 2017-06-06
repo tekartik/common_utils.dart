@@ -85,5 +85,22 @@ void main() {
 
       expect(await waitAll([f1, ft]), [1, "1"]);
     });
+
+    test('onceRunner', () async {
+      int count = 0;
+      Future _count() async {
+        await sleep(5);
+        count++;
+      }
+
+      AsyncOnceRunner runner = new AsyncOnceRunner(_count);
+      expect(count, 0);
+      Future future = runner.run();
+      expect(runner.done, isFalse);
+      await runner.run();
+      expect(count, 1);
+      expect(runner.done, isTrue);
+      await future;
+    });
   });
 }
