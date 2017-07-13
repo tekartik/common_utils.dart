@@ -1,3 +1,6 @@
+# 0.3.3
+
+- add map_utils
 # 0.3.1
 
 - add AsyncOnceRunner
