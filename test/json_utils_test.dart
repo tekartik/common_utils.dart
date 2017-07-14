@@ -30,6 +30,11 @@ void defineTests() {
     expect(parseJsonList('{"key":"value"}', []), equals([]));
   });
 
+  test('parseJson', () {
+    expect(parseJson(null), null);
+    expect(parseJson(""), null);
+  });
+
   test('jsonPretty', () {
     expect(jsonPretty(null), isNull);
     expect(jsonPretty(null, "nope"), "nope");
@@ -42,6 +47,14 @@ void defineTests() {
     };
     expect(
         jsonPretty(obj),
+        """
+{
+  "key": [
+    "value"
+  ]
+}""");
+    expect(
+        jsonPretty('{"key": ["value"]}'),
         """
 {
   "key": [
