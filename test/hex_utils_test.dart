@@ -55,8 +55,9 @@ main() {
     test('parseHexString', () {
       expect(parseHexString("01 83 3d 79"), [0x01, 0x83, 0x3d, 0x79]);
       expect(parseHexString("01 83 3d79 FF"), [0x01, 0x83, 0x3d, 0x79, 0xFF]);
-      expect(hexPretty([1, 0x23]), startsWith('01 23'));
-      expect(hexPretty([1, 2, 3, 4, 5]), startsWith('01 02 03 04  05'));
+      expect(parseHexString("0x01"), [0x01]);
+      expect(parseHexString("0xFFFE ED xDC"), [0xFF, 0xFE, 0xED, 0xDC]);
+      // parseHexString
     });
   });
 }

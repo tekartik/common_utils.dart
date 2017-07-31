@@ -170,6 +170,8 @@ List<int> parseHexString(String text) {
       if (secondNibble != null) {
         data.add(firstNibble * 16 + secondNibble);
         firstNibble = null;
+      } else {
+        firstNibble = null;
       }
     }
   });
