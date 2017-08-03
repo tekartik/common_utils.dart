@@ -1,3 +1,7 @@
+# 0.4.0
+
+- add byte_data_utils
+
 # 0.3.5
 
 - add hex_utils
