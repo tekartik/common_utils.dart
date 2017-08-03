@@ -14,8 +14,11 @@ main() {
       ByteData data = new ByteData.view(buffer);
       expect(byteDataToUint8List(data), [1, 2, 3, 4]);
 
-      data = byteDataFromOffset(data, 1);
-      expect(byteDataToUint8List(data), [2, 3, 4]);
+      ByteData data2 = byteDataFromOffset(data, 1);
+      expect(byteDataToUint8List(data2), [2, 3, 4]);
+
+      ByteData data3 = byteDataFromOffset(data, 1, 2);
+      expect(byteDataToUint8List(data3), [2, 3]);
     });
   });
 }

@@ -8,6 +8,7 @@ ByteData byteDataFromUint8List(Uint8List list) {
   return list.buffer.asByteData(list.offsetInBytes, list.lengthInBytes);
 }
 
-ByteData byteDataFromOffset(ByteData data, int offset) {
-  return data.buffer.asByteData(data.offsetInBytes + offset, data.lengthInBytes - offset);
+ByteData byteDataFromOffset(ByteData data, int offset, [int length]) {
+  length ??= data.lengthInBytes - offset;
+  return data.buffer.asByteData(data.offsetInBytes + offset, length);
 }
