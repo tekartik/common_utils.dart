@@ -13,7 +13,7 @@ void main() {
       sw.start();
       await sleep(50);
       expect(sw.elapsedMilliseconds, greaterThan(30));
-      expect(sw.elapsedMilliseconds, lessThan(300));
+      expect(sw.elapsedMilliseconds, lessThan(3000));
       await sleep();
     });
 

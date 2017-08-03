@@ -41,6 +41,14 @@ String hexUint8(int value) {
   return new String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
 }
 
+String hexUint16(int value) {
+  return hexUint8(value >> 8) + hexUint8(value);
+}
+
+String hexUint32(int value) {
+  return hexUint16(value >> 16) + hexUint16(value);
+}
+
 String hexQuickView(List<int> data, [int maxLen]) {
   if (data == null) {
     return '(null)';

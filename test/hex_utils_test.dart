@@ -19,6 +19,29 @@ main() {
       expect(hexUint8(256), '00');
     });
 
+    test('Uint16', () {
+      expect(hexUint16(0), '0000');
+      expect(hexUint16(15), '000F');
+      expect(hexUint16(16), '0010');
+      expect(hexUint16(255), '00FF');
+      expect(hexUint16(256), '0100');
+      expect(hexUint16(0x10000), '0000');
+      expect(hexUint16(0xFFFF), 'FFFF');
+      expect(hexUint16(0xFEDC), 'FEDC');
+    });
+
+    test('Uint32', () {
+      expect(hexUint32(0), '00000000');
+      expect(hexUint32(15), '0000000F');
+      expect(hexUint32(16), '00000010');
+      expect(hexUint32(255), '000000FF');
+      expect(hexUint32(256), '00000100');
+      expect(hexUint32(0x10000), '00010000');
+      expect(hexUint32(0xFFFF), '0000FFFF');
+      expect(hexUint32(0xFFFFFFFF), 'FFFFFFFF');
+      expect(hexUint32(0x100000000), '00000000');
+    });
+
     test('hexPretty', () {
       expect(hexPretty([0xff]), startsWith('FF'));
       expect(hexPretty([1, 0x23]), startsWith('01 23'));
