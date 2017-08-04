@@ -1,7 +1,7 @@
 library dev_utils_test;
 
 import 'package:tekartik_common_utils/dev_utils.dart';
-import 'package:test/test.dart';
+import 'package:dev_test/test.dart';
 
 void main() => defineTests(true);
 
@@ -27,9 +27,9 @@ void defineTests([bool disableOutput = true]) {
         debugDevPrintEnabled = false;
       }
       try {
-        debugDevError("from test not supported");
+        debugDevError({"some": "data"});
         fail('no');
-      } catch (e) {}
+      } on UnsupportedError catch (e) {}
       if (disableOutput) {
         debugDevPrintEnabled = true;
       }

@@ -24,13 +24,13 @@ void devPrint(Object object) {
 @deprecated
 int devWarning;
 
-_devError([String msg = null]) {
+_devError([Object object = null]) {
   // one day remove the print however sometimes the error thrown is hidden
   try {
-    throw new UnsupportedError(msg);
+    throw new UnsupportedError("$object");
   } catch (e, st) {
     if (_devPrintEnabled) {
-      print("# ERROR $msg");
+      print("# ERROR $object");
       print(st);
     }
     throw e;
@@ -38,7 +38,7 @@ _devError([String msg = null]) {
 }
 
 @deprecated
-devError([String msg = null]) => _devError(msg);
+devError([Object object = null]) => _devError(object);
 
 // exported for testing
 void debugDevPrint(Object object) => _devPrint(object);
