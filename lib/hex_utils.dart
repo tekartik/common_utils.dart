@@ -166,6 +166,7 @@ String hexPretty(List<int> data) {
   return out.toString();
 }
 
+// parse any hex string
 List<int> parseHexString(String text) {
   List<int> data = new List();
   int firstNibble = null;
@@ -184,4 +185,13 @@ List<int> parseHexString(String text) {
     }
   });
   return data;
+}
+
+/// convert [data] to "01A1..."
+String toHexString(List<int> data) {
+  StringBuffer sb = new StringBuffer();
+  for (int byte in data) {
+    sb.write(hexUint8(byte));
+  }
+  return sb.toString();
 }
