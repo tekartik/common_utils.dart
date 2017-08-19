@@ -34,5 +34,19 @@ void defineTests([bool disableOutput = true]) {
         debugDevPrintEnabled = true;
       }
     });
+
+    test('DevFlag', () {
+      DevFlag debug = new DevFlag();
+      expect(debug.on, isFalse);
+
+      debug.on = true; // ignore: deprecated_member_use
+      expect(debug.on, isTrue);
+      debug.on = null; // ignore: deprecated_member_use
+      expect(debug.on, isFalse);
+      debug.on = true; // ignore: deprecated_member_use
+      expect(debug.on, isTrue);
+      debug.on = false; // ignore: deprecated_member_use
+      expect(debug.on, isFalse);
+    });
   });
 }

@@ -44,3 +44,24 @@ devError([Object object = null]) => _devError(object);
 void debugDevPrint(Object object) => _devPrint(object);
 void debugDevError(Object object) => _devError(object);
 set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
+
+// Simple class to add a debug flag
+// off by default
+// turning it on raises a warning so that you don't checkin code like that
+class DevFlag {
+  final String explanation;
+  DevFlag([this.explanation]);
+  bool get on => _on ?? false;
+  bool _on;
+
+  @deprecated
+  set on(bool on) {
+    _on = on;
+    if (_devPrintEnabled) {
+      print('Turning $this');
+    }
+  }
+
+  @override
+  toString() => "DevFlag($explanation) ${on ? "on": "off"}";
+}

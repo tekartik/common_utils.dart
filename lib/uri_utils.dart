@@ -1,5 +1,3 @@
-
-
 /**
  * Typically the argument is window.location.search
  */
