@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/json_utils.dart';
 
@@ -33,6 +34,17 @@ void defineTests() {
   test('parseJson', () {
     expect(parseJson(null), null);
     expect(parseJson(""), null);
+  });
+
+  test('JSON.encode', () {
+    expect(JSON.encode(null), 'null');
+    expect(JSON.encode(''), '""');
+  });
+
+  test('encodeJson', () {
+    expect(encodeJson(null), isNull);
+    expect(encodeJson(""), '""');
+    expect(encodeJson({}), '{}');
   });
 
   test('jsonPretty', () {

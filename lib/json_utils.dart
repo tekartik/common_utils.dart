@@ -35,6 +35,16 @@ parseJson(String text) {
 }
 
 //
+// safely encode map, list, primitive or null
+//
+String encodeJson(var value) {
+  if (value == null) {
+    return null;
+  }
+  return JSON.encode(value);
+}
+
+//
 // [collection] can be map a list
 // if it is a string, it will try to parse it first
 //
