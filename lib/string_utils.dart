@@ -1,4 +1,6 @@
 import 'value_utils.dart' as value_utils;
+export 'bool_utils.dart' show parseBool;
+export 'int_utils.dart' show parseInt;
 
 //int parseInt(String text, [int defaultValue = 0]) {
 //  try {
@@ -7,6 +9,7 @@ import 'value_utils.dart' as value_utils;
 //    return defaultValue;
 //  }
 //}
+/*
 
 int parseInt(String value, [int defaultValue = null]) {
   if (value == null) {
@@ -38,7 +41,7 @@ bool parseBool(String value, [bool defaultValue = false]) {
   }
   return defaultValue;
 }
-
+*/
 bool isEmpty(String text) {
   return ((text == null) || (text.length == 0));
 }

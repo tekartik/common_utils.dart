@@ -1,3 +1,6 @@
+# 0.4.7
+
+- add parseBool & parseNum
 # 0.4.0
 
 - add byte_data_utils

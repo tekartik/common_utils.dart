@@ -14,9 +14,11 @@ void defineTests() {
   });
 
   test('parseInt', () {
+    expect(parseInt('null'), isNull);
     expect(parseInt(null), null);
     expect(parseInt(''), null);
     expect(parseInt('a'), null);
+    expect(parseInt('3'), 3);
     expect(parseInt('3.14'), isNull);
     expect(parseInt('', 1), 1);
     expect(parseInt('a', 2), 2);

@@ -29,7 +29,7 @@ void defineTests([bool disableOutput = true]) {
       try {
         debugDevError({"some": "data"});
         fail('no');
-      } on UnsupportedError catch (e) {}
+      } on UnsupportedError catch (_) {}
       if (disableOutput) {
         debugDevPrintEnabled = true;
       }

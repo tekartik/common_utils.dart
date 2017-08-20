@@ -12,12 +12,16 @@ main() {
   });
 
   test('parseBool', () {
-    expect(stru.parseBool("456"), false);
+    // up to 2017-08
+    // expect(stru.parseBool("456"), false);
+    expect(stru.parseBool("456"), isTrue);
     expect(stru.parseBool("true"), true);
     expect(stru.parseBool("1"), true);
     expect(stru.parseBool(null, true), true);
     expect(stru.parseBool(null, false), false);
-    expect(stru.parseBool(null), false);
+    // up to 2017-08
+    // expect(stru.parseBool(null), false);
+    expect(stru.parseBool(null), isNull);
     expect(stru.parseBool('', true), true);
   });
 
