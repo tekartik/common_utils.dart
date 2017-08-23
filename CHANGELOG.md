@@ -1,3 +1,7 @@
+# 0.4.9
+
+- add hexPrettyLines
+
 # 0.4.8
 
 - add encodeJson

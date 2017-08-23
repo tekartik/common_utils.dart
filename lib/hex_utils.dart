@@ -76,7 +76,142 @@ String hexQuickView(List<int> data, [int maxLen]) {
   return out.toString();
 }
 
+List<String> hexPrettyLines(List<int> data) {
+  if (data == null) {
+    return null;
+  } else if (data.isEmpty) {
+    return [];
+  }
+  List<String> lines = [];
+  StringBuffer sb;
+  _hexPretty(data, () {
+    if (sb != null) {
+      lines.add(sb.toString());
+    }
+    sb = new StringBuffer();
+    return sb;
+  });
+  if (sb.isNotEmpty) {
+    // last line
+    lines.add(sb.toString());
+  }
+  return lines;
+}
+
 String hexPretty(List<int> data) {
+  if (data == null) {
+    return null;
+  } else if (data.isEmpty) {
+    return "[nodata]";
+  }
+  StringBuffer sb;
+  _hexPretty(data, () {
+    if (sb == null) {
+      sb = new StringBuffer();
+    } else {
+      sb.writeln();
+    }
+    return sb;
+  });
+  return sb.toString();
+}
+
+_hexPretty(List<int> data, StringBuffer newLine()) {
+  int blockSize = 16;
+  int readSize;
+  int lineIndex = 0;
+  int position = 0;
+  //StringBuffer out = new StringBuffer();
+  StringBuffer out = newLine();
+  do {
+    if (lineIndex++ > 0) {
+      //out.writeln();
+      out = newLine();
+    }
+    int i;
+    readSize = data.length - position;
+    if (readSize > blockSize) {
+      readSize = blockSize;
+    } else if (readSize == 0) {
+      // handle after 16/32/48...
+      break;
+    }
+
+    List<int> buffer = data.sublist(position, position + readSize);
+    position += readSize;
+
+    for (i = 0; i < buffer.length; i++) {
+      if (i > 0) {
+        out.write(' ');
+        if ((i % 4) == 0) {
+          out.write(' ');
+        }
+        if ((i % 16) == 0) {
+          out.write(' ');
+        }
+      }
+      int charCode = buffer[i];
+      out.writeCharCode(hex1CodeUint8(charCode));
+      out.writeCharCode(hex2CodeUint8(charCode));
+    }
+
+    if (i > 0) {
+      for (; i < blockSize; i++) {
+        if (i > 0) {
+          out.write(' ');
+          if ((i % 4) == 0) {
+            out.write(' ');
+          }
+          if ((i % 16) == 0) {
+            out.write(' ');
+          }
+        }
+        out.write("..");
+      }
+    }
+
+    out.write("  ");
+
+    for (i = 0; i < readSize; i++) {
+      if (i > 0) {
+        if ((i % 4) == 0) {
+          out.write(' ');
+        }
+        if ((i % 16) == 0) {
+          out.write(' ');
+        }
+      }
+
+      int charCode = buffer[i];
+      bool isPrintable(int charCode) =>
+          charCode >= 32 && charCode <= 126; // not including delete
+      if (isPrintable(charCode)) {
+        out.writeCharCode(charCode);
+      } else {
+        out.write('?');
+      }
+    }
+    if (i > 0) {
+      for (; i < blockSize; i++) {
+        if (i > 0) {
+          if ((i % 4) == 0) {
+            out.write(' ');
+          }
+          if ((i % 16) == 0) {
+            out.write(' ');
+          }
+        }
+        out.write('.');
+      }
+    }
+    // out.println(len);
+
+  } while (readSize == blockSize);
+
+  return out.toString();
+}
+
+String oldhexPretty(List<int> data) {
   int blockSize = 16;
   int readSize;
   int lineIndex = 0;
