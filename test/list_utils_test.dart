@@ -17,6 +17,14 @@ void main() {
       expect(first([1, 2]), 1);
     });
 
+    test('listLength', () {
+      expect(listLength(null), 0);
+      expect(listLength([]), 0);
+      expect(listLength([null]), 1);
+      expect(listLength([1]), 1);
+      expect(listLength([1, 2]), 2);
+    });
+
     test('listFirst', () {
       expect(listFirst(null), isNull);
       expect(listFirst([]), isNull);

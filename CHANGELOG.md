@@ -1,3 +1,7 @@
+# 0.4.11
+
+- add listFirst, listLast, listLength
+
 # 0.4.9
 
 - add hexPrettyLines

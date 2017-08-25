@@ -13,6 +13,10 @@ T listLast<T>(Iterable<T> list) {
   return isEmpty(list) ? null : list.last;
 }
 
+int listLength(Iterable list) {
+  return list?.length ?? 0;
+}
+
 bool isEmpty(List list) {
   return list == null || list.length == 0;
 }
