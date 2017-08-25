@@ -5,6 +5,14 @@ T first<T>(List<T> list) {
   return isEmpty(list) ? null : list[0];
 }
 
+T listFirst<T>(Iterable<T> list) {
+  return isEmpty(list) ? null : list.first;
+}
+
+T listLast<T>(Iterable<T> list) {
+  return isEmpty(list) ? null : list.last;
+}
+
 bool isEmpty(List list) {
   return list == null || list.length == 0;
 }

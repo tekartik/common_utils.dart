@@ -17,6 +17,22 @@ void main() {
       expect(first([1, 2]), 1);
     });
 
+    test('listFirst', () {
+      expect(listFirst(null), isNull);
+      expect(listFirst([]), isNull);
+      expect(listFirst([null]), isNull);
+      expect(listFirst([1]), 1);
+      expect(listFirst([1, 2]), 1);
+    });
+
+    test('listLast', () {
+      expect(listLast(null), isNull);
+      expect(listLast([]), isNull);
+      expect(listLast([null]), isNull);
+      expect(listLast([1]), 1);
+      expect(listLast([1, 2]), 2);
+    });
+
     test('truncate', () {
       expect(truncate(null, 0), isNull);
       expect(truncate(null, 1), isNull);
