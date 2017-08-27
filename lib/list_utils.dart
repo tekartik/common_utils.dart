@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'map_utils.dart';
 
-T first<T>(List<T> list) {
-  return isEmpty(list) ? null : list[0];
-}
+T first<T>(Iterable<T> list) => listFirst(list);
 
 T listFirst<T>(Iterable<T> list) {
   return isEmpty(list) ? null : list.first;
@@ -17,7 +15,7 @@ int listLength(Iterable list) {
   return list?.length ?? 0;
 }
 
-bool isEmpty(List list) {
+bool isEmpty(Iterable list) {
   return list == null || list.length == 0;
 }
 
