@@ -11,7 +11,7 @@ int hexCharValue(int charCode) {
   if (charCode >= _ACodeUnit && charCode < _ACodeUnit + 6) {
     return charCode - _ACodeUnit + 10;
   }
-  if (charCode >= _ACodeUnit && charCode < _aCodeUnit + 6) {
+  if (charCode >= _aCodeUnit && charCode < _aCodeUnit + 6) {
     return charCode - _aCodeUnit + 10;
   }
   if (charCode >= _0CodeUnit && charCode < _0CodeUnit + 10) {

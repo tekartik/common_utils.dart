@@ -42,6 +42,22 @@ main() {
       expect(hexUint32(0x100000000), '00000000');
     });
 
+    test('hexCharValue', () {
+      expect(hexCharValue('a'.codeUnitAt(0)), 10);
+      expect(hexCharValue('A'.codeUnitAt(0)), 10);
+      expect(hexCharValue('f'.codeUnitAt(0)), 15);
+      expect(hexCharValue('F'.codeUnitAt(0)), 15);
+      expect(hexCharValue('0'.codeUnitAt(0)), 0);
+      expect(hexCharValue('9'.codeUnitAt(0)), 9);
+
+      expect(hexCharValue('a'.codeUnitAt(0) - 1), isNull);
+      expect(hexCharValue('A'.codeUnitAt(0) - 1), isNull);
+      expect(hexCharValue('f'.codeUnitAt(0) + 1), isNull);
+      expect(hexCharValue('F'.codeUnitAt(0) + 1), isNull);
+      expect(hexCharValue('0'.codeUnitAt(0) - 1), isNull);
+      expect(hexCharValue('9'.codeUnitAt(0) + 1), isNull);
+      expect(hexCharValue('_'.codeUnitAt(0)), isNull);
+    });
     test('hexPretty', () {
       expect(hexPretty(null), null);
       expect(hexPretty([]), '[nodata]');
