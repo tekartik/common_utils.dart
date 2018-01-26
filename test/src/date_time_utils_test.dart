@@ -31,12 +31,14 @@ void main() {
       print(dt.timeZoneOffset);
       expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("11:${dt.timeZoneOffset.inMinutes}"));
+      /*
       // for france
       expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("12:00"));
 
       expect(timeOfDayUtcToLocal(TimeOfDay.parse("00:00")),
           TimeOfDay.parse("01:00"));
+          */
     });
 
     test('begginningOfDay', () {
@@ -51,22 +53,30 @@ void main() {
       devPrint(dt.toLocal());
       devPrint(dt.toUtc());
       */
+      expect(findBeginningOfDay(new DateTime.utc(2017, 2, 19, 14), 0),
+          new DateTime.utc(2017, 2, 19));
+      expect(findBeginningOfDay(new DateTime(2017, 2, 19, 14), 0),
+          new DateTime(2017, 2, 19));
+      /*
       expect(new DateTime(2017, 2, 19, 14).toUtc(),
           new DateTime.utc(2017, 2, 19, 13));
       expect(new DateTime.utc(2017, 2, 19, 14).toLocal(),
           new DateTime(2017, 2, 19, 15));
+          */
+      /*
       expect(findBeginningOfDay(new DateTime.utc(2017, 2, 19, 14), 0),
           new DateTime(2017, 2, 19, 1));
       expect(findBeginningOfDay(new DateTime(2017, 2, 19, 1), 0),
           new DateTime(2017, 2, 19, 1));
       expect(findBeginningOfDay(new DateTime(2017, 2, 19, 0, 59), 0),
           new DateTime(2017, 2, 18, 1));
+          */
       expect(findBeginningOfDay(new DateTime.utc(2017, 2, 19, 14), 86340000),
-          new DateTime(2017, 2, 19, 0, 59));
+          new DateTime.utc(2017, 2, 18, 23, 59));
       expect(findBeginningOfDay(new DateTime(2017, 2, 19, 1, 1), -86340000),
-          new DateTime(2017, 2, 19, 1, 1));
+          new DateTime(2017, 2, 19, 0, 1));
       expect(findBeginningOfDay(new DateTime(2017, 2, 19, 1, 0), -86340000),
-          new DateTime(2017, 2, 18, 1, 1));
+          new DateTime(2017, 2, 19, 0, 1));
     });
   });
 }

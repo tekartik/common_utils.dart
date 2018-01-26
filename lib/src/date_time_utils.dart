@@ -1,6 +1,7 @@
 //import 'package:quiver/strings.dart';
 
 import 'package:tekartik_common_utils/string_utils.dart';
+import 'package:tekartik_common_utils/date_time_utils.dart';
 
 String formatYYYYdashMMdashDD(DateTime dateTime) {
   return "${dateTime.year.toString().padLeft(4,'0')}-${dateTime.month.toString().padLeft(2,'0')}-${dateTime.day.toString().padLeft(2,'0')}";
@@ -108,14 +109,14 @@ String formatTimestampMinSeconds(int timestamp) {
 // [datStartOffset] is the offset from utc, return a utc time, now can be anything
 DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
   // make sure it goes after now, then go backwards
-  now.timeZoneName;
-  DateTime begginingOfDay = new DateTime.utc(now.year, now.month, now.day)
-      .add(new Duration(milliseconds: dayStartOffset + 2 * dayInMillis))
-      .toUtc();
+  // now.timeZoneName;
+  DateTime begginingOfDay = dateTimeWithTimeCleared(now)
+      .add(new Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
+
   while (now.isBefore(begginingOfDay)) {
     begginingOfDay = begginingOfDay.add(new Duration(days: -1));
   }
-  return begginingOfDay.toLocal();
+  return begginingOfDay;
 }
 
 // never return null
