@@ -9,7 +9,7 @@ bool get isRelease {
     assert(() {
       _isRelease = false;
       return true;
-    });
+    }());
   }
   return _isRelease;
 }
