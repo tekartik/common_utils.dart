@@ -1,3 +1,7 @@
+# 0.5.1
+
+- add bool utils
+
 # 0.5.0
 
 - add listFirst, listLast, listLength
