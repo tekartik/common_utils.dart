@@ -1,3 +1,7 @@
+# 0.5.2
+
+- more date_time_utils helpers
+
 # 0.5.1
 
 - add bool utils

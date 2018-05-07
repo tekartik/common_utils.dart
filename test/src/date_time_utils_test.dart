@@ -19,7 +19,7 @@ void main() {
     test('localToUtc', () {
       // only valid in france
       DateTime dt = new DateTime.now();
-      print(dt.timeZoneOffset);
+      //print(dt.timeZoneOffset);
       expect(timeOfDayLocalToUtc(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("11:${-dt.timeZoneOffset.inMinutes}"));
       // for france expect(timeOfDayLocalToUtc(TimeOfDay.parse("11:00")),TimeOfDay.parse("10:00"));
@@ -28,7 +28,7 @@ void main() {
     test('utcToLocal', () {
       // only valid in france
       DateTime dt = new DateTime.now();
-      print(dt.timeZoneOffset);
+      //print(dt.timeZoneOffset);
       expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("11:${dt.timeZoneOffset.inMinutes}"));
       /*

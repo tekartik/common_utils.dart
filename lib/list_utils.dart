@@ -15,7 +15,9 @@ int listLength(Iterable list) {
   return list?.length ?? 0;
 }
 
-bool isEmpty(Iterable list) {
+bool isEmpty(Iterable list) => listIsEmpty(list);
+
+bool listIsEmpty(Iterable list) {
   return list == null || list.length == 0;
 }
 

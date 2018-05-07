@@ -45,19 +45,19 @@ String encodeJson(var value) {
 }
 
 //
-// [collection] can be map a list
+// [data] can be map a list
 // if it is a string, it will try to parse it first
 //
-String jsonPretty(dynamic collection, [String defaultString]) {
-  if (collection is String) {
-    dynamic parsed = parseJson(collection);
+String jsonPretty(dynamic data, [String defaultString]) {
+  if (data is String) {
+    dynamic parsed = parseJson(data);
     if (parsed != null) {
-      collection = parsed;
+      data = parsed;
     }
   }
-  if (collection != null) {
+  if (data != null) {
     try {
-      return const JsonEncoder.withIndent("  ").convert(collection);
+      return const JsonEncoder.withIndent("  ").convert(data);
     } catch (e) {}
   }
   return defaultString;

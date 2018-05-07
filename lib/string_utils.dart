@@ -2,7 +2,9 @@ import 'value_utils.dart' as value_utils;
 export 'bool_utils.dart' show parseBool;
 export 'int_utils.dart' show parseInt;
 
-bool isEmpty(String text) {
+bool isEmpty(String text) => stringIsEmpty(text);
+
+bool stringIsEmpty(String text) {
   return ((text == null) || (text.length == 0));
 }
 

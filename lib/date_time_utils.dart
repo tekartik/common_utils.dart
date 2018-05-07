@@ -29,3 +29,52 @@ DateTime dateTimeWithOffset(DateTime dt, int offset) {
       dt.millisecondsSinceEpoch + offset,
       isUtc: dt.isUtc);
 }
+
+// Support string, int or DateTime
+DateTime anyToDateTime(date) {
+  try {
+    if (date is DateTime) {
+      return date;
+    } else if (date is String) {
+      return parseDateTime(date);
+    } else if (date is int) {
+      return dateTimeFromInt(date);
+    }
+  } catch (_) {}
+  return null;
+}
+
+/// since epoch
+/// always convert to utc
+DateTime dateTimeFromInt(int millis) {
+  if (millis == null) {
+    return null;
+  }
+  return new DateTime.fromMillisecondsSinceEpoch(millis, isUtc: true);
+}
+
+/// millis since epocj
+int dateTimeToInt(DateTime date) {
+  if (date == null) {
+    return null;
+  }
+  return date.millisecondsSinceEpoch;
+}
+
+/// always convert to utc
+String dateTimeToString(DateTime date) {
+  if (date == null) {
+    return null;
+  }
+  return date.toUtc().toIso8601String();
+}
+
+DateTime parseDateTime(String text) {
+  if (text == null) {
+    return null;
+  }
+  try {
+    return DateTime.parse(text);
+  } catch (_) {}
+  return null;
+}
