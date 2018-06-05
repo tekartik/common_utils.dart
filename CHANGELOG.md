@@ -1,3 +1,7 @@
+# 0.5.3
+
+- fixed DDC compilation by adding logging dependency
+
 # 0.5.2
 
 - more date_time_utils helpers
