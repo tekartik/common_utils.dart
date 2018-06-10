@@ -9,7 +9,7 @@ Future sleep([int ms = 0]) {
 }
 
 Future<List> waitAll(List<Func0<Future>> computations) async {
-  if (isEmpty(computations)) {
+  if (listIsEmpty(computations)) {
     return null;
   }
   List<Future> futures = new List.generate(

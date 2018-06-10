@@ -2,6 +2,7 @@ import 'value_utils.dart' as value_utils;
 export 'bool_utils.dart' show parseBool;
 export 'int_utils.dart' show parseInt;
 
+@Deprecated("User stringIsEmpty")
 bool isEmpty(String text) => stringIsEmpty(text);
 
 bool stringIsEmpty(String text) {
@@ -9,12 +10,22 @@ bool stringIsEmpty(String text) {
 }
 
 // Use default Value if null (default empty string)
+// might be deprecated for stringNonNull to avoid conflict
+@Deprecated("User stringNonNull")
 String nonNull(String value, [String defaultValue = '']) =>
+    stringNonNull(value, defaultValue);
+
+String stringNonNull(String value, [String defaultValue = '']) =>
     value_utils.nonNull(value, defaultValue);
 
 // User defaul Value if empty (default null)
+// might be deprecated for stringNonNull to avoid conflict
+@Deprecated("User stringNonEmpty")
 String nonEmpty(String value, [String defaultValue = null]) =>
-    isEmpty(value) ? defaultValue : value;
+    stringNonEmpty(value, defaultValue);
+
+String stringNonEmpty(String value, [String defaultValue = null]) =>
+    stringIsEmpty(value) ? defaultValue : value;
 
 String prefilled(String text, int len, String char) {
   int length = text.length;

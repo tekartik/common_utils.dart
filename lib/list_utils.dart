@@ -1,36 +1,49 @@
-import 'dart:math';
 import 'map_utils.dart';
 
 T first<T>(Iterable<T> list) => listFirst(list);
 
 T listFirst<T>(Iterable<T> list) {
-  return isEmpty(list) ? null : list.first;
+  return listIsEmpty(list) ? null : list.first;
 }
 
 T listLast<T>(Iterable<T> list) {
-  return isEmpty(list) ? null : list.last;
+  return listIsEmpty(list) ? null : list.last;
 }
 
 int listLength(Iterable list) {
   return list?.length ?? 0;
 }
 
+@Deprecated("use listIsEmpty")
 bool isEmpty(Iterable list) => listIsEmpty(list);
 
-bool listIsEmpty(Iterable list) {
-  return list == null || list.length == 0;
+bool listIsEmpty(Iterable list) => listLength(list) == 0;
+
+@Deprecated("use listTruncate")
+List<T> truncate<T>(List<T> list, int maxCount) => listTruncate(list, maxCount);
+
+int _listSafeStartOrEnd(List list, int index) {
+  if (index < 0) {
+    return 0;
+  } else if (index > list.length) {
+    return list.length;
+  }
+  return index;
 }
 
-List<T> truncate<T>(List<T> list, int maxCount) {
-  if (isEmpty(list)) {
+// Safe sub list sub list
+List<T> listSubList<T>(List<T> list, int start, [int end]) {
+  if (listIsEmpty(list)) {
     return list;
   }
-  if (maxCount < 0) {
-    maxCount = 0;
+  start = _listSafeStartOrEnd(list, start);
+  if (end != null) {
+    end = _listSafeStartOrEnd(list, end);
   }
-  maxCount = min(maxCount, list.length);
-  return list.sublist(0, maxCount);
+  return list.sublist(start, end);
 }
+
+List<T> listTruncate<T>(List<T> list, int end) => listSubList(list, 0, end);
 
 /**
  * Clone list and list of list

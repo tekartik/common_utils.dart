@@ -4,9 +4,9 @@ import 'package:tekartik_common_utils/list_utils.dart';
 void main() {
   group("list_utils", () {
     test('isEmpty', () {
-      expect(isEmpty(null), isTrue);
-      expect(isEmpty([]), isTrue);
-      expect(isEmpty([null]), isFalse);
+      expect(listIsEmpty(null), isTrue);
+      expect(listIsEmpty([]), isTrue);
+      expect(listIsEmpty([null]), isFalse);
     });
 
     test('first', () {
@@ -42,20 +42,40 @@ void main() {
     });
 
     test('truncate', () {
-      expect(truncate(null, 0), isNull);
-      expect(truncate(null, 1), isNull);
-      expect(truncate([], 0), []);
-      expect(truncate([], -1), []);
-      expect(truncate([], 1), []);
-      expect(truncate([1], 1), [1]);
-      expect(truncate([1], 2), [1]);
-      expect(truncate([1], 0), []);
-      expect(truncate([1], -1), []);
-      expect(truncate([1, 2], -1), []);
-      expect(truncate([1, 2], 0), []);
-      expect(truncate([1, 2], 1), [1]);
-      expect(truncate([1, 2], 2), [1, 2]);
-      expect(truncate([1, 2], 3), [1, 2]);
+      expect(listTruncate(null, 0), isNull);
+      expect(listTruncate(null, 1), isNull);
+      expect(listTruncate([], 0), []);
+      expect(listTruncate([], -1), []);
+      expect(listTruncate([], 1), []);
+      expect(listTruncate([1], 1), [1]);
+      expect(listTruncate([1], 2), [1]);
+      expect(listTruncate([1], 0), []);
+      expect(listTruncate([1], -1), []);
+      expect(listTruncate([1, 2], -1), []);
+      expect(listTruncate([1, 2], 0), []);
+      expect(listTruncate([1, 2], 1), [1]);
+      expect(listTruncate([1, 2], 2), [1, 2]);
+      expect(listTruncate([1, 2], 3), [1, 2]);
+    });
+
+    test('subList', () {
+      expect(listSubList(null, 0), isNull);
+      expect(listSubList(null, 1), isNull);
+      expect(listSubList([], 0), []);
+      expect(listSubList([], -1), []);
+      expect(listSubList([], 1), []);
+      expect(listSubList([1], 1), []);
+      expect(listSubList([1], 2), []);
+      expect(listSubList([1], 0), [1]);
+      expect(listSubList([1], -1), [1]);
+      expect(listSubList([1, 2], -1), [1, 2]);
+      expect(listSubList([1, 2], 0), [1, 2]);
+      expect(listSubList([1, 2], 1), [2]);
+      expect(listSubList([1, 2], 2), []);
+      expect(listSubList([1, 2], 3), []);
+      expect(listSubList([1, 2], 1, 3), [2]);
+      expect(listSubList([1, 2], 1, 2), [2]);
+      expect(listSubList([1, 2], 1, 1), []);
     });
 
     test('equals', () {

@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/string_utils.dart' as stru;
+import 'package:tekartik_common_utils/string_utils.dart';
 
 main() {
   test('parseInt', () {
@@ -26,10 +27,10 @@ main() {
   });
 
   test('isEmpty', () {
-    expect(stru.isEmpty("456"), isFalse);
-    expect(stru.isEmpty(null), isTrue);
-    expect(stru.isEmpty(""), isTrue);
-    expect(stru.isEmpty(" "), isFalse);
+    expect(stringIsEmpty("456"), isFalse);
+    expect(stringIsEmpty(null), isTrue);
+    expect(stringIsEmpty(""), isTrue);
+    expect(stringIsEmpty(" "), isFalse);
   });
 
   test('prefill', () {
@@ -38,18 +39,18 @@ main() {
   });
 
   test('nonNull', () {
-    expect(stru.nonNull("456", null), '456');
-    expect(stru.nonNull(null, null), null);
-    expect(stru.nonNull(null, "456"), "456");
-    expect(stru.nonNull(null), "");
+    expect(stringNonNull("456", null), '456');
+    expect(stringNonNull(null, null), null);
+    expect(stringNonNull(null, "456"), "456");
+    expect(stringNonNull(null), "");
   });
 
   test('nonEmpty', () {
-    expect(stru.nonEmpty("456", null), '456');
-    expect(stru.nonEmpty("", null), isNull);
-    expect(stru.nonEmpty(null, "456"), "456");
-    expect(stru.nonEmpty(""), isNull);
-    expect(stru.nonEmpty(null), isNull);
-    expect(stru.nonEmpty("123"), "123");
+    expect(stringNonEmpty("456", null), '456');
+    expect(stringNonEmpty("", null), isNull);
+    expect(stringNonEmpty(null, "456"), "456");
+    expect(stringNonEmpty(""), isNull);
+    expect(stringNonEmpty(null), isNull);
+    expect(stringNonEmpty("123"), "123");
   });
 }

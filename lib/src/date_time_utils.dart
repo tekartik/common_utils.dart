@@ -72,7 +72,7 @@ class TimeOfDay {
     int minute = 0;
     int hour = 0;
     try {
-      if (!isEmpty(text)) {
+      if (!stringIsEmpty(text)) {
         List<String> parts = text.split(":");
         hour = int.parse(parts[0]);
         minute = int.parse(parts[1]);
