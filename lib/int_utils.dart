@@ -4,7 +4,10 @@ int parseInt(dynamic value, [int defaultInt]) {
   if (value is int) {
     return value;
   } else if (value is String) {
-    return int.parse(value, onError: (_) => defaultInt);
+    int intValue = int.tryParse(value);
+    if (intValue != null) {
+      return intValue;
+    }
   }
   return defaultInt;
 }

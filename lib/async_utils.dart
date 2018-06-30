@@ -24,13 +24,13 @@ class AsyncOnceRunner {
 
   /// Helper to load a javascript script only once
   bool _done = false;
-  var _lock = new SynchronizedLock();
+  var _lock = new Lock();
   AsyncOnceRunner(Func0<FutureOr> computation) : _computation = computation;
 
   get done => _done;
   Future run() async {
     if (!_done) {
-      await synchronized(_lock, () async {
+      await _lock.synchronized(() async {
         if (!_done) {
           await _computation();
           _done = true;

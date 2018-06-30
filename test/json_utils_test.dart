@@ -37,8 +37,8 @@ void defineTests() {
   });
 
   test('JSON.encode', () {
-    expect(JSON.encode(null), 'null');
-    expect(JSON.encode(''), '""');
+    expect(json.encode(null), 'null');
+    expect(json.encode(''), '""');
   });
 
   test('encodeJson', () {
@@ -57,17 +57,13 @@ void defineTests() {
     Map obj = {
       "key": ["value"]
     };
-    expect(
-        jsonPretty(obj),
-        """
+    expect(jsonPretty(obj), """
 {
   "key": [
     "value"
   ]
 }""");
-    expect(
-        jsonPretty('{"key": ["value"]}'),
-        """
+    expect(jsonPretty('{"key": ["value"]}'), """
 {
   "key": [
     "value"
