@@ -63,5 +63,5 @@ class DevFlag {
   }
 
   @override
-  toString() => "DevFlag($explanation) ${on ? "on": "off"}";
+  toString() => "DevFlag($explanation) ${on ? "on" : "off"}";
 }

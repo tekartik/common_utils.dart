@@ -9,4 +9,3 @@ export 'int_utils.dart';
 export 'bool_utils.dart';
 export 'async_utils.dart';
 export 'package:synchronized/synchronized.dart';
-export 'package:func/func.dart';

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:func/func.dart';
 import 'list_utils.dart';
 import 'package:synchronized/synchronized.dart';
 
@@ -8,7 +7,7 @@ Future sleep([int ms = 0]) {
   return new Future.delayed(new Duration(milliseconds: ms));
 }
 
-Future<List> waitAll(List<Func0<Future>> computations) async {
+Future<List> waitAll(List<Future Function()> computations) async {
   if (listIsEmpty(computations)) {
     return null;
   }
@@ -20,12 +19,12 @@ Future<List> waitAll(List<Func0<Future>> computations) async {
 ///
 /// Run an operation only once
 class AsyncOnceRunner {
-  final Func0<FutureOr> _computation;
+  final FutureOr Function() _computation;
 
   /// Helper to load a javascript script only once
   bool _done = false;
   var _lock = new Lock();
-  AsyncOnceRunner(Func0<FutureOr> computation) : _computation = computation;
+  AsyncOnceRunner(FutureOr computation()) : _computation = computation;
 
   get done => _done;
   Future run() async {

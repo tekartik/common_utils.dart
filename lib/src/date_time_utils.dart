@@ -4,7 +4,7 @@ import 'package:tekartik_common_utils/string_utils.dart';
 import 'package:tekartik_common_utils/date_time_utils.dart';
 
 String formatYYYYdashMMdashDD(DateTime dateTime) {
-  return "${dateTime.year.toString().padLeft(4,'0')}-${dateTime.month.toString().padLeft(2,'0')}-${dateTime.day.toString().padLeft(2,'0')}";
+  return "${dateTime.year.toString().padLeft(4, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
 }
 
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
@@ -64,8 +64,7 @@ class TimeOfDay {
 
   @override
   String toString() {
-    return "${hour.toString().padLeft(2, "0")}:${minute.toString().padLeft(
-        2, "0")}";
+    return "${hour.toString().padLeft(2, "0")}:${minute.toString().padLeft(2, "0")}";
   }
 
   static TimeOfDay parse(String text) {
@@ -102,8 +101,7 @@ String formatTimestampMinSeconds(int timestamp) {
   int seconds = (timestamp / 1000).round();
   int minutes = seconds ~/ 60;
   seconds -= minutes * 60;
-  return "${minutes.toString()}:${seconds.toString().padLeft(
-      2, "0")}";
+  return "${minutes.toString()}:${seconds.toString().padLeft(2, "0")}";
 }
 
 // [datStartOffset] is the offset from utc, return a utc time, now can be anything
