@@ -19,9 +19,9 @@ Map cloneMap(Map orignal) {
   Map map = new Map();
   orignal.forEach((key, value) {
     if (value is Map) {
-      value = cloneMap(value);
+      value = cloneMap(value as Map);
     } else if (value is List) {
-      value = cloneList(value);
+      value = cloneList(value as List);
     }
     map[key] = value;
   });

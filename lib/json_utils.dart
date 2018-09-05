@@ -51,7 +51,7 @@ String encodeJson(var value) {
 //
 String jsonPretty(dynamic data, [String defaultString]) {
   if (data is String) {
-    dynamic parsed = parseJson(data);
+    dynamic parsed = parseJson(data as String);
     if (parsed != null) {
       data = parsed;
     }

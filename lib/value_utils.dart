@@ -1,6 +1,6 @@
 ///
 /// return the defaultValue if value is null
 ///
-dynamic nonNull(dynamic value, dynamic defaultValue) {
+T nonNull<T>(T value, T defaultValue) {
   return value == null ? defaultValue : value;
 }
