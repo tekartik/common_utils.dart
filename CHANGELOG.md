@@ -1,3 +1,7 @@
+# 0.6.5
+
+- add `implicit-casts: false`
+
 # 0.5.3
 
 - fixed DDC compilation by adding logging dependency

@@ -53,11 +53,11 @@ List cloneList(List original) {
     return null;
   }
   List clone = new List();
-  original.forEach((item) {
+  original.forEach((dynamic item) {
     if (item is List) {
-      item = cloneList(item);
+      item = cloneList(item as List);
     } else if (item is Map) {
-      item = cloneMap(item);
+      item = cloneMap(item as Map);
     }
     clone.add(item);
   });
