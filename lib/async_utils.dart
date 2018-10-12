@@ -4,15 +4,15 @@ import 'package:synchronized/synchronized.dart';
 
 // create a future delayed for [ms] milliseconds
 Future sleep([int ms = 0]) {
-  return new Future.delayed(new Duration(milliseconds: ms));
+  return Future.delayed(Duration(milliseconds: ms));
 }
 
 Future<List> waitAll(List<Future Function()> computations) async {
   if (listIsEmpty(computations)) {
     return null;
   }
-  List<Future> futures = new List.generate(
-      computations.length, (int index) => computations[index]());
+  List<Future> futures =
+      List.generate(computations.length, (int index) => computations[index]());
   return Future.wait(futures);
 }
 
@@ -23,7 +23,7 @@ class AsyncOnceRunner {
 
   /// Helper to load a javascript script only once
   bool _done = false;
-  var _lock = new Lock();
+  var _lock = Lock();
   AsyncOnceRunner(FutureOr computation()) : _computation = computation;
 
   get done => _done;

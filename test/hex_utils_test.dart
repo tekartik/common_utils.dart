@@ -63,13 +63,13 @@ main() {
       expect(hexPretty([]), '[nodata]');
       expect(hexPretty([0x00]),
           '00 .. .. ..  .. .. .. ..  .. .. .. ..  .. .. .. ..  ?... .... .... ....');
-      List<int> list = new List.generate(16, (index) => index);
+      List<int> list = List.generate(16, (index) => index);
       expect(hexPretty(list),
           '00 01 02 03  04 05 06 07  08 09 0A 0B  0C 0D 0E 0F  ???? ???? ???? ????\n');
       expect(hexPretty([0xff]), startsWith('FF'));
       expect(hexPretty([1, 0x23]), startsWith('01 23'));
       expect(hexPretty([1, 2, 3, 4, 5]), startsWith('01 02 03 04  05'));
-      list = new List.generate(256, (index) => index);
+      list = List.generate(256, (index) => index);
       //expect(hexPretty([0xff, 0xfe, 128, 127]), 'FF');
       expect(
           hexPretty(list),
@@ -92,7 +92,7 @@ main() {
     });
 
     test('hexPrettyLines', () {
-      List<int> list = new List.generate(256, (index) => index);
+      List<int> list = List.generate(256, (index) => index);
       //expect(hexPretty([0xff, 0xfe, 128, 127]), 'FF');
       expect(hexPrettyLines(null), null);
       expect(hexPrettyLines([]), []);

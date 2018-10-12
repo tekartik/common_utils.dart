@@ -3,5 +3,5 @@ import 'dart:html';
 
 void main() {
   querySelector('body')
-      .append(new HeadingElement.h1()..text = isRelease ? "RELEASE" : "DEBUG");
+      .append(HeadingElement.h1()..text = isRelease ? "RELEASE" : "DEBUG");
 }

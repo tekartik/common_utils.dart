@@ -12,20 +12,19 @@ const int weekInMillis = 7 * dayInMillis;
 
 @deprecated
 DateTime newDateTimeClearTime(DateTime dt) {
-  return new DateTime(dt.year, dt.month, dt.day);
+  return DateTime(dt.year, dt.month, dt.day);
 }
 
 DateTime dateTimeWithTimeCleared(DateTime dt) {
   if (dt.isUtc) {
-    return new DateTime.utc(dt.year, dt.month, dt.day);
+    return DateTime.utc(dt.year, dt.month, dt.day);
   } else {
-    return new DateTime(dt.year, dt.month, dt.day);
+    return DateTime(dt.year, dt.month, dt.day);
   }
 }
 
 DateTime dateTimeWithOffset(DateTime dt, int offset) {
-  return new DateTime.fromMillisecondsSinceEpoch(
-      dt.millisecondsSinceEpoch + offset,
+  return DateTime.fromMillisecondsSinceEpoch(dt.millisecondsSinceEpoch + offset,
       isUtc: dt.isUtc);
 }
 
@@ -49,7 +48,7 @@ DateTime dateTimeFromInt(int millis) {
   if (millis == null) {
     return null;
   }
-  return new DateTime.fromMillisecondsSinceEpoch(millis, isUtc: true);
+  return DateTime.fromMillisecondsSinceEpoch(millis, isUtc: true);
 }
 
 /// millis since epocj

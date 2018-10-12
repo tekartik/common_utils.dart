@@ -96,19 +96,19 @@ class Subject<T> extends Stream<T>
 
   @override
   ControllerCallback get onPause =>
-      throw new UnsupportedError("Subjects do not support pause callbacks");
+      throw UnsupportedError("Subjects do not support pause callbacks");
 
   @override
   set onPause(void onPauseHandler()) =>
-      throw new UnsupportedError("Subjects do not support pause callbacks");
+      throw UnsupportedError("Subjects do not support pause callbacks");
 
   @override
   ControllerCallback get onResume =>
-      throw new UnsupportedError("Subjects do not support resume callbacks");
+      throw UnsupportedError("Subjects do not support resume callbacks");
 
   @override
   set onResume(void onResumeHandler()) =>
-      throw new UnsupportedError("Subjects do not support resume callbacks");
+      throw UnsupportedError("Subjects do not support resume callbacks");
 
   @override
   ControllerCancelCallback get onCancel => _controller.onCancel;

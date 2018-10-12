@@ -1,6 +1,4 @@
-/**
- * Development helpers to generate warning in code
- */
+/// Development helpers to generate warning in code
 library tekartik_dev_utils;
 
 void _devPrint(Object object) {
@@ -27,7 +25,7 @@ int devWarning;
 _devError([Object object = null]) {
   // one day remove the print however sometimes the error thrown is hidden
   try {
-    throw new UnsupportedError("$object");
+    throw UnsupportedError("$object");
   } catch (e, st) {
     if (_devPrintEnabled) {
       print("# ERROR $object");

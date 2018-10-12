@@ -36,7 +36,7 @@ void defineTests([bool disableOutput = true]) {
     });
 
     test('DevFlag', () {
-      DevFlag debug = new DevFlag();
+      DevFlag debug = DevFlag();
       expect(debug.on, isFalse);
 
       debug.on = true; // ignore: deprecated_member_use
