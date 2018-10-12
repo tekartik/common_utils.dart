@@ -1,19 +1,25 @@
 import 'dart:async';
 
+abstract class StreamWithValue<T> extends Stream<T> {
+  T get value;
+}
+
 class Subject<T> extends Stream<T>
-    implements StreamSink<T>, StreamController<T> {
+    implements StreamSink<T>, StreamController<T>, StreamWithValue<T> {
   final StreamController<T> _controller;
-  final bool sync;
-  T value;
+  final bool _sync;
+  T get value => _value;
+  T _value;
 
   // Error
-  Object error;
+  Object _error;
   StackTrace stackTrace;
 
   bool _addStreamActive = false;
 
-  Subject({this.value, void onListen(), void onCancel(), bool sync})
-      : this.sync = sync == true,
+  Subject({T value, void onListen(), void onCancel(), bool sync})
+      : this._value = value,
+        this._sync = sync == true,
         this._controller = StreamController<T>.broadcast(
             onListen: onListen, onCancel: onCancel, sync: true) {}
 
@@ -28,9 +34,9 @@ class Subject<T> extends Stream<T>
   }
 
   void _add(T data) {
-    error = null;
+    _error = null;
     if (data != value) {
-      value = data;
+      _value = data;
       _controller.add(data);
     }
   }
@@ -44,8 +50,8 @@ class Subject<T> extends Stream<T>
   }
 
   void _addError(Object error, [StackTrace stackTrace]) {
-    value = null;
-    this.error = error;
+    _value = null;
+    this._error = error;
     this.stackTrace = stackTrace;
     _controller.addError(error, stackTrace);
   }
@@ -67,7 +73,7 @@ class Subject<T> extends Stream<T>
   @override
   StreamSubscription<T> listen(void Function(T event) onData,
       {Function onError, void Function() onDone, bool cancelOnError}) {
-    var _subscriptionController = StreamController<T>(sync: sync);
+    var _subscriptionController = StreamController<T>(sync: _sync);
     var _internalSubscription = _controller.stream.listen((T event) {
       _subscriptionController.add(event);
     }, onDone: () {
@@ -83,8 +89,8 @@ class Subject<T> extends Stream<T>
         onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
     // Send initial data
-    if (error != null) {
-      _subscriptionController.addError(error, stackTrace);
+    if (_error != null) {
+      _subscriptionController.addError(_error, stackTrace);
     } else {
       _subscriptionController.add(value);
     }
