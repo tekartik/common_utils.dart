@@ -17,8 +17,8 @@ bool parseBool(dynamic value, [bool defaultBool]) {
         return false;
     }
     num numValue = parseNum(value);
-    if (numValue != null && numValue != 0) {
-      return true;
+    if (numValue != null) {
+      return numValue != 0;
     }
   }
   return defaultBool;

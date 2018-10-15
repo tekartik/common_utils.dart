@@ -15,6 +15,9 @@ void defineTests() {
     expect(parseBool(''), null);
     expect(parseBool('a'), null);
     expect(parseBool('3.14'), isTrue);
+    expect(parseBool('-7'), isTrue);
+    expect(parseBool('0'), isFalse);
+    expect(parseBool('0.0'), isFalse);
     expect(parseBool(0), isFalse);
     expect(parseBool(0.0), isFalse);
     expect(parseBool('', true), true);
