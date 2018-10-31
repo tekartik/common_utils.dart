@@ -45,21 +45,21 @@ class SimSubscription<T> {
 }
 
  */
-abstract class StreamPollerNext<T> {
-  T get event;
+abstract class StreamPollerEvent<T> {
+  T get data;
   bool get done;
 }
 
-class _StreamPollerNext<T> implements StreamPollerNext<T> {
+class _StreamPollerNext<T> implements StreamPollerEvent<T> {
   @override
-  final T event;
+  final T data;
 
   @override
   final bool done;
 
   _StreamPollerNext({T event, bool done})
       : done = done ?? false,
-        event = event;
+        data = event;
 }
 
 class StreamPoller<T> {
@@ -90,7 +90,7 @@ class StreamPoller<T> {
     }
   }
 
-  Future<StreamPollerNext<T>> getNext() async {
+  Future<StreamPollerEvent<T>> getNext() async {
     if (_done) {
       return _StreamPollerNext(done: _done);
     }

@@ -4,24 +4,28 @@ import 'dart:async';
 
 void main() {
   group('StreamPoller', () {
+    test('api', () {
+      StreamPollerEvent;
+      StreamPoller;
+    });
     test('empty', () async {
       var stream = Stream<bool>.fromIterable([]);
       var poller = StreamPoller<bool>(stream);
       expect((await poller.getNext()).done, isTrue);
-      expect((await poller.getNext()).event, isNull);
+      expect((await poller.getNext()).data, isNull);
       expect((await poller.getNext()).done, isTrue);
     });
     test('one', () async {
       var stream = Stream<bool>.fromIterable([true]);
       var poller = StreamPoller<bool>(stream);
-      expect((await poller.getNext()).event, isTrue);
+      expect((await poller.getNext()).data, isTrue);
       expect((await poller.getNext()).done, isTrue);
     });
     test('two', () async {
       var stream = Stream<bool>.fromIterable([true, false]);
       var poller = StreamPoller<bool>(stream);
-      expect((await poller.getNext()).event, isTrue);
-      expect((await poller.getNext()).event, isFalse);
+      expect((await poller.getNext()).data, isTrue);
+      expect((await poller.getNext()).data, isFalse);
       expect((await poller.getNext()).done, isTrue);
     });
 
@@ -30,9 +34,21 @@ void main() {
       var poller = StreamPoller<bool>(stream);
       var list = await Future.wait(
           [poller.getNext(), poller.getNext(), poller.getNext()]);
-      expect(list[0].event, isTrue);
-      expect(list[1].event, isFalse);
-      expect(list[2].event, isNull);
+      expect(list[0].data, isTrue);
+      expect(list[1].data, isFalse);
+      expect(list[2].data, isNull);
+    });
+
+    test('cancel', () async {
+      var ctlr = StreamController<bool>();
+      var poller = StreamPoller<bool>(ctlr.stream);
+      try {
+        await poller.getNext().timeout(Duration());
+        fail('should fail');
+      } on TimeoutException catch (_) {}
+      poller.cancel();
+      expect((await poller.getNext()).done, isTrue);
+      await ctlr.close();
     });
   });
 }
