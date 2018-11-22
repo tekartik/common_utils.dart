@@ -70,8 +70,7 @@ void dumpMap(Map map) {
   });
 }
 
-dynamic mapValueFromPath(Map map, String path) {
-  List<String> parts = path.split('/');
+T mapValueFromParts<T>(Map map, Iterable<String> parts, [T defaultValue]) {
   dynamic value = map;
   for (String part in parts) {
     if (value is Map) {
@@ -80,5 +79,9 @@ dynamic mapValueFromPath(Map map, String path) {
       return null;
     }
   }
-  return value;
+  return value as T;
+}
+
+T mapValueFromPath<T>(Map map, String path, [T defaultValue]) {
+  return mapValueFromParts(map, path.split('/'), defaultValue);
 }

@@ -1,3 +1,7 @@
+# 0.8.1
+
+- add `mapValueFromParts`
+
 # 0.7.3
 
 - add Fifo
