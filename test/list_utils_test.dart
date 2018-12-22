@@ -83,7 +83,7 @@ void main() {
       expect(identical(cloneList([]), []), isFalse);
 
       List list1 = [1, [], {}];
-      List listFrom = new List.from(list1);
+      List listFrom = List.from(list1);
       List list2 = cloneList(list1);
       expect(listFrom, list1);
       expect(list2, list1);

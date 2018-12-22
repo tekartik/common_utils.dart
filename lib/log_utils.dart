@@ -6,9 +6,7 @@ export 'package:logging/logging.dart';
 /// quick replacement for `print()` - use `info()` or `debug()`
 bool _quickLoggingSetup = false;
 
-/**
- * To user when you want to make sure code is removed
- */
+/// To user when you want to make sure code is removed
 @deprecated
 debugQuickLogging(Level level) {
   setupQuickLogging(level);
@@ -17,7 +15,7 @@ debugQuickLogging(Level level) {
 setupQuickLogging([Level level]) {
   if (!_quickLoggingSetup) {
     hierarchicalLoggingEnabled = true;
-    _PrintHandler handler = new _PrintHandler();
+    _PrintHandler handler = _PrintHandler();
     Logger.root.onRecord.listen((LogRecord logRecord) {
       handler.call(logRecord);
     });
@@ -64,14 +62,14 @@ Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
 Logger _log;
 Logger get log {
   if (_log == null) {
-    _log = new Logger('Quick');
+    _log = Logger('Quick');
   }
   return _log;
 }
 
 String _stringPrefilled(String text, int len, String char) {
   int length = text.length;
-  StringBuffer out = new StringBuffer();
+  StringBuffer out = StringBuffer();
   while (length < len) {
     out.write(char);
     length += char.length;
@@ -98,9 +96,7 @@ String formatTimestampMs(num timestamp) {
   }
 }
 
-/**
- * from 00.00 to 100.0
- */
+/// from 00.00 to 100.0
 String format0To1AsPercent(num value) {
   //int size = 6;
   //String txt;

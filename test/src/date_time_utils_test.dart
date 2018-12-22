@@ -18,7 +18,7 @@ void main() {
 
     test('localToUtc', () {
       // only valid in france
-      DateTime dt = new DateTime.now();
+      DateTime dt = DateTime.now();
       //print(dt.timeZoneOffset);
       expect(timeOfDayLocalToUtc(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("11:${-dt.timeZoneOffset.inMinutes}"));
@@ -27,7 +27,7 @@ void main() {
 
     test('utcToLocal', () {
       // only valid in france
-      DateTime dt = new DateTime.now();
+      DateTime dt = DateTime.now();
       //print(dt.timeZoneOffset);
       expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
           TimeOfDay.parse("11:${dt.timeZoneOffset.inMinutes}"));
@@ -53,10 +53,10 @@ void main() {
       devPrint(dt.toLocal());
       devPrint(dt.toUtc());
       */
-      expect(findBeginningOfDay(new DateTime.utc(2017, 2, 19, 14), 0),
-          new DateTime.utc(2017, 2, 19));
-      expect(findBeginningOfDay(new DateTime(2017, 2, 19, 14), 0),
-          new DateTime(2017, 2, 19));
+      expect(findBeginningOfDay(DateTime.utc(2017, 2, 19, 14), 0),
+          DateTime.utc(2017, 2, 19));
+      expect(findBeginningOfDay(DateTime(2017, 2, 19, 14), 0),
+          DateTime(2017, 2, 19));
       /*
       expect(new DateTime(2017, 2, 19, 14).toUtc(),
           new DateTime.utc(2017, 2, 19, 13));
@@ -71,12 +71,12 @@ void main() {
       expect(findBeginningOfDay(new DateTime(2017, 2, 19, 0, 59), 0),
           new DateTime(2017, 2, 18, 1));
           */
-      expect(findBeginningOfDay(new DateTime.utc(2017, 2, 19, 14), 86340000),
-          new DateTime.utc(2017, 2, 18, 23, 59));
-      expect(findBeginningOfDay(new DateTime(2017, 2, 19, 1, 1), -86340000),
-          new DateTime(2017, 2, 19, 0, 1));
-      expect(findBeginningOfDay(new DateTime(2017, 2, 19, 1, 0), -86340000),
-          new DateTime(2017, 2, 19, 0, 1));
+      expect(findBeginningOfDay(DateTime.utc(2017, 2, 19, 14), 86340000),
+          DateTime.utc(2017, 2, 18, 23, 59));
+      expect(findBeginningOfDay(DateTime(2017, 2, 19, 1, 1), -86340000),
+          DateTime(2017, 2, 19, 0, 1));
+      expect(findBeginningOfDay(DateTime(2017, 2, 19, 1, 0), -86340000),
+          DateTime(2017, 2, 19, 0, 1));
     });
   });
 }

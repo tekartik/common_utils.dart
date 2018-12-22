@@ -1,8 +1,6 @@
 import 'dart:math';
 
-/**
- * 
- */
+///
 int _ACodeUnit = 'A'.codeUnitAt(0);
 int _aCodeUnit = 'a'.codeUnitAt(0);
 int _0CodeUnit = '0'.codeUnitAt(0);
@@ -38,7 +36,7 @@ int hex2CodeUint8(int value) {
 }
 
 String hexUint8(int value) {
-  return new String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
+  return String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
 }
 
 String hexUint16(int value) {
@@ -58,7 +56,7 @@ String hexQuickView(List<int> data, [int maxLen]) {
   } else {
     maxLen = min(data.length, maxLen);
   }
-  StringBuffer out = new StringBuffer();
+  StringBuffer out = StringBuffer();
   for (int i = 0; i < maxLen; i++) {
     if (i > 0) {
       out.write(' ');
@@ -88,7 +86,7 @@ List<String> hexPrettyLines(List<int> data) {
     if (sb != null) {
       lines.add(sb.toString());
     }
-    sb = new StringBuffer();
+    sb = StringBuffer();
     return sb;
   });
   if (sb.isNotEmpty) {
@@ -107,7 +105,7 @@ String hexPretty(List<int> data) {
   StringBuffer sb;
   _hexPretty(data, () {
     if (sb == null) {
-      sb = new StringBuffer();
+      sb = StringBuffer();
     } else {
       sb.writeln();
     }
@@ -216,7 +214,7 @@ String oldhexPretty(List<int> data) {
   int readSize;
   int lineIndex = 0;
   int position = 0;
-  StringBuffer out = new StringBuffer();
+  StringBuffer out = StringBuffer();
   do {
     if (lineIndex++ > 0) {
       out.writeln();
@@ -303,7 +301,7 @@ String oldhexPretty(List<int> data) {
 
 // parse any hex string
 List<int> parseHexString(String text) {
-  List<int> data = new List();
+  List<int> data = List();
   int firstNibble = null;
 
   text.codeUnits.forEach((int charCode) {
@@ -324,7 +322,7 @@ List<int> parseHexString(String text) {
 
 /// convert [data] to "01A1..."
 String toHexString(List<int> data) {
-  StringBuffer sb = new StringBuffer();
+  StringBuffer sb = StringBuffer();
   for (int byte in data) {
     sb.write(hexUint8(byte));
   }

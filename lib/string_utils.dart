@@ -16,7 +16,7 @@ String nonNull(String value, [String defaultValue = '']) =>
     stringNonNull(value, defaultValue);
 
 String stringNonNull(String value, [String defaultValue = '']) =>
-    value_utils.nonNull(value, defaultValue) ;
+    value_utils.nonNull(value, defaultValue);
 
 // User defaul Value if empty (default null)
 // might be deprecated for stringNonNull to avoid conflict
@@ -29,7 +29,7 @@ String stringNonEmpty(String value, [String defaultValue = null]) =>
 
 String prefilled(String text, int len, String char) {
   int length = text.length;
-  StringBuffer out = new StringBuffer();
+  StringBuffer out = StringBuffer();
   while (length < len) {
     out.write(char);
     length += char.length;

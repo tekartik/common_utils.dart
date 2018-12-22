@@ -8,27 +8,27 @@ String formatYYYYdashMMdashDD(DateTime dateTime) {
 }
 
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
-  tod ??= new TimeOfDay();
-  DateTime dt = new DateTime.now();
-  dt = new DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
+  tod ??= TimeOfDay();
+  DateTime dt = DateTime.now();
+  dt = DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toUtc();
-  return new TimeOfDay(dt.hour, dt.minute);
+  return TimeOfDay(dt.hour, dt.minute);
 }
 
 TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
-  tod ??= new TimeOfDay();
-  DateTime dt = new DateTime.now().toUtc();
-  dt = new DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
+  tod ??= TimeOfDay();
+  DateTime dt = DateTime.now().toUtc();
+  dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toLocal();
-  return new TimeOfDay(dt.hour, dt.minute);
+  return TimeOfDay(dt.hour, dt.minute);
 }
 
 int dayOffsetLocalToUtc(int localDayOffset) {
-  return localDayOffset - new DateTime.now().timeZoneOffset.inMilliseconds;
+  return localDayOffset - DateTime.now().timeZoneOffset.inMilliseconds;
 }
 
 int dayOffsetUtcToLocal(int utcDayOffset) {
-  return utcDayOffset + new DateTime.now().timeZoneOffset.inMilliseconds;
+  return utcDayOffset + DateTime.now().timeZoneOffset.inMilliseconds;
 }
 
 class TimeOfDay {
@@ -77,7 +77,7 @@ class TimeOfDay {
         minute = int.parse(parts[1]);
       }
     } catch (_) {}
-    return new TimeOfDay(hour, minute);
+    return TimeOfDay(hour, minute);
   }
 }
 
@@ -88,12 +88,11 @@ const int dayInMillis = 24 * hourInMillis;
 const int weekInMillis = 7 * dayInMillis;
 
 DateTime newDateTimeClearTime(DateTime dt) {
-  return new DateTime(dt.year, dt.month, dt.day);
+  return DateTime(dt.year, dt.month, dt.day);
 }
 
 DateTime dateTimeWithOffset(DateTime dt, int offset) {
-  return new DateTime.fromMillisecondsSinceEpoch(
-      dt.millisecondsSinceEpoch + offset,
+  return DateTime.fromMillisecondsSinceEpoch(dt.millisecondsSinceEpoch + offset,
       isUtc: dt.isUtc);
 }
 
@@ -109,10 +108,10 @@ DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
   // make sure it goes after now, then go backwards
   // now.timeZoneName;
   DateTime begginingOfDay = dateTimeWithTimeCleared(now)
-      .add(new Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
+      .add(Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
 
   while (now.isBefore(begginingOfDay)) {
-    begginingOfDay = begginingOfDay.add(new Duration(days: -1));
+    begginingOfDay = begginingOfDay.add(Duration(days: -1));
   }
   return begginingOfDay;
 }

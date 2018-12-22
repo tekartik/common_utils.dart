@@ -2,10 +2,8 @@ library tekartik_utils.map_utils;
 
 import 'list_utils.dart';
 
-/**
- * content from mapSrc is merge into mapDst overriding it if needed
- * @returns mapDst
- */
+/// content from mapSrc is merge into mapDst overriding it if needed
+/// @returns mapDst
 Map mergeMap(Map mapDst, Map mapSrc) {
   if (mapSrc != null) {
     mapSrc.forEach((var key, var value) {
@@ -16,7 +14,7 @@ Map mergeMap(Map mapDst, Map mapSrc) {
 }
 
 Map cloneMap(Map orignal) {
-  Map map = new Map();
+  Map map = Map();
   orignal.forEach((key, value) {
     if (value is Map) {
       value = cloneMap(value as Map);
@@ -72,8 +70,7 @@ void dumpMap(Map map) {
   });
 }
 
-dynamic mapValueFromPath(Map map, String path) {
-  List<String> parts = path.split('/');
+T mapValueFromParts<T>(Map map, Iterable<String> parts, [T defaultValue]) {
   dynamic value = map;
   for (String part in parts) {
     if (value is Map) {
@@ -82,5 +79,9 @@ dynamic mapValueFromPath(Map map, String path) {
       return null;
     }
   }
-  return value;
+  return value as T;
+}
+
+T mapValueFromPath<T>(Map map, String path, [T defaultValue]) {
+  return mapValueFromParts(map, path.split('/'), defaultValue);
 }

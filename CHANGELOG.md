@@ -1,3 +1,13 @@
+# 0.8.2
+
+- add `mapValueFromParts`
+- add `Operation` class
+
+# 0.7.3
+
+- add Fifo
+- add StreamPoller
+
 # 0.6.5
 
 - add `implicit-casts: false`

@@ -27,7 +27,13 @@ main() {
           }
         }
       };
+      expect(mapValueFromParts(map, ['products', 'product', 'warranty']),
+          "warranty");
       expect(mapValueFromPath(map, 'products/product/warranty'), "warranty");
+      expect(
+          mapValueFromParts(map, ['products', 'product', 'warrant']), isNull);
+      expect(
+          mapValueFromParts(map, ['products', 'product_', 'warrant']), isNull);
       expect(mapValueFromPath(map, 'products/product/warrant'), null);
     });
   });

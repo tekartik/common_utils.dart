@@ -9,7 +9,7 @@ import 'package:tekartik_common_utils/async_utils.dart';
 void main() {
   group('async', () {
     test('sleep', () async {
-      Stopwatch sw = new Stopwatch();
+      Stopwatch sw = Stopwatch();
       sw.start();
       await sleep(50);
       expect(sw.elapsedMilliseconds, greaterThan(30));
@@ -93,7 +93,7 @@ void main() {
         count++;
       }
 
-      AsyncOnceRunner runner = new AsyncOnceRunner(_count);
+      AsyncOnceRunner runner = AsyncOnceRunner(_count);
       expect(count, 0);
       Future future = runner.run();
       expect(runner.done, isFalse);
@@ -112,7 +112,7 @@ void main() {
         }
       }
 
-      AsyncOnceRunner runner = new AsyncOnceRunner(_count);
+      AsyncOnceRunner runner = AsyncOnceRunner(_count);
       try {
         await runner.run();
         fail('should have failed');

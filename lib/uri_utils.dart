@@ -1,8 +1,6 @@
-/**
- * Typically the argument is window.location.search
- */
+/// Typically the argument is window.location.search
 Map<String, String> locationSearchGetArguments(String search) {
-  Map<String, String> params = new Map();
+  Map<String, String> params = Map();
   if (search != null) {
     int questionMarkIndex = search.indexOf('?');
     if (questionMarkIndex != -1) {

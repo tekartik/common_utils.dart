@@ -45,14 +45,12 @@ List<T> listSubList<T>(List<T> list, int start, [int end]) {
 
 List<T> listTruncate<T>(List<T> list, int end) => listSubList(list, 0, end);
 
-/**
- * Clone list and list of list
- */
+/// Clone list and list of list
 List cloneList(List original) {
   if (original == null) {
     return null;
   }
-  List clone = new List();
+  List clone = List();
   original.forEach((dynamic item) {
     if (item is List) {
       item = cloneList(item as List);
@@ -64,12 +62,10 @@ List cloneList(List original) {
   return clone;
 }
 
-/**
- * better to have original1 bigger than original2
- * optimization could handle that
- */
+/// better to have original1 bigger than original2
+/// optimization could handle that
 List intersectList(List original1, List original2) {
-  List list = new List();
+  List list = List();
 
   original1.forEach((element) {
     if (original2.contains(element)) {
