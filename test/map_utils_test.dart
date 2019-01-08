@@ -36,5 +36,25 @@ main() {
           mapValueFromParts(map, ['products', 'product_', 'warrant']), isNull);
       expect(mapValueFromPath(map, 'products/product/warrant'), null);
     });
+
+    test('mapValue', () {
+      var map = {};
+      expect(getPartsMapValue(map, ['test', 'sub']), null);
+      setPartsMapValue(map, ['test', 'sub'], 1);
+      expect(map, {
+        'test': {'sub': 1}
+      });
+      expect(getPartsMapValue(map, ['test', 'sub']), 1);
+      setPartsMapValue(map, ['test', 'sub'], 2);
+      expect(map, {
+        'test': {'sub': 2}
+      });
+      setPartsMapValue(map, ['test', 'sub2'], 3);
+      expect(map, {
+        'test': {'sub': 2, 'sub2': 3}
+      });
+      setPartsMapValue(map, ['test'], 1);
+      expect(map, {'test': 1});
+    });
   });
 }
