@@ -73,7 +73,10 @@ void dumpMap(Map map) {
   });
 }
 
-T mapValueFromParts<T>(Map map, Iterable<String> parts, [T defaultValue]) {
+T mapValueFromParts<T>(Map map, Iterable<String> parts) =>
+    getPartsMapValue(map, parts);
+
+T getPartsMapValue<T>(Map map, Iterable<String> parts) {
   dynamic value = map;
   for (String part in parts) {
     if (value is Map) {
@@ -85,6 +88,19 @@ T mapValueFromParts<T>(Map map, Iterable<String> parts, [T defaultValue]) {
   return value as T;
 }
 
-T mapValueFromPath<T>(Map map, String path, [T defaultValue]) {
-  return mapValueFromParts(map, path.split('/'), defaultValue);
+void setPartsMapValue<T>(Map map, List<String> parts, value) {
+  for (int i = 0; i < parts.length - 1; i++) {
+    String part = parts[i];
+    dynamic sub = map[part];
+    if (!(sub is Map)) {
+      sub = <String, dynamic>{};
+      map[part] = sub;
+    }
+    map = sub as Map;
+  }
+  map[parts.last] = value;
+}
+
+T mapValueFromPath<T>(Map map, String path) {
+  return mapValueFromParts(map, path.split('/'));
 }
