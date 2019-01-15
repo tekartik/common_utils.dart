@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 //import 'package:unittest/vm_config.dart';
 import 'package:tekartik_common_utils/hash_code_utils.dart';
 
-main() {
+void main() {
   group('hash_code', () {
     test('safe_hash', () {
       expect(safeHashCode(null), 0);

@@ -3,7 +3,7 @@ library map_utils_tests;
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/map_utils.dart';
 
-main() {
+void main() {
   group('map utils', () {
     test('mergeMap', () {
       Map dst = {};

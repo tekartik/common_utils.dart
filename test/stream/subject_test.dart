@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/stream_utils.dart';
 
-typedef Future<Null> AsyncVoidCallBack();
+typedef Future<void> AsyncVoidCallBack();
 
 void main() {
   group('Subject', () {
@@ -194,7 +194,7 @@ void main() {
     });
 
     test('returns onCancel callback set in constructor', () async {
-      final AsyncVoidCallBack onCancel = () => Future<Null>.value(null);
+      final AsyncVoidCallBack onCancel = () => Future<void>.value(null);
       // ignore: close_sinks
       final StreamController<int> subject = Subject<int>(onCancel: onCancel);
 
@@ -245,7 +245,7 @@ void main() {
       // ignore: close_sinks
       final StreamController<int> subject = Subject<int>();
 
-      await expectLater(subject.sink, TypeMatcher<EventSink<int>>());
+      await expectLater(subject.sink, const TypeMatcher<EventSink<int>>());
     });
 
     test('correctly closes done Future', () async {

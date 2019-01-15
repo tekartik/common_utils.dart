@@ -1,7 +1,7 @@
 import 'package:tekartik_common_utils/out_buffer.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('out_buffer', () {
     test('add', () {
       var buffer = OutBuffer(3);

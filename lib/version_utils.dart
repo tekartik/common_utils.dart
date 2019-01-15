@@ -4,29 +4,29 @@ import 'package:pub_semver/pub_semver.dart';
 export 'package:pub_semver/pub_semver.dart';
 
 /// Regex that matches a version number at the beginning of a string.
-final _START_VERSION = RegExp(r'^' // Start at beginning.
+final _startVersion = RegExp(r'^' // Start at beginning.
     r'(\d+).((\d+))?' // Version number.
     );
 
-/// Like [_START_VERSION] but matches the entire string.
-final _COMPLETE_VERSION = RegExp("${_START_VERSION.pattern}\$");
+/// Like [_startVersion] but matches the entire string.
+final _completeVersion = RegExp("${_startVersion.pattern}\$");
 
 // Handle String with 4 numbers
 /// Regex that matches a version number at the beginning of a string.
-final _FOUR_NUMBER_START_VERSION = RegExp(r'^' // Start at beginning.
+final _fourNumberStartVersion = RegExp(r'^' // Start at beginning.
         r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)') // Version number.
     ;
 
-/// Like [_START_VERSION] but matches the entire string.
-final _FOUR_NUMBER_COMPLETE_VERSION =
-    RegExp("${_FOUR_NUMBER_START_VERSION.pattern}\$");
+/// Like [_startVersion] but matches the entire string.
+final _fourNumberCompleteVersion =
+    RegExp("${_fourNumberStartVersion.pattern}\$");
 
 /// Add support for version X, X.X not supported in platform version
 Version parseVersion(String text) {
   try {
     return Version.parse(text);
   } on FormatException catch (e, _) {
-    Match match = _COMPLETE_VERSION.firstMatch(text);
+    Match match = _completeVersion.firstMatch(text);
     if (match != null) {
       try {
         //      print(match[0]);
@@ -40,7 +40,7 @@ Version parseVersion(String text) {
         throw e;
       }
     } else {
-      match = _FOUR_NUMBER_COMPLETE_VERSION.firstMatch(text);
+      match = _fourNumberCompleteVersion.firstMatch(text);
       if (match != null) {
         try {
           //      print(match[0]);

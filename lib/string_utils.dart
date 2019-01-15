@@ -6,7 +6,7 @@ export 'int_utils.dart' show parseInt;
 bool isEmpty(String text) => stringIsEmpty(text);
 
 bool stringIsEmpty(String text) {
-  return ((text == null) || (text.length == 0));
+  return ((text == null) || text.isEmpty);
 }
 
 // Use default Value if null (default empty string)
@@ -21,10 +21,10 @@ String stringNonNull(String value, [String defaultValue = '']) =>
 // User defaul Value if empty (default null)
 // might be deprecated for stringNonNull to avoid conflict
 @Deprecated("User stringNonEmpty")
-String nonEmpty(String value, [String defaultValue = null]) =>
+String nonEmpty(String value, [String defaultValue]) =>
     stringNonEmpty(value, defaultValue);
 
-String stringNonEmpty(String value, [String defaultValue = null]) =>
+String stringNonEmpty(String value, [String defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
 String prefilled(String text, int len, String char) {

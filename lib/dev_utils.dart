@@ -22,7 +22,7 @@ void devPrint(Object object) {
 @deprecated
 int devWarning;
 
-_devError([Object object = null]) {
+void _devError([Object object]) {
   // one day remove the print however sometimes the error thrown is hidden
   try {
     throw UnsupportedError("$object");
@@ -31,12 +31,12 @@ _devError([Object object = null]) {
       print("# ERROR $object");
       print(st);
     }
-    throw e;
+    rethrow;
   }
 }
 
 @deprecated
-devError([Object object = null]) => _devError(object);
+void devError([Object object]) => _devError(object);
 
 // exported for testing
 void debugDevPrint(Object object) => _devPrint(object);
@@ -61,5 +61,5 @@ class DevFlag {
   }
 
   @override
-  toString() => "DevFlag($explanation) ${on ? "on" : "off"}";
+  String toString() => "DevFlag($explanation) ${on ? "on" : "off"}";
 }

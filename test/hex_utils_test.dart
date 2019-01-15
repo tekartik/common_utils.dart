@@ -1,7 +1,7 @@
 import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/hex_utils.dart';
 
-main() {
+void main() {
   group('hex utils', () {
     test('Uint4', () {
       expect(hexCodeUint4(0), '0'.codeUnitAt(0));

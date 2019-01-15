@@ -1,6 +1,8 @@
 import 'dart:async';
-import 'list_utils.dart';
+
 import 'package:synchronized/synchronized.dart';
+
+import 'list_utils.dart';
 
 // create a future delayed for [ms] milliseconds
 Future sleep([int ms = 0]) {
@@ -24,9 +26,11 @@ class AsyncOnceRunner {
   /// Helper to load a javascript script only once
   bool _done = false;
   var _lock = Lock();
+
   AsyncOnceRunner(FutureOr computation()) : _computation = computation;
 
-  get done => _done;
+  bool get done => _done;
+
   Future run() async {
     if (!_done) {
       await _lock.synchronized(() async {

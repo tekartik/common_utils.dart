@@ -1,6 +1,6 @@
 /// Typically the argument is window.location.search
 Map<String, String> locationSearchGetArguments(String search) {
-  Map<String, String> params = Map();
+  final params = <String, String>{};
   if (search != null) {
     int questionMarkIndex = search.indexOf('?');
     if (questionMarkIndex != -1) {

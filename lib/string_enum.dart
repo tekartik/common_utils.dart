@@ -13,7 +13,7 @@ abstract class StringEnum {
   }
 
   @override
-  operator ==(var other) {
+  bool operator ==(var other) {
     if (other is StringEnum) {
       return name == other.name;
     }
