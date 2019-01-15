@@ -13,5 +13,6 @@ class OutBuffer {
     }
   }
 
+  @override
   String toString() => lines.join("\n");
 }

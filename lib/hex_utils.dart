@@ -1,19 +1,19 @@
 import 'dart:math';
 
 ///
-int _ACodeUnit = 'A'.codeUnitAt(0);
-int _aCodeUnit = 'a'.codeUnitAt(0);
-int _0CodeUnit = '0'.codeUnitAt(0);
+int _upperACodeUnit = 'A'.codeUnitAt(0);
+int _lowerACodeUnit = 'a'.codeUnitAt(0);
+int _digit0CodeUnit = '0'.codeUnitAt(0);
 
 int hexCharValue(int charCode) {
-  if (charCode >= _ACodeUnit && charCode < _ACodeUnit + 6) {
-    return charCode - _ACodeUnit + 10;
+  if (charCode >= _upperACodeUnit && charCode < _upperACodeUnit + 6) {
+    return charCode - _upperACodeUnit + 10;
   }
-  if (charCode >= _aCodeUnit && charCode < _aCodeUnit + 6) {
-    return charCode - _aCodeUnit + 10;
+  if (charCode >= _lowerACodeUnit && charCode < _lowerACodeUnit + 6) {
+    return charCode - _lowerACodeUnit + 10;
   }
-  if (charCode >= _0CodeUnit && charCode < _0CodeUnit + 10) {
-    return charCode - _0CodeUnit;
+  if (charCode >= _digit0CodeUnit && charCode < _digit0CodeUnit + 10) {
+    return charCode - _digit0CodeUnit;
   }
   return null;
 }
@@ -21,9 +21,9 @@ int hexCharValue(int charCode) {
 int hexCodeUint4(int value) {
   value = value & 0xF;
   if (value < 10) {
-    return _0CodeUnit + value;
+    return _digit0CodeUnit + value;
   } else {
-    return _ACodeUnit + value - 10;
+    return _upperACodeUnit + value - 10;
   }
 }
 
@@ -114,7 +114,7 @@ String hexPretty(List<int> data) {
   return sb.toString();
 }
 
-_hexPretty(List<int> data, StringBuffer newLine()) {
+String _hexPretty(List<int> data, StringBuffer newLine()) {
   int blockSize = 16;
   int readSize;
   int lineIndex = 0;
@@ -301,8 +301,8 @@ String oldhexPretty(List<int> data) {
 
 // parse any hex string
 List<int> parseHexString(String text) {
-  List<int> data = List();
-  int firstNibble = null;
+  List<int> data = <int>[];
+  int firstNibble;
 
   text.codeUnits.forEach((int charCode) {
     if (firstNibble == null) {

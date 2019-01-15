@@ -8,11 +8,11 @@ bool _quickLoggingSetup = false;
 
 /// To user when you want to make sure code is removed
 @deprecated
-debugQuickLogging(Level level) {
+void debugQuickLogging(Level level) {
   setupQuickLogging(level);
 }
 
-setupQuickLogging([Level level]) {
+void setupQuickLogging([Level level]) {
   if (!_quickLoggingSetup) {
     hierarchicalLoggingEnabled = true;
     _PrintHandler handler = _PrintHandler();
@@ -34,7 +34,10 @@ class _PrintHandler {
   }
 }
 
-final List<Level> LOG_LEVELS = [
+@Deprecated("Use logLevel")
+// ignore: non_constant_identifier_names
+final List<Level> LOG_LEVELS = logLevels;
+final List<Level> logLevels = [
   Level.OFF,
   Level.SHOUT,
   Level.SEVERE,
@@ -49,7 +52,7 @@ final List<Level> LOG_LEVELS = [
 Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
   if (levelText != null) {
     levelText = levelText.toUpperCase();
-    for (Level level in LOG_LEVELS) {
+    for (Level level in logLevels) {
       if (level.name == levelText) {
         //print('level: $level');
         return level;

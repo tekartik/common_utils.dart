@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tekartik_common_utils/string_utils.dart' as stru;
 import 'package:tekartik_common_utils/string_utils.dart';
 
-main() {
+void main() {
   test('parseInt', () {
     expect(stru.parseInt("456", 1), equals(456));
     expect(stru.parseInt("sd456", 1), equals(1));

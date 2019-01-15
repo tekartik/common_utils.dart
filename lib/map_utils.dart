@@ -13,20 +13,23 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
-Map cloneMap(Map orignal) {
-  Map map = Map();
+Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
+  final map = <K, V>{};
   orignal.forEach((key, value) {
+    dynamic cloneValue;
     if (value is Map) {
-      value = cloneMap(value as Map);
+      cloneValue = cloneMap(value);
     } else if (value is List) {
-      value = cloneList(value as List);
+      cloneValue = cloneList(value);
+    } else {
+      cloneValue = value;
     }
-    map[key] = value;
+    map[key] = cloneValue;
   });
   return map;
 }
 
-String mapStringValue(Map map, String key, [String defaultValue = null]) {
+String mapStringValue(Map map, String key, [String defaultValue]) {
   if (map != null) {
     String value = map[key];
     if (value != null) {
@@ -36,7 +39,7 @@ String mapStringValue(Map map, String key, [String defaultValue = null]) {
   return defaultValue;
 }
 
-int mapIntValue(Map map, String key, [int defaultValue = null]) {
+int mapIntValue(Map map, String key, [int defaultValue]) {
   if (map != null) {
     var value = map[key];
     if (value != null) {

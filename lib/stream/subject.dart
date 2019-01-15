@@ -8,6 +8,8 @@ class Subject<T> extends Stream<T>
     implements StreamSink<T>, StreamController<T>, StreamWithValue<T> {
   final StreamController<T> _controller;
   final bool _sync;
+
+  @override
   T get value => _value;
   T _value;
 
@@ -21,8 +23,9 @@ class Subject<T> extends Stream<T>
       : this._value = value,
         this._sync = sync == true,
         this._controller = StreamController<T>.broadcast(
-            onListen: onListen, onCancel: onCancel, sync: true) {}
+            onListen: onListen, onCancel: onCancel, sync: true);
 
+  @override
   bool get isClosed => _controller.isClosed;
 
   @override
@@ -68,6 +71,7 @@ class Subject<T> extends Stream<T>
     return _controller.close();
   }
 
+  @override
   Stream<T> get stream => this;
 
   @override

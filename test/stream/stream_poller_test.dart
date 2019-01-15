@@ -1,12 +1,13 @@
+import 'dart:async';
+
 import 'package:tekartik_common_utils/stream/stream_poller.dart';
 import 'package:test/test.dart';
-import 'dart:async';
 
 void main() {
   group('StreamPoller', () {
     test('api', () {
-      StreamPollerEvent;
-      StreamPoller;
+      expect(StreamPollerEvent, isNotNull);
+      expect(StreamPoller, isNotNull);
     });
     test('empty', () async {
       var stream = Stream<bool>.fromIterable([]);

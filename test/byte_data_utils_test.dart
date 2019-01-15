@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/byte_data_utils.dart';
 
-main() {
+void main() {
   group('byte_data utils', () {
     test('toFromUint8', () {
       Uint8List list = Uint8List.fromList([1, 2, 3, 4]);

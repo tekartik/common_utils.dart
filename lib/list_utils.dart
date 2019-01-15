@@ -50,7 +50,7 @@ List cloneList(List original) {
   if (original == null) {
     return null;
   }
-  List clone = List();
+  List clone = [];
   original.forEach((dynamic item) {
     if (item is List) {
       item = cloneList(item as List);
@@ -65,7 +65,7 @@ List cloneList(List original) {
 /// better to have original1 bigger than original2
 /// optimization could handle that
 List intersectList(List original1, List original2) {
-  List list = List();
+  List list = [];
 
   original1.forEach((element) {
     if (original2.contains(element)) {
