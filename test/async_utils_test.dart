@@ -42,7 +42,7 @@ void main() {
               return 0;
             },
             () async {
-              sleep(1);
+              await sleep(1);
               return 1;
             }
           ]),
@@ -53,7 +53,7 @@ void main() {
               return 0;
             },
             () async {
-              sleep(1);
+              await sleep(1);
             }
           ]),
           [0, null]);
