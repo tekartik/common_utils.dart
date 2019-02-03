@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:tekartik_common_utils/model/model.dart';
 import 'package:tekartik_common_utils/model/src/model.dart';
 import 'package:tekartik_common_utils/model/src/model_entry.dart';
@@ -8,14 +6,19 @@ import 'package:test/test.dart';
 
 void main() => defineTests();
 
-class BaseModel with ModelMixin {}
+class BaseModel
+    with
+// to comment/uncomment for progressing implementation
+//      MapMixin<String, dynamic>,
+// up to here
+        ModelMixin {}
 
 class BaseModelEntry with ModelEntryMixin {}
 
 class BaseModelList
     with
-// to comment for progressing implementation
-        ListMixin<dynamic>,
+// to comment/uncomment for progressing implementation
+//      ListMixin<dynamic>,
 // up to here
         ModelListMixin {}
 
@@ -34,21 +37,21 @@ void defineTests() {
 
     test('model', () {
       var model = Model();
-      expect(model.getEntry('test'), ModelEntry('test', null));
+      expect(model.getModelEntry('test'), ModelEntry('test', null));
       model['test'] = null;
-      expect(model.getEntry('test').value, isNull);
+      expect(model.getModelEntry('test').value, isNull);
       model['test'] = 'a';
-      expect(model.getEntry('test').value, 'a');
+      expect(model.getModelEntry('test').value, 'a');
       model['test'] = null;
-      expect(model.getEntry('test'),
+      expect(model.getModelEntry('test'),
           ModelEntry('test', null, presentIfNull: true));
       model.remove('test');
-      expect(model.getEntry('test'), ModelEntry('test', null));
+      expect(model.getModelEntry('test'), ModelEntry('test', null));
 
       model = Model({'test': 'a'});
-      expect(model.getEntry('test').value, 'a');
+      expect(model.getModelEntry('test').value, 'a');
       model = Model({'test': null});
-      expect(model.getEntry('test').value, null);
+      expect(model.getModelEntry('test').value, null);
     });
 
     test('model_list', () {
@@ -83,7 +86,7 @@ void defineTests() {
           map['test'] = value;
           expect(map['test'], value);
           if (map is Model) {
-            expect(map.getEntry('test'),
+            expect(map.getModelEntry('test'),
                 ModelEntry('test', value, presentIfNull: true));
           }
         }
@@ -95,7 +98,7 @@ void defineTests() {
         map.remove('test');
         expect(map['test'], isNull);
         if (map is Model) {
-          expect(map.getEntry('test'), ModelEntry('test', null));
+          expect(map.getModelEntry('test'), ModelEntry('test', null));
         }
       }
     });

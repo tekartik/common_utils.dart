@@ -17,7 +17,7 @@ mixin ModelMixin implements Model {
   ///
 
   @override
-  ModelEntry getEntry(String key) {
+  ModelEntry getModelEntry(String key) {
     dynamic value = _map[key];
     if (value == null) {
       bool present = containsKey(key);

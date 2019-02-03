@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:tekartik_common_utils/model/model.dart';
 
@@ -27,10 +28,10 @@ mixin ModelListMixin implements List<dynamic> {
 
   @override
   int get length => _list.length;
-/*
+
   @override
   List<dynamic> operator +(List<dynamic> other) => _list + other;
-*/
+
   @override
   dynamic operator [](int index) => _list[index];
 
@@ -88,213 +89,132 @@ mixin ModelListMixin implements List<dynamic> {
   @override
   set length(int newLength) => _list.length = newLength;
 
-/*
   @override
-  void forEach(void Function(element) f) {
-    // TODO: implement forEach
-  }
+  void forEach(void Function(dynamic element) f) => _list.forEach(f);
 
   @override
-  Iterable getRange(int start, int end) {
-    // TODO: implement getRange
-    return null;
-  }
+  Iterable getRange(int start, int end) => _list.getRange(start, end);
 
   @override
-  int indexOf(element, [int start = 0]) {
-    // TODO: implement indexOf
-    return null;
-  }
+  int indexOf(dynamic element, [int start = 0]) =>
+      _list.indexOf(element, start);
 
   @override
-  int indexWhere(bool Function(element) test, [int start = 0]) {
-    // TODO: implement indexWhere
-    return null;
-  }
+  int indexWhere(bool Function(dynamic element) test, [int start = 0]) =>
+      _list.indexWhere(test, start);
 
   @override
-  void insert(int index, element) {
-    // TODO: implement insert
-  }
+  void insert(int index, dynamic element) => _list.insert(index, element);
 
   @override
-  void insertAll(int index, Iterable iterable) {
-    // TODO: implement insertAll
-  }
+  void insertAll(int index, Iterable iterable) =>
+      _list.insertAll(index, iterable);
 
   @override
-  // TODO: implement isEmpty
-  bool get isEmpty => null;
+  bool get isEmpty => _list.isEmpty;
 
   @override
-  // TODO: implement isNotEmpty
-  bool get isNotEmpty => null;
+  bool get isNotEmpty => _list.isNotEmpty;
 
   @override
-  // TODO: implement iterator
-  Iterator get iterator => null;
+  Iterator get iterator => _list.iterator;
 
   @override
-  String join([String separator = ""]) {
-    // TODO: implement join
-    return null;
-  }
+  String join([String separator = ""]) => _list.join(separator);
 
   @override
-  int lastIndexOf(element, [int start]) {
-    // TODO: implement lastIndexOf
-    return null;
-  }
+  int lastIndexOf(dynamic element, [int start]) =>
+      _list.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool Function(element) test, [int start]) {
-    // TODO: implement lastIndexWhere
-    return null;
-  }
+  int lastIndexWhere(bool Function(dynamic element) test, [int start]) =>
+      _list.lastIndexWhere(test, start);
 
   @override
-  lastWhere(bool Function(element) test, {Function() orElse}) {
-    // TODO: implement lastWhere
-    return null;
-  }
+  dynamic lastWhere(bool Function(dynamic element) test, {Function() orElse}) =>
+      _list.lastWhere(test, orElse: orElse);
 
   @override
-  Iterable<T> map<T>(T Function(e) f) {
-    // TODO: implement map
-    return null;
-  }
+  Iterable<T> map<T>(T Function(dynamic e) f) => _list.map(f);
 
   @override
-  reduce(Function(value, element) combine) {
-    // TODO: implement reduce
-    return null;
-  }
+  dynamic reduce(Function(dynamic value, dynamic element) combine) =>
+      _list.reduce(combine);
 
   @override
-  bool remove(Object value) {
-    // TODO: implement remove
-    return null;
-  }
+  bool remove(Object value) => _list.remove(value);
 
   @override
-  removeAt(int index) {
-    // TODO: implement removeAt
-    return null;
-  }
+  dynamic removeAt(int index) => _list.removeAt(index);
 
   @override
-  removeLast() {
-    // TODO: implement removeLast
-    return null;
-  }
+  dynamic removeLast() => _list.removeLast();
 
   @override
-  void removeRange(int start, int end) {
-    // TODO: implement removeRange
-  }
+  void removeRange(int start, int end) => _list.removeRange(start, end);
 
   @override
-  void removeWhere(bool Function(element) test) {
-    // TODO: implement removeWhere
-  }
+  void removeWhere(bool Function(dynamic element) test) =>
+      _list.removeWhere(test);
+  @override
+  void replaceRange(int start, int end, Iterable replacement) =>
+      _list.replaceRange(start, end, replacement);
 
   @override
-  void replaceRange(int start, int end, Iterable replacement) {
-    // TODO: implement replaceRange
-  }
+  void retainWhere(bool Function(dynamic element) test) =>
+      _list.retainWhere(test);
 
   @override
-  void retainWhere(bool Function(element) test) {
-    // TODO: implement retainWhere
-  }
+  Iterable get reversed => _list.reversed;
 
   @override
-  // TODO: implement reversed
-  Iterable get reversed => null;
+  void setAll(int index, Iterable iterable) => _list.setAll(index, iterable);
 
   @override
-  void setAll(int index, Iterable iterable) {
-    // TODO: implement setAll
-  }
+  void setRange(int start, int end, Iterable iterable, [int skipCount = 0]) =>
+      _list.setRange(start, end, iterable, skipCount);
 
   @override
-  void setRange(int start, int end, Iterable iterable, [int skipCount = 0]) {
-    // TODO: implement setRange
-  }
+  void shuffle([Random random]) => _list.shuffle(random);
 
   @override
-  void shuffle([Random random]) {
-    // TODO: implement shuffle
-  }
+  dynamic get single => _list.single;
 
   @override
-  // TODO: implement single
-  get single => null;
+  dynamic singleWhere(bool Function(dynamic element) test,
+          {Function() orElse}) =>
+      _list.singleWhere(test, orElse: orElse);
 
   @override
-  singleWhere(bool Function(element) test, {Function() orElse}) {
-    // TODO: implement singleWhere
-    return null;
-  }
+  Iterable skip(int count) => _list.skip(count);
 
   @override
-  Iterable skip(int count) {
-    // TODO: implement skip
-    return null;
-  }
+  Iterable skipWhile(bool Function(dynamic value) test) =>
+      _list.skipWhile(test);
 
   @override
-  Iterable skipWhile(bool Function(value) test) {
-    // TODO: implement skipWhile
-    return null;
-  }
+  void sort([int Function(dynamic a, dynamic b) compare]) =>
+      _list.sort(compare);
 
   @override
-  void sort([int Function(a, b) compare]) {
-    // TODO: implement sort
-  }
+  List sublist(int start, [int end]) => _list.sublist(start, end);
 
   @override
-  List sublist(int start, [int end]) {
-    // TODO: implement sublist
-    return null;
-  }
+  Iterable take(int count) => _list.take(count);
 
   @override
-  Iterable take(int count) {
-    // TODO: implement take
-    return null;
-  }
+  Iterable takeWhile(bool Function(dynamic value) test) =>
+      _list.takeWhile(test);
 
   @override
-  Iterable takeWhile(bool Function(value) test) {
-    // TODO: implement takeWhile
-    return null;
-  }
+  List<dynamic> toList({bool growable = true}) => _list.toList(growable: true);
 
   @override
-  List toList({bool growable = true}) {
-    // TODO: implement toList
-    return null;
-  }
+  Set<dynamic> toSet() => _list.toSet();
 
   @override
-  Set toSet() {
-    // TODO: implement toSet
-    return null;
-  }
+  Iterable where(bool Function(dynamic element) test) => _list.where(test);
 
   @override
-  Iterable where(bool Function(element) test) {
-    // TODO: implement where
-    return null;
-  }
-
-  @override
-  Iterable<T> whereType<T>() {
-    // TODO: implement whereType
-    return null;
-  }
-  */
-
+  Iterable<T> whereType<T>() => _list.whereType<T>();
 }

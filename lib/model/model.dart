@@ -17,7 +17,7 @@ abstract class Model implements Map<String, dynamic> {
   ///
   /// Returns a [ModelEntry] object telling where the key is present and
   /// its value
-  ModelEntry getEntry(String key);
+  ModelEntry getModelEntry(String key);
 
   /// Set the [entry] in the model
   void setEntry(ModelEntry entry);
