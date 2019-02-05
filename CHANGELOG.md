@@ -1,3 +1,7 @@
+# 0.9.1
+
+- add `Model` and `ModelList`
+
 # 0.8.2
 
 - add `mapValueFromParts`

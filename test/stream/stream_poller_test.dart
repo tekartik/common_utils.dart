@@ -47,9 +47,10 @@ void main() {
         await poller.getNext().timeout(Duration());
         fail('should fail');
       } on TimeoutException catch (_) {}
-      poller.cancel();
+      var future = poller.cancel();
       expect((await poller.getNext()).done, isTrue);
       await ctlr.close();
+      await future;
     });
   });
 }

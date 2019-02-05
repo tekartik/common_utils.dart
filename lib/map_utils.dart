@@ -24,14 +24,14 @@ Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
     } else {
       cloneValue = value;
     }
-    map[key] = cloneValue;
+    map[key] = cloneValue as V;
   });
   return map;
 }
 
 String mapStringValue(Map map, String key, [String defaultValue]) {
   if (map != null) {
-    String value = map[key];
+    String value = map[key]?.toString();
     if (value != null) {
       return value.toString();
     }
