@@ -28,11 +28,23 @@ mixin ModelMixin implements Model {
   }
 
   @override
-  void setEntry(ModelEntry entry) {
+  void setModelEntry(ModelEntry entry) {
     if (!entry.present) {
       _map.remove(entry.key);
     } else {
       _map[entry.key] = entry.value;
+    }
+  }
+
+  @override
+  T getValue<T>(String key) => _map[key] as T;
+
+  @override
+  void setValue<T>(String key, T value, {bool presentIfNull = false}) {
+    if (value == null && (presentIfNull != true)) {
+      _map.remove(key);
+    } else {
+      _map[key] = value;
     }
   }
 

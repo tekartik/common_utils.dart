@@ -4,6 +4,12 @@ import 'package:tekartik_common_utils/model/src/model_list.dart';
 
 /// Model class to use as a [Map<String, dynamic>].
 abstract class Model implements Map<String, dynamic> {
+  /// Get a value expecting a given type
+  T getValue<T>(String key);
+
+  /// Set a value or remove it if [value] is null and [presentIf] is not true
+  void setValue<T>(String key, T value, {bool presentIfNull = false});
+
   /// Create a model. If map is null, the model
   /// is an empty map
   factory Model([Map<dynamic, dynamic> map]) {
@@ -20,7 +26,7 @@ abstract class Model implements Map<String, dynamic> {
   ModelEntry getModelEntry(String key);
 
   /// Set the [entry] in the model
-  void setEntry(ModelEntry entry);
+  void setModelEntry(ModelEntry entry);
 }
 
 /// List class to use as a [List<dynamic>].
