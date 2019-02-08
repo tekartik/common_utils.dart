@@ -320,8 +320,14 @@ List<int> parseHexString(String text) {
   return data;
 }
 
+///
 /// convert [data] to "01A1..."
+/// returns null if data is null
+///
 String toHexString(List<int> data) {
+  if (data == null) {
+    return null;
+  }
   StringBuffer sb = StringBuffer();
   for (int byte in data) {
     sb.write(hexUint8(byte));

@@ -137,6 +137,7 @@ void main() {
     test('toHexString', () {
       expect(toHexString([0x01, 0x83, 0x3d, 0x79]), "01833D79");
       expect(toHexString([]), "");
+      expect(toHexString(null), null);
     });
   });
 }
