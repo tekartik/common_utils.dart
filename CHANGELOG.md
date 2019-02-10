@@ -1,3 +1,7 @@
+# 0.9.3
+
+- add pedantic analysis_options files 
+
 # 0.9.1
 
 - add `Model` and `ModelList`

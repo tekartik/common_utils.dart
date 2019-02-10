@@ -1,5 +1,5 @@
 name: tekartik_common_utils
-version: 0.9.1
+version: 0.9.3
 description: Common  pure dart utilities (not io or browser dependant)
 author: Alexandre Roux Tekartik <alex@tekartik.com>
 homepage: https://github.com/tekartik/common_utils.dart
@@ -10,6 +10,7 @@ dependencies:
   pub_semver: '>=1.4.1'
   synchronized: '>=1.5.0'
   meta: '>=1.1.6'
+  pedantic: '>=1.4.0'
 dev_dependencies:
   dev_test: '>=0.11.0'
   test: '>=1.2.0'

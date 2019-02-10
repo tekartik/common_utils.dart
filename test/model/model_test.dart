@@ -35,6 +35,18 @@ void defineTests() {
       expect(ModelEntry('test', null), isNot(ModelEntry('test', 'a')));
     });
 
+    test('value', () {
+      var model = Model();
+      model.setValue('test', 'text');
+      expect(model.getValue<String>('test'), 'text');
+      model.setValue('test', null);
+      expect(model.getValue<String>('test'), isNull);
+      expect(model.containsKey('test'), isFalse);
+      model.setValue('test', null, presentIfNull: true);
+      expect(model.getValue<String>('test'), isNull);
+      expect(model.containsKey('test'), isTrue);
+    });
+
     test('model', () {
       var model = Model();
       expect(model.getModelEntry('test'), ModelEntry('test', null));
