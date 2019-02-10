@@ -16,6 +16,10 @@ dependencies:
     version: '>=0.9.2+1'
 ```
 
+## Documentation
+
+* [Pedantic](https://github.com/tekartik/common_utils.dart/blob/master/doc/pedantic.md)
+
 ## Testing
 
 Test on all platforms
