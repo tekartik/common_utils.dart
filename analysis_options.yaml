@@ -1,2 +1,2 @@
 # see https://github.com/dart-lang/pedantic#enabled-lints.
-include: package:tekartick_common_utils/pedantic/analysis_options.strong_mode.yaml
+include: lib/pedantic/analysis_options.strong_mode.yaml
