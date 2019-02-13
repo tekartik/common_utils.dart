@@ -11,19 +11,14 @@ class ModelEntryImpl with ModelEntryMixin implements ModelEntry {
       _mapEntry =
           MapEntry<String, dynamic>(mapEntry.key?.toString(), mapEntry.value);
     }
-    present = mapEntry != null;
   }
 
-  ModelEntryImpl(String key, dynamic value, {bool presentIfNull = false}) {
+  ModelEntryImpl(String key, dynamic value) {
     _mapEntry = MapEntry<String, dynamic>(key, value);
-    present = (value != null) || (presentIfNull == true);
   }
 }
 
 mixin ModelEntryMixin implements ModelEntry {
-  @override
-  bool present;
-
   MapEntry<String, dynamic> _mapEntry;
 
   @override
@@ -32,9 +27,7 @@ mixin ModelEntryMixin implements ModelEntry {
   @override
   bool operator ==(other) {
     if (other is ModelEntry) {
-      return key == other.key &&
-          value == other.value &&
-          present == other.present;
+      return key == other.key && value == other.value;
     }
     return false;
   }
@@ -46,5 +39,5 @@ mixin ModelEntryMixin implements ModelEntry {
   dynamic get value => _mapEntry.value;
 
   @override
-  String toString() => "ModelEntry($key: ${present ? value : 'undefined'})";
+  String toString() => "ModelEntry($key: $value'})";
 }

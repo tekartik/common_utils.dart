@@ -26,12 +26,7 @@ void defineTests() {
   group('model', () {
     test('entry', () {
       expect(ModelEntry('test', null), ModelEntry('test', null));
-      expect(ModelEntry('test', null), isNot(ModelEntry.nullEntry('test')));
       expect(ModelEntry('test', null), isNot(ModelEntry('other_test', null)));
-      expect(ModelEntry('test', null),
-          isNot(ModelEntry('test', null, presentIfNull: true)));
-      expect(ModelEntry.nullEntry('test'),
-          ModelEntry('test', null, presentIfNull: true));
       expect(ModelEntry('test', null), isNot(ModelEntry('test', 'a')));
     });
 
@@ -39,6 +34,7 @@ void defineTests() {
       var model = Model();
       model.setValue('test', 'text');
       expect(model.getValue<String>('test'), 'text');
+      expect(model.getModelEntry('test').value, 'text');
       model.setValue('test', null);
       expect(model.getValue<String>('test'), isNull);
       expect(model.containsKey('test'), isFalse);
@@ -49,16 +45,15 @@ void defineTests() {
 
     test('model', () {
       var model = Model();
-      expect(model.getModelEntry('test'), ModelEntry('test', null));
+      expect(model.getModelEntry('test'), isNull);
       model['test'] = null;
       expect(model.getModelEntry('test').value, isNull);
       model['test'] = 'a';
       expect(model.getModelEntry('test').value, 'a');
       model['test'] = null;
-      expect(model.getModelEntry('test'),
-          ModelEntry('test', null, presentIfNull: true));
-      model.remove('test');
       expect(model.getModelEntry('test'), ModelEntry('test', null));
+      model.remove('test');
+      expect(model.getModelEntry('test'), isNull);
 
       model = Model({'test': 'a'});
       expect(model.getModelEntry('test').value, 'a');
@@ -98,8 +93,7 @@ void defineTests() {
           map['test'] = value;
           expect(map['test'], value);
           if (map is Model) {
-            expect(map.getModelEntry('test'),
-                ModelEntry('test', value, presentIfNull: true));
+            expect(map.getModelEntry('test'), ModelEntry('test', value));
           }
         }
       }
@@ -110,7 +104,7 @@ void defineTests() {
         map.remove('test');
         expect(map['test'], isNull);
         if (map is Model) {
-          expect(map.getModelEntry('test'), ModelEntry('test', null));
+          expect(map.getModelEntry('test'), isNull);
         }
       }
     });

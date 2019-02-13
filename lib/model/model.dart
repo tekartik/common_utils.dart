@@ -21,12 +21,8 @@ abstract class Model implements Map<String, dynamic> {
 
   /// Returns the model entry for this key.
   ///
-  /// Returns a [ModelEntry] object telling where the key is present and
-  /// its value
+  /// Returns a [ModelEntry] object or null if the key is not present
   ModelEntry getModelEntry(String key);
-
-  /// Set the [entry] in the model
-  void setModelEntry(ModelEntry entry);
 }
 
 /// List class to use as a [List<dynamic>].
@@ -46,13 +42,9 @@ abstract class ModelList implements List<dynamic> {
 ///
 /// To use a mixin, check [ModelMixin].
 abstract class ModelEntry implements MapEntry<String, dynamic> {
-  factory ModelEntry(String key, dynamic value, {bool presentIfNull = false}) {
-    return ModelEntryImpl(key, value, presentIfNull: presentIfNull);
-  }
-
-  /// Create a null entry
-  factory ModelEntry.nullEntry(String key) {
-    return ModelEntryImpl(key, null, presentIfNull: true);
+  /// Create a model with a given key and value
+  factory ModelEntry(String key, dynamic value) {
+    return ModelEntryImpl(key, value);
   }
 
   /// Create a model. If map is null, the model
@@ -65,7 +57,4 @@ abstract class ModelEntry implements MapEntry<String, dynamic> {
     }
     return ModelEntryImpl.fromMapEntry(mapEntry);
   }
-
-  /// true if contained
-  bool get present;
 }
