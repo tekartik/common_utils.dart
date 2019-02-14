@@ -18,7 +18,11 @@ int hexCharValue(int charCode) {
   return null;
 }
 
+/// Return the hex formated value like A or null
 int hexCodeUint4(int value) {
+  if (value == null) {
+    return null;
+  }
   value = value & 0xF;
   if (value < 10) {
     return _digit0CodeUnit + value;
@@ -35,15 +39,27 @@ int hex2CodeUint8(int value) {
   return hexCodeUint4(value);
 }
 
+/// Return the hex formated value like 1A or null
 String hexUint8(int value) {
+  if (value == null) {
+    return null;
+  }
   return String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
 }
 
+/// Return the hex formated value like 12AB or null
 String hexUint16(int value) {
+  if (value == null) {
+    return null;
+  }
   return hexUint8(value >> 8) + hexUint8(value);
 }
 
+/// Return the hex formated value like 1234ABCD or null
 String hexUint32(int value) {
+  if (value == null) {
+    return null;
+  }
   return hexUint16(value >> 16) + hexUint16(value);
 }
 

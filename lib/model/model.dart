@@ -7,7 +7,8 @@ abstract class Model implements Map<String, dynamic> {
   /// Get a value expecting a given type
   T getValue<T>(String key);
 
-  /// Set a value or remove it if [value] is null and [presentIf] is not true
+  /// Set a value or remove it if [value] is null and [presentIfNull]
+  /// is not true
   void setValue<T>(String key, T value, {bool presentIfNull = false});
 
   /// Create a model. If map is null, the model

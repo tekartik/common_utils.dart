@@ -4,6 +4,7 @@ import 'package:tekartik_common_utils/hex_utils.dart';
 void main() {
   group('hex utils', () {
     test('Uint4', () {
+      expect(hexCodeUint4(null), isNull);
       expect(hexCodeUint4(0), '0'.codeUnitAt(0));
       expect(hexCodeUint4(9), '9'.codeUnitAt(0));
       expect(hexCodeUint4(10), 'A'.codeUnitAt(0));
@@ -12,6 +13,7 @@ void main() {
     });
 
     test('Uint8', () {
+      expect(hexUint8(null), isNull);
       expect(hexUint8(0), '00');
       expect(hexUint8(15), '0F');
       expect(hexUint8(16), '10');
@@ -20,6 +22,7 @@ void main() {
     });
 
     test('Uint16', () {
+      expect(hexUint16(null), isNull);
       expect(hexUint16(0), '0000');
       expect(hexUint16(15), '000F');
       expect(hexUint16(16), '0010');
@@ -31,6 +34,7 @@ void main() {
     });
 
     test('Uint32', () {
+      expect(hexUint32(null), isNull);
       expect(hexUint32(0), '00000000');
       expect(hexUint32(15), '0000000F');
       expect(hexUint32(16), '00000010');
