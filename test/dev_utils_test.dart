@@ -3,7 +3,7 @@ library dev_utils_test;
 import 'package:tekartik_common_utils/dev_utils.dart';
 import 'package:dev_test/test.dart';
 
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
 void main() => defineTests(true);
 
 void defineTests([bool disableOutput = true]) {
@@ -34,6 +34,13 @@ void defineTests([bool disableOutput = true]) {
       if (disableOutput) {
         debugDevPrintEnabled = true;
       }
+    });
+
+    test('devWarning', () {
+      // ignore: unnecessary_statements
+      devWarning;
+      expect(devWarning(true), isTrue);
+      expect(devWarning(3), 3);
     });
 
     test('DevFlag', () {
