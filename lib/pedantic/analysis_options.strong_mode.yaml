@@ -148,5 +148,5 @@ linter:
     - package_names
 
     # Should be in pedantic soon
-    - avoid_shadowing_type_parameters
+    # - avoid_shadowing_type_parameters # NOT READY YET
     - unawaited_futures
