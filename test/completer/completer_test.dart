@@ -6,6 +6,15 @@ class TestException implements Exception {}
 
 void main() {
   group('completer', () {
+    test('mini cancel', () async {
+      var completer = CancellableCompleter(sync: true);
+      // This is needed to prevent a crash in unit test
+      unawaited(completer.future.catchError((_) => null));
+      completer.cancel();
+      try {
+        await completer.future;
+      } on CancelException catch (_) {}
+    });
     Future _testValue([bool sync]) async {
       var completer = CancellableCompleter(value: 1, sync: sync);
       final value = completer.value;
@@ -58,6 +67,7 @@ void main() {
       // Ok to cancel
       completer.cancel();
       expect(completer.isCancelled, isTrue);
+      expect(completer.error, isNull);
 
       try {
         completer.complete();
@@ -82,6 +92,7 @@ void main() {
       expect(identical(value, completer.future), isTrue);
       expect(completer.isCancelled, isFalse);
       expect(completer.isCompleted, isFalse);
+      expect(completer.error, isNull);
       bool completed = false;
       unawaited(completer.future.catchError((_) {
         completed = true;
@@ -91,7 +102,8 @@ void main() {
       expect(completed, sync == true);
       expect(completer.isCancelled, isFalse);
       expect(completer.isCompleted, isTrue);
-      expect(completer.value, isNull);
+      expect(completer.value, const TypeMatcher<Future>());
+      expect(completer.error, const TypeMatcher<TestException>());
       try {
         expect(await completer.future, isNull);
         fail('should fail');
@@ -131,8 +143,8 @@ void main() {
       expect(cancelled, sync == true);
       expect(completer.isCancelled, isTrue);
       expect(completer.isCompleted, isTrue);
+      expect(completer.error, const TypeMatcher<CancelException>());
 
-      expect(completer.value, isNull);
       try {
         expect(await completer.future, isNull);
         fail('should fail');

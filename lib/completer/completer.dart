@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:tekartik_common_utils/model/model.dart';
+
 /// Cancel exception thrown when cancelling a completer
 class CancelException implements Exception {
   final String reason;
@@ -35,8 +37,11 @@ abstract class CancellableCompleter<T> {
   /// true when cancelled
   bool get isCancelled;
 
-  /// Value direct access if completer, future if pending
+  /// Value direct access if completed, future if pending
   FutureOr<T> get value;
+
+  /// The error if any
+  dynamic get error;
 
   // Complete [with an error.
   void completeError(Object error, [StackTrace stackTrace]);
@@ -59,6 +64,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   Completer<T> _completer;
   bool _isCancelled = false;
 
+  dynamic _error;
   T _value;
 
   /// Completes with the supplied values.
@@ -72,10 +78,10 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   @override
   void cancel({String reason}) {
     if (!_isCancelled) {
+      _isCancelled = true;
       if (!isCompleted) {
         completeError(CancelException(reason));
       }
-      _isCancelled = true;
     }
   }
 
@@ -87,27 +93,42 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   @override
   bool get isCancelled => _isCancelled;
 
-  /// Value direct access if completer, future if pending
+  /// Value direct access if successfully completed, future if pending
   @override
   FutureOr<T> get value {
-    if (_completer.isCompleted) {
+    if (isCompleted && _error == null) {
       return _value;
     }
-    return _completer.future;
+    return future;
   }
+
+  /// The error if any
+  dynamic get error => _error;
 
   // Complete [with an error.
   @override
   void completeError(Object error, [StackTrace stackTrace]) {
-    if (!isCancelled) {
-      _completer.completeError(error, stackTrace);
-    }
+    _error = error ?? Exception('error');
+    _completer.completeError(error, stackTrace);
   }
 
   /// The future that is completed by this completer.
   /// error if cancelled or failed
   @override
   Future<T> get future => _completer.future;
+
+  Model toDebugModel() {
+    var model = Model();
+    model['completer'] = identityHashCode(_completer);
+    model.setValue('error', _error);
+    model.setValue('completed', isCompleted);
+    model.setValue('value', isCompleted ? _value : null,
+        presentIfNull: isCompleted);
+    return model;
+  }
+
+  @override
+  String toString() => 'CancellableCompleter(${toDebugModel()})';
 }
 
 class _CancellableCompleter<T> with CancellableCompleterMixin<T> {
