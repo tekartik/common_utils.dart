@@ -1,3 +1,7 @@
+# 0.9.8
+
+- add `CancellableCompleter`
+
 # 0.9.3
 
 - add pedantic analysis_options files 
