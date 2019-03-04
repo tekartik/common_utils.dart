@@ -25,6 +25,9 @@ analyzer:
     missing_return: warning
     # allow having TODOs in the code
     todo: ignore
+    # Ignore errors like
+    # 'super_goes_last' is a deprecated lint rule and should not be used • included_file_warning
+    included_file_warning: ignore
 
 linter:
   rules:
@@ -77,7 +80,8 @@ linter:
     - await_only_futures
     - camel_case_types
     # - cascade_invocations # not yet tested
-    # - constant_identifier_names # https://github.com/dart-lang/linter/issues/204
+    # tekartik re-added
+    - constant_identifier_names # https://github.com/dart-lang/linter/issues/204
     - directives_ordering
     - empty_catches
     - empty_constructor_bodies
@@ -142,3 +146,7 @@ linter:
 
     # === pub rules ===
     - package_names
+
+    # Should be in pedantic soon
+    # - avoid_shadowing_type_parameters # NOT READY YET
+    - unawaited_futures

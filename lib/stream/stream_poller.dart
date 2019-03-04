@@ -1,50 +1,6 @@
 import 'package:tekartik_common_utils/common_utils_import.dart';
 import 'package:tekartik_common_utils/queue/fifo.dart';
 
-/*
-
-class SimSubscription<T> {
-  final int id;
-  final StreamSubscription<T> _firestoreSubscription;
-  final List<T> _list = [];
-
-  void add(T data) {
-    _list.add(data);
-    if (completer != null) {
-      completer.complete();
-    }
-  }
-
-  bool cancelled = false;
-  Completer<T> completer;
-
-  Future<T> get next async {
-    if (cancelled) {
-      return null;
-    }
-    if (_list.isNotEmpty) {
-      var data = _list.first;
-      _list.removeAt(0);
-      return data;
-    }
-    completer = Completer();
-    await completer.future;
-    return await next;
-  }
-
-  SimSubscription(this.id, this._firestoreSubscription);
-
-  // Make sure to cancel the pending completer
-  cancel() {
-    cancelled = true;
-    _firestoreSubscription.cancel();
-    if (!completer.isCompleted) {
-      completer.complete(null);
-    }
-  }
-}
-
- */
 abstract class StreamPollerEvent<T> {
   T get data;
   bool get done;
@@ -91,16 +47,18 @@ class StreamPoller<T> {
   }
 
   Future<StreamPollerEvent<T>> getNext() async {
-    if (_done) {
-      return _StreamPollerNext(done: _done);
-    }
     var next = _events.pop();
     if (next != null) {
       return next;
     }
+    if (_done) {
+      return _StreamPollerNext(done: _done);
+    }
+
     return await _lock.synchronized(() async {
       _completer = Completer.sync();
       await _completer.future;
+    }).then((_) async {
       return await getNext();
     });
   }

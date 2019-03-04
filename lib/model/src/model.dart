@@ -14,26 +14,16 @@ class ModelImpl with MapMixin<String, dynamic>, ModelMixin implements Model {
 mixin ModelMixin implements Model {
   /// slow implementation for null value
   /// could be overriden by implementation
-  ///
-
+  /// Returns null if it does not exists
   @override
   ModelEntry getModelEntry(String key) {
     dynamic value = _map[key];
     if (value == null) {
-      bool present = containsKey(key);
-      return ModelEntryImpl(key, value, presentIfNull: present);
-    } else {
-      return ModelEntryImpl(key, value);
+      if (!containsKey(key)) {
+        return null;
+      }
     }
-  }
-
-  @override
-  void setModelEntry(ModelEntry entry) {
-    if (!entry.present) {
-      _map.remove(entry.key);
-    } else {
-      _map[entry.key] = entry.value;
-    }
+    return ModelEntryImpl(key, value);
   }
 
   @override
