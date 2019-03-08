@@ -4,15 +4,19 @@ import 'dart:math';
 import 'package:tekartik_common_utils/model/model.dart';
 
 // last mixin wins
-class ModelListImpl
-    with ListMixin<dynamic>, ModelListMixin
+class ModelListImpl extends ModelListBase implements ModelList {
+  ModelListImpl(Iterable<dynamic> iterable) : super(iterable);
+}
+
+abstract class ModelListBase
+    with ListMixin<dynamic>, ModelListBaseMixin
     implements ModelList {
-  ModelListImpl(Iterable<dynamic> iterable) {
+  ModelListBase(Iterable<dynamic> iterable) {
     __list = iterable?.cast<dynamic>()?.toList();
   }
 }
 
-mixin ModelListMixin implements List<dynamic> {
+mixin ModelListBaseMixin implements List<dynamic> {
   List<dynamic> __list;
   List<dynamic> get _list => __list ??= <dynamic>[];
 

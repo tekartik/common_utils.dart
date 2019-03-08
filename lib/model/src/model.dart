@@ -5,13 +5,17 @@ import 'package:tekartik_common_utils/model/model.dart';
 import 'package:tekartik_common_utils/model/src/model_entry.dart';
 
 // last mixin win!
-class ModelImpl with MapMixin<String, dynamic>, ModelMixin implements Model {
-  ModelImpl(Map<dynamic, dynamic> map) {
+class ModelImpl extends ModelBase {
+  ModelImpl(Map<dynamic, dynamic> map) : super(map);
+}
+
+abstract class ModelBase with MapMixin<String, dynamic>, ModelBaseMixin {
+  ModelBase(Map<dynamic, dynamic> map) {
     __map = map?.cast<String, dynamic>();
   }
 }
 
-mixin ModelMixin implements Model {
+mixin ModelBaseMixin implements Model {
   /// slow implementation for null value
   /// could be overriden by implementation
   /// Returns null if it does not exists

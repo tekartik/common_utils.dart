@@ -1,3 +1,6 @@
+@deprecated
+library tekartik_common_utils_completer;
+
 import 'dart:async';
 
 import 'package:tekartik_common_utils/model/model.dart';
@@ -103,6 +106,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   }
 
   /// The error if any
+  @override
   dynamic get error => _error;
 
   // Complete [with an error.

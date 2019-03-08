@@ -1,4 +1,5 @@
 import 'package:pedantic/pedantic.dart';
+// ignore: deprecated_member_use_from_same_package
 import 'package:tekartik_common_utils/completer/completer.dart';
 import 'package:test/test.dart';
 
