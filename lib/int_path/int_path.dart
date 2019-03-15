@@ -1,22 +1,32 @@
-import 'dart:math';
-
 import 'package:path/path.dart' as path;
 import 'package:tekartik_common_utils/hex_utils.dart';
 
+// final _max = pow(2, 52).round();
+final intPathMax = 0x000FFFFFFFFFFFFF;
+final intPathMin = -0x000FFFFFFFFFFFFF;
+
 int intShiftRight(int value, int count) {
-  var powValue = pow(2, count).round();
+  if (count == 0) {
+    return value;
+  }
+  var powValue = 2;
+  while (--count > 0) {
+    powValue *= 2;
+  }
+
   int getRemaining(int value) {
     // var shiftValue = pow(2, count) - 1;
     return value ~/ powValue;
   }
+
   if (value < 0) {
-   return -getRemaining(-value);
+    return 0x0010000000000000 - getRemaining(-value);
   } else {
     return getRemaining(value);
-
   }
   // return ((value & 0x000FFFFFFFFFFFFF) >> count);
 }
+
 /// Convert a value to a variable lenght uint8 array, little endian
 List<int> intToInts(int value) {
   if (value == null) {

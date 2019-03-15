@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:path/path.dart';
-import 'package:tekartik_common_utils/env_utils.dart';
 import 'package:tekartik_common_utils/int_path/int_path.dart';
 import 'package:test/test.dart';
 
@@ -10,13 +9,8 @@ void main() {
     test('intShiftRight', () {
       expect(intShiftRight(0x1FF, 8), 1);
       expect(intShiftRight(0x100, 8), 1);
-      if (isRunningAsJavascript) {
-        expect(intShiftRight(-1, 8), 16777215);
-      } else {
-        expect(intShiftRight(-1, 8), 17592186044415);
-      }
-      expect(intShiftRight(-1, 0), 0x000FFFFFFFFFFFFF);
-      expect(intShiftRight(-1, 8), 0x00000FFFFFFFFFFF);
+      expect(intShiftRight(-1, 0), -1);
+      expect(intShiftRight(-1, 8), 0x0010000000000000);
     });
     test('intToPathInts', () {
       expect(intToInts(0), [0]);
@@ -40,33 +34,19 @@ void main() {
       expect(intToFilePath(256), join('Z2', '1', '0'));
       expect(intToFilePath(65535), join('Z2', 'UF', 'UF'));
       expect(intToFilePath(65536), join('Z3', '1', '0', '0'));
-      // expect(intToFilePath(pow(2, 53).toInt() -1),     joinAll(['Z7', 'GF',  'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
-      // expect(intToFilePath(pow(2, 53).toInt() - 1),          joinAll(['Z7', 'GF', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
+      expect(intToFilePath(pow(2, 52).toInt() - 1),
+          joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
 
-//       expect(intToFilePath(0x000FFFFFFFFFFFFF),          joinAll(['Z4', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
+      expect(intToFilePath(intPathMax),
+          joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
+      expect(intToFilePath(intPathMin),
+          joinAll(['Z8', 'F', 'U0', '0', '0', '0', '0', '1', '1']));
+      expect(intToFilePath(-1),
+          joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UF']));
+      expect(intToFilePath(-2),
+          joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UE']));
       expect(intToFilePath(pow(2, 51).toInt() - 1),
           joinAll(['Z7', '7', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
-      if (!isRunningAsJavascript) {
-        expect(intToFilePath(pow(2, 52).toInt() - 1),
-            joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
-
-
-        expect(intToFilePath(-1),
-            joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
-        expect(intToFilePath(-2),
-            joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UE']));
-      } else {
-        expect(intToFilePath(pow(2, 52).toInt() - 1),
-            joinAll(['Z4', 'UF', 'UF', 'UF', 'UF']));
-
-        try {
-          expect(intToFilePath(pow(2, 53).toInt() - 1),
-              joinAll(['Z7', 'H0', '0', '0', '0', '0', '0', '0']));
-        } on Exception catch (e) {
-          print(e);
-        }
-      }
     });
-
   });
 }

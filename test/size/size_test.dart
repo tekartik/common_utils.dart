@@ -19,8 +19,10 @@ void main() {
     });
     test('sizeIntContainedWithRatio', () {
       expect(sizeIntContainedWithRatio(const Size(1, 2), 1), const Size(1, 1));
-      expect(sizeIntContainedWithRatio(const Size(3, 3), 1.5), const Size(3, 2));
-      expect(sizeIntContainedWithRatio(const Size(3, 3), 0.7), const Size(2, 3));
+      expect(
+          sizeIntContainedWithRatio(const Size(3, 3), 1.5), const Size(3, 2));
+      expect(
+          sizeIntContainedWithRatio(const Size(3, 3), 0.7), const Size(2, 3));
     });
   });
 }
