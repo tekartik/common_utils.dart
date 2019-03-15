@@ -1,3 +1,7 @@
+# 0.9.10
+
+- add `int_path` utilities to convert an int to a file path
+
 # 0.9.8
 
 - add `CancellableCompleter`
