@@ -1,6 +1,22 @@
+import 'dart:math';
+
 import 'package:path/path.dart' as path;
 import 'package:tekartik_common_utils/hex_utils.dart';
 
+int intShiftRight(int value, int count) {
+  var powValue = pow(2, count).round();
+  int getRemaining(int value) {
+    // var shiftValue = pow(2, count) - 1;
+    return value ~/ powValue;
+  }
+  if (value < 0) {
+   return -getRemaining(-value);
+  } else {
+    return getRemaining(value);
+
+  }
+  // return ((value & 0x000FFFFFFFFFFFFF) >> count);
+}
 /// Convert a value to a variable lenght uint8 array, little endian
 List<int> intToInts(int value) {
   if (value == null) {
@@ -10,7 +26,11 @@ List<int> intToInts(int value) {
   List<int> next(int value) {
     if ((value & 0xFF) != value) {
       var part = value & 0xFF;
-      value = ((value >> 8) & 0x00FFFFFFFFFFFFFF);
+      // This does not compile on js
+      // value = ((value >> 8) & 0x00FFFFFFFFFFFFFF);
+      // This compile, limited to 2^52
+      value = intShiftRight(value, 8);
+
       var parts = next(value)..add(part);
       return parts;
     } else {
