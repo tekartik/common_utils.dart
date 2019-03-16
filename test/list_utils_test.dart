@@ -78,6 +78,15 @@ void main() {
       expect(listSubList([1, 2], 1, 1), []);
     });
 
+    test('asList', () {
+      expect(asList(null), isNull);
+      expect(asList([]), []);
+      expect(asList({}), isNull);
+      expect(asList(1), isNull);
+      expect(asList([1]), [1]);
+      expect(asList<String>([1]), isNull);
+    });
+
     test('equals', () {
       expect(cloneList([]), []);
       expect(identical(cloneList([]), []), isFalse);

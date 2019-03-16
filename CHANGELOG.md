@@ -1,6 +1,7 @@
 # 0.10.0
 
 - export `pedantic` and `meta` in `common_utils_import.dart`
+- add `asMap` and `asList` for easy casting
 
 # 0.9.10
 

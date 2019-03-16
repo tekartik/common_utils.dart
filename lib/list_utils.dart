@@ -14,6 +14,19 @@ int listLength(Iterable list) {
   return list?.length ?? 0;
 }
 
+/// Safe way to get a list, never fails
+List<T> asList<T>(dynamic value) {
+  if (value is List<T>) {
+    return value;
+  }
+  if (value is Iterable) {
+    try {
+      return value.cast<T>().toList(growable: false);
+    } catch (_) {}
+  }
+  return null;
+}
+
 @Deprecated("use listIsEmpty")
 bool isEmpty(Iterable list) => listIsEmpty(list);
 
