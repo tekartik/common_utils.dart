@@ -105,5 +105,33 @@ void main() {
       expect(identical(listFrom[2], list1[2]), isTrue);
       expect(identical(list2[2], list1[2]), isFalse);
     });
+
+    test('chunk', () {
+      expect(listChunk(null, null), []);
+      expect(listChunk([], null), []);
+      expect(listChunk([1], null), [
+        [1]
+      ]);
+      expect(listChunk([1], 0), [
+        [1]
+      ]);
+      expect(listChunk([1, 2], 0), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 2), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 3), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 1), [
+        [1],
+        [2]
+      ]);
+      expect(listChunk([1, 2, 3], 2), [
+        [1, 2],
+        [3]
+      ]);
+    });
   });
 }

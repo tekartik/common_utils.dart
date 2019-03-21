@@ -88,3 +88,21 @@ List intersectList(List original1, List original2) {
 
   return list;
 }
+
+/// Split a list in sub list with a maximum size.
+///
+/// Never returns list. if list is null, returns an empty list.
+/// If [chunkSize] is null or 0, returns all in one list;
+List<List<T>> listChunk<T>(List<T> list, int chunkSize) {
+  var chunks = <List<T>>[];
+  int len = list?.length ?? 0;
+  if ((chunkSize ?? 0) == 0) {
+    chunkSize = len;
+  }
+  for (var i = 0; i < len; i += chunkSize) {
+    int size = i + chunkSize;
+    chunks.add(list.sublist(i, size > len ? len : size));
+  }
+
+  return chunks;
+}
