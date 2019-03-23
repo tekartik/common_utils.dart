@@ -7,6 +7,24 @@ typedef Future<void> AsyncVoidCallBack();
 
 void main() {
   group('Subject', () {
+    test('null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+      scheduleMicrotask(() {
+        subject.close();
+      });
+      await expectLater(subject.stream, neverEmits(null));
+    });
+
+    test('seeded null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>.seeded();
+      scheduleMicrotask(() {
+        subject.close();
+      });
+      await expectLater(subject.stream, emits(null));
+    });
+
     test('emits the most recently emitted item to every subscriber', () async {
       // ignore: close_sinks
       final subject = Subject<int>();

@@ -9,6 +9,8 @@ class Subject<T> extends Stream<T>
   final StreamController<T> _controller;
   final bool _sync;
 
+  /// _seeded is set to true if needed when a value is added
+  bool _seeded;
   @override
   T get value => _value;
   T _value;
@@ -19,11 +21,31 @@ class Subject<T> extends Stream<T>
 
   bool _addStreamActive = false;
 
-  Subject({T value, void onListen(), void onCancel(), bool sync})
+  /// Seed value even if null
+  Subject.seeded({T value, void onListen(), void onCancel(), bool sync})
+      : this._(
+            value: value,
+            seeded: true,
+            onListen: onListen,
+            onCancel: onCancel,
+            sync: sync);
+
+  // Value is seeded if non null
+  Subject._({T value, bool seeded, void onListen(), void onCancel(), bool sync})
       : this._value = value,
+        this._seeded = seeded,
         this._sync = sync == true,
         this._controller = StreamController<T>.broadcast(
             onListen: onListen, onCancel: onCancel, sync: true);
+
+  // Value is seeded if non null
+  Subject({T value, void onListen(), void onCancel(), bool sync})
+      : this._(
+            value: value,
+            seeded: value != null,
+            onListen: onListen,
+            onCancel: onCancel,
+            sync: sync);
 
   @override
   bool get isClosed => _controller.isClosed;
@@ -38,6 +60,7 @@ class Subject<T> extends Stream<T>
 
   void _add(T data) {
     _error = null;
+    _seeded = true;
     if (data != value) {
       _value = data;
       _controller.add(data);
@@ -96,7 +119,9 @@ class Subject<T> extends Stream<T>
     if (_error != null) {
       _subscriptionController.addError(_error, stackTrace);
     } else {
-      _subscriptionController.add(value);
+      if (_seeded) {
+        _subscriptionController.add(value);
+      }
     }
     return subscription;
   }
