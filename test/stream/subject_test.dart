@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:test/test.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:tekartik_common_utils/stream_utils.dart';
+import 'package:test/test.dart';
 
 typedef Future<void> AsyncVoidCallBack();
 
@@ -20,9 +21,8 @@ void main() {
       // ignore: close_sinks
       final subject = Subject<int>();
       subject.add(null);
-      scheduleMicrotask(() {
-        subject.close();
-      });
+      unawaited(subject.close());
+
       await expectLater(subject.stream, emits(null));
     });
 
@@ -32,9 +32,7 @@ void main() {
 
       scheduleMicrotask(() {
         subject.add(null);
-        scheduleMicrotask(() {
-          subject.close();
-        });
+        subject.close();
       });
       await expectLater(subject.stream, emits(null));
     });
@@ -42,9 +40,8 @@ void main() {
     test('seeded null', () async {
       // ignore: close_sinks
       final subject = Subject<int>.seeded();
-      scheduleMicrotask(() {
-        subject.close();
-      });
+      unawaited(subject.close());
+
       await expectLater(subject.stream, emits(null));
     });
 
