@@ -16,6 +16,29 @@ void main() {
       await expectLater(subject.stream, neverEmits(null));
     });
 
+    test('null add null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+      subject.add(null);
+      scheduleMicrotask(() {
+        subject.close();
+      });
+      await expectLater(subject.stream, emits(null));
+    });
+
+    test('null add null later', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+
+      scheduleMicrotask(() {
+        subject.add(null);
+        scheduleMicrotask(() {
+          subject.close();
+        });
+      });
+      await expectLater(subject.stream, emits(null));
+    });
+
     test('seeded null', () async {
       // ignore: close_sinks
       final subject = Subject<int>.seeded();

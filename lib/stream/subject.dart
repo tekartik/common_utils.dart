@@ -61,10 +61,8 @@ class Subject<T> extends Stream<T>
   void _add(T data) {
     _error = null;
     _seeded = true;
-    if (data != value) {
-      _value = data;
-      _controller.add(data);
-    }
+    _value = data;
+    _controller.add(data);
   }
 
   @override
