@@ -104,5 +104,12 @@ void defineTests() {
         }
       }
     });
+
+    test('asModel', () {
+      expect(asModel(null), null);
+      expect(asModel({}), {});
+      expect(asModel({'test': 1}), {'test': 1});
+      expect(asModel({}), const TypeMatcher<Model>());
+    });
   });
 }
