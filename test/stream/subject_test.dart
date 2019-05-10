@@ -1,12 +1,50 @@
 import 'dart:async';
 
-import 'package:test/test.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:tekartik_common_utils/stream_utils.dart';
+import 'package:test/test.dart';
 
 typedef Future<void> AsyncVoidCallBack();
 
 void main() {
   group('Subject', () {
+    test('null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+      scheduleMicrotask(() {
+        subject.close();
+      });
+      await expectLater(subject.stream, neverEmits(null));
+    });
+
+    test('null add null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+      subject.add(null);
+      unawaited(subject.close());
+
+      await expectLater(subject.stream, emits(null));
+    });
+
+    test('null add null later', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>();
+
+      scheduleMicrotask(() {
+        subject.add(null);
+        subject.close();
+      });
+      await expectLater(subject.stream, emits(null));
+    });
+
+    test('seeded null', () async {
+      // ignore: close_sinks
+      final subject = Subject<int>.seeded();
+      unawaited(subject.close());
+
+      await expectLater(subject.stream, emits(null));
+    });
+
     test('emits the most recently emitted item to every subscriber', () async {
       // ignore: close_sinks
       final subject = Subject<int>();

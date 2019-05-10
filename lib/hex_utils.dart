@@ -31,12 +31,33 @@ int hexCodeUint4(int value) {
   }
 }
 
+/// Return the hex formated value like A or null
+int lohexCodeUint4(int value) {
+  if (value == null) {
+    return null;
+  }
+  value = value & 0xF;
+  if (value < 10) {
+    return _digit0CodeUnit + value;
+  } else {
+    return _lowerACodeUnit + value - 10;
+  }
+}
+
 int hex1CodeUint8(int value) {
   return hexCodeUint4((value & 0xF0) >> 4);
 }
 
+int lohex1CodeUint8(int value) {
+  return lohexCodeUint4((value & 0xF0) >> 4);
+}
+
 int hex2CodeUint8(int value) {
   return hexCodeUint4(value);
+}
+
+int lohex2CodeUint8(int value) {
+  return lohexCodeUint4(value);
 }
 
 /// Return the hex formated value like 1A or null
@@ -45,6 +66,14 @@ String hexUint8(int value) {
     return null;
   }
   return String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
+}
+
+/// Return the hex formated value like 1A or null
+String lohexUint8(int value) {
+  if (value == null) {
+    return null;
+  }
+  return String.fromCharCodes([lohex1CodeUint8(value), lohex2CodeUint8(value)]);
 }
 
 /// Return the hex formated value like 12AB or null
@@ -347,6 +376,21 @@ String toHexString(List<int> data) {
   StringBuffer sb = StringBuffer();
   for (int byte in data) {
     sb.write(hexUint8(byte));
+  }
+  return sb.toString();
+}
+
+///
+/// convert [data] to "01a1..."
+/// returns null if data is null
+///
+String toLohexString(List<int> data) {
+  if (data == null) {
+    return null;
+  }
+  StringBuffer sb = StringBuffer();
+  for (int byte in data) {
+    sb.write(lohexUint8(byte));
   }
   return sb.toString();
 }

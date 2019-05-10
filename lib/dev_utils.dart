@@ -14,6 +14,7 @@ bool _devPrintEnabled = true;
 @deprecated
 set devPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
+/// Deprecated to prevent keeping the code used.
 @deprecated
 void devPrint(Object object) {
   if (_devPrintEnabled) {

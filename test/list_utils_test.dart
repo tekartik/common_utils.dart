@@ -78,6 +78,15 @@ void main() {
       expect(listSubList([1, 2], 1, 1), []);
     });
 
+    test('asList', () {
+      expect(asList(null), isNull);
+      expect(asList([]), []);
+      expect(asList({}), isNull);
+      expect(asList(1), isNull);
+      expect(asList([1]), [1]);
+      expect(asList<String>([1]), isNull);
+    });
+
     test('equals', () {
       expect(cloneList([]), []);
       expect(identical(cloneList([]), []), isFalse);
@@ -95,6 +104,34 @@ void main() {
       expect(identical(list2[1], list1[1]), isFalse);
       expect(identical(listFrom[2], list1[2]), isTrue);
       expect(identical(list2[2], list1[2]), isFalse);
+    });
+
+    test('chunk', () {
+      expect(listChunk(null, null), []);
+      expect(listChunk([], null), []);
+      expect(listChunk([1], null), [
+        [1]
+      ]);
+      expect(listChunk([1], 0), [
+        [1]
+      ]);
+      expect(listChunk([1, 2], 0), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 2), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 3), [
+        [1, 2]
+      ]);
+      expect(listChunk([1, 2], 1), [
+        [1],
+        [2]
+      ]);
+      expect(listChunk([1, 2, 3], 2), [
+        [1, 2],
+        [3]
+      ]);
     });
   });
 }

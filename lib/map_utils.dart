@@ -53,6 +53,19 @@ int mapIntValue(Map map, String key, [int defaultValue]) {
   return defaultValue;
 }
 
+/// Safe way to get a map, never fails
+Map<K, V> asMap<K, V>(dynamic value) {
+  if (value is Map<K, V>) {
+    return value;
+  }
+  if (value is Map) {
+    try {
+      return value.cast<K, V>();
+    } catch (_) {}
+  }
+  return null;
+}
+
 //bool mapBoolValue(Map map, String key, [bool defaultValue = false]) {
 //  if (map != null) {
 //    var value = map[key];

@@ -1,3 +1,17 @@
+# 0.10.1
+
+- add `listChunk` list utility
+
+# 0.10.0
+
+- export `pedantic` and `meta` in `common_utils_import.dart`
+- add `asMap` and `asList` for easy casting
+
+# 0.9.10
+
+- add `int_path` utilities to convert an int to a file path
+- add `size` support
+
 # 0.9.8
 
 - add `CancellableCompleter`

@@ -1,17 +1,29 @@
 import 'package:tekartik_common_utils/model/model.dart';
-//import 'package:tekartik_common_utils/model/src/model.dart';
-//import 'package:tekartik_common_utils/model/src/model_entry.dart';
-//import 'package:tekartik_common_utils/model/src/model_list.dart';
+import 'package:tekartik_common_utils/model/src/model.dart';
+import 'package:tekartik_common_utils/model/src/model_entry.dart';
+import 'package:tekartik_common_utils/model/src/model_list.dart';
 import 'package:test/test.dart';
 
 void main() => defineTests();
 
+class BaseModel
+    with
+// to comment/uncomment for progressing implementation
+//      MapMixin<String, dynamic>,
+// up to here
+        ModelBaseMixin {}
+
+class BaseModelEntry with ModelEntryMixin {}
+
+class BaseModelList
+    with
+// to comment/uncomment for progressing implementation
+//      ListMixin<dynamic>,
+// up to here
+        ModelListBaseMixin {}
+
 class MyModel extends ModelBase {
   MyModel([Map map]) : super(map);
-}
-
-class MyModelList extends ModelListBase {
-  MyModelList([Iterable list]) : super(list);
 }
 
 void defineTests() {
@@ -57,7 +69,7 @@ void defineTests() {
       var list = ModelList();
       var modelList1 = ModelList();
       var modelList2 = ModelList([]);
-      var baseModelList = MyModelList();
+      var baseModelList = BaseModelList();
 
       var lists = <List>[list, modelList1, modelList2, baseModelList];
       // expect(model.getEntry('test'), ModelEntry('test', null));
@@ -70,14 +82,12 @@ void defineTests() {
 
       _test(null);
       _test('a');
-      _test([]);
-      _test({});
     });
 
-    test('model_base', () {
+    test('mixin', () {
       var map = {};
       var model1 = Model();
-      var baseModel = MyModel();
+      var baseModel = BaseModel();
       var model2 = Model({});
 
       var maps = [map, model1, baseModel, model2];
@@ -94,8 +104,6 @@ void defineTests() {
 
       _test(null);
       _test('a');
-      _test([]);
-      _test({});
       for (var map in maps) {
         map.remove('test');
         expect(map['test'], isNull);
@@ -103,13 +111,6 @@ void defineTests() {
           expect(map.getModelEntry('test'), isNull);
         }
       }
-    });
-
-    test('asModel', () {
-      expect(asModel(null), null);
-      expect(asModel({}), {});
-      expect(asModel({'test': 1}), {'test': 1});
-      expect(asModel({}), const TypeMatcher<Model>());
     });
   });
 }

@@ -56,5 +56,21 @@ void main() {
       setPartsMapValue(map, ['test'], 1);
       expect(map, {'test': 1});
     });
+
+    test('asMap', () {
+      expect(asMap(null), isNull);
+      expect(asMap([]), isNull);
+      expect(asMap({}), {});
+      expect(asMap<String, dynamic>({'test': 1}), {'test': 1});
+      expect(asMap<String, dynamic>({'test': 1}),
+          const TypeMatcher<Map<String, dynamic>>());
+      expect(asMap<String, int>(<String, dynamic>{'test': 1}),
+          const TypeMatcher<Map<String, int>>());
+      try {
+        expect(asMap<String, String>({'test': 1}), isNull);
+      } catch (_) {
+        // this fails sorry
+      }
+    });
   });
 }

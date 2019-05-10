@@ -143,5 +143,11 @@ void main() {
       expect(toHexString([]), "");
       expect(toHexString(null), null);
     });
+
+    test('toLohexString', () {
+      expect(toLohexString([0x01, 0x83, 0x3d, 0x79]), "01833d79");
+      expect(toLohexString([]), "");
+      expect(toLohexString(null), null);
+    });
   });
 }
