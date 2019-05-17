@@ -1,3 +1,7 @@
+# 0.10.4
+
+- more `size` support
+
 # 0.10.1
 
 - add `listChunk` list utility
