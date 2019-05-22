@@ -1,3 +1,7 @@
+# 0.10.5
+
+- add `stringSubString`,`stringIsNotEmpty`, `stringTruncate`
+
 # 0.10.4
 
 - more `size` support
