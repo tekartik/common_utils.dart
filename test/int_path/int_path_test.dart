@@ -32,8 +32,16 @@ void main() {
       expect(intToFilePath(16), 'G0');
       expect(intToFilePath(255), 'UF');
       expect(intToFilePath(256), join('Z2', '1', '0'));
+      expect(intToFilePath(257), join('Z2', '1', '1'));
       expect(intToFilePath(65535), join('Z2', 'UF', 'UF'));
       expect(intToFilePath(65536), join('Z3', '1', '0', '0'));
+      expect(intToFilePath(65537), join('Z3', '1', '0', '1'));
+      expect(intToFilePath(65536 * 256 - 1), join('Z3', 'UF', 'UF', 'UF'));
+      expect(intToFilePath(65536 * 256), join('Z4', '1', '0', '0', '0'));
+      expect(65536 * 256, 16777216);
+      expect(65536 * 65536, 4294967296);
+      expect(intToFilePath(4294967295), join('Z4', 'UF', 'UF', 'UF', 'UF'));
+      expect(intToFilePath(4294967296), join('Z5', '1', '0', '0', '0', '0'));
       expect(intToFilePath(pow(2, 52).toInt() - 1),
           joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
 
