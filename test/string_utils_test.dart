@@ -26,16 +26,49 @@ void main() {
     expect(stru.parseBool('', true), true);
   });
 
-  test('isEmpty', () {
+  test('is(Note)Empty', () {
     expect(stringIsEmpty("456"), isFalse);
     expect(stringIsEmpty(null), isTrue);
     expect(stringIsEmpty(""), isTrue);
     expect(stringIsEmpty(" "), isFalse);
+    expect(stringIsNotEmpty("456"), isTrue);
+    expect(stringIsNotEmpty(null), isFalse);
+    expect(stringIsNotEmpty(""), isFalse);
+    expect(stringIsNotEmpty(" "), isTrue);
+  });
+
+  test('stringTruncate', () {
+    expect(stringTruncate(null, 0), isNull);
+    expect(stringTruncate(null, 1), isNull);
+    expect(stringTruncate('test', 1), 't');
+    expect(stringTruncate('test', 5), 'test');
+  });
+
+  test('stringSubString', () {
+    expect(stringSubString(null, 0), isNull);
+    expect(stringSubString(null, 1), isNull);
+
+    expect(stringSubString('', 0), '');
+    expect(stringSubString('', -1), '');
+    expect(stringSubString('', 1), '');
+    expect(stringSubString('1', 1), '');
+    expect(stringSubString('1', 2), '');
+    expect(stringSubString('1', 0), '1');
+    expect(stringSubString('1', -1), '1');
+    expect(stringSubString('12', -1), '12');
+    expect(stringSubString('12', 0), '12');
+    expect(stringSubString('12', 1), '2');
+    expect(stringSubString('12', 2), '');
+    expect(stringSubString('12', 3), '');
+    expect(stringSubString('12', 1, 3), '2');
+    expect(stringSubString('12', 1, 2), '2');
+    expect(stringSubString('12', 1, 1), '');
+    expect(stringSubString('12', 1, -1), '');
   });
 
   test('prefill', () {
-    expect(stru.prefilled("456", 6, ' '), '   456');
-    expect(stru.prefilled("456", 5, '000'), '000456');
+    expect(stru.stringPrefilled("456", 6, ' '), '   456');
+    expect(stru.stringPrefilled("456", 5, '000'), '000456');
   });
 
   test('nonNull', () {

@@ -1,5 +1,6 @@
 export 'dart:math' show Point;
 
+/// Generic 2D value
 abstract class D2<T extends num> {
   final T x;
   final T y;
@@ -9,7 +10,7 @@ abstract class D2<T extends num> {
 
   @override
   bool operator ==(other) {
-    if (other is D2) {
+    if (other is D2<T>) {
       return (other.x == x && other.y == y);
     }
     return false;
@@ -24,6 +25,7 @@ abstract class D2<T extends num> {
   String toString() => '${x}x$y';
 }
 
+/// Generic point definition
 class Point<T extends num> extends D2<T> {
   const Point(T x, T y) : super(x, y);
 
@@ -32,23 +34,57 @@ class Point<T extends num> extends D2<T> {
 
   @override
   bool operator ==(other) {
-    return other is Point && super == (other);
+    return other is Point<T> && super == (other);
   }
 }
 
+/// A rectangle has a top left point and a size
 class Rect<T extends num> {
+  /// top left point
   final Point<T> point;
+
+  /// Rectangle size
   final Size<T> size;
 
-  Rect(this.point, this.size);
+  /// Create a rectangle with a given point and size
+  const Rect(this.point, this.size);
+
+  /// left
+  T get left => point.x;
+
+  /// right
+  T get right => point.x + size.width;
+
+  /// top
+  T get top => point.y;
+
+  /// bottom
+  T get bottom => point.y + size.height;
+
+  /// width
+  T get width => size.width;
+
+  /// height
+  T get height => size.height;
+
+  @override
+  int get hashCode => ((point?.hashCode ?? 0) << 16) | (size.hashCode ?? 0);
+
+  @override
+  bool operator ==(other) {
+    return other is Rect && point == other.point && size == other.size;
+  }
+
   @override
   String toString() {
     return '$point ($size)';
   }
 }
 
+/// Generic size
 class Size<T extends num> extends D2<T> {
   T get width => x;
+
   T get height => y;
 
   bool get isAnyEmpty => x == 0 || y == 0;
@@ -56,16 +92,18 @@ class Size<T extends num> extends D2<T> {
   bool get isEmpty => x == 0 && y == 0;
 
   const Size(T width, T height) : super(width, height);
+
   // const Size.empty() : super(0, 0);
   @override
   int get hashCode => super.hashCode;
 
   @override
   bool operator ==(other) {
-    return other is Size && super == (other);
+    return other is Size<T> && super == (other);
   }
 
   bool get isLandscape => width > height;
+
   bool get isPortrait => !isLandscape;
 }
 

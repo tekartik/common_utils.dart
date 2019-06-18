@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'map_utils.dart';
 
 T first<T>(Iterable<T> list) => listFirst(list);
@@ -30,7 +32,11 @@ List<T> asList<T>(dynamic value) {
 @Deprecated("use listIsEmpty")
 bool isEmpty(Iterable list) => listIsEmpty(list);
 
+/// True if list is null or empty
 bool listIsEmpty(Iterable list) => listLength(list) == 0;
+
+/// True if list is not null and not
+bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
 
 @Deprecated("use listTruncate")
 List<T> truncate<T>(List<T> list, int maxCount) => listTruncate(list, maxCount);
@@ -44,19 +50,20 @@ int _listSafeStartOrEnd(List list, int index) {
   return index;
 }
 
-// Safe sub list sub list
+/// Safe sub list sub list
 List<T> listSubList<T>(List<T> list, int start, [int end]) {
   if (listIsEmpty(list)) {
     return list;
   }
   start = _listSafeStartOrEnd(list, start);
   if (end != null) {
-    end = _listSafeStartOrEnd(list, end);
+    end = max(_listSafeStartOrEnd(list, end), start);
   }
   return list.sublist(start, end);
 }
 
-List<T> listTruncate<T>(List<T> list, int end) => listSubList(list, 0, end);
+/// Truncate at max element.
+List<T> listTruncate<T>(List<T> list, int len) => listSubList(list, 0, len);
 
 /// Clone list and list of list
 List cloneList(List original) {

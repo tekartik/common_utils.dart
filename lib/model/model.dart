@@ -4,7 +4,7 @@ import 'package:tekartik_common_utils/model/src/model_list.dart';
 export 'package:tekartik_common_utils/model/src/model.dart'
     show ModelBase, asModel;
 export 'package:tekartik_common_utils/model/src/model_list.dart'
-    show ModelListBase;
+    show ModelListBase, asModelList;
 
 /// Model class to use as a [Map<String, dynamic>].
 abstract class Model implements Map<String, dynamic> {
@@ -31,7 +31,7 @@ abstract class Model implements Map<String, dynamic> {
 }
 
 /// List class to use as a [List<dynamic>].
-abstract class ModelList implements List<dynamic> {
+abstract class ModelList implements List<Model> {
   /// Create a model. If list is null, the model
   /// is an empty list
 

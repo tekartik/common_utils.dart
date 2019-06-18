@@ -76,6 +76,7 @@ void main() {
       expect(listSubList([1, 2], 1, 3), [2]);
       expect(listSubList([1, 2], 1, 2), [2]);
       expect(listSubList([1, 2], 1, 1), []);
+      expect(listSubList([1, 2], 1, -1), []);
     });
 
     test('asList', () {

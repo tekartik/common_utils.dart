@@ -71,17 +71,17 @@ void defineTests() {
       var modelList2 = ModelList([]);
       var baseModelList = BaseModelList();
 
-      var lists = <List>[list, modelList1, modelList2, baseModelList];
+      var lists = <ModelList>[list, modelList1, modelList2, baseModelList];
       // expect(model.getEntry('test'), ModelEntry('test', null));
-      void _test(dynamic value) {
+      void _test(Map value) {
         for (var list in lists) {
-          list.add(value);
+          list.add(asModel(value));
           expect(list.last, value);
         }
       }
 
       _test(null);
-      _test('a');
+      _test({'a': 1});
     });
 
     test('mixin', () {

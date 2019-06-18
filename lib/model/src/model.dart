@@ -16,7 +16,7 @@ abstract class ModelBase with MapMixin<String, dynamic>, ModelBaseMixin {
 }
 
 /// Only create the model if non null
-Model asModel(Map map) => map != null ? Model(map) : null;
+Model asModel(dynamic map) => map is Map ? Model(map) : null;
 
 mixin ModelBaseMixin implements Model {
   /// slow implementation for null value

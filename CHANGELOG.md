@@ -1,3 +1,15 @@
+# 0.10.6
+
+- add `pack` utils to pack list of map in column rows
+
+# 0.10.5
+
+- add `stringSubString`,`stringIsNotEmpty`, `stringTruncate`
+
+# 0.10.4
+
+- more `size` support
+
 # 0.10.1
 
 - add `listChunk` list utility
