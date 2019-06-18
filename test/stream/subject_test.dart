@@ -4,7 +4,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:tekartik_common_utils/stream_utils.dart';
 import 'package:test/test.dart';
 
-typedef Future<void> AsyncVoidCallBack();
+typedef AsyncVoidCallBack = Future<void> Function();
 
 void main() {
   group('Subject', () {

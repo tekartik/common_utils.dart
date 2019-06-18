@@ -1,7 +1,4 @@
 import 'package:tekartik_common_utils/model/model.dart';
-//import 'package:tekartik_common_utils/model/src/model.dart';
-//import 'package:tekartik_common_utils/model/src/model_entry.dart';
-//import 'package:tekartik_common_utils/model/src/model_list.dart';
 import 'package:test/test.dart';
 
 void main() => defineTests();
@@ -61,17 +58,18 @@ void defineTests() {
 
       var lists = <List>[list, modelList1, modelList2, baseModelList];
       // expect(model.getEntry('test'), ModelEntry('test', null));
-      void _test(dynamic value) {
+      void _test(Map value) {
         for (var list in lists) {
-          list.add(value);
+          list.add(asModel(value));
           expect(list.last, value);
         }
       }
 
       _test(null);
-      _test('a');
-      _test([]);
       _test({});
+
+      list = ModelList();
+      list.add(Model({'a': 1}));
     });
 
     test('model_base', () {

@@ -44,7 +44,7 @@ void main() {
       var ctlr = StreamController<bool>();
       var poller = StreamPoller<bool>(ctlr.stream);
       try {
-        await poller.getNext().timeout(Duration());
+        await poller.getNext().timeout(const Duration());
         fail('should fail');
       } on TimeoutException catch (_) {}
       var future = poller.cancel();

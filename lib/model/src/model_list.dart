@@ -9,50 +9,58 @@ class ModelListImpl extends ModelListBase implements ModelList {
 }
 
 abstract class ModelListBase
-    with ListMixin<dynamic>, ModelListBaseMixin
+    with ListMixin<Model>, ModelListBaseMixin
     implements ModelList {
   ModelListBase(Iterable<dynamic> iterable) {
-    __list = iterable?.cast<dynamic>()?.toList();
+    _list = iterable?.cast<Map<String, dynamic>>()?.toList() ??
+        <Map<String, dynamic>>[];
   }
 }
 
-mixin ModelListBaseMixin implements List<dynamic> {
-  List<dynamic> __list;
-  List<dynamic> get _list => __list ??= <dynamic>[];
+/// Only create the model if non null
+ModelList asModelList(dynamic list) =>
+    list is Iterable ? ModelList(list) : null;
+
+mixin ModelListBaseMixin implements List<Model> {
+  // Never null
+  List<Map<String, dynamic>> _list;
 
   @override
-  dynamic get first => _list.first;
+  Model get first => asModel(_list.first);
   @override
-  set first(dynamic first) => __list.first = first;
+  set first(Model first) => _list.first = first;
 
   @override
-  dynamic get last => _list.last;
+  Model get last => asModel(_list.last);
+
   @override
-  set last(dynamic last) => __list.last = last;
+  set last(Model last) => _list.last = last;
 
   @override
   int get length => _list.length;
 
   @override
-  List<dynamic> operator +(List<dynamic> other) => _list + other;
+  List<Model> operator +(List<Model> other) => asModelList(_list + other);
 
   @override
-  dynamic operator [](int index) => _list[index];
+  Model operator [](int index) => asModel(_list[index]);
 
   @override
-  void operator []=(int index, value) => _list[index] = value;
+  void operator []=(int index, Model value) => _list[index] = value;
 
   @override
-  void add(value) => _list.add(value);
+  void add(Model value) => _list.add(value);
 
   @override
-  void addAll(Iterable iterable) => _list.addAll(iterable);
+  void addAll(Iterable<Model> iterable) => _list.addAll(iterable);
 
   @override
-  bool any(bool Function(dynamic element) test) => _list.any(test);
+  bool any(bool Function(Model element) test) =>
+      _list.any((item) => test(asModel(item)));
 
   @override
-  Map<int, dynamic> asMap() => _list.asMap();
+  Map<int, Model> asMap() =>
+      _list.asMap().map((key, value) => MapEntry(key, asModel(value)));
 
   @override
   List<R> cast<R>() => _list.cast<R>();
@@ -61,57 +69,63 @@ mixin ModelListBaseMixin implements List<dynamic> {
   void clear() => _list.clear();
 
   @override
-  bool contains(Object element) => __list.contains(element);
+  bool contains(Object element) => _list.contains(element);
 
   @override
-  dynamic elementAt(int index) => _list.elementAt(index);
+  Model elementAt(int index) => asModel(_list.elementAt(index));
 
   @override
-  bool every(bool Function(dynamic element) test) => _list.every(test);
+  bool every(bool Function(Model element) test) =>
+      _list.every((item) => test(asModel(item)));
 
   @override
-  Iterable<T> expand<T>(Iterable<T> Function(dynamic element) f) =>
-      _list.expand(f);
+  Iterable<T> expand<T>(Iterable<T> Function(Model element) f) =>
+      _list.expand((item) => f(asModel(item)));
 
   @override
   void fillRange(int start, int end, [fillValue]) =>
       _list.fillRange(start, end);
 
   @override
-  dynamic firstWhere(bool Function(dynamic element) test,
-          {Function() orElse}) =>
-      _list.firstWhere(test, orElse: orElse);
+  Model firstWhere(bool Function(Model element) test,
+          {Model Function() orElse}) =>
+      asModel(_list.firstWhere((item) => test(asModel(item)), orElse: orElse));
 
   @override
-  T fold<T>(T initialValue,
-          T Function(T previousValue, dynamic element) combine) =>
-      _list.fold<T>(initialValue, combine);
+  T fold<T>(
+          T initialValue, T Function(T previousValue, Model element) combine) =>
+      _list.fold<T>(initialValue,
+          (previous, element) => combine(previous, asModel(element)));
 
   @override
-  Iterable followedBy(Iterable other) => _list.followedBy(other);
+  Iterable<Model> followedBy(Iterable<Model> other) =>
+      asModelList(_list.followedBy(other));
 
   @override
   set length(int newLength) => _list.length = newLength;
 
   @override
-  void forEach(void Function(dynamic element) f) => _list.forEach(f);
+  void forEach(void Function(Model element) f) =>
+      _list.forEach((item) => f(asModel(item)));
 
   @override
-  Iterable getRange(int start, int end) => _list.getRange(start, end);
+  Iterable<Model> getRange(int start, int end) =>
+      asModelList(_list.getRange(start, end));
 
   @override
   int indexOf(dynamic element, [int start = 0]) =>
-      _list.indexOf(element, start);
+      _list.indexOf(asModel(element), start);
 
   @override
-  int indexWhere(bool Function(dynamic element) test, [int start = 0]) =>
-      _list.indexWhere(test, start);
+  int indexWhere(bool Function(Model element) test, [int start = 0]) =>
+      _list.indexWhere((item) => test(asModel(item)), start);
 
   @override
-  void insert(int index, dynamic element) => _list.insert(index, element);
+  void insert(int index, Model element) =>
+      _list.insert(index, asModel(element));
 
   @override
-  void insertAll(int index, Iterable iterable) =>
+  void insertAll(int index, Iterable<Model> iterable) =>
       _list.insertAll(index, iterable);
 
   @override
@@ -121,104 +135,124 @@ mixin ModelListBaseMixin implements List<dynamic> {
   bool get isNotEmpty => _list.isNotEmpty;
 
   @override
-  Iterator get iterator => _list.iterator;
+  Iterator<Model> get iterator => ModelListIterator(_list.iterator);
 
   @override
   String join([String separator = ""]) => _list.join(separator);
 
   @override
   int lastIndexOf(dynamic element, [int start]) =>
-      _list.lastIndexOf(element, start);
+      _list.lastIndexOf(asModel(element), start);
 
   @override
-  int lastIndexWhere(bool Function(dynamic element) test, [int start]) =>
-      _list.lastIndexWhere(test, start);
+  int lastIndexWhere(bool Function(Model element) test, [int start]) =>
+      _list.lastIndexWhere((item) => test(asModel(item)), start);
 
   @override
-  dynamic lastWhere(bool Function(dynamic element) test, {Function() orElse}) =>
-      _list.lastWhere(test, orElse: orElse);
+  Model lastWhere(bool Function(Model element) test,
+          {Model Function() orElse}) =>
+      asModel(_list.lastWhere((item) => test(asModel(item)), orElse: orElse));
 
   @override
-  Iterable<T> map<T>(T Function(dynamic e) f) => _list.map(f);
+  Iterable<T> map<T>(T Function(Model e) f) =>
+      _list.map((item) => f(asModel(item)));
 
   @override
-  dynamic reduce(Function(dynamic value, dynamic element) combine) =>
-      _list.reduce(combine);
+  Model reduce(Model Function(Model value, Model element) combine) =>
+      asModel(_list.reduce(
+          (value, element) => combine(asModel(value), asModel(element))));
 
   @override
   bool remove(Object value) => _list.remove(value);
 
   @override
-  dynamic removeAt(int index) => _list.removeAt(index);
+  Model removeAt(int index) => asModel(_list.removeAt(index));
 
   @override
-  dynamic removeLast() => _list.removeLast();
+  Model removeLast() => asModel(_list.removeLast());
 
   @override
   void removeRange(int start, int end) => _list.removeRange(start, end);
 
   @override
-  void removeWhere(bool Function(dynamic element) test) =>
-      _list.removeWhere(test);
+  void removeWhere(bool Function(Model element) test) =>
+      _list.removeWhere((item) => test(asModel(item)));
+
   @override
-  void replaceRange(int start, int end, Iterable replacement) =>
+  void replaceRange(int start, int end, Iterable<Model> replacement) =>
       _list.replaceRange(start, end, replacement);
 
   @override
-  void retainWhere(bool Function(dynamic element) test) =>
-      _list.retainWhere(test);
+  void retainWhere(bool Function(Model element) test) =>
+      _list.retainWhere((item) => test(asModel(item)));
 
   @override
-  Iterable get reversed => _list.reversed;
+  Iterable<Model> get reversed => asModelList(_list.reversed);
 
   @override
-  void setAll(int index, Iterable iterable) => _list.setAll(index, iterable);
+  void setAll(int index, Iterable<Model> iterable) =>
+      _list.setAll(index, iterable);
 
   @override
-  void setRange(int start, int end, Iterable iterable, [int skipCount = 0]) =>
+  void setRange(int start, int end, Iterable<Model> iterable,
+          [int skipCount = 0]) =>
       _list.setRange(start, end, iterable, skipCount);
 
   @override
   void shuffle([Random random]) => _list.shuffle(random);
 
   @override
-  dynamic get single => _list.single;
+  Model get single => asModel(_list.single);
 
   @override
-  dynamic singleWhere(bool Function(dynamic element) test,
-          {Function() orElse}) =>
-      _list.singleWhere(test, orElse: orElse);
+  Model singleWhere(bool Function(Model element) test,
+          {Model Function() orElse}) =>
+      asModel(_list.singleWhere((item) => test(asModel(item)), orElse: orElse));
 
   @override
-  Iterable skip(int count) => _list.skip(count);
+  Iterable<Model> skip(int count) => asModelList(_list.skip(count));
 
   @override
-  Iterable skipWhile(bool Function(dynamic value) test) =>
-      _list.skipWhile(test);
+  Iterable<Model> skipWhile(bool Function(Model value) test) =>
+      asModelList(_list.skipWhile((item) => test(asModel(item))));
 
   @override
-  void sort([int Function(dynamic a, dynamic b) compare]) =>
-      _list.sort(compare);
+  void sort([int Function(Model a, Model b) compare]) =>
+      _list.sort((a, b) => compare(asModel(a), asModel(b)));
 
   @override
-  List sublist(int start, [int end]) => _list.sublist(start, end);
+  List<Model> sublist(int start, [int end]) =>
+      asModelList(_list.sublist(start, end));
 
   @override
-  Iterable take(int count) => _list.take(count);
+  Iterable<Model> take(int count) => asModelList(_list.take(count));
 
   @override
-  Iterable takeWhile(bool Function(dynamic value) test) =>
-      _list.takeWhile(test);
+  Iterable<Model> takeWhile(bool Function(Model value) test) =>
+      asModelList(_list.takeWhile((item) => test(asModel(item))));
 
   @override
-  List<dynamic> toList({bool growable = true}) => _list.toList(growable: true);
+  List<Model> toList({bool growable = true}) =>
+      asModelList(_list.toList(growable: true));
 
   @override
-  Set<dynamic> toSet() => _list.toSet();
+  Set<Model> toSet() => Set.from(asModelList(_list.toSet()));
 
   @override
-  Iterable where(bool Function(dynamic element) test) => _list.where(test);
+  Iterable<Model> where(bool Function(Model element) test) =>
+      asModelList(_list.where((item) => test(asModel(item))));
 
   @override
   Iterable<T> whereType<T>() => _list.whereType<T>();
+}
+
+class ModelListIterator implements Iterator<Model> {
+  final Iterator<Map<String, dynamic>> _iterator;
+
+  ModelListIterator(this._iterator);
+  @override
+  Model get current => asModel(_iterator.current);
+
+  @override
+  bool moveNext() => _iterator.moveNext();
 }
