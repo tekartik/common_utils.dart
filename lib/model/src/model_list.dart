@@ -12,8 +12,7 @@ abstract class ModelListBase
     with ListMixin<Model>, ModelListBaseMixin
     implements ModelList {
   ModelListBase(Iterable<dynamic> iterable) {
-    _list = iterable?.cast<Map<String, dynamic>>()?.toList() ??
-        <Map<String, dynamic>>[];
+    __list = iterable?.cast<Map<String, dynamic>>()?.toList();
   }
 }
 
@@ -21,9 +20,11 @@ abstract class ModelListBase
 ModelList asModelList(dynamic list) =>
     list is Iterable ? ModelList(list) : null;
 
-mixin ModelListBaseMixin implements List<Model> {
+mixin ModelListBaseMixin implements ModelList {
+  List<Map<String, dynamic>> __list;
+
   // Never null
-  List<Map<String, dynamic>> _list;
+  List<Map<String, dynamic>> get _list => __list ??= <Model>[];
 
   @override
   Model get first => asModel(_list.first);
