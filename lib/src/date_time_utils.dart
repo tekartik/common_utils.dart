@@ -111,7 +111,7 @@ DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
       .add(Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
 
   while (now.isBefore(begginingOfDay)) {
-    begginingOfDay = begginingOfDay.add(Duration(days: -1));
+    begginingOfDay = begginingOfDay.add(const Duration(days: -1));
   }
   return begginingOfDay;
 }

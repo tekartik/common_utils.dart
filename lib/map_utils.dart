@@ -13,9 +13,9 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
-Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
+Map<K, V> cloneMap<K, V>(Map<K, V> original) {
   final map = <K, V>{};
-  orignal.forEach((key, value) {
+  original.forEach((key, value) {
     dynamic cloneValue;
     if (value is Map) {
       cloneValue = cloneMap(value);
@@ -27,6 +27,16 @@ Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
     map[key] = cloneValue as V;
   });
   return map;
+}
+
+/// Get a map Value, testing the type if needed
+///
+/// Temp solution before map?.[xxx] is available
+V mapValue<K, V>(Map<K, V> map, K key) {
+  if (map == null) {
+    return null;
+  }
+  return map[key];
 }
 
 String mapStringValue(Map map, String key, [String defaultValue]) {

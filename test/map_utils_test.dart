@@ -37,7 +37,7 @@ void main() {
       expect(mapValueFromPath(map, 'products/product/warrant'), null);
     });
 
-    test('mapValue', () {
+    test('partsMapValue', () {
       var map = {};
       expect(getPartsMapValue(map, ['test', 'sub']), null);
       setPartsMapValue(map, ['test', 'sub'], 1);
@@ -55,6 +55,20 @@ void main() {
       });
       setPartsMapValue(map, ['test'], 1);
       expect(map, {'test': 1});
+    });
+
+    test('mapValue', () {
+      var map = <int, String>{1: 'test'};
+      String value = mapValue(map, 1);
+      expect(value, 'test');
+      expect(mapValue(map, 1), 'test');
+
+      var map2 = <String, dynamic>{'test1': 1, 'test2': "2"};
+      expect(mapValue(map2, 'test1'), 1);
+      expect(mapValue(map2, 'test2'), "2");
+      expect(mapValue(map2, 'test3'), null);
+      expect(mapValue(map2, null), null);
+      expect(mapValue(null, 'test3'), null);
     });
 
     test('asMap', () {
