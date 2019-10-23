@@ -61,7 +61,9 @@ void devError([Object object]) => _devError(object);
 
 // exported for testing
 void debugDevPrint(Object object) => _devPrint(object);
+
 void debugDevError(Object object) => _devError(object);
+
 set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
 // Simple class to add a debug flag
@@ -69,7 +71,9 @@ set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 // turning it on raises a warning so that you don't checkin code like that
 class DevFlag {
   final String explanation;
+
   DevFlag([this.explanation]);
+
   bool get on => _on ?? false;
   bool _on;
 

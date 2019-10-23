@@ -1,7 +1,7 @@
 library map_utils_tests;
 
-import 'package:test/test.dart';
 import 'package:tekartik_common_utils/map_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('map utils', () {
@@ -69,6 +69,13 @@ void main() {
       expect(mapValue(map2, 'test3'), null);
       expect(mapValue(map2, null), null);
       expect(mapValue(null, 'test3'), null);
+
+      expect(mapValue(null, 'test3', createIfNull: () => 1), null);
+      expect(mapValue(map2, 'test3', createIfNull: () => 3), 3);
+      expect(mapValue(map2, 'test3'), 3);
+      expect(mapValue(map2, null, createIfNull: () => 'for_null_key'),
+          'for_null_key');
+      expect(mapValue(map2, null), 'for_null_key');
     });
 
     test('asMap', () {

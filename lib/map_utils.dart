@@ -29,14 +29,20 @@ Map<K, V> cloneMap<K, V>(Map<K, V> original) {
   return map;
 }
 
-/// Get a map Value, testing the type if needed
+/// Get a map Value, create if needed.
 ///
-/// Temp solution before map?.[xxx] is available
-V mapValue<K, V>(Map<K, V> map, K key) {
+/// if the map value is null and createIfNull is specified, the object is
+/// created and inserted in the map.
+V mapValue<K, V>(Map<K, V> map, K key, {V Function() createIfNull}) {
   if (map == null) {
     return null;
   }
-  return map[key];
+  V value = map[key];
+  if (value == null && createIfNull != null) {
+    value = createIfNull();
+    map[key] = value;
+  }
+  return value;
 }
 
 String mapStringValue(Map map, String key, [String defaultValue]) {
