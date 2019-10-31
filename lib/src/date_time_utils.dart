@@ -31,8 +31,12 @@ int dayOffsetUtcToLocal(int utcDayOffset) {
   return utcDayOffset + DateTime.now().timeZoneOffset.inMilliseconds;
 }
 
+/// Time of the day
 class TimeOfDay {
+  /// Hour
   int hour;
+
+  /// minute.
   int minute;
 
   int get milliseconds => (hour * 60 + minute) * 60 * 1000;
