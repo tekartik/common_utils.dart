@@ -67,7 +67,7 @@ void main() {
       expect(hexPretty([]), '[nodata]');
       expect(hexPretty([0x00]),
           '00 .. .. ..  .. .. .. ..  .. .. .. ..  .. .. .. ..  ?... .... .... ....');
-      List<int> list = List.generate(16, (index) => index);
+      var list = List<int>.generate(16, (index) => index);
       expect(hexPretty(list),
           '00 01 02 03  04 05 06 07  08 09 0A 0B  0C 0D 0E 0F  ???? ???? ???? ????\n');
       expect(hexPretty([0xff]), startsWith('FF'));
@@ -96,7 +96,7 @@ void main() {
     });
 
     test('hexPrettyLines', () {
-      List<int> list = List.generate(256, (index) => index);
+      var list = List<int>.generate(256, (index) => index);
       //expect(hexPretty([0xff, 0xfe, 128, 127]), 'FF');
       expect(hexPrettyLines(null), null);
       expect(hexPrettyLines([]), []);
@@ -130,23 +130,23 @@ void main() {
     });
 
     test('parseHexString', () {
-      expect(parseHexString("01 83 3d 79"), [0x01, 0x83, 0x3d, 0x79]);
-      expect(parseHexString("0183"), [0x01, 0x83]);
-      expect(parseHexString("01 83 3d79 FF"), [0x01, 0x83, 0x3d, 0x79, 0xFF]);
-      expect(parseHexString("0x01"), [0x01]);
-      expect(parseHexString("0xFFFE ED xDC"), [0xFF, 0xFE, 0xED, 0xDC]);
+      expect(parseHexString('01 83 3d 79'), [0x01, 0x83, 0x3d, 0x79]);
+      expect(parseHexString('0183'), [0x01, 0x83]);
+      expect(parseHexString('01 83 3d79 FF'), [0x01, 0x83, 0x3d, 0x79, 0xFF]);
+      expect(parseHexString('0x01'), [0x01]);
+      expect(parseHexString('0xFFFE ED xDC'), [0xFF, 0xFE, 0xED, 0xDC]);
       // parseHexString
     });
 
     test('toHexString', () {
-      expect(toHexString([0x01, 0x83, 0x3d, 0x79]), "01833D79");
-      expect(toHexString([]), "");
+      expect(toHexString([0x01, 0x83, 0x3d, 0x79]), '01833D79');
+      expect(toHexString([]), '');
       expect(toHexString(null), null);
     });
 
     test('toLohexString', () {
-      expect(toLohexString([0x01, 0x83, 0x3d, 0x79]), "01833d79");
-      expect(toLohexString([]), "");
+      expect(toLohexString([0x01, 0x83, 0x3d, 0x79]), '01833d79');
+      expect(toLohexString([]), '');
       expect(toLohexString(null), null);
     });
   });

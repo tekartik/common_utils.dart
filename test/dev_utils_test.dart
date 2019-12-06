@@ -21,14 +21,14 @@ void defineTests([bool disableOutput = true]) {
     });
 
     test('devPrint', () {
-      debugDevPrint("dev print message");
+      debugDevPrint('dev print message');
     });
     test('devError', () {
       if (disableOutput) {
         debugDevPrintEnabled = false;
       }
       try {
-        debugDevError({"some": "data"});
+        debugDevError({'some': 'data'});
         fail('no');
       } on UnsupportedError catch (_) {}
       if (disableOutput) {
@@ -44,7 +44,7 @@ void defineTests([bool disableOutput = true]) {
     });
 
     test('DevFlag', () {
-      DevFlag debug = DevFlag();
+      var debug = DevFlag();
       expect(debug.on, isFalse);
 
       // could not get rid of warnings...

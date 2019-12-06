@@ -1,5 +1,5 @@
-const String _columns = "columns";
-const String _rows = "rows";
+const String _columns = 'columns';
+const String _rows = 'rows';
 // Compact mode
 const String _c = r'$c';
 const String _r = r'$r';
@@ -23,13 +23,13 @@ Map<String, List> packList(Iterable<Map<String, dynamic>> list,
     columnSet.addAll(item.keys);
   }
 
-  List<String> columns = columnSet.toList();
+  var columns = columnSet.toList();
 
   // build the rows
-  List rows = [];
+  var rows = [];
   for (Map<String, Object> item in list) {
-    List row = [];
-    for (String column in columns) {
+    var row = [];
+    for (var column in columns) {
       var value = item[column];
       // Convert inner if needed
       if (innerPack != null && value != null) {
@@ -40,7 +40,7 @@ Map<String, List> packList(Iterable<Map<String, dynamic>> list,
     rows.add(row);
   }
 
-  Map<String, List> packed = {};
+  var packed = <String, List>{};
   packed[columnsField ?? _columns] = columns;
   packed[rowsField ?? _rows] = rows;
 
@@ -63,8 +63,8 @@ dynamic compackAny(dynamic unpacked) {
     // Pack as list if more than 2 map elements (and only map)
     if (list.length > 1) {
       // all maps
-      bool allMap = true;
-      for (int i = 0; i < list.length; i++) {
+      var allMap = true;
+      for (var i = 0; i < list.length; i++) {
         var item = list[i];
         if (!(item is Map)) {
           allMap = false;
@@ -142,22 +142,22 @@ class JsonUnpack {
 
   JsonUnpack(this.packed);
 
-  void forEach(callback(Map item)) {
+  void forEach(void Function(Map item) callback) {
     if (packed == null) {
       return null;
     }
 
-    List<String> columns = packed[_columns] as List<String>;
-    List<List> rows = packed[_rows] as List<List>;
+    var columns = packed[_columns] as List<String>;
+    var rows = packed[_rows] as List<List>;
     if (columns == null || rows == null) {
       return null;
     }
 
-    int columnCount = columns.length;
+    final columnCount = columns.length;
 
-    for (List row in rows) {
-      Map<String, Object> item = {};
-      for (int i = 0; i < columnCount; i++) {
+    for (var row in rows) {
+      final item = <String, Object>{};
+      for (var i = 0; i < columnCount; i++) {
         var value = row[i];
         if (value != null) {
           item[columns[i]] = value;
@@ -180,19 +180,18 @@ List<Map<String, dynamic>> unpackList(Map<String, dynamic> packed,
     return null;
   }
 
-  List<String> columns =
-      (packed[columnsField ?? _columns] as List)?.cast<String>();
-  List<List> rows = (packed[rowsField ?? _rows] as List)?.cast<List>();
+  final columns = (packed[columnsField ?? _columns] as List)?.cast<String>();
+  final rows = (packed[rowsField ?? _rows] as List)?.cast<List>();
   if (columns == null || rows == null) {
     return null;
   }
 
-  int columnCount = columns.length;
+  var columnCount = columns.length;
 
-  List<Map<String, Object>> items = [];
-  for (List row in rows) {
-    Map<String, dynamic> item = {};
-    for (int i = 0; i < columnCount; i++) {
+  final items = <Map<String, dynamic>>[];
+  for (var row in rows) {
+    final item = <String, dynamic>{};
+    for (var i = 0; i < columnCount; i++) {
       var value = row[i];
       if (value != null) {
         if (innerUnpack != null) {

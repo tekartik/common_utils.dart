@@ -22,7 +22,8 @@ class Subject<T> extends Stream<T>
   bool _addStreamActive = false;
 
   /// Seed value even if null
-  Subject.seeded({T value, void onListen(), void onCancel(), bool sync})
+  Subject.seeded(
+      {T value, void Function() onListen, void Function() onCancel, bool sync})
       : this._(
             value: value,
             seeded: true,
@@ -31,7 +32,12 @@ class Subject<T> extends Stream<T>
             sync: sync);
 
   // Value is seeded if non null
-  Subject._({T value, bool seeded, void onListen(), void onCancel(), bool sync})
+  Subject._(
+      {T value,
+      bool seeded,
+      void Function() onListen,
+      void Function() onCancel,
+      bool sync})
       : _value = value,
         _seeded = seeded,
         _sync = sync == true,
@@ -39,7 +45,8 @@ class Subject<T> extends Stream<T>
             onListen: onListen, onCancel: onCancel, sync: true);
 
   /// Create a subject, seeded if non null
-  Subject({T value, void onListen(), void onCancel(), bool sync})
+  Subject(
+      {T value, void Function() onListen, void Function() onCancel, bool sync})
       : this._(
             value: value,
             seeded: value != null,
@@ -75,7 +82,7 @@ class Subject<T> extends Stream<T>
 
   void _addError(Object error, [StackTrace stackTrace]) {
     _value = null;
-    this._error = error;
+    _error = error;
     this.stackTrace = stackTrace;
     _controller.addError(error, stackTrace);
   }
@@ -129,25 +136,25 @@ class Subject<T> extends Stream<T>
 
   @override
   ControllerCallback get onPause =>
-      throw UnsupportedError("Subjects do not support pause callbacks");
+      throw UnsupportedError('Subjects do not support pause callbacks');
 
   @override
-  set onPause(void onPauseHandler()) =>
-      throw UnsupportedError("Subjects do not support pause callbacks");
+  set onPause(void Function() onPauseHandler) =>
+      throw UnsupportedError('Subjects do not support pause callbacks');
 
   @override
   ControllerCallback get onResume =>
-      throw UnsupportedError("Subjects do not support resume callbacks");
+      throw UnsupportedError('Subjects do not support resume callbacks');
 
   @override
-  set onResume(void onResumeHandler()) =>
-      throw UnsupportedError("Subjects do not support resume callbacks");
+  set onResume(void Function() onResumeHandler) =>
+      throw UnsupportedError('Subjects do not support resume callbacks');
 
   @override
   ControllerCancelCallback get onCancel => _controller.onCancel;
 
   @override
-  set onCancel(void onCancelHandler()) {
+  set onCancel(void Function() onCancelHandler) {
     _controller.onCancel = onCancelHandler;
   }
 
@@ -198,7 +205,7 @@ class Subject<T> extends Stream<T>
   ControllerCallback get onListen => _controller.onListen;
 
   @override
-  set onListen(void onListenHandler()) {
+  set onListen(void Function() onListenHandler) {
     _controller.onListen = onListenHandler;
   }
 

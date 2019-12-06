@@ -139,7 +139,7 @@ mixin ModelListBaseMixin implements ModelList {
   Iterator<Model> get iterator => ModelListIterator(_list.iterator);
 
   @override
-  String join([String separator = ""]) => _list.join(separator);
+  String join([String separator = '']) => _list.join(separator);
 
   @override
   int lastIndexOf(dynamic element, [int start]) =>

@@ -75,7 +75,7 @@ void main() {
 
     test('can synchronously get the latest value', () async {
       // ignore: close_sinks
-      final Subject<int> subject = Subject<int>();
+      final subject = Subject<int>();
 
       subject.add(1);
       subject.add(2);
@@ -95,7 +95,7 @@ void main() {
 
     test('can synchronously get the initial value', () {
       // ignore: close_sinks
-      final Subject<int> subject = Subject<int>(value: 1);
+      final subject = Subject<int>(value: 1);
 
       expect(subject.value, 1);
     });
@@ -232,7 +232,7 @@ void main() {
     });
 
     test('returns onCancel callback set in constructor', () async {
-      final AsyncVoidCallBack onCancel = () => Future<void>.value(null);
+      final onCancel = () => Future<void>.value(null);
       // ignore: close_sinks
       final StreamController<int> subject = Subject<int>(onCancel: onCancel);
 
@@ -297,7 +297,7 @@ void main() {
     test('can be listened to multiple times', () async {
       // ignore: close_sinks
       final StreamController<int> subject = Subject<int>(value: 1);
-      final Stream<int> stream = subject.stream;
+      final stream = subject.stream;
 
       await expectLater(stream, emits(1));
       await expectLater(stream, emits(1));
@@ -313,7 +313,7 @@ void main() {
     test('adding to sink has same behavior as adding to Subject itself',
         () async {
       // ignore: close_sinks
-      final Subject<int> subject = Subject<int>();
+      final subject = Subject<int>();
 
       subject.sink.add(1);
 

@@ -37,7 +37,7 @@ V mapValue<K, V>(Map<K, V> map, K key, {V Function() createIfNull}) {
   if (map == null) {
     return null;
   }
-  V value = map[key];
+  var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull();
     map[key] = value;
@@ -47,9 +47,9 @@ V mapValue<K, V>(Map<K, V> map, K key, {V Function() createIfNull}) {
 
 String mapStringValue(Map map, String key, [String defaultValue]) {
   if (map != null) {
-    String value = map[key]?.toString();
+    var value = map[key]?.toString();
     if (value != null) {
-      return value.toString();
+      return value;
     }
   }
   return defaultValue;
@@ -107,7 +107,7 @@ T mapValueFromParts<T>(Map map, Iterable<String> parts) =>
 
 T getPartsMapValue<T>(Map map, Iterable<String> parts) {
   dynamic value = map;
-  for (String part in parts) {
+  for (var part in parts) {
     if (value is Map) {
       value = value[part];
     } else {
@@ -118,8 +118,8 @@ T getPartsMapValue<T>(Map map, Iterable<String> parts) {
 }
 
 void setPartsMapValue<T>(Map map, List<String> parts, value) {
-  for (int i = 0; i < parts.length - 1; i++) {
-    String part = parts[i];
+  for (var i = 0; i < parts.length - 1; i++) {
+    var part = parts[i];
     dynamic sub = map[part];
     if (!(sub is Map)) {
       sub = <String, dynamic>{};

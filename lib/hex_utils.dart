@@ -101,8 +101,8 @@ String hexQuickView(List<int> data, [int maxLen]) {
   } else {
     maxLen = min(data.length, maxLen);
   }
-  StringBuffer out = StringBuffer();
-  for (int i = 0; i < maxLen; i++) {
+  final out = StringBuffer();
+  for (var i = 0; i < maxLen; i++) {
     if (i > 0) {
       out.write(' ');
       if ((i % 4) == 0) {
@@ -112,7 +112,7 @@ String hexQuickView(List<int> data, [int maxLen]) {
         out.write(' ');
       }
     }
-    int charCode = data[i];
+    final charCode = data[i];
     out.writeCharCode(hex1CodeUint8(charCode));
     out.writeCharCode(hex2CodeUint8(charCode));
   }
@@ -125,7 +125,7 @@ List<String> hexPrettyLines(List<int> data) {
   } else if (data.isEmpty) {
     return [];
   }
-  List<String> lines = [];
+  final lines = <String>[];
   StringBuffer sb;
   _hexPretty(data, () {
     if (sb != null) {
@@ -145,7 +145,7 @@ String hexPretty(List<int> data) {
   if (data == null) {
     return null;
   } else if (data.isEmpty) {
-    return "[nodata]";
+    return '[nodata]';
   }
   StringBuffer sb;
   _hexPretty(data, () {
@@ -159,13 +159,13 @@ String hexPretty(List<int> data) {
   return sb.toString();
 }
 
-String _hexPretty(List<int> data, StringBuffer newLine()) {
-  int blockSize = 16;
+String _hexPretty(List<int> data, StringBuffer Function() newLine) {
+  final blockSize = 16;
   int readSize;
-  int lineIndex = 0;
-  int position = 0;
+  var lineIndex = 0;
+  var position = 0;
   //StringBuffer out = new StringBuffer();
-  StringBuffer out = newLine();
+  var out = newLine();
   do {
     if (lineIndex++ > 0) {
       //out.writeln();
@@ -180,7 +180,7 @@ String _hexPretty(List<int> data, StringBuffer newLine()) {
       break;
     }
 
-    List<int> buffer = data.sublist(position, position + readSize);
+    final buffer = data.sublist(position, position + readSize);
     position += readSize;
 
     for (i = 0; i < buffer.length; i++) {
@@ -193,7 +193,7 @@ String _hexPretty(List<int> data, StringBuffer newLine()) {
           out.write(' ');
         }
       }
-      int charCode = buffer[i];
+      final charCode = buffer[i];
       out.writeCharCode(hex1CodeUint8(charCode));
       out.writeCharCode(hex2CodeUint8(charCode));
     }
@@ -209,11 +209,11 @@ String _hexPretty(List<int> data, StringBuffer newLine()) {
             out.write(' ');
           }
         }
-        out.write("..");
+        out.write('..');
       }
     }
 
-    out.write("  ");
+    out.write('  ');
 
     for (i = 0; i < readSize; i++) {
       if (i > 0) {
@@ -225,7 +225,7 @@ String _hexPretty(List<int> data, StringBuffer newLine()) {
         }
       }
 
-      int charCode = buffer[i];
+      final charCode = buffer[i];
       bool isPrintable(int charCode) =>
           charCode >= 32 && charCode <= 126; // not including delete
       if (isPrintable(charCode)) {
@@ -255,11 +255,11 @@ String _hexPretty(List<int> data, StringBuffer newLine()) {
 }
 
 String oldhexPretty(List<int> data) {
-  int blockSize = 16;
+  final blockSize = 16;
   int readSize;
-  int lineIndex = 0;
-  int position = 0;
-  StringBuffer out = StringBuffer();
+  var lineIndex = 0;
+  var position = 0;
+  final out = StringBuffer();
   do {
     if (lineIndex++ > 0) {
       out.writeln();
@@ -270,7 +270,7 @@ String oldhexPretty(List<int> data) {
       readSize = blockSize;
     }
 
-    List<int> buffer = data.sublist(position, position + readSize);
+    var buffer = data.sublist(position, position + readSize);
     position += readSize;
 
     for (i = 0; i < buffer.length; i++) {
@@ -283,7 +283,7 @@ String oldhexPretty(List<int> data) {
           out.write(' ');
         }
       }
-      int charCode = buffer[i];
+      var charCode = buffer[i];
       out.writeCharCode(hex1CodeUint8(charCode));
       out.writeCharCode(hex2CodeUint8(charCode));
     }
@@ -299,11 +299,11 @@ String oldhexPretty(List<int> data) {
             out.write(' ');
           }
         }
-        out.write("..");
+        out.write('..');
       }
     }
 
-    out.write("  ");
+    out.write('  ');
 
     for (i = 0; i < readSize; i++) {
       if (i > 0) {
@@ -315,7 +315,7 @@ String oldhexPretty(List<int> data) {
         }
       }
 
-      int charCode = buffer[i];
+      final charCode = buffer[i];
       bool isPrintable(int charCode) =>
           charCode >= 32 && charCode <= 126; // not including delete
       if (isPrintable(charCode)) {
@@ -346,14 +346,14 @@ String oldhexPretty(List<int> data) {
 
 // parse any hex string
 List<int> parseHexString(String text) {
-  List<int> data = <int>[];
+  final data = <int>[];
   int firstNibble;
 
   text.codeUnits.forEach((int charCode) {
     if (firstNibble == null) {
       firstNibble = hexCharValue(charCode);
     } else {
-      int secondNibble = hexCharValue(charCode);
+      var secondNibble = hexCharValue(charCode);
       if (secondNibble != null) {
         data.add(firstNibble * 16 + secondNibble);
         firstNibble = null;
@@ -373,8 +373,8 @@ String toHexString(List<int> data) {
   if (data == null) {
     return null;
   }
-  StringBuffer sb = StringBuffer();
-  for (int byte in data) {
+  var sb = StringBuffer();
+  for (var byte in data) {
     sb.write(hexUint8(byte));
   }
   return sb.toString();
@@ -388,8 +388,8 @@ String toLohexString(List<int> data) {
   if (data == null) {
     return null;
   }
-  StringBuffer sb = StringBuffer();
-  for (int byte in data) {
+  final sb = StringBuffer();
+  for (var byte in data) {
     sb.write(lohexUint8(byte));
   }
   return sb.toString();

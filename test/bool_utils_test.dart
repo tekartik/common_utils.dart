@@ -8,8 +8,8 @@ void defineTests() {
     expect(parseBool('null'), isNull);
     expect(parseBool(true), isTrue);
     expect(parseBool(true.toString()), isTrue);
-    expect(parseBool("TRUE"), isTrue);
-    expect(parseBool("FALSE"), isFalse);
+    expect(parseBool('TRUE'), isTrue);
+    expect(parseBool('FALSE'), isFalse);
     expect(parseBool(false.toString()), isFalse);
     expect(parseBool(null), null);
     expect(parseBool(''), null);

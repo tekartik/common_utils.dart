@@ -6,30 +6,30 @@ import 'package:test/test.dart';
 void main() {
   group('map utils', () {
     test('mergeMap', () {
-      Map dst = {};
+      var dst = {};
       mergeMap(dst, {'test': 1});
       expect(dst['test'], 1);
     });
 
     test('mapValueFromPath', () {
-      Map map = {
-        "home": "home",
-        "about": "about",
-        "contact": "contact",
-        "products": {
-          "home": "home",
-          "list": "list",
-          "product": {
-            "home": "home",
-            "specs": "specs",
-            "warranty": "warranty",
-            "related": "related"
+      var map = {
+        'home': 'home',
+        'about': 'about',
+        'contact': 'contact',
+        'products': {
+          'home': 'home',
+          'list': 'list',
+          'product': {
+            'home': 'home',
+            'specs': 'specs',
+            'warranty': 'warranty',
+            'related': 'related'
           }
         }
       };
       expect(mapValueFromParts(map, ['products', 'product', 'warranty']),
-          "warranty");
-      expect(mapValueFromPath(map, 'products/product/warranty'), "warranty");
+          'warranty');
+      expect(mapValueFromPath(map, 'products/product/warranty'), 'warranty');
       expect(
           mapValueFromParts(map, ['products', 'product', 'warrant']), isNull);
       expect(
@@ -59,13 +59,13 @@ void main() {
 
     test('mapValue', () {
       var map = <int, String>{1: 'test'};
-      String value = mapValue(map, 1);
+      var value = mapValue(map, 1);
       expect(value, 'test');
       expect(mapValue(map, 1), 'test');
 
-      var map2 = <String, dynamic>{'test1': 1, 'test2': "2"};
+      var map2 = <String, dynamic>{'test1': 1, 'test2': '2'};
       expect(mapValue(map2, 'test1'), 1);
-      expect(mapValue(map2, 'test2'), "2");
+      expect(mapValue(map2, 'test2'), '2');
       expect(mapValue(map2, 'test3'), null);
       expect(mapValue(map2, null), null);
       expect(mapValue(null, 'test3'), null);

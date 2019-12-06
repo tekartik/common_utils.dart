@@ -4,7 +4,7 @@ import 'value_utils.dart' as value_utils;
 export 'bool_utils.dart' show parseBool;
 export 'int_utils.dart' show parseInt;
 
-@Deprecated("User stringIsEmpty")
+@Deprecated('User stringIsEmpty')
 bool isEmpty(String text) => stringIsEmpty(text);
 
 /// True if null or empty
@@ -45,7 +45,7 @@ String stringTruncate(String text, int len) => stringSubString(text, 0, len);
 
 // Use default Value if null (default empty string)
 // might be deprecated for stringNonNull to avoid conflict
-@Deprecated("User stringNonNull")
+@Deprecated('User stringNonNull')
 String nonNull(String value, [String defaultValue = '']) =>
     stringNonNull(value, defaultValue);
 
@@ -54,7 +54,7 @@ String stringNonNull(String value, [String defaultValue = '']) =>
 
 // User defaul Value if empty (default null)
 // might be deprecated for stringNonNull to avoid conflict
-@Deprecated("User stringNonEmpty")
+@Deprecated('User stringNonEmpty')
 String nonEmpty(String value, [String defaultValue]) =>
     stringNonEmpty(value, defaultValue);
 
@@ -67,8 +67,8 @@ String prefilled(String text, int len, String char) =>
 
 /// First
 String stringPrefilled(String text, int len, String char) {
-  int length = text.length;
-  StringBuffer out = StringBuffer();
+  var length = text.length;
+  final out = StringBuffer();
   while (length < len) {
     out.write(char);
     length += char.length;
