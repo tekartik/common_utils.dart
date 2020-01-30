@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:tekartik_common_utils/common_utils_import.dart';
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/pack/pack.dart';
+import 'package:tekartik_common_utils/pack/pack.dart' as pack;
 
 void main() {
   group('json_pack', () {
@@ -89,8 +91,16 @@ void main() {
     });
 
     test('uncompack', () {
+      dynamic uncompackAny(dynamic packed) {
+        // devPrint(jsonEncode(packed));
+        return pack.uncompackAny(packed);
+      }
+
       expect(uncompackAny(null), isNull);
       expect(uncompackAny([]), []);
+      expect(uncompackAny({}), {});
+      expect(uncompackAny(1), 1);
+      expect(uncompackAny(true), true);
       expect(uncompackAny([]), const TypeMatcher<List>());
       expect(
           uncompackAny([
@@ -99,6 +109,22 @@ void main() {
           [
             {'field1': 'text1', 'field2': 123456}
           ]);
+      expect(
+          uncompackAny({
+            r'$c': ['field'],
+            r'$r': [
+              ['value']
+            ]
+          }),
+          [
+            {'field': 'value'}
+          ],
+          reason: jsonEncode({
+            r'$c': ['field'],
+            r'$r': [
+              ['value']
+            ]
+          }));
       expect(
           uncompackAny({
             r'$c': ['field1', 'field2', 'field3', 'field4'],
@@ -111,6 +137,9 @@ void main() {
             {'field1': 'text1', 'field2': 123456},
             {'field3': 'text3', 'field2': 789}
           ]);
+      expect(uncompackAny({r'$c': 1}), {r'$c': 1});
+      expect(uncompackAny({r'$r': 1}), {r'$r': 1});
+      expect(uncompackAny({r'$v': 1}), {r'$v': 1});
       expect(uncompackAny({r'$c': 1, r'$r': 2, r'$v': true}),
           {r'$c': 1, r'$r': 2});
       expect(
@@ -144,6 +173,34 @@ void main() {
           ]
         },
       );
+    });
+
+    void loop(dynamic unpacked) {
+      var packed = compackAny(unpacked);
+      var unpackResult = uncompackAny(packed);
+      // devPrint(jsonEncode(unpacked));
+      // devPrint(jsonEncode(packed));
+      expect(unpackResult, unpacked);
+    }
+
+    test('loop', () {
+      loop({});
+      loop(1);
+      loop(true);
+      loop('text');
+      loop([]);
+      loop({r'$c': 1, r'$r': 2});
+      loop({r'$c': 1, r'$r': 2, r'$v': true});
+      loop([
+        {'a': 1},
+        {
+          'b': [
+            {'a': 1},
+            {'b': []}
+          ]
+        }
+      ]);
+      //loop({r'$c': 1, r'$r': 2, r'$v1': true});
     });
 
     test('packItemList', () {

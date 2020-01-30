@@ -113,7 +113,7 @@ dynamic uncompackAny(dynamic packed) {
       return unpackList(map?.cast<String, dynamic>(),
           rowsField: _r, columnsField: _c, innerUnpack: uncompackAny);
     } else {
-      if (map.keys.contains(_r) && map.keys.contains(_r)) {
+      if (map.keys.contains(_r) && map.keys.contains(_c)) {
         // Remove values and copy them again
         map = Map<String, dynamic>.from(map)
           ..removeWhere((key, value) => key?.toString()?.startsWith(_v));
