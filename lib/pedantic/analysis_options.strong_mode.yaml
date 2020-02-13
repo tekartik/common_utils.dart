@@ -151,7 +151,7 @@ linter:
     - unawaited_futures
 
     # New pedantic? flutter 2.8.0-dev.4
-    - unused_field
+    # - unused_field
     #
     # === deprecated ===
     #
