@@ -80,7 +80,7 @@ String intToFilePath(int value) {
 /// Safe generation (Windows ok) of unique file path parts based on an integer
 List<String> intToFileParts(int value) {
   var ints = intToInts(value);
-  List<String> parts = [];
+  final parts = <String>[];
   for (var i = 0; i < ints.length; i++) {
     parts.add(intPartToHex(ints[i]));
   }

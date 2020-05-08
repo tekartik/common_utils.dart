@@ -15,7 +15,7 @@ void debugQuickLogging(Level level) {
 void setupQuickLogging([Level level]) {
   if (!_quickLoggingSetup) {
     hierarchicalLoggingEnabled = true;
-    _PrintHandler handler = _PrintHandler();
+    final handler = _PrintHandler();
     Logger.root.onRecord.listen((LogRecord logRecord) {
       handler.call(logRecord);
     });
@@ -23,18 +23,18 @@ void setupQuickLogging([Level level]) {
   }
   if (level != null) {
     Logger.root.level = level;
-    //log.info("QuickLoggingSetup");
+    //log.info('QuickLoggingSetup');
   }
 }
 
 class _PrintHandler {
   void call(LogRecord logRecord) {
     print(
-        "${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}");
+        '${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}');
   }
 }
 
-@Deprecated("Use logLevel")
+@Deprecated('Use logLevel')
 // ignore: non_constant_identifier_names
 final List<Level> LOG_LEVELS = logLevels;
 final List<Level> logLevels = [
@@ -49,10 +49,11 @@ final List<Level> logLevels = [
   Level.FINEST,
   Level.ALL
 ];
+
 Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
   if (levelText != null) {
     levelText = levelText.toUpperCase();
-    for (Level level in logLevels) {
+    for (var level in logLevels) {
       if (level.name == levelText) {
         //print('level: $level');
         return level;
@@ -63,16 +64,15 @@ Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
 }
 
 Logger _log;
+
 Logger get log {
-  if (_log == null) {
-    _log = Logger('Quick');
-  }
+  _log ??= Logger('Quick');
   return _log;
 }
 
 String _stringPrefilled(String text, int len, String char) {
-  int length = text.length;
-  StringBuffer out = StringBuffer();
+  var length = text.length;
+  final out = StringBuffer();
   while (length < len) {
     out.write(char);
     length += char.length;
@@ -83,19 +83,19 @@ String _stringPrefilled(String text, int len, String char) {
 
 String formatTimestampMs(num timestamp) {
   // Allow 6 digits => 1000s
-  int size = 6;
+  final size = 6;
   //String txt;
 
   if (timestamp == null) {
     return _stringPrefilled('(null)', size, ' ');
   } else {
-    int s = (timestamp ~/ 1000);
-    int ms = (timestamp - s * 1000).round();
+    var s = (timestamp ~/ 1000);
+    var ms = (timestamp - s * 1000).round();
     if (ms == 1000) {
       s += 1;
       ms = 0;
     }
-    return '${_stringPrefilled("${s % 100}", 2, "0")}.${_stringPrefilled("$ms", 3, "0")}';
+    return '${_stringPrefilled('${s % 100}', 2, '0')}.${_stringPrefilled('$ms', 3, '0')}';
   }
 }
 
@@ -107,18 +107,18 @@ String format0To1AsPercent(num value) {
   if (value == null) {
     return _stringPrefilled('(nul)', 5, ' ');
   } else {
-    num per10000 = value * 10000;
-    int per100 = per10000 ~/ 100;
-    int cents = (per10000 - per100 * 100).round();
+    var per10000 = value * 10000;
+    var per100 = per10000 ~/ 100;
+    var cents = (per10000 - per100 * 100).round();
     if (cents == 100) {
       per100 += 1;
       cents = 0;
     }
-    int centsDigitCount = 2;
+    var centsDigitCount = 2;
     if (per100 >= 100) {
       centsDigitCount = 1;
       cents ~/= 10;
     }
-    return '${_stringPrefilled("${per100}", 2, "0")}.${_stringPrefilled("$cents", centsDigitCount, "0")}';
+    return '${_stringPrefilled('${per100}', 2, '0')}.${_stringPrefilled('$cents', centsDigitCount, '0')}';
   }
 }

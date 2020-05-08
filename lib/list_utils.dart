@@ -29,7 +29,7 @@ List<T> asList<T>(dynamic value) {
   return null;
 }
 
-@Deprecated("use listIsEmpty")
+@Deprecated('use listIsEmpty')
 bool isEmpty(Iterable list) => listIsEmpty(list);
 
 /// True if list is null or empty
@@ -38,7 +38,7 @@ bool listIsEmpty(Iterable list) => listLength(list) == 0;
 /// True if list is not null and not
 bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
 
-@Deprecated("use listTruncate")
+@Deprecated('use listTruncate')
 List<T> truncate<T>(List<T> list, int maxCount) => listTruncate(list, maxCount);
 
 int _listSafeStartOrEnd(List list, int index) {
@@ -66,26 +66,26 @@ List<T> listSubList<T>(List<T> list, int start, [int end]) {
 List<T> listTruncate<T>(List<T> list, int len) => listSubList(list, 0, len);
 
 /// Clone list and list of list
-List cloneList(List original) {
+List<T> cloneList<T>(List<T> original) {
   if (original == null) {
     return null;
   }
-  List clone = [];
+  var clone = <T>[];
   original.forEach((dynamic item) {
     if (item is List) {
       item = cloneList(item as List);
     } else if (item is Map) {
       item = cloneMap(item as Map);
     }
-    clone.add(item);
+    clone.add(item as T);
   });
   return clone;
 }
 
 /// better to have original1 bigger than original2
 /// optimization could handle that
-List intersectList(List original1, List original2) {
-  List list = [];
+List<T> intersectList<T>(List<T> original1, List<T> original2) {
+  var list = <T>[];
 
   original1.forEach((element) {
     if (original2.contains(element)) {
@@ -102,12 +102,12 @@ List intersectList(List original1, List original2) {
 /// If [chunkSize] is null or 0, returns all in one list;
 List<List<T>> listChunk<T>(List<T> list, int chunkSize) {
   var chunks = <List<T>>[];
-  int len = list?.length ?? 0;
+  final len = list?.length ?? 0;
   if ((chunkSize ?? 0) == 0) {
     chunkSize = len;
   }
   for (var i = 0; i < len; i += chunkSize) {
-    int size = i + chunkSize;
+    final size = i + chunkSize;
     chunks.add(list.sublist(i, size > len ? len : size));
   }
 

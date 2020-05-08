@@ -13,9 +13,9 @@ class CancelException implements Exception {
 
   @override
   String toString() {
-    String result = "Request cancelled";
+    var result = 'Request cancelled';
     if (reason != null) {
-      result = "$result due to: $reason";
+      result = '$result due to: $reason';
     }
     return result;
   }
@@ -73,7 +73,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   /// Completes with the supplied values.
   @override
   void complete([T value]) {
-    this._value = value;
+    _value = value;
     _completer.complete(value);
   }
 

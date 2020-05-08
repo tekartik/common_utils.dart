@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:tekartik_common_utils/common_utils_import.dart';
 import 'package:test/test.dart';
 import 'package:tekartik_common_utils/pack/pack.dart';
+import 'package:tekartik_common_utils/pack/pack.dart' as pack;
 
 void main() {
   group('json_pack', () {
@@ -14,7 +16,7 @@ void main() {
       expect(packList([]), {'columns': [], 'rows': []});
       expect(
           packList([
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]),
           {
             'columns': ['field1', 'field2'],
@@ -24,8 +26,8 @@ void main() {
           });
       expect(
           packList([
-            {"field1": "text1", "field2": 123456},
-            {"field3": "text3", "field2": 789, "field4": null}
+            {'field1': 'text1', 'field2': 123456},
+            {'field3': 'text3', 'field2': 789, 'field4': null}
           ]),
           {
             'columns': ['field1', 'field2', 'field3', 'field4'],
@@ -41,10 +43,10 @@ void main() {
       expect(compackAny([]), []);
       expect(
           compackAny([
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]),
           [
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]);
       expect(
           compackAny({r'$c': 1, r'$r': 2}), {r'$c': 1, r'$r': 2, r'$v': true});
@@ -59,8 +61,8 @@ void main() {
           ]);
       expect(
           compackAny([
-            {"field1": "text1", "field2": 123456},
-            {"field3": "text3", "field2": 789, "field4": null}
+            {'field1': 'text1', 'field2': 123456},
+            {'field3': 'text3', 'field2': 789, 'field4': null}
           ]),
           {
             r'$c': ['field1', 'field2', 'field3', 'field4'],
@@ -73,8 +75,8 @@ void main() {
       expect(
           compackAny({
             'test': [
-              {"field1": "text1", "field2": 123456},
-              {"field3": "text3", "field2": 789, "field4": null}
+              {'field1': 'text1', 'field2': 123456},
+              {'field3': 'text3', 'field2': 789, 'field4': null}
             ]
           }),
           {
@@ -89,16 +91,40 @@ void main() {
     });
 
     test('uncompack', () {
+      dynamic uncompackAny(dynamic packed) {
+        // devPrint(jsonEncode(packed));
+        return pack.uncompackAny(packed);
+      }
+
       expect(uncompackAny(null), isNull);
       expect(uncompackAny([]), []);
+      expect(uncompackAny({}), {});
+      expect(uncompackAny(1), 1);
+      expect(uncompackAny(true), true);
       expect(uncompackAny([]), const TypeMatcher<List>());
       expect(
           uncompackAny([
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]),
           [
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]);
+      expect(
+          uncompackAny({
+            r'$c': ['field'],
+            r'$r': [
+              ['value']
+            ]
+          }),
+          [
+            {'field': 'value'}
+          ],
+          reason: jsonEncode({
+            r'$c': ['field'],
+            r'$r': [
+              ['value']
+            ]
+          }));
       expect(
           uncompackAny({
             r'$c': ['field1', 'field2', 'field3', 'field4'],
@@ -108,9 +134,12 @@ void main() {
             ]
           }),
           [
-            {"field1": "text1", "field2": 123456},
-            {"field3": "text3", "field2": 789}
+            {'field1': 'text1', 'field2': 123456},
+            {'field3': 'text3', 'field2': 789}
           ]);
+      expect(uncompackAny({r'$c': 1}), {r'$c': 1});
+      expect(uncompackAny({r'$r': 1}), {r'$r': 1});
+      expect(uncompackAny({r'$v': 1}), {r'$v': 1});
       expect(uncompackAny({r'$c': 1, r'$r': 2, r'$v': true}),
           {r'$c': 1, r'$r': 2});
       expect(
@@ -139,17 +168,45 @@ void main() {
         }),
         {
           'test': [
-            {"field1": "text1", "field2": 123456},
-            {"field3": "text3", "field2": 789}
+            {'field1': 'text1', 'field2': 123456},
+            {'field3': 'text3', 'field2': 789}
           ]
         },
       );
     });
 
-    test("packItemList", () {
+    void loop(dynamic unpacked) {
+      var packed = compackAny(unpacked);
+      var unpackResult = uncompackAny(packed);
+      // devPrint(jsonEncode(unpacked));
+      // devPrint(jsonEncode(packed));
+      expect(unpackResult, unpacked);
+    }
+
+    test('loop', () {
+      loop({});
+      loop(1);
+      loop(true);
+      loop('text');
+      loop([]);
+      loop({r'$c': 1, r'$r': 2});
+      loop({r'$c': 1, r'$r': 2, r'$v': true});
+      loop([
+        {'a': 1},
+        {
+          'b': [
+            {'a': 1},
+            {'b': []}
+          ]
+        }
+      ]);
+      //loop({r'$c': 1, r'$r': 2, r'$v1': true});
+    });
+
+    test('packItemList', () {
       expect(
-          packItemList(<String>["1", "3"], (String item) {
-            return {"item": item};
+          packItemList(<String>['1', '3'], (String item) {
+            return {'item': item};
           }),
           {
             'columns': ['item'],
@@ -171,8 +228,8 @@ void main() {
       _check({});
       _check({
         'test': [
-          {"field1": "text1", "field2": 123456},
-          {"field3": "text3", "field2": 789}
+          {'field1': 'text1', 'field2': 123456},
+          {'field3': 'text3', 'field2': 789}
         ]
       });
     });
@@ -189,7 +246,7 @@ void main() {
             ]
           }),
           [
-            {"field1": "text1", "field2": 123456}
+            {'field1': 'text1', 'field2': 123456}
           ]);
 
       var packed1 = {
@@ -199,18 +256,18 @@ void main() {
           [null, 789, 'text3', null]
         ]
       };
-      JsonUnpack unpack = JsonUnpack(packed1);
-      int count = 0;
+      var unpack = JsonUnpack(packed1);
+      var count = 0;
       unpack.forEach((Map map) {
         if (count == 0) {
-          expect(map['field1'], "text1");
+          expect(map['field1'], 'text1');
         }
         count++;
       });
       expect(count, 2);
       expect(unpackList(packed1), [
-        {"field1": "text1", "field2": 123456},
-        {"field3": "text3", "field2": 789}
+        {'field1': 'text1', 'field2': 123456},
+        {'field3': 'text3', 'field2': 789}
       ]);
     });
   });

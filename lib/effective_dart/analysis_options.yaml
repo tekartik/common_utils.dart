@@ -1,7 +1,6 @@
 # Defines a default set of lint rules enforced for
 # projects at Google. For details and rationale,
-# see https://github.com/dart-lang/pedantic#enabled-lints.
-include: package:pedantic/analysis_options.yaml
+include: package:effective_dart/analysis_options.yaml
 
 # Until there are meta linter rules, each desired lint must be explicitly enabled.
 # See: https://github.com/dart-lang/linter/issues/288
@@ -97,7 +96,7 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_collection_literals
     # - prefer_conditional_assignment # not yet tested
-    # - prefer_const_constructors
+    - prefer_const_constructors
     # - prefer_constructors_over_static_methods # not yet tested
     - prefer_contains
     - prefer_equal_for_default_values

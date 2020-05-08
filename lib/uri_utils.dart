@@ -2,7 +2,7 @@
 Map<String, String> locationSearchGetArguments(String search) {
   final params = <String, String>{};
   if (search != null) {
-    int questionMarkIndex = search.indexOf('?');
+    var questionMarkIndex = search.indexOf('?');
     if (questionMarkIndex != -1) {
       search = search.substring(questionMarkIndex + 1);
     }

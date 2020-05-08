@@ -53,13 +53,17 @@ class Rect<T extends num> {
   T get left => point.x;
 
   /// right
-  T get right => point.x + size.width;
+  T get right =>
+      // ignore: unnecessary_cast
+      (point.x + size.width) as T;
 
   /// top
   T get top => point.y;
 
   /// bottom
-  T get bottom => point.y + size.height;
+  T get bottom =>
+      // ignore: unnecessary_cast
+      (point.y + size.height) as T;
 
   /// width
   T get width => size.width;

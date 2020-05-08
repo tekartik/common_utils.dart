@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('operation', () {
     test('first_action', () async {
-      int count = 0;
+      var count = 0;
       var operation = Operation(action: () {
         count++;
       });
@@ -20,7 +20,7 @@ void main() {
       expect(count, 2);
     });
     test('multiple_triggers', () async {
-      int count = 0;
+      var count = 0;
       var operation = Operation(action: () {
         count++;
       });
@@ -37,7 +37,7 @@ void main() {
     });
 
     test('delay', () async {
-      int count = 0;
+      var count = 0;
       var operation = Operation(
           action: () {
             count++;
@@ -54,7 +54,7 @@ void main() {
     });
 
     test('concurrency', () async {
-      int count = 0;
+      var count = 0;
       var operation = Operation(
         action: () {
           count++;

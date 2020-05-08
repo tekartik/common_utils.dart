@@ -100,7 +100,7 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_collection_literals
     # - prefer_conditional_assignment # not yet tested
-    - prefer_const_constructors
+    # - prefer_const_constructors
     # - prefer_constructors_over_static_methods # not yet tested
     - prefer_contains
     - prefer_equal_for_default_values
@@ -150,6 +150,8 @@ linter:
     # - avoid_shadowing_type_parameters # NOT READY YET
     - unawaited_futures
 
+    # New pedantic? flutter 2.8.0-dev.4
+    # - unused_field
     #
     # === deprecated ===
     #

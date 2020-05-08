@@ -13,8 +13,8 @@ Future<List> waitAll(List<Future Function()> computations) async {
   if (listIsEmpty(computations)) {
     return null;
   }
-  List<Future> futures =
-      List.generate(computations.length, (int index) => computations[index]());
+  final futures = List<Future>.generate(
+      computations.length, (int index) => computations[index]());
   return Future.wait(futures);
 }
 
@@ -25,9 +25,9 @@ class AsyncOnceRunner {
 
   /// Helper to load a javascript script only once
   bool _done = false;
-  var _lock = Lock();
+  final _lock = Lock();
 
-  AsyncOnceRunner(FutureOr computation()) : _computation = computation;
+  AsyncOnceRunner(FutureOr Function() computation) : _computation = computation;
 
   bool get done => _done;
 

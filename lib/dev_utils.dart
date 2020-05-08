@@ -32,10 +32,10 @@ T devWarning<T>(T value) => value;
 void _devError([Object object]) {
   // one day remove the print however sometimes the error thrown is hidden
   try {
-    throw UnsupportedError("$object");
+    throw UnsupportedError('$object');
   } catch (e, st) {
     if (_devPrintEnabled) {
-      print("# ERROR $object");
+      print('# ERROR $object');
       print(st);
     }
     rethrow;
@@ -61,7 +61,9 @@ void devError([Object object]) => _devError(object);
 
 // exported for testing
 void debugDevPrint(Object object) => _devPrint(object);
+
 void debugDevError(Object object) => _devError(object);
+
 set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
 // Simple class to add a debug flag
@@ -69,7 +71,9 @@ set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 // turning it on raises a warning so that you don't checkin code like that
 class DevFlag {
   final String explanation;
+
   DevFlag([this.explanation]);
+
   bool get on => _on ?? false;
   bool _on;
 

@@ -9,7 +9,7 @@ import 'package:tekartik_common_utils/async_utils.dart';
 void main() {
   group('async', () {
     test('sleep', () async {
-      Stopwatch sw = Stopwatch();
+      final sw = Stopwatch();
       sw.start();
       await sleep(50);
       expect(sw.elapsedMilliseconds, greaterThan(30));
@@ -80,22 +80,22 @@ void main() {
       }
 
       Future<String> ft() async {
-        return "1";
+        return '1';
       }
 
-      expect(await waitAll([f1, ft]), [1, "1"]);
+      expect(await waitAll([f1, ft]), [1, '1']);
     });
 
     test('onceRunner', () async {
-      int count = 0;
+      var count = 0;
       Future _count() async {
         await sleep(5);
         count++;
       }
 
-      AsyncOnceRunner runner = AsyncOnceRunner(_count);
+      var runner = AsyncOnceRunner(_count);
       expect(count, 0);
-      Future future = runner.run();
+      var future = runner.run();
       expect(runner.done, isFalse);
       await runner.run();
       expect(count, 1);
@@ -104,20 +104,20 @@ void main() {
     });
 
     test('onceRunner fail', () async {
-      bool shouldFail = true;
+      var shouldFail = true;
       Future _count() async {
         await sleep(5);
         if (shouldFail) {
-          throw "should fail";
+          throw 'should fail';
         }
       }
 
-      AsyncOnceRunner runner = AsyncOnceRunner(_count);
+      var runner = AsyncOnceRunner(_count);
       try {
         await runner.run();
         fail('should have failed');
       } catch (e) {
-        expect(e, "should fail");
+        expect(e, 'should fail');
       }
       expect(runner.done, isFalse);
 
@@ -125,7 +125,7 @@ void main() {
         await runner.run();
         fail('should have failed');
       } catch (e) {
-        expect(e, "should fail");
+        expect(e, 'should fail');
       }
 
       shouldFail = false;

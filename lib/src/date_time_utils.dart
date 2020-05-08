@@ -9,7 +9,7 @@ String formatYYYYdashMMdashDD(DateTime dateTime) {
 
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
   tod ??= TimeOfDay();
-  DateTime dt = DateTime.now();
+  var dt = DateTime.now();
   dt = DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toUtc();
   return TimeOfDay(dt.hour, dt.minute);
@@ -17,7 +17,7 @@ TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
 
 TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
   tod ??= TimeOfDay();
-  DateTime dt = DateTime.now().toUtc();
+  var dt = DateTime.now().toUtc();
   dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toLocal();
   return TimeOfDay(dt.hour, dt.minute);
@@ -31,8 +31,12 @@ int dayOffsetUtcToLocal(int utcDayOffset) {
   return utcDayOffset + DateTime.now().timeZoneOffset.inMilliseconds;
 }
 
+/// Time of the day
 class TimeOfDay {
+  /// Hour
   int hour;
+
+  /// minute.
   int minute;
 
   int get milliseconds => (hour * 60 + minute) * 60 * 1000;
@@ -68,11 +72,11 @@ class TimeOfDay {
   }
 
   static TimeOfDay parse(String text) {
-    int minute = 0;
-    int hour = 0;
+    var minute = 0;
+    var hour = 0;
     try {
       if (!stringIsEmpty(text)) {
-        List<String> parts = text.split(":");
+        var parts = text.split(':');
         hour = int.parse(parts[0]);
         minute = int.parse(parts[1]);
       }
@@ -97,21 +101,21 @@ DateTime dateTimeWithOffset(DateTime dt, int offset) {
 }
 
 String formatTimestampMinSeconds(int timestamp) {
-  int seconds = (timestamp / 1000).round();
-  int minutes = seconds ~/ 60;
+  var seconds = (timestamp / 1000).round();
+  final minutes = seconds ~/ 60;
   seconds -= minutes * 60;
-  return "${minutes.toString()}:${seconds.toString().padLeft(2, "0")}";
+  return '${minutes.toString()}:${seconds.toString().padLeft(2, '0')}';
 }
 
 // [datStartOffset] is the offset from utc, return a utc time, now can be anything
 DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
   // make sure it goes after now, then go backwards
   // now.timeZoneName;
-  DateTime begginingOfDay = dateTimeWithTimeCleared(now)
+  var begginingOfDay = dateTimeWithTimeCleared(now)
       .add(Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
 
   while (now.isBefore(begginingOfDay)) {
-    begginingOfDay = begginingOfDay.add(Duration(days: -1));
+    begginingOfDay = begginingOfDay.add(const Duration(days: -1));
   }
   return begginingOfDay;
 }

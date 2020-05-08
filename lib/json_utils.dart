@@ -58,7 +58,7 @@ String jsonPretty(dynamic data, [String defaultString]) {
   }
   if (data != null) {
     try {
-      return const JsonEncoder.withIndent("  ").convert(data);
+      return const JsonEncoder.withIndent('  ').convert(data);
     } catch (_) {}
   }
   return defaultString;

@@ -1,9 +1,9 @@
 class Fifo<T> {
-  List<T> _list = [];
+  final _list = <T>[];
   void push(T value) => _list.add(value);
   T pop() {
     if (_list.isNotEmpty) {
-      T value = _list.first;
+      var value = _list.first;
       _list.removeAt(0);
       return value;
     }

@@ -54,7 +54,7 @@ void main() {
       expect(identical(value, completer.future), isTrue);
       expect(completer.isCancelled, isFalse);
       expect(completer.isCompleted, isFalse);
-      bool completed = false;
+      var completed = false;
       unawaited(completer.future.then((_) {
         completed = true;
       }));
@@ -94,7 +94,7 @@ void main() {
       expect(completer.isCancelled, isFalse);
       expect(completer.isCompleted, isFalse);
       expect(completer.error, isNull);
-      bool completed = false;
+      var completed = false;
       unawaited(completer.future.catchError((_) {
         completed = true;
       }));
@@ -135,7 +135,7 @@ void main() {
       expect(identical(value, completer.future), isTrue);
       expect(completer.isCancelled, isFalse);
       expect(completer.isCompleted, isFalse);
-      bool cancelled = false;
+      var cancelled = false;
       unawaited(completer.future.catchError((_) {
         cancelled = true;
       }));

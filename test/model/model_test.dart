@@ -50,26 +50,33 @@ void defineTests() {
       expect(model.getModelEntry('test').value, null);
     });
 
-    test('model_list', () {
-      var list = ModelList();
-      var modelList1 = ModelList();
-      var modelList2 = ModelList([]);
-      var baseModelList = MyModelList();
+    group('model_list', () {
+      test('simple', () {
+        var list = ModelList();
+        var modelList1 = ModelList();
+        var modelList2 = ModelList([]);
+        var baseModelList = MyModelList();
 
-      var lists = <List>[list, modelList1, modelList2, baseModelList];
-      // expect(model.getEntry('test'), ModelEntry('test', null));
-      void _test(Map value) {
-        for (var list in lists) {
-          list.add(asModel(value));
-          expect(list.last, value);
+        var lists = <List>[list, modelList1, modelList2, baseModelList];
+        // expect(model.getEntry('test'), ModelEntry('test', null));
+        void _test(Map value) {
+          for (var list in lists) {
+            list.add(asModel(value));
+            expect(list.last, value);
+          }
         }
-      }
 
-      _test(null);
-      _test({});
+        _test(null);
+        _test({});
 
-      list = ModelList();
-      list.add(Model({'a': 1}));
+        list = ModelList();
+        list.add(Model({'a': 1}));
+      });
+
+      test('cast', () {
+        var list = ModelList([<dynamic, dynamic>{}]);
+        expect(list[0], const TypeMatcher<Model>());
+      });
     });
 
     test('model_base', () {

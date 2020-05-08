@@ -8,36 +8,36 @@ import 'package:test/test.dart';
 void main() {
   group('timeOfDay', () {
     test('parse', () {
-      expect(TimeOfDay.parse(null).toString(), "00:00");
-      expect(TimeOfDay.parse("").toString(), "00:00");
-      expect(TimeOfDay.parse("1").toString(), "01:00");
-      expect(TimeOfDay.parse("0:-1").toString(), "23:59");
-      expect(TimeOfDay.parse("-47").toString(), "01:00");
-      expect(TimeOfDay.parse("0:60").toString(), "01:00");
+      expect(TimeOfDay.parse(null).toString(), '00:00');
+      expect(TimeOfDay.parse('').toString(), '00:00');
+      expect(TimeOfDay.parse('1').toString(), '01:00');
+      expect(TimeOfDay.parse('0:-1').toString(), '23:59');
+      expect(TimeOfDay.parse('-47').toString(), '01:00');
+      expect(TimeOfDay.parse('0:60').toString(), '01:00');
     });
 
     test('localToUtc', () {
       // only valid in france
-      DateTime dt = DateTime.now();
+      var dt = DateTime.now();
       //print(dt.timeZoneOffset);
-      expect(timeOfDayLocalToUtc(TimeOfDay.parse("11:00")),
-          TimeOfDay.parse("11:${-dt.timeZoneOffset.inMinutes}"));
-      // for france expect(timeOfDayLocalToUtc(TimeOfDay.parse("11:00")),TimeOfDay.parse("10:00"));
+      expect(timeOfDayLocalToUtc(TimeOfDay.parse('11:00')),
+          TimeOfDay.parse('11:${-dt.timeZoneOffset.inMinutes}'));
+      // for france expect(timeOfDayLocalToUtc(TimeOfDay.parse('11:00')),TimeOfDay.parse('10:00'));
     });
 
     test('utcToLocal', () {
       // only valid in france
-      DateTime dt = DateTime.now();
+      var dt = DateTime.now();
       //print(dt.timeZoneOffset);
-      expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
-          TimeOfDay.parse("11:${dt.timeZoneOffset.inMinutes}"));
+      expect(timeOfDayUtcToLocal(TimeOfDay.parse('11:00')),
+          TimeOfDay.parse('11:${dt.timeZoneOffset.inMinutes}'));
       /*
       // for france
-      expect(timeOfDayUtcToLocal(TimeOfDay.parse("11:00")),
-          TimeOfDay.parse("12:00"));
+      expect(timeOfDayUtcToLocal(TimeOfDay.parse('11:00')),
+          TimeOfDay.parse('12:00'));
 
-      expect(timeOfDayUtcToLocal(TimeOfDay.parse("00:00")),
-          TimeOfDay.parse("01:00"));
+      expect(timeOfDayUtcToLocal(TimeOfDay.parse('00:00')),
+          TimeOfDay.parse('01:00'));
           */
     });
 

@@ -7,11 +7,11 @@ void main() => defineTests();
 void defineTests() {
   test('parseJsonObject', () {
     expect(parseJsonObject(null), equals(null));
-    expect(parseJsonObject("456"), equals(null));
-    Map obj = {"key": "value"};
+    expect(parseJsonObject('456'), equals(null));
+    var obj = <String, dynamic>{'key': 'value'};
     expect(parseJsonObject('{"key":"value"}'), equals(obj));
     obj = {
-      "key": ["value"]
+      'key': ['value']
     };
     expect(parseJsonObject('{"key":["value"]}'), equals(obj));
     expect(parseJsonObject('{key:"value"}'), isNull);
@@ -22,9 +22,9 @@ void defineTests() {
 
   test('parseJsonList', () {
     expect(parseJsonList(null), equals(null));
-    expect(parseJsonList("456"), equals(null));
-    List list = [
-      {"key": "value"}
+    expect(parseJsonList('456'), equals(null));
+    var list = [
+      {'key': 'value'}
     ];
     expect(parseJsonList('[{"key":"value"}]'), equals(list));
     expect(parseJsonList('{"key":"value"}'), isNull);
@@ -33,7 +33,7 @@ void defineTests() {
 
   test('parseJson', () {
     expect(parseJson(null), null);
-    expect(parseJson(""), null);
+    expect(parseJson(''), null);
   });
 
   test('JSON.encode', () {
@@ -43,31 +43,31 @@ void defineTests() {
 
   test('encodeJson', () {
     expect(encodeJson(null), isNull);
-    expect(encodeJson(""), '""');
+    expect(encodeJson(''), '""');
     expect(encodeJson({}), '{}');
   });
 
   test('jsonPretty', () {
     expect(jsonPretty(null), isNull);
-    expect(jsonPretty(null, "nope"), "nope");
-    expect(jsonPretty("hi"), '"hi"');
+    expect(jsonPretty(null, 'nope'), 'nope');
+    expect(jsonPretty('hi'), '"hi"');
     expect(jsonPretty(1), '1');
-    expect(jsonPretty({}), "{}");
-    expect(jsonPretty([]), "[]");
-    Map obj = {
-      "key": ["value"]
+    expect(jsonPretty({}), '{}');
+    expect(jsonPretty([]), '[]');
+    var obj = {
+      'key': ['value']
     };
-    expect(jsonPretty(obj), """
+    expect(jsonPretty(obj), '''
 {
   "key": [
     "value"
   ]
-}""");
-    expect(jsonPretty('{"key": ["value"]}'), """
+}''');
+    expect(jsonPretty('{"key": ["value"]}'), '''
 {
   "key": [
     "value"
   ]
-}""");
+}''');
   });
 }

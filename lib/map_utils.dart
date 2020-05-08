@@ -13,9 +13,9 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
-Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
+Map<K, V> cloneMap<K, V>(Map<K, V> original) {
   final map = <K, V>{};
-  orignal.forEach((key, value) {
+  original.forEach((key, value) {
     dynamic cloneValue;
     if (value is Map) {
       cloneValue = cloneMap(value);
@@ -29,11 +29,27 @@ Map<K, V> cloneMap<K, V>(Map<K, V> orignal) {
   return map;
 }
 
+/// Get a map Value, create if needed.
+///
+/// if the map value is null and createIfNull is specified, the object is
+/// created and inserted in the map.
+V mapValue<K, V>(Map<K, V> map, K key, {V Function() createIfNull}) {
+  if (map == null) {
+    return null;
+  }
+  var value = map[key];
+  if (value == null && createIfNull != null) {
+    value = createIfNull();
+    map[key] = value;
+  }
+  return value;
+}
+
 String mapStringValue(Map map, String key, [String defaultValue]) {
   if (map != null) {
-    String value = map[key]?.toString();
+    var value = map[key]?.toString();
     if (value != null) {
-      return value.toString();
+      return value;
     }
   }
   return defaultValue;
@@ -91,7 +107,7 @@ T mapValueFromParts<T>(Map map, Iterable<String> parts) =>
 
 T getPartsMapValue<T>(Map map, Iterable<String> parts) {
   dynamic value = map;
-  for (String part in parts) {
+  for (var part in parts) {
     if (value is Map) {
       value = value[part];
     } else {
@@ -102,8 +118,8 @@ T getPartsMapValue<T>(Map map, Iterable<String> parts) {
 }
 
 void setPartsMapValue<T>(Map map, List<String> parts, value) {
-  for (int i = 0; i < parts.length - 1; i++) {
-    String part = parts[i];
+  for (var i = 0; i < parts.length - 1; i++) {
+    var part = parts[i];
     dynamic sub = map[part];
     if (!(sub is Map)) {
       sub = <String, dynamic>{};

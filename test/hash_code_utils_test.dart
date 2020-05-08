@@ -10,7 +10,7 @@ void main() {
       expect(safeHashCode(null), 0);
       expect(safeHashCode(0), 0);
       expect(safeHashCode(1), 1);
-      expect(safeHashCode("hi".hashCode), "hi".hashCode);
+      expect(safeHashCode('hi'.hashCode), 'hi'.hashCode);
     });
   });
 }

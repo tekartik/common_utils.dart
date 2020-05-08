@@ -2,7 +2,7 @@ import 'package:dev_test/test.dart' hide isEmpty;
 import 'package:tekartik_common_utils/list_utils.dart';
 
 void main() {
-  group("list_utils", () {
+  group('list_utils', () {
     test('isEmpty', () {
       expect(listIsEmpty(null), isTrue);
       expect(listIsEmpty([]), isTrue);
@@ -92,9 +92,9 @@ void main() {
       expect(cloneList([]), []);
       expect(identical(cloneList([]), []), isFalse);
 
-      List list1 = [1, [], {}];
-      List listFrom = List.from(list1);
-      List list2 = cloneList(list1);
+      var list1 = [1, [], {}];
+      var listFrom = List.from(list1);
+      var list2 = cloneList(list1);
       expect(listFrom, list1);
       expect(list2, list1);
 

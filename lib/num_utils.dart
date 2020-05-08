@@ -4,7 +4,7 @@ num parseNum(dynamic value, [num defaultValue]) {
   if (value is num) {
     return value;
   } else if (value is String) {
-    num numValue = num.tryParse(value);
+    var numValue = num.tryParse(value);
     if (numValue != null) {
       return numValue;
     }
