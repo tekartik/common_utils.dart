@@ -23,7 +23,7 @@ Map<String, List> packList(Iterable<Map<String, dynamic>> list,
     columnSet.addAll(item.keys);
   }
 
-  var columns = columnSet.toList();
+  var columns = columnSet.toList()..sort();
 
   // build the rows
   var rows = [];
@@ -83,7 +83,7 @@ dynamic compackAny(dynamic unpacked) {
   } else if (unpacked is Map) {
     var map = unpacked;
     // We are trying to packed something that looks like a pack, mark it
-    if (map.keys.contains(_r) && map.keys.contains(_r)) {
+    if (map.keys.contains(_c) && map.keys.contains(_r)) {
       map = Map<String, dynamic>.from(unpacked);
 
       unpacked.forEach((key, value) {
