@@ -48,6 +48,9 @@ void main() {
           [
             {'field1': 'text1', 'field2': 123456}
           ]);
+
+      expect(compackAny({r'$c': 1}), {r'$c': 1});
+      expect(compackAny({r'$r': 1}), {r'$r': 1});
       expect(
           compackAny({r'$c': 1, r'$r': 2}), {r'$c': 1, r'$r': 2, r'$v': true});
       expect(compackAny({r'$c': 1, r'$r': 2, r'$v': true}),
@@ -59,6 +62,18 @@ void main() {
           [
             {r'$c': 1, r'$r': 2, r'$v': true}
           ]);
+      expect(
+          compackAny([
+            {'field2': 'text2'},
+            {'field1': 'text1'}
+          ]),
+          {
+            r'$c': ['field1', 'field2'],
+            r'$r': [
+              [null, 'text2'],
+              ['text1', null]
+            ]
+          });
       expect(
           compackAny([
             {'field1': 'text1', 'field2': 123456},
