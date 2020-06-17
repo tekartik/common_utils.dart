@@ -41,6 +41,16 @@ void main() {
       expect(listLast([1, 2]), 2);
     });
 
+    test('listGet', () {
+      expect(listGet(null, 0), isNull);
+      expect(listGet([], 0), isNull);
+      expect(listGet([null], 0), isNull);
+      expect(listGet([1], 0), 1);
+      expect(listGet([1], -1), isNull);
+      expect(listGet([1], 1), isNull);
+      expect(listGet([1, 2], 1), 2);
+    });
+
     test('truncate', () {
       expect(listTruncate(null, 0), isNull);
       expect(listTruncate(null, 1), isNull);

@@ -16,6 +16,14 @@ int listLength(Iterable list) {
   return list?.length ?? 0;
 }
 
+/// Safe get at a given index
+T listGet<T>(List<T> list, int index) {
+  if (index >= 0 && index < listLength(list)) {
+    return list[index];
+  }
+  return null;
+}
+
 /// Safe way to get a list, never fails
 List<T> asList<T>(dynamic value) {
   if (value is List<T>) {
