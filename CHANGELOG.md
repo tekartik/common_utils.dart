@@ -1,3 +1,7 @@
+# 0.10.14
+
+- add `parseFirstInt` and `parseStartInt`
+
 # 0.10.6
 
 - add `pack` utils to pack list of map in column rows

@@ -24,4 +24,26 @@ void defineTests() {
     expect(parseInt('a', 2), 2);
     expect(parseInt(null, 3), 3);
   });
+
+  test('parseStartInt', () {
+    expect(parseStartInt('null'), isNull);
+    expect(parseStartInt(null), null);
+    expect(parseStartInt(''), null);
+    expect(parseStartInt('a'), null);
+    expect(parseStartInt('a3'), null);
+    expect(parseStartInt('3'), 3);
+    expect(parseStartInt('3.14'), 3);
+    expect(parseStartInt('030a'), 30);
+  });
+
+  test('parseFirstInt', () {
+    expect(parseFirstInt('null'), isNull);
+    expect(parseFirstInt(null), null);
+    expect(parseFirstInt(''), null);
+    expect(parseFirstInt('a'), null);
+    expect(parseFirstInt('a3'), 3);
+    expect(parseFirstInt('3'), 3);
+    expect(parseFirstInt('3.14'), 3);
+    expect(parseFirstInt('030a'), 30);
+  });
 }
