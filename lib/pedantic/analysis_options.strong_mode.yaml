@@ -14,6 +14,10 @@ include: package:pedantic/analysis_options.yaml
 # https://github.com/flutter/flutter/blob/master/analysis_options.yaml
 
 analyzer:
+  # Exclude common build folder.
+  exclude:
+    - build/**
+
   # Strong mode is sometimes harder to keep
   strong-mode:
     implicit-casts: false
