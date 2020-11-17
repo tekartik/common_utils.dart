@@ -17,6 +17,7 @@ analyzer:
   # Exclude common build folder.
   exclude:
     - build/**
+    - .dart_tool/**
 
   # Strong mode is sometimes harder to keep
   strong-mode:
