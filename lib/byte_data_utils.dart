@@ -12,3 +12,14 @@ ByteData byteDataFromOffset(ByteData data, int offset, [int length]) {
   length ??= data.lengthInBytes - offset;
   return data.buffer.asByteData(data.offsetInBytes + offset, length);
 }
+
+/// Convert a list to a uint8 list
+Uint8List asUint8List(List<int> data) {
+  if (data == null) {
+    return null;
+  }
+  if (data is Uint8List) {
+    return data;
+  }
+  return Uint8List.fromList(data);
+}

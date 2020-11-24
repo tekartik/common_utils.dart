@@ -20,5 +20,15 @@ void main() {
       var data3 = byteDataFromOffset(data, 1, 2);
       expect(byteDataToUint8List(data3), [2, 3]);
     });
+
+    test('asUint8List', () {
+      expect(asUint8List(null), null);
+      var list = [1, 2, 3];
+      var uint8List = Uint8List.fromList(list);
+
+      expect(identical(asUint8List(uint8List), uint8List), true);
+      expect(identical(asUint8List(list), uint8List), false);
+      expect(asUint8List(list), uint8List);
+    });
   });
 }
