@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }} / ${{ matrix.flutter }}
+    name: Dart test on ${{ matrix.os }} / ${{ matrix.dart-channel }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -16,10 +16,15 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         dart-channel: [stable, beta, dev]
     steps:
-      - uses: cedx/setup-dart@v2
-          with:
-            release-channel: ${{ matrix.dart-channel }}
-      - uses: actions/checkout@v2
-      - run: dart --version
-      - run: dart pub get
-      - run: dart run tool/run_ci.dart
+      - name: Set up Dart
+        uses: cedx/setup-dart@v2
+        with:
+          release-channel: ${{ matrix.dart-channel }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dart version
+        run: dart --version
+      - name: pub get
+        run: dart pub get
+      - name: run_ci
+        run: dart run tool/run_ci.dart
