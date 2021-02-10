@@ -144,5 +144,24 @@ void main() {
         [3]
       ]);
     });
+    test('listFlatten', () {
+      expect(listFlatten([[]]), []);
+      expect(
+          listFlatten([
+            [1]
+          ]),
+          [1]);
+      expect(
+          listFlatten([
+            [1, '2']
+          ]),
+          [1, '2']);
+      expect(
+          listFlatten([
+            [1],
+            ['2']
+          ]),
+          [1, '2']);
+    });
   });
 }

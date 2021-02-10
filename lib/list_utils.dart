@@ -121,3 +121,7 @@ List<List<T>> listChunk<T>(List<T> list, int chunkSize) {
 
   return chunks;
 }
+
+/// Flatten a list of list
+List<T> listFlatten<T>(Iterable<Iterable<T>> list) =>
+    [for (var sublist in list) ...sublist];
