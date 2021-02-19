@@ -1,7 +1,7 @@
 class Fifo<T> {
   final _list = <T>[];
   void push(T value) => _list.add(value);
-  T pop() {
+  T? pop() {
     if (_list.isNotEmpty) {
       var value = _list.first;
       _list.removeAt(0);

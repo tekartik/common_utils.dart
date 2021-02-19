@@ -6,24 +6,24 @@ import 'package:tekartik_common_utils/model/src/model_entry.dart';
 
 // last mixin win!
 class ModelImpl extends ModelBase {
-  ModelImpl(Map<dynamic, dynamic> map) : super(map);
+  ModelImpl(Map<dynamic, dynamic>? map) : super(map);
 }
 
 abstract class ModelBase with MapMixin<String, dynamic>, ModelBaseMixin {
-  ModelBase(Map<dynamic, dynamic> map) {
+  ModelBase(Map<dynamic, dynamic>? map) {
     __map = map?.cast<String, dynamic>();
   }
 }
 
 /// Only create the model if non null
-Model asModel(dynamic map) => map is Map ? Model(map) : null;
+Model? asModel(dynamic map) => map is Map ? Model(map) : null;
 
 mixin ModelBaseMixin implements Model {
   /// slow implementation for null value
   /// could be overriden by implementation
   /// Returns null if it does not exists
   @override
-  ModelEntry getModelEntry(String key) {
+  ModelEntry? getModelEntry(String key) {
     dynamic value = _map[key];
     if (value == null) {
       if (!containsKey(key)) {
@@ -34,7 +34,7 @@ mixin ModelBaseMixin implements Model {
   }
 
   @override
-  T getValue<T>(String key) => _map[key] as T;
+  T? getValue<T>(String key) => _map[key] as T?;
 
   @override
   void setValue<T>(String key, T value, {bool presentIfNull = false}) {
@@ -45,12 +45,12 @@ mixin ModelBaseMixin implements Model {
     }
   }
 
-  Map<String, dynamic> __map;
+  Map<String, dynamic>? __map;
 
   Map<String, dynamic> get _map => __map ??= <String, dynamic>{};
 
   @override
-  dynamic operator [](Object key) => _map[key];
+  dynamic operator [](Object? key) => _map[key as String];
 
   @override
   void operator []=(String key, value) => _map[key] = value;
@@ -69,10 +69,10 @@ mixin ModelBaseMixin implements Model {
   void clear() => _map.clear();
 
   @override
-  bool containsKey(Object key) => _map.containsKey(key);
+  bool containsKey(Object? key) => _map.containsKey(key);
 
   @override
-  bool containsValue(Object value) => _map.containsValue(value);
+  bool containsValue(Object? value) => _map.containsValue(value);
 
   @override
   Iterable<MapEntry<String, dynamic>> get entries => _map.entries;
@@ -102,7 +102,7 @@ mixin ModelBaseMixin implements Model {
       putIfAbsent(key, ifAbsent);
 
   @override
-  dynamic remove(Object key) => _map.remove(key);
+  dynamic remove(Object? key) => _map.remove(key);
 
   @override
   void removeWhere(bool Function(String key, dynamic value) predicate) =>
@@ -110,7 +110,7 @@ mixin ModelBaseMixin implements Model {
 
   @override
   dynamic update(String key, Function(dynamic value) update,
-          {Function() ifAbsent}) =>
+          {Function()? ifAbsent}) =>
       _map.update(key, update);
 
   @override

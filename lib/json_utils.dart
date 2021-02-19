@@ -3,8 +3,8 @@ import 'dart:convert';
 //
 // Safely parse a map
 //
-Map<String, dynamic> parseJsonObject(String text,
-    [Map<String, dynamic> defaultMap]) {
+Map<String, dynamic>? parseJsonObject(String? text,
+    [Map<String, dynamic>? defaultMap]) {
   var map = parseJson(text);
   if (map is Map) {
     return map?.cast<String, dynamic>();
@@ -15,7 +15,7 @@ Map<String, dynamic> parseJsonObject(String text,
 //
 // Safely parse a list
 //
-List parseJsonList(String text, [List defaultList]) {
+List? parseJsonList(String? text, [List? defaultList]) {
   var list = parseJson(text);
   if (list is List) {
     return list;
@@ -26,7 +26,7 @@ List parseJsonList(String text, [List defaultList]) {
 //
 // safely parse text
 //
-dynamic parseJson(String text) {
+dynamic parseJson(String? text) {
   if (text != null) {
     try {
       return json.decode(text);
@@ -38,7 +38,7 @@ dynamic parseJson(String text) {
 //
 // safely encode map, list, primitive or null
 //
-String encodeJson(var value) {
+String? encodeJson(var value) {
   if (value == null) {
     return null;
   }
@@ -49,9 +49,9 @@ String encodeJson(var value) {
 // [data] can be map a list
 // if it is a string, it will try to parse it first
 //
-String jsonPretty(dynamic data, [String defaultString]) {
+String? jsonPretty(dynamic data, [String? defaultString]) {
   if (data is String) {
-    dynamic parsed = parseJson(data as String);
+    dynamic parsed = parseJson(data);
     if (parsed != null) {
       data = parsed;
     }

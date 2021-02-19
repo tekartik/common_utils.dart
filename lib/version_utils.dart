@@ -26,14 +26,14 @@ Version parseVersion(String text) {
   try {
     return Version.parse(text);
   } on FormatException catch (e, _) {
-    Match match = _completeVersion.firstMatch(text);
+    Match? match = _completeVersion.firstMatch(text);
     if (match != null) {
       try {
         //      print(match[0]);
         //      print(match[1]);
         //      print(match[2]);
-        var major = int.parse(match[1]);
-        var minor = int.parse(match[2]);
+        var major = int.parse(match[1]!);
+        var minor = int.parse(match[2]!);
 
         return Version(major, minor, 0);
       } on FormatException catch (_) {
@@ -46,9 +46,9 @@ Version parseVersion(String text) {
           //      print(match[0]);
           //      print(match[1]);
           //      print(match[2]);
-          var major = int.parse(match[1]);
-          var minor = int.parse(match[2]);
-          var patch = int.parse(match[3]);
+          var major = int.parse(match[1]!);
+          var minor = int.parse(match[2]!);
+          var patch = int.parse(match[3]!);
           var build = match[4];
 
           return Version(major, minor, patch, build: build);

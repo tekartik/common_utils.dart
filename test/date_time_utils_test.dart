@@ -75,7 +75,7 @@ void main() {
       expect(null, parseDateTime('a'));
       expect(DateTime.fromMillisecondsSinceEpoch(12345678901234, isUtc: true),
           parseDateTime('2361-03-21T19:15:01.234Z'));
-      expect(parseDateTime('2361-03-21T19:15:01.234').isUtc, isFalse);
+      expect(parseDateTime('2361-03-21T19:15:01.234')!.isUtc, isFalse);
     });
   });
 }

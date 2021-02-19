@@ -12,7 +12,7 @@ void debugQuickLogging(Level level) {
   setupQuickLogging(level);
 }
 
-void setupQuickLogging([Level level]) {
+void setupQuickLogging([Level? level]) {
   if (!_quickLoggingSetup) {
     hierarchicalLoggingEnabled = true;
     final handler = _PrintHandler();
@@ -63,9 +63,9 @@ Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
   return defaultLevel;
 }
 
-Logger _log;
+Logger? _log;
 
-Logger get log {
+Logger? get log {
   _log ??= Logger('Quick');
   return _log;
 }
@@ -81,7 +81,7 @@ String _stringPrefilled(String text, int len, String char) {
   return out.toString();
 }
 
-String formatTimestampMs(num timestamp) {
+String formatTimestampMs(num? timestamp) {
   // Allow 6 digits => 1000s
   final size = 6;
   //String txt;
@@ -100,7 +100,7 @@ String formatTimestampMs(num timestamp) {
 }
 
 /// from 00.00 to 100.0
-String format0To1AsPercent(num value) {
+String format0To1AsPercent(num? value) {
   //int size = 6;
   //String txt;
 

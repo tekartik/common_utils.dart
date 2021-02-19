@@ -10,11 +10,11 @@ class Operation {
   final Function action;
 
   /// The delay between each action
-  final Duration delay;
+  final Duration? delay;
   final _lock = Lock();
   bool _pending = false;
 
-  Operation({@required this.action, this.delay});
+  Operation({required this.action, this.delay});
 
   /// Trigger the action, if already running wait at least [delay] before
   /// running another one
@@ -25,7 +25,7 @@ class Operation {
         _pending = false;
         await action();
         if (delay != null) {
-          await Future.delayed(delay);
+          await Future.delayed(delay!);
         }
       });
     }

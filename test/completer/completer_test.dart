@@ -16,7 +16,7 @@ void main() {
         await completer.future;
       } on CancelException catch (_) {}
     });
-    Future _testValue([bool sync]) async {
+    Future _testValue([bool? sync]) async {
       var completer = CancellableCompleter(value: 1, sync: sync);
       final value = completer.value;
       expect(identical(value, completer.future), isFalse);
@@ -47,7 +47,7 @@ void main() {
       return _testValue(false);
     });
 
-    Future _testComplete([bool sync]) async {
+    Future _testComplete([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
 
       final value = completer.value;
@@ -86,7 +86,7 @@ void main() {
       return _testComplete(false);
     });
 
-    Future _testCompleteError([bool sync]) async {
+    Future _testCompleteError([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
 
       final value = completer.value;
@@ -129,7 +129,7 @@ void main() {
       return _testCompleteError(false);
     });
 
-    Future _testCancel([bool sync]) async {
+    Future _testCancel([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
       final value = completer.value;
       expect(identical(value, completer.future), isTrue);

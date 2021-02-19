@@ -6,23 +6,23 @@ abstract class StreamPollerEvent<T> {
   bool get done;
 }
 
-class _StreamPollerNext<T> implements StreamPollerEvent<T> {
+class _StreamPollerNext<T> implements StreamPollerEvent<T?> {
   @override
-  final T data;
+  final T? data;
 
   @override
   final bool done;
 
-  _StreamPollerNext({T event, bool done})
+  _StreamPollerNext({T? event, bool? done})
       : done = done ?? false,
         data = event;
 }
 
 class StreamPoller<T> {
-  StreamSubscription<T> _subscription;
+  late StreamSubscription<T> _subscription;
   final bool _lastOnly;
   bool _done = false;
-  Completer _completer;
+  Completer? _completer;
   final _lock = Lock();
   final _events = Fifo<_StreamPollerNext<T>>();
   void _addEvent(T event) {
@@ -33,7 +33,7 @@ class StreamPoller<T> {
     _triggetNext();
   }
 
-  StreamPoller(Stream<T> stream, {bool lastOnly})
+  StreamPoller(Stream<T> stream, {bool? lastOnly})
       : _lastOnly = lastOnly == true {
     _subscription = stream.listen(_addEvent, onDone: cancel);
   }
@@ -42,11 +42,11 @@ class StreamPoller<T> {
   void _triggetNext() {
     // notiy next if needed
     if (_completer?.isCompleted == false) {
-      _completer.complete();
+      _completer!.complete();
     }
   }
 
-  Future<StreamPollerEvent<T>> getNext() async {
+  Future<StreamPollerEvent<T?>> getNext() async {
     var next = _events.pop();
     if (next != null) {
       return next;
@@ -57,10 +57,10 @@ class StreamPoller<T> {
 
     return await _lock.synchronized(() async {
       _completer = Completer.sync();
-      await _completer.future;
+      await _completer!.future;
     }).then((_) async {
       return await getNext();
-    });
+    } as FutureOr<StreamPollerEvent<T?>> Function(Null));
   }
 
 // Make sure to cancel the pending completer

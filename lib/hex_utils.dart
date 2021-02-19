@@ -5,7 +5,7 @@ int _upperACodeUnit = 'A'.codeUnitAt(0);
 int _lowerACodeUnit = 'a'.codeUnitAt(0);
 int _digit0CodeUnit = '0'.codeUnitAt(0);
 
-int hexCharValue(int charCode) {
+int? hexCharValue(int charCode) {
   if (charCode >= _upperACodeUnit && charCode < _upperACodeUnit + 6) {
     return charCode - _upperACodeUnit + 10;
   }
@@ -19,7 +19,7 @@ int hexCharValue(int charCode) {
 }
 
 /// Return the hex formated value like A or null
-int hexCodeUint4(int value) {
+int? hexCodeUint4(int? value) {
   if (value == null) {
     return null;
   }
@@ -44,7 +44,7 @@ int lohexCodeUint4(int value) {
   }
 }
 
-int hex1CodeUint8(int value) {
+int? hex1CodeUint8(int value) {
   return hexCodeUint4((value & 0xF0) >> 4);
 }
 
@@ -52,7 +52,7 @@ int lohex1CodeUint8(int value) {
   return lohexCodeUint4((value & 0xF0) >> 4);
 }
 
-int hex2CodeUint8(int value) {
+int? hex2CodeUint8(int value) {
   return hexCodeUint4(value);
 }
 
@@ -61,11 +61,11 @@ int lohex2CodeUint8(int value) {
 }
 
 /// Return the hex formated value like 1A or null
-String hexUint8(int value) {
+String? hexUint8(int? value) {
   if (value == null) {
     return null;
   }
-  return String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
+  return String.fromCharCodes([hex1CodeUint8(value)!, hex2CodeUint8(value)!]);
 }
 
 /// Return the hex formated value like 1A or null
@@ -77,22 +77,22 @@ String lohexUint8(int value) {
 }
 
 /// Return the hex formated value like 12AB or null
-String hexUint16(int value) {
+String? hexUint16(int? value) {
   if (value == null) {
     return null;
   }
-  return hexUint8(value >> 8) + hexUint8(value);
+  return hexUint8(value >> 8)! + hexUint8(value)!;
 }
 
 /// Return the hex formated value like 1234ABCD or null
-String hexUint32(int value) {
+String? hexUint32(int? value) {
   if (value == null) {
     return null;
   }
-  return hexUint16(value >> 16) + hexUint16(value);
+  return hexUint16(value >> 16)! + hexUint16(value)!;
 }
 
-String hexQuickView(List<int> data, [int maxLen]) {
+String hexQuickView(List<int> data, [int? maxLen]) {
   if (data == null) {
     return '(null)';
   }
@@ -113,20 +113,20 @@ String hexQuickView(List<int> data, [int maxLen]) {
       }
     }
     final charCode = data[i];
-    out.writeCharCode(hex1CodeUint8(charCode));
-    out.writeCharCode(hex2CodeUint8(charCode));
+    out.writeCharCode(hex1CodeUint8(charCode)!);
+    out.writeCharCode(hex2CodeUint8(charCode)!);
   }
   return out.toString();
 }
 
-List<String> hexPrettyLines(List<int> data) {
+List<String>? hexPrettyLines(List<int>? data) {
   if (data == null) {
     return null;
   } else if (data.isEmpty) {
     return [];
   }
   final lines = <String>[];
-  StringBuffer sb;
+  StringBuffer? sb;
   _hexPretty(data, () {
     if (sb != null) {
       lines.add(sb.toString());
@@ -134,32 +134,32 @@ List<String> hexPrettyLines(List<int> data) {
     sb = StringBuffer();
     return sb;
   });
-  if (sb.isNotEmpty) {
+  if (sb!.isNotEmpty) {
     // last line
     lines.add(sb.toString());
   }
   return lines;
 }
 
-String hexPretty(List<int> data) {
+String? hexPretty(List<int>? data) {
   if (data == null) {
     return null;
   } else if (data.isEmpty) {
     return '[nodata]';
   }
-  StringBuffer sb;
+  StringBuffer? sb;
   _hexPretty(data, () {
     if (sb == null) {
       sb = StringBuffer();
     } else {
-      sb.writeln();
+      sb!.writeln();
     }
     return sb;
   });
   return sb.toString();
 }
 
-String _hexPretty(List<int> data, StringBuffer Function() newLine) {
+String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
   final blockSize = 16;
   int readSize;
   var lineIndex = 0;
@@ -185,7 +185,7 @@ String _hexPretty(List<int> data, StringBuffer Function() newLine) {
 
     for (i = 0; i < buffer.length; i++) {
       if (i > 0) {
-        out.write(' ');
+        out!.write(' ');
         if ((i % 4) == 0) {
           out.write(' ');
         }
@@ -194,14 +194,14 @@ String _hexPretty(List<int> data, StringBuffer Function() newLine) {
         }
       }
       final charCode = buffer[i];
-      out.writeCharCode(hex1CodeUint8(charCode));
-      out.writeCharCode(hex2CodeUint8(charCode));
+      out!.writeCharCode(hex1CodeUint8(charCode)!);
+      out.writeCharCode(hex2CodeUint8(charCode)!);
     }
 
     if (i > 0) {
       for (; i < blockSize; i++) {
         if (i > 0) {
-          out.write(' ');
+          out!.write(' ');
           if ((i % 4) == 0) {
             out.write(' ');
           }
@@ -209,11 +209,11 @@ String _hexPretty(List<int> data, StringBuffer Function() newLine) {
             out.write(' ');
           }
         }
-        out.write('..');
+        out!.write('..');
       }
     }
 
-    out.write('  ');
+    out!.write('  ');
 
     for (i = 0; i < readSize; i++) {
       if (i > 0) {
@@ -284,8 +284,8 @@ String oldhexPretty(List<int> data) {
         }
       }
       var charCode = buffer[i];
-      out.writeCharCode(hex1CodeUint8(charCode));
-      out.writeCharCode(hex2CodeUint8(charCode));
+      out.writeCharCode(hex1CodeUint8(charCode)!);
+      out.writeCharCode(hex2CodeUint8(charCode)!);
     }
 
     if (i > 0) {
@@ -347,7 +347,7 @@ String oldhexPretty(List<int> data) {
 // parse any hex string
 List<int> parseHexString(String text) {
   final data = <int>[];
-  int firstNibble;
+  int? firstNibble;
 
   text.codeUnits.forEach((int charCode) {
     if (firstNibble == null) {
@@ -355,7 +355,7 @@ List<int> parseHexString(String text) {
     } else {
       var secondNibble = hexCharValue(charCode);
       if (secondNibble != null) {
-        data.add(firstNibble * 16 + secondNibble);
+        data.add(firstNibble! * 16 + secondNibble);
         firstNibble = null;
       } else {
         firstNibble = null;
@@ -369,7 +369,7 @@ List<int> parseHexString(String text) {
 /// convert [data] to "01A1..."
 /// returns null if data is null
 ///
-String toHexString(List<int> data) {
+String? toHexString(List<int>? data) {
   if (data == null) {
     return null;
   }
@@ -384,7 +384,7 @@ String toHexString(List<int> data) {
 /// convert [data] to "01a1..."
 /// returns null if data is null
 ///
-String toLohexString(List<int> data) {
+String? toLohexString(List<int>? data) {
   if (data == null) {
     return null;
   }

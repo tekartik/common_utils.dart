@@ -9,7 +9,7 @@ export 'package:tekartik_common_utils/model/src/model_list.dart'
 /// Model class to use as a [Map<String, dynamic>].
 abstract class Model implements Map<String, dynamic> {
   /// Get a value expecting a given type
-  T getValue<T>(String key);
+  T? getValue<T>(String key);
 
   /// Set a value or remove it if [value] is null and [presentIfNull]
   /// is not true
@@ -17,7 +17,7 @@ abstract class Model implements Map<String, dynamic> {
 
   /// Create a model. If map is null, the model
   /// is an empty map
-  factory Model([Map<dynamic, dynamic> map]) {
+  factory Model([Map<dynamic, dynamic>? map]) {
     if (map is Model) {
       return map;
     }
@@ -27,15 +27,15 @@ abstract class Model implements Map<String, dynamic> {
   /// Returns the model entry for this key.
   ///
   /// Returns a [ModelEntry] object or null if the key is not present
-  ModelEntry getModelEntry(String key);
+  ModelEntry? getModelEntry(String key);
 }
 
 /// List class to use as a [List<dynamic>].
-abstract class ModelList implements List<Model> {
+abstract class ModelList implements List<Model?> {
   /// Create a model. If list is null, the model
   /// is an empty list
 
-  factory ModelList([Iterable<dynamic> iterable]) {
+  factory ModelList([Iterable<dynamic>? iterable]) {
     if (iterable is ModelList) {
       return iterable;
     }

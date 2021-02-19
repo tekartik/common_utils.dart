@@ -3,7 +3,7 @@
 
 import 'package:tekartik_common_utils/num_utils.dart';
 
-bool parseBool(dynamic value, [bool defaultBool]) {
+bool? parseBool(dynamic value, [bool? defaultBool]) {
   if (value is bool) {
     return value;
   }

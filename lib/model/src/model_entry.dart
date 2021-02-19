@@ -19,7 +19,7 @@ class ModelEntryImpl with ModelEntryMixin implements ModelEntry {
 }
 
 mixin ModelEntryMixin implements ModelEntry {
-  MapEntry<String, dynamic> _mapEntry;
+  late MapEntry<String, dynamic> _mapEntry;
 
   @override
   int get hashCode => key.hashCode ?? 0 + value?.hashCode ?? 0;

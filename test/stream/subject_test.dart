@@ -19,7 +19,7 @@ void main() {
 
     test('null add null', () async {
       // ignore: close_sinks
-      final subject = Subject<int>();
+      final subject = Subject<int?>();
       subject.add(null);
       unawaited(subject.close());
 
@@ -28,7 +28,7 @@ void main() {
 
     test('null add null later', () async {
       // ignore: close_sinks
-      final subject = Subject<int>();
+      final subject = Subject<int?>();
 
       scheduleMicrotask(() {
         subject.add(null);
@@ -123,7 +123,7 @@ void main() {
 
     test('replays the previously emitted items from addStream', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await subject.addStream(Stream<int>.fromIterable(<int>[1, 2, 3]));
 
@@ -134,7 +134,7 @@ void main() {
 
     test('allows items to be added once addStream is complete', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await subject.addStream(Stream<int>.fromIterable(<int>[1, 2]));
       subject.add(3);
@@ -145,7 +145,7 @@ void main() {
     test('allows items to be added once addStream is completes with an error',
         () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       // ignore: close_sinks
       var controller = StreamController<int>();
@@ -162,7 +162,7 @@ void main() {
     test('does not allow events to be added when addStream is active',
         () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       // Purposely don't wait for the future to complete, then try to add items
       // ignore: unawaited_futures
@@ -174,7 +174,7 @@ void main() {
     test('does not allow errors to be added when addStream is active',
         () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       // Purposely don't wait for the future to complete, then try to add items
       // ignore: unawaited_futures
@@ -186,7 +186,7 @@ void main() {
     test('does not allow subject to be closed when addStream is active',
         () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       // Purposely don't wait for the future to complete, then try to add items
       // ignore: unawaited_futures
@@ -199,7 +199,7 @@ void main() {
         'does not allow addStream to add items when previous addStream is active',
         () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       // Purposely don't wait for the future to complete, then try to add items
       // ignore: unawaited_futures
@@ -213,7 +213,7 @@ void main() {
     test('returns onListen callback set in constructor', () async {
       final ControllerCallback testOnListen = () {};
       // ignore: close_sinks
-      final StreamController<int> subject =
+      final StreamController<int?> subject =
           Subject<int>(onListen: testOnListen);
 
       await expectLater(subject.onListen, testOnListen);
@@ -222,7 +222,7 @@ void main() {
     test('sets onListen callback', () async {
       final ControllerCallback testOnListen = () {};
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await expectLater(subject.onListen, isNull);
 
@@ -234,7 +234,7 @@ void main() {
     test('returns onCancel callback set in constructor', () async {
       final onCancel = () => Future<void>.value(null);
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>(onCancel: onCancel);
+      final StreamController<int?> subject = Subject<int>(onCancel: onCancel);
 
       await expectLater(subject.onCancel, onCancel);
     });
@@ -242,7 +242,7 @@ void main() {
     test('sets onCancel callback', () async {
       final ControllerCallback testOnCancel = () {};
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await expectLater(subject.onCancel, isNull);
 
@@ -253,7 +253,7 @@ void main() {
 
     test('reports if a listener is present', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await expectLater(subject.hasListener, isFalse);
 
@@ -264,7 +264,7 @@ void main() {
 
     test('onPause unsupported', () {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       expect(subject.isPaused, isFalse);
       expect(() => subject.onPause, throwsUnsupportedError);
@@ -273,7 +273,7 @@ void main() {
 
     test('onResume unsupported', () {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       expect(() => subject.onResume, throwsUnsupportedError);
       expect(() => subject.onResume = () {}, throwsUnsupportedError);
@@ -281,13 +281,13 @@ void main() {
 
     test('returns controller sink', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await expectLater(subject.sink, const TypeMatcher<EventSink<int>>());
     });
 
     test('correctly closes done Future', () async {
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       scheduleMicrotask(() => subject.close());
 
@@ -296,7 +296,7 @@ void main() {
 
     test('can be listened to multiple times', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>(value: 1);
+      final StreamController<int?> subject = Subject<int>(value: 1);
       final stream = subject.stream;
 
       await expectLater(stream, emits(1));
@@ -305,7 +305,7 @@ void main() {
 
     test('always returns the same stream', () async {
       // ignore: close_sinks
-      final StreamController<int> subject = Subject<int>();
+      final StreamController<int?> subject = Subject<int>();
 
       await expectLater(subject.stream, equals(subject.stream));
     });

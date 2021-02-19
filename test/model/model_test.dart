@@ -4,11 +4,11 @@ import 'package:test/test.dart';
 void main() => defineTests();
 
 class MyModel extends ModelBase {
-  MyModel([Map map]) : super(map);
+  MyModel([Map? map]) : super(map);
 }
 
 class MyModelList extends ModelListBase {
-  MyModelList([Iterable list]) : super(list);
+  MyModelList([Iterable? list]) : super(list);
 }
 
 void defineTests() {
@@ -23,7 +23,7 @@ void defineTests() {
       var model = Model();
       model.setValue('test', 'text');
       expect(model.getValue<String>('test'), 'text');
-      expect(model.getModelEntry('test').value, 'text');
+      expect(model.getModelEntry('test')!.value, 'text');
       model.setValue('test', null);
       expect(model.getValue<String>('test'), isNull);
       expect(model.containsKey('test'), isFalse);
@@ -36,18 +36,18 @@ void defineTests() {
       var model = Model();
       expect(model.getModelEntry('test'), isNull);
       model['test'] = null;
-      expect(model.getModelEntry('test').value, isNull);
+      expect(model.getModelEntry('test')!.value, isNull);
       model['test'] = 'a';
-      expect(model.getModelEntry('test').value, 'a');
+      expect(model.getModelEntry('test')!.value, 'a');
       model['test'] = null;
       expect(model.getModelEntry('test'), ModelEntry('test', null));
       model.remove('test');
       expect(model.getModelEntry('test'), isNull);
 
       model = Model({'test': 'a'});
-      expect(model.getModelEntry('test').value, 'a');
+      expect(model.getModelEntry('test')!.value, 'a');
       model = Model({'test': null});
-      expect(model.getModelEntry('test').value, null);
+      expect(model.getModelEntry('test')!.value, null);
     });
 
     group('model_list', () {
@@ -59,7 +59,7 @@ void defineTests() {
 
         var lists = <List>[list, modelList1, modelList2, baseModelList];
         // expect(model.getEntry('test'), ModelEntry('test', null));
-        void _test(Map value) {
+        void _test(Map? value) {
           for (var list in lists) {
             list.add(asModel(value));
             expect(list.last, value);

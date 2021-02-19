@@ -1,5 +1,5 @@
 class OutBuffer {
-  int _maxLineCount;
+  late int _maxLineCount;
   List<String> lines = [];
 
   OutBuffer(int maxLineCount) {

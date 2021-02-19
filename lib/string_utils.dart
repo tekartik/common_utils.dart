@@ -8,19 +8,19 @@ export 'int_utils.dart' show parseInt;
 bool isEmpty(String text) => stringIsEmpty(text);
 
 /// True if null or empty
-bool stringIsEmpty(String text) {
+bool stringIsEmpty(String? text) {
   return ((text == null) || text.isEmpty);
 }
 
 /// True if not null nor empty.
-bool stringIsNotEmpty(String text) {
+bool stringIsNotEmpty(String? text) {
   return text?.isNotEmpty == true;
 }
 
-int _stringSafeStartOrEnd(String text, int index) {
+int _stringSafeStartOrEnd(String? text, int index) {
   if (index < 0) {
     return 0;
-  } else if (index > text.length) {
+  } else if (index > text!.length) {
     return text.length;
   }
   return index;
@@ -29,7 +29,7 @@ int _stringSafeStartOrEnd(String text, int index) {
 /// Returns a sub string starting at start with a len max.
 ///
 /// null only if text is null.
-String stringSubString(String text, int start, [int end]) {
+String? stringSubString(String? text, int start, [int? end]) {
   if (stringIsEmpty(text)) {
     return text;
   }
@@ -37,28 +37,28 @@ String stringSubString(String text, int start, [int end]) {
   if (end != null) {
     end = max(_stringSafeStartOrEnd(text, end), start);
   }
-  return text.substring(start, end);
+  return text!.substring(start, end);
 }
 
 /// Truncate at max element.
-String stringTruncate(String text, int len) => stringSubString(text, 0, len);
+String? stringTruncate(String? text, int len) => stringSubString(text, 0, len);
 
 // Use default Value if null (default empty string)
 // might be deprecated for stringNonNull to avoid conflict
 @Deprecated('User stringNonNull')
-String nonNull(String value, [String defaultValue = '']) =>
+String? nonNull(String value, [String defaultValue = '']) =>
     stringNonNull(value, defaultValue);
 
-String stringNonNull(String value, [String defaultValue = '']) =>
+String? stringNonNull(String? value, [String? defaultValue = '']) =>
     value_utils.nonNull(value, defaultValue);
 
 // User defaul Value if empty (default null)
 // might be deprecated for stringNonNull to avoid conflict
 @Deprecated('User stringNonEmpty')
-String nonEmpty(String value, [String defaultValue]) =>
+String? nonEmpty(String value, [String? defaultValue]) =>
     stringNonEmpty(value, defaultValue);
 
-String stringNonEmpty(String value, [String defaultValue]) =>
+String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
 @deprecated

@@ -13,8 +13,8 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
-Map<K, V> cloneMap<K, V>(Map<K, V> original) {
-  final map = <K, V>{};
+Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
+  final map = <K, V?>{};
   original.forEach((key, value) {
     dynamic cloneValue;
     if (value is Map) {
@@ -24,7 +24,7 @@ Map<K, V> cloneMap<K, V>(Map<K, V> original) {
     } else {
       cloneValue = value;
     }
-    map[key] = cloneValue as V;
+    map[key] = cloneValue as V?;
   });
   return map;
 }
@@ -33,19 +33,19 @@ Map<K, V> cloneMap<K, V>(Map<K, V> original) {
 ///
 /// if the map value is null and createIfNull is specified, the object is
 /// created and inserted in the map.
-V mapValue<K, V>(Map<K, V> map, K key, {V Function() createIfNull}) {
+V? mapValue<K, V>(Map<K, V>? map, K key, {V Function()? createIfNull}) {
   if (map == null) {
     return null;
   }
   var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull();
-    map[key] = value;
+    map[key] = value!;
   }
   return value;
 }
 
-String mapStringValue(Map map, String key, [String defaultValue]) {
+String? mapStringValue(Map map, String key, [String? defaultValue]) {
   if (map != null) {
     var value = map[key]?.toString();
     if (value != null) {
@@ -55,7 +55,7 @@ String mapStringValue(Map map, String key, [String defaultValue]) {
   return defaultValue;
 }
 
-int mapIntValue(Map map, String key, [int defaultValue]) {
+int? mapIntValue(Map map, String key, [int? defaultValue]) {
   if (map != null) {
     var value = map[key];
     if (value != null) {
@@ -70,7 +70,7 @@ int mapIntValue(Map map, String key, [int defaultValue]) {
 }
 
 /// Safe way to get a map, never fails
-Map<K, V> asMap<K, V>(dynamic value) {
+Map<K, V>? asMap<K, V>(dynamic value) {
   if (value is Map<K, V>) {
     return value;
   }
@@ -102,10 +102,10 @@ void dumpMap(Map map) {
   });
 }
 
-T mapValueFromParts<T>(Map map, Iterable<String> parts) =>
+T? mapValueFromParts<T>(Map map, Iterable<String> parts) =>
     getPartsMapValue(map, parts);
 
-T getPartsMapValue<T>(Map map, Iterable<String> parts) {
+T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
   dynamic value = map;
   for (var part in parts) {
     if (value is Map) {
@@ -114,7 +114,7 @@ T getPartsMapValue<T>(Map map, Iterable<String> parts) {
       return null;
     }
   }
-  return value as T;
+  return value as T?;
 }
 
 void setPartsMapValue<T>(Map map, List<String> parts, value) {
@@ -125,11 +125,11 @@ void setPartsMapValue<T>(Map map, List<String> parts, value) {
       sub = <String, dynamic>{};
       map[part] = sub;
     }
-    map = sub as Map;
+    map = sub;
   }
   map[parts.last] = value;
 }
 
-T mapValueFromPath<T>(Map map, String path) {
+T? mapValueFromPath<T>(Map map, String path) {
   return mapValueFromParts(map, path.split('/'));
 }

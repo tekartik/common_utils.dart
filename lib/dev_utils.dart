@@ -3,7 +3,7 @@ library tekartik_dev_utils;
 
 import 'package:tekartik_common_utils/env_utils.dart';
 
-void _devPrint(Object object) {
+void _devPrint(Object? object) {
   if (_devPrintEnabled) {
     print(object);
   }
@@ -29,7 +29,7 @@ void devPrint(Object object) {
 @deprecated
 T devWarning<T>(T value) => value;
 
-void _devError([Object object]) {
+void _devError([Object? object]) {
   // one day remove the print however sometimes the error thrown is hidden
   try {
     throw UnsupportedError('$object');
@@ -46,7 +46,7 @@ void _devError([Object object]) {
 ///
 /// Will call the action on debug only
 @deprecated
-T devDebugOnly<T>(T Function() action, {String message}) {
+T? devDebugOnly<T>(T Function() action, {String? message}) {
   if (isDebug) {
     print(
         '[DEBUG_ONLY]${message != null ? ' $message' : ' debug only behavior'}');
@@ -57,12 +57,12 @@ T devDebugOnly<T>(T Function() action, {String message}) {
 }
 
 @deprecated
-void devError([Object object]) => _devError(object);
+void devError([Object? object]) => _devError(object);
 
 // exported for testing
-void debugDevPrint(Object object) => _devPrint(object);
+void debugDevPrint(Object? object) => _devPrint(object);
 
-void debugDevError(Object object) => _devError(object);
+void debugDevError(Object? object) => _devError(object);
 
 set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
@@ -70,12 +70,12 @@ set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 // off by default
 // turning it on raises a warning so that you don't checkin code like that
 class DevFlag {
-  final String explanation;
+  final String? explanation;
 
   DevFlag([this.explanation]);
 
   bool get on => _on ?? false;
-  bool _on;
+  bool? _on;
 
   @deprecated
   set on(bool on) {

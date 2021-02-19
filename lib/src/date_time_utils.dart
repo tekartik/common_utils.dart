@@ -10,7 +10,7 @@ String formatYYYYdashMMdashDD(DateTime dateTime) {
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
   tod ??= TimeOfDay();
   var dt = DateTime.now();
-  dt = DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
+  dt = DateTime(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
   dt = dt.toUtc();
   return TimeOfDay(dt.hour, dt.minute);
 }
@@ -18,7 +18,7 @@ TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
 TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
   tod ??= TimeOfDay();
   var dt = DateTime.now().toUtc();
-  dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
+  dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
   dt = dt.toLocal();
   return TimeOfDay(dt.hour, dt.minute);
 }
@@ -34,12 +34,12 @@ int dayOffsetUtcToLocal(int utcDayOffset) {
 /// Time of the day
 class TimeOfDay {
   /// Hour
-  int hour;
+  int? hour;
 
   /// minute.
-  int minute;
+  int? minute;
 
-  int get milliseconds => (hour * 60 + minute) * 60 * 1000;
+  int get milliseconds => (hour! * 60 + minute!) * 60 * 1000;
 
   TimeOfDay([int hour = 0, int minute = 0]) {
     while (minute < 0) {
@@ -59,7 +59,7 @@ class TimeOfDay {
   }
 
   @override
-  int get hashCode => hour + minute * 13;
+  int get hashCode => hour! + minute! * 13;
 
   @override
   bool operator ==(o) {
@@ -71,12 +71,12 @@ class TimeOfDay {
     return "${hour.toString().padLeft(2, "0")}:${minute.toString().padLeft(2, "0")}";
   }
 
-  static TimeOfDay parse(String text) {
+  static TimeOfDay parse(String? text) {
     var minute = 0;
     var hour = 0;
     try {
       if (!stringIsEmpty(text)) {
-        var parts = text.split(':');
+        var parts = text!.split(':');
         hour = int.parse(parts[0]);
         minute = int.parse(parts[1]);
       }

@@ -29,7 +29,7 @@ DateTime dateTimeWithOffset(DateTime dt, int offset) {
 }
 
 // Support string, int or DateTime
-DateTime anyToDateTime(dynamic date) {
+DateTime? anyToDateTime(dynamic date) {
   try {
     if (date is DateTime) {
       return date;
@@ -44,7 +44,7 @@ DateTime anyToDateTime(dynamic date) {
 
 /// since epoch
 /// always convert to utc
-DateTime dateTimeFromInt(int millis) {
+DateTime? dateTimeFromInt(int? millis) {
   if (millis == null) {
     return null;
   }
@@ -52,7 +52,7 @@ DateTime dateTimeFromInt(int millis) {
 }
 
 /// millis since epocj
-int dateTimeToInt(DateTime date) {
+int? dateTimeToInt(DateTime? date) {
   if (date == null) {
     return null;
   }
@@ -60,14 +60,14 @@ int dateTimeToInt(DateTime date) {
 }
 
 /// always convert to utc
-String dateTimeToString(DateTime date) {
+String? dateTimeToString(DateTime? date) {
   if (date == null) {
     return null;
   }
   return date.toUtc().toIso8601String();
 }
 
-DateTime parseDateTime(String text) {
+DateTime? parseDateTime(String? text) {
   if (text == null) {
     return null;
   }
