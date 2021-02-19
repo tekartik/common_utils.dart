@@ -6,12 +6,12 @@ import 'package:tekartik_common_utils/model/src/model_entry.dart';
 
 // last mixin win!
 class ModelImpl extends ModelBase {
-  ModelImpl(Map<dynamic, dynamic>? map) : super(map);
+  ModelImpl(Map<Object?, Object?>? map) : super(map);
 }
 
-abstract class ModelBase with MapMixin<String, dynamic>, ModelBaseMixin {
-  ModelBase(Map<dynamic, dynamic>? map) {
-    __map = map?.cast<String, dynamic>();
+abstract class ModelBase with MapMixin<String, Object?>, ModelBaseMixin {
+  ModelBase(Map<Object?, Object?>? map) {
+    __map = map?.cast<String, Object?>();
   }
 }
 
@@ -45,9 +45,9 @@ mixin ModelBaseMixin implements Model {
     }
   }
 
-  Map<String, dynamic>? __map;
+  Map<String, Object?>? __map;
 
-  Map<String, dynamic> get _map => __map ??= <String, dynamic>{};
+  Map<String, Object?> get _map => __map ??= <String, Object?>{};
 
   @override
   dynamic operator [](Object? key) => _map[key as String];
@@ -56,10 +56,10 @@ mixin ModelBaseMixin implements Model {
   void operator []=(String key, value) => _map[key] = value;
 
   @override
-  void addAll(Map<String, dynamic> other) => _map.addAll(other);
+  void addAll(Map<String, Object?> other) => _map.addAll(other);
 
   @override
-  void addEntries(Iterable<MapEntry<String, dynamic>> newEntries) =>
+  void addEntries(Iterable<MapEntry<String, Object?>> newEntries) =>
       _map.addEntries(newEntries);
 
   @override
@@ -75,7 +75,7 @@ mixin ModelBaseMixin implements Model {
   bool containsValue(Object? value) => _map.containsValue(value);
 
   @override
-  Iterable<MapEntry<String, dynamic>> get entries => _map.entries;
+  Iterable<MapEntry<String, Object?>> get entries => _map.entries;
 
   @override
   void forEach(void Function(String key, dynamic value) f) => _map.forEach(f);

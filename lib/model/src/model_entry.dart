@@ -4,25 +4,25 @@ import 'package:tekartik_common_utils/model/model.dart';
 
 // last mixin win!
 class ModelEntryImpl with ModelEntryMixin implements ModelEntry {
-  ModelEntryImpl.fromMapEntry(MapEntry<dynamic, dynamic> mapEntry) {
-    if (mapEntry is MapEntry<String, dynamic>) {
+  ModelEntryImpl.fromMapEntry(MapEntry<Object?, Object?> mapEntry) {
+    if (mapEntry is MapEntry<String, Object?>) {
       _mapEntry = mapEntry;
     } else {
       _mapEntry =
-          MapEntry<String, dynamic>(mapEntry.key?.toString(), mapEntry.value);
+          MapEntry<String, Object?>(mapEntry.key.toString(), mapEntry.value);
     }
   }
 
   ModelEntryImpl(String key, dynamic value) {
-    _mapEntry = MapEntry<String, dynamic>(key, value);
+    _mapEntry = MapEntry<String, Object?>(key, value);
   }
 }
 
 mixin ModelEntryMixin implements ModelEntry {
-  late MapEntry<String, dynamic> _mapEntry;
+  late MapEntry<String, Object?> _mapEntry;
 
   @override
-  int get hashCode => key.hashCode ?? 0 + value?.hashCode ?? 0;
+  int get hashCode => key.hashCode + (value?.hashCode ?? 0);
 
   @override
   bool operator ==(other) {

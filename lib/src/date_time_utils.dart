@@ -8,7 +8,6 @@ String formatYYYYdashMMdashDD(DateTime dateTime) {
 }
 
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
-  tod ??= TimeOfDay();
   var dt = DateTime.now();
   dt = DateTime(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
   dt = dt.toUtc();
@@ -16,7 +15,6 @@ TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
 }
 
 TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
-  tod ??= TimeOfDay();
   var dt = DateTime.now().toUtc();
   dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
   dt = dt.toLocal();
@@ -123,7 +121,7 @@ DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
 // never return null
 
 // to sort by reverse data
-int reverseDateCompare(DateTime dateTime1, DateTime dateTime2) {
+int reverseDateCompare(DateTime? dateTime1, DateTime? dateTime2) {
   if (dateTime1 != null) {
     if (dateTime2 == null) {
       return -1;

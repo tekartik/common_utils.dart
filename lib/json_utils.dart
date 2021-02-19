@@ -3,11 +3,11 @@ import 'dart:convert';
 //
 // Safely parse a map
 //
-Map<String, dynamic>? parseJsonObject(String? text,
-    [Map<String, dynamic>? defaultMap]) {
+Map<String, Object?>? parseJsonObject(String? text,
+    [Map<String, Object?>? defaultMap]) {
   var map = parseJson(text);
   if (map is Map) {
-    return map?.cast<String, dynamic>();
+    return map.cast<String, Object?>();
   }
   return defaultMap;
 }

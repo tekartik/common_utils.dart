@@ -58,34 +58,28 @@ void main() {
     });
 
     test('mapValue', () {
-      var map = <int, String>{1: 'test'};
+      var map = <int, String?>{1: 'test'};
       var value = mapValue(map, 1);
       expect(value, 'test');
       expect(mapValue(map, 1), 'test');
 
-      var map2 = <String, dynamic>{'test1': 1, 'test2': '2'};
+      var map2 = <String, Object?>{'test1': 1, 'test2': '2'};
       expect(mapValue(map2, 'test1'), 1);
       expect(mapValue(map2, 'test2'), '2');
       expect(mapValue(map2, 'test3'), null);
-      expect(mapValue(map2, null), null);
-      expect(mapValue(null, 'test3'), null);
 
-      expect(mapValue(null, 'test3', createIfNull: () => 1), null);
       expect(mapValue(map2, 'test3', createIfNull: () => 3), 3);
       expect(mapValue(map2, 'test3'), 3);
-      expect(mapValue(map2, null, createIfNull: () => 'for_null_key'),
-          'for_null_key');
-      expect(mapValue(map2, null), 'for_null_key');
     });
 
     test('asMap', () {
       expect(asMap(null), isNull);
       expect(asMap([]), isNull);
       expect(asMap({}), {});
-      expect(asMap<String, dynamic>({'test': 1}), {'test': 1});
-      expect(asMap<String, dynamic>({'test': 1}),
-          const TypeMatcher<Map<String, dynamic>>());
-      expect(asMap<String, int>(<String, dynamic>{'test': 1}),
+      expect(asMap<String, Object?>({'test': 1}), {'test': 1});
+      expect(asMap<String, Object?>({'test': 1}),
+          const TypeMatcher<Map<String, Object?>>());
+      expect(asMap<String, int>(<String, Object?>{'test': 1}),
           const TypeMatcher<Map<String, int>>());
       try {
         expect(asMap<String, String>({'test': 1}), isNull);

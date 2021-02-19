@@ -44,22 +44,25 @@ bool isEmpty(Iterable list) => listIsEmpty(list);
 bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 
 /// True if list is not null and not
+@deprecated
 bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
+bool listIsNotEmpty(Iterable? list) => listLength(list) > 0;
 
 @Deprecated('use listTruncate')
-List<T>? truncate<T>(List<T> list, int maxCount) => listTruncate(list, maxCount);
+List<T>? truncate<T>(List<T> list, int maxCount) =>
+    listTruncate(list, maxCount);
 
-int _listSafeStartOrEnd(List? list, int index) {
+int _listSafeStartOrEnd(List list, int index) {
   if (index < 0) {
     return 0;
-  } else if (index > list!.length) {
+  } else if (index > list.length) {
     return list.length;
   }
   return index;
 }
 
 /// Safe sub list sub list
-List<T>? listSubList<T>(List<T>? list, int start, [int? end]) {
+List<T> listSubList<T>(List<T> list, int start, [int? end]) {
   if (listIsEmpty(list)) {
     return list;
   }
@@ -67,25 +70,22 @@ List<T>? listSubList<T>(List<T>? list, int start, [int? end]) {
   if (end != null) {
     end = max(_listSafeStartOrEnd(list, end), start);
   }
-  return list!.sublist(start, end);
+  return list.sublist(start, end);
 }
 
 /// Truncate at max element.
-List<T>? listTruncate<T>(List<T>? list, int len) => listSubList(list, 0, len);
+List<T> listTruncate<T>(List<T> list, int len) => listSubList(list, 0, len);
 
 /// Clone list and list of list
-List<T?> cloneList<T>(List<T> original) {
-  if (original == null) {
-    return null;
-  }
-  var clone = <T?>[];
+List<T> cloneList<T>(List<T> original) {
+  var clone = <T>[];
   original.forEach((dynamic item) {
     if (item is List) {
       item = cloneList(item);
     } else if (item is Map) {
       item = cloneMap(item);
     }
-    clone.add(item as T?);
+    clone.add(item as T);
   });
   return clone;
 }
@@ -108,15 +108,15 @@ List<T> intersectList<T>(List<T> original1, List<T> original2) {
 ///
 /// Never returns list. if list is null, returns an empty list.
 /// If [chunkSize] is null or 0, returns all in one list;
-List<List<T>> listChunk<T>(List<T>? list, int? chunkSize) {
+List<List<T>> listChunk<T>(List<T> list, int? chunkSize) {
   var chunks = <List<T>>[];
-  final len = list?.length ?? 0;
+  final len = list.length;
   if ((chunkSize ?? 0) == 0) {
     chunkSize = len;
   }
   for (var i = 0; i < len; i += chunkSize) {
     final size = i + chunkSize!;
-    chunks.add(list!.sublist(i, size > len ? len : size));
+    chunks.add(list.sublist(i, size > len ? len : size));
   }
 
   return chunks;

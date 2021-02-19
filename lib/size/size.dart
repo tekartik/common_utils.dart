@@ -6,7 +6,7 @@ abstract class D2<T extends num> {
   final T y;
 
   @override
-  int get hashCode => ((x ?? 0) * 17 + (y ?? 0)).toInt();
+  int get hashCode => (x * 17 + y).toInt();
 
   @override
   bool operator ==(other) {
@@ -72,7 +72,7 @@ class Rect<T extends num> {
   T get height => size.height;
 
   @override
-  int get hashCode => ((point?.hashCode ?? 0) << 16) | (size.hashCode ?? 0);
+  int get hashCode => (point.hashCode << 16) | size.hashCode;
 
   @override
   bool operator ==(other) {

@@ -42,9 +42,7 @@ void main() {
     });
 
     test('listGet', () {
-      expect(listGet(null, 0), isNull);
       expect(listGet([], 0), isNull);
-      expect(listGet([null], 0), isNull);
       expect(listGet([1], 0), 1);
       expect(listGet([1], -1), isNull);
       expect(listGet([1], 1), isNull);
@@ -52,8 +50,6 @@ void main() {
     });
 
     test('truncate', () {
-      expect(listTruncate(null, 0), isNull);
-      expect(listTruncate(null, 1), isNull);
       expect(listTruncate([], 0), []);
       expect(listTruncate([], -1), []);
       expect(listTruncate([], 1), []);
@@ -69,8 +65,6 @@ void main() {
     });
 
     test('subList', () {
-      expect(listSubList(null, 0), isNull);
-      expect(listSubList(null, 1), isNull);
       expect(listSubList([], 0), []);
       expect(listSubList([], -1), []);
       expect(listSubList([], 1), []);
@@ -118,7 +112,6 @@ void main() {
     });
 
     test('chunk', () {
-      expect(listChunk(null, null), []);
       expect(listChunk([], null), []);
       expect(listChunk([1], null), [
         [1]

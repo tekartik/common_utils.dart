@@ -112,7 +112,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   // Complete [with an error.
   @override
   void completeError(Object error, [StackTrace? stackTrace]) {
-    _error = error ?? Exception('error');
+    _error = error;
     _completer!.completeError(error, stackTrace);
   }
 

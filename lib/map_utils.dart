@@ -5,11 +5,10 @@ import 'list_utils.dart';
 /// content from mapSrc is merge into mapDst overriding it if needed
 /// @returns mapDst
 Map mergeMap(Map mapDst, Map mapSrc) {
-  if (mapSrc != null) {
-    mapSrc.forEach((var key, var value) {
-      mapDst[key] = value;
-    });
-  }
+  mapSrc.forEach((var key, var value) {
+    mapDst[key] = value;
+  });
+
   return mapDst;
 }
 
@@ -33,39 +32,33 @@ Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
 ///
 /// if the map value is null and createIfNull is specified, the object is
 /// created and inserted in the map.
-V? mapValue<K, V>(Map<K, V>? map, K key, {V Function()? createIfNull}) {
-  if (map == null) {
-    return null;
-  }
+V mapValue<K, V>(Map<K, V> map, K key, {V Function()? createIfNull}) {
   var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull();
     map[key] = value!;
   }
-  return value;
+  return value as V;
 }
 
 String? mapStringValue(Map map, String key, [String? defaultValue]) {
-  if (map != null) {
-    var value = map[key]?.toString();
-    if (value != null) {
-      return value;
-    }
+  var value = map[key]?.toString();
+  if (value != null) {
+    return value;
   }
   return defaultValue;
 }
 
 int? mapIntValue(Map map, String key, [int? defaultValue]) {
-  if (map != null) {
-    var value = map[key];
-    if (value != null) {
-      if (value is String) {
-        return int.parse(value);
-      } else if (value is int) {
-        return value;
-      }
+  var value = map[key];
+  if (value != null) {
+    if (value is String) {
+      return int.parse(value);
+    } else if (value is int) {
+      return value;
     }
   }
+
   return defaultValue;
 }
 
@@ -122,7 +115,7 @@ void setPartsMapValue<T>(Map map, List<String> parts, value) {
     var part = parts[i];
     dynamic sub = map[part];
     if (!(sub is Map)) {
-      sub = <String, dynamic>{};
+      sub = <String, Object?>{};
       map[part] = sub;
     }
     map = sub;

@@ -18,11 +18,8 @@ int? hexCharValue(int charCode) {
   return null;
 }
 
-/// Return the hex formated value like A or null
-int? hexCodeUint4(int? value) {
-  if (value == null) {
-    return null;
-  }
+/// Return the hex formated value like A
+int hexCodeUint4(int value) {
   value = value & 0xF;
   if (value < 10) {
     return _digit0CodeUnit + value;
@@ -31,11 +28,8 @@ int? hexCodeUint4(int? value) {
   }
 }
 
-/// Return the hex formated value like A or null
+/// Return the hex formated value like A
 int lohexCodeUint4(int value) {
-  if (value == null) {
-    return null;
-  }
   value = value & 0xF;
   if (value < 10) {
     return _digit0CodeUnit + value;
@@ -44,7 +38,7 @@ int lohexCodeUint4(int value) {
   }
 }
 
-int? hex1CodeUint8(int value) {
+int hex1CodeUint8(int value) {
   return hexCodeUint4((value & 0xF0) >> 4);
 }
 
@@ -52,7 +46,7 @@ int lohex1CodeUint8(int value) {
   return lohexCodeUint4((value & 0xF0) >> 4);
 }
 
-int? hex2CodeUint8(int value) {
+int hex2CodeUint8(int value) {
   return hexCodeUint4(value);
 }
 
@@ -60,39 +54,27 @@ int lohex2CodeUint8(int value) {
   return lohexCodeUint4(value);
 }
 
-/// Return the hex formated value like 1A or null
-String? hexUint8(int? value) {
-  if (value == null) {
-    return null;
-  }
-  return String.fromCharCodes([hex1CodeUint8(value)!, hex2CodeUint8(value)!]);
+/// Return the hex formated value like 1A
+String hexUint8(int value) {
+  return String.fromCharCodes([hex1CodeUint8(value), hex2CodeUint8(value)]);
 }
 
-/// Return the hex formated value like 1A or null
+/// Return the hex formated value like 1A
 String lohexUint8(int value) {
-  if (value == null) {
-    return null;
-  }
   return String.fromCharCodes([lohex1CodeUint8(value), lohex2CodeUint8(value)]);
 }
 
-/// Return the hex formated value like 12AB or null
-String? hexUint16(int? value) {
-  if (value == null) {
-    return null;
-  }
-  return hexUint8(value >> 8)! + hexUint8(value)!;
+/// Return the hex formated value like 12AB
+String hexUint16(int value) {
+  return hexUint8(value >> 8) + hexUint8(value);
 }
 
-/// Return the hex formated value like 1234ABCD or null
-String? hexUint32(int? value) {
-  if (value == null) {
-    return null;
-  }
-  return hexUint16(value >> 16)! + hexUint16(value)!;
+/// Return the hex formated value like 1234ABCD
+String hexUint32(int value) {
+  return hexUint16(value >> 16) + hexUint16(value);
 }
 
-String hexQuickView(List<int> data, [int? maxLen]) {
+String hexQuickView(List<int>? data, [int? maxLen]) {
   if (data == null) {
     return '(null)';
   }
@@ -113,8 +95,8 @@ String hexQuickView(List<int> data, [int? maxLen]) {
       }
     }
     final charCode = data[i];
-    out.writeCharCode(hex1CodeUint8(charCode)!);
-    out.writeCharCode(hex2CodeUint8(charCode)!);
+    out.writeCharCode(hex1CodeUint8(charCode));
+    out.writeCharCode(hex2CodeUint8(charCode));
   }
   return out.toString();
 }
@@ -194,8 +176,8 @@ String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
         }
       }
       final charCode = buffer[i];
-      out!.writeCharCode(hex1CodeUint8(charCode)!);
-      out.writeCharCode(hex2CodeUint8(charCode)!);
+      out!.writeCharCode(hex1CodeUint8(charCode));
+      out.writeCharCode(hex2CodeUint8(charCode));
     }
 
     if (i > 0) {
@@ -284,8 +266,8 @@ String oldhexPretty(List<int> data) {
         }
       }
       var charCode = buffer[i];
-      out.writeCharCode(hex1CodeUint8(charCode)!);
-      out.writeCharCode(hex2CodeUint8(charCode)!);
+      out.writeCharCode(hex1CodeUint8(charCode));
+      out.writeCharCode(hex2CodeUint8(charCode));
     }
 
     if (i > 0) {

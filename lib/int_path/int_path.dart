@@ -29,10 +29,6 @@ int intShiftRight(int value, int count) {
 
 /// Convert a value to a variable lenght uint8 array, little endian
 List<int> intToInts(int value) {
-  if (value == null) {
-    return null;
-  }
-
   List<int> next(int value) {
     if ((value & 0xFF) != value) {
       var part = value & 0xFF;
@@ -56,10 +52,10 @@ List<int> intToInts(int value) {
 /// or G0,G1...GF....up to
 String intPartToHex(int value) {
   if (value < 16) {
-    return String.fromCharCode(hexCodeUint4(value)!);
+    return String.fromCharCode(hexCodeUint4(value));
   }
   return String.fromCharCodes(
-      [_hexAbove16CodeUint4((value & 0xF0) >> 4), hex2CodeUint8(value)!]);
+      [_hexAbove16CodeUint4((value & 0xF0) >> 4), hex2CodeUint8(value)]);
 }
 
 final int _upperFCodeUnit = 'F'.codeUnitAt(0);

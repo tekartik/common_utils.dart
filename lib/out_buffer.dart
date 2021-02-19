@@ -3,7 +3,7 @@ class OutBuffer {
   List<String> lines = [];
 
   OutBuffer(int maxLineCount) {
-    _maxLineCount = maxLineCount ?? 100;
+    _maxLineCount = maxLineCount;
   }
 
   void add(String text) {

@@ -39,7 +39,7 @@ void main() {
 
     test('seeded null', () async {
       // ignore: close_sinks
-      final subject = Subject<int>.seeded();
+      final subject = Subject<int?>.seeded();
       unawaited(subject.close());
 
       await expectLater(subject.stream, emits(null));
@@ -211,7 +211,7 @@ void main() {
     });
 
     test('returns onListen callback set in constructor', () async {
-      final ControllerCallback testOnListen = () {};
+      final testOnListen = () {};
       // ignore: close_sinks
       final StreamController<int?> subject =
           Subject<int>(onListen: testOnListen);
@@ -220,7 +220,7 @@ void main() {
     });
 
     test('sets onListen callback', () async {
-      final ControllerCallback testOnListen = () {};
+      final testOnListen = () {};
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 
@@ -240,7 +240,7 @@ void main() {
     });
 
     test('sets onCancel callback', () async {
-      final ControllerCallback testOnCancel = () {};
+      final testOnCancel = () {};
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 

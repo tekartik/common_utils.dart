@@ -5,7 +5,6 @@ void main() => defineTests();
 
 void defineTests() {
   test('int.parse', () {
-    expect(() => int.parse(null), throwsA(const TypeMatcher<ArgumentError>()));
     expect(() => int.parse(''), throwsA(const TypeMatcher<FormatException>()));
     expect(() => int.parse('a'), throwsA(const TypeMatcher<FormatException>()));
     expect(int.parse('3'), 3);

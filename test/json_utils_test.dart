@@ -8,7 +8,7 @@ void defineTests() {
   test('parseJsonObject', () {
     expect(parseJsonObject(null), equals(null));
     expect(parseJsonObject('456'), equals(null));
-    var obj = <String, dynamic>{'key': 'value'};
+    var obj = <String, Object?>{'key': 'value'};
     expect(parseJsonObject('{"key":"value"}'), equals(obj));
     obj = {
       'key': ['value']

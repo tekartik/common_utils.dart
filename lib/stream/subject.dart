@@ -1,16 +1,16 @@
 import 'dart:async';
 
 abstract class StreamWithValue<T> extends Stream<T> {
-  T get value;
+  T? get value;
 }
 
-class Subject<T> extends Stream<T?>
-    implements StreamSink<T>, StreamController<T?>, StreamWithValue<T?> {
-  final StreamController<T?> _controller;
+class Subject<T> extends Stream<T>
+    implements StreamSink<T>, StreamController<T>, StreamWithValue<T> {
+  final StreamController<T> _controller;
   final bool _sync;
 
   /// _seeded is set to true if needed when a value is added
-  bool? _seeded;
+  bool _seeded;
   @override
   T? get value => _value;
   T? _value;
@@ -23,7 +23,10 @@ class Subject<T> extends Stream<T?>
 
   /// Seed value even if null
   Subject.seeded(
-      {T? value, void Function()? onListen, void Function()? onCancel, bool? sync})
+      {T? value,
+      void Function()? onListen,
+      void Function()? onCancel,
+      bool? sync})
       : this._(
             value: value,
             seeded: true,
@@ -34,7 +37,7 @@ class Subject<T> extends Stream<T?>
   // Value is seeded if non null
   Subject._(
       {T? value,
-      bool? seeded,
+      bool seeded = false,
       void Function()? onListen,
       void Function()? onCancel,
       bool? sync})
@@ -46,7 +49,10 @@ class Subject<T> extends Stream<T?>
 
   /// Create a subject, seeded if non null
   Subject(
-      {T? value, void Function()? onListen, void Function()? onCancel, bool? sync})
+      {T? value,
+      void Function()? onListen,
+      void Function()? onCancel,
+      bool? sync})
       : this._(
             value: value,
             seeded: value != null,
@@ -58,14 +64,14 @@ class Subject<T> extends Stream<T?>
   bool get isClosed => _controller.isClosed;
 
   @override
-  void add(T? data) {
+  void add(T data) {
     if (_addStreamActive) {
       throw StateError('cannot call add when addStream is active');
     }
     _add(data);
   }
 
-  void _add(T? data) {
+  void _add(T data) {
     _error = null;
     _seeded = true;
     _value = data;
@@ -100,21 +106,21 @@ class Subject<T> extends Stream<T?>
   }
 
   @override
-  Stream<T?> get stream => this;
+  Stream<T> get stream => this;
 
   @override
-  StreamSubscription<T?> listen(void Function(T? event)? onData,
+  StreamSubscription<T> listen(void Function(T event)? onData,
       {Function? onError, void Function()? onDone, bool? cancelOnError}) {
-    var _subscriptionController = StreamController<T?>(sync: _sync);
-    var _internalSubscription = _controller.stream.listen((T? event) {
+    var _subscriptionController = StreamController<T>(sync: _sync);
+    var _internalSubscription = _controller.stream.listen((event) {
       _subscriptionController.add(event);
     }, onDone: () {
       _subscriptionController.close();
-    }, onError: (error, [StackTrace? stackTrace]) {
+    }, onError: (Object error, [StackTrace? stackTrace]) {
       _subscriptionController.addError(error, stackTrace);
     });
     _subscriptionController.onCancel = () {
-      _internalSubscription?.cancel();
+      _internalSubscription.cancel();
     };
 
     var subscription = _subscriptionController.stream.listen(onData,
@@ -124,8 +130,8 @@ class Subject<T> extends Stream<T?>
     if (_error != null) {
       _subscriptionController.addError(_error!, stackTrace);
     } else {
-      if (_seeded!) {
-        _subscriptionController.add(value);
+      if (_seeded) {
+        _subscriptionController.add(value as T);
       }
     }
     return subscription;
@@ -162,15 +168,16 @@ class Subject<T> extends Stream<T?>
   bool get isPaused => _controller.isPaused;
 
   @override
-  Future addStream(Stream<T?> source, {bool? cancelOnError}) {
+  Future addStream(Stream<T> source, {bool? cancelOnError}) {
     if (_addStreamActive) {
       throw StateError('addStream active');
     }
     _addStreamActive = true;
     var completer = Completer.sync();
-    StreamSubscription<T?>? subscription;
+    // ignore: cancel_subscriptions
+    StreamSubscription<T>? subscription;
 
-    subscription = source.listen((T? event) {
+    subscription = source.listen((event) {
       _add(event);
     }, onError: (Object error, [StackTrace? stackTrace]) {
       _addError(error, stackTrace);

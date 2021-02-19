@@ -9,7 +9,7 @@ void main() => defineTests();
 class BaseModel
     with
 // to comment/uncomment for progressing implementation
-//      MapMixin<String, dynamic>,
+//      MapMixin<String, Object?>,
 // up to here
         ModelBaseMixin {}
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:synchronized/synchronized.dart';
 
 /// Single operation with eventually a delay between each run

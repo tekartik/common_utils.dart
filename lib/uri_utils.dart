@@ -1,5 +1,5 @@
 /// Typically the argument is window.location.search
-Map<String, String> locationSearchGetArguments(String search) {
+Map<String, String> locationSearchGetArguments(String? search) {
   final params = <String, String>{};
   if (search != null) {
     var questionMarkIndex = search.indexOf('?');

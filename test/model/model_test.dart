@@ -74,7 +74,7 @@ void defineTests() {
       });
 
       test('cast', () {
-        var list = ModelList([<dynamic, dynamic>{}]);
+        var list = ModelList([<Object?, Object?>{}]);
         expect(list[0], const TypeMatcher<Model>());
       });
     });

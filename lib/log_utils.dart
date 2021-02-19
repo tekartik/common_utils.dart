@@ -51,15 +51,14 @@ final List<Level> logLevels = [
 ];
 
 Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
-  if (levelText != null) {
-    levelText = levelText.toUpperCase();
-    for (var level in logLevels) {
-      if (level.name == levelText) {
-        //print('level: $level');
-        return level;
-      }
+  levelText = levelText.toUpperCase();
+  for (var level in logLevels) {
+    if (level.name == levelText) {
+      //print('level: $level');
+      return level;
     }
   }
+
   return defaultLevel;
 }
 

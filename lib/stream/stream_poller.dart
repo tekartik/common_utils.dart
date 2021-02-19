@@ -60,7 +60,7 @@ class StreamPoller<T> {
       await _completer!.future;
     }).then((_) async {
       return await getNext();
-    } as FutureOr<StreamPollerEvent<T?>> Function(Null));
+    });
   }
 
 // Make sure to cancel the pending completer

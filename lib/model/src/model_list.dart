@@ -16,7 +16,7 @@ abstract class ModelListBase
       if (iterable is List<Map?>) {
         __list = iterable;
       } else {
-        __list = iterable.cast<Map<dynamic, dynamic>?>().toList();
+        __list = iterable.cast<Map<Object?, Object?>?>().toList();
       }
     }
   }
@@ -27,10 +27,10 @@ ModelList? asModelList(dynamic list) =>
     list is Iterable ? ModelList(list) : null;
 
 mixin ModelListBaseMixin implements ModelList {
-  List<Map<dynamic, dynamic>?>? __list;
+  List<Map<Object?, Object?>?>? __list;
 
   // Never null
-  List<Map<dynamic, dynamic>?> get _list => __list ??= <Model?>[];
+  List<Map<Object?, Object?>?> get _list => __list ??= <Model?>[];
 
   @override
   Model? get first => asModel(_list.first);
@@ -100,8 +100,8 @@ mixin ModelListBaseMixin implements ModelList {
       asModel(_list.firstWhere((item) => test(asModel(item)), orElse: orElse));
 
   @override
-  T fold<T>(
-          T initialValue, T Function(T previousValue, Model? element) combine) =>
+  T fold<T>(T initialValue,
+          T Function(T previousValue, Model? element) combine) =>
       _list.fold<T>(initialValue,
           (previous, element) => combine(previous, asModel(element)));
 
@@ -255,7 +255,7 @@ mixin ModelListBaseMixin implements ModelList {
 }
 
 class ModelListIterator implements Iterator<Model?> {
-  final Iterator<Map<dynamic, dynamic>?> _iterator;
+  final Iterator<Map<Object?, Object?>?> _iterator;
 
   ModelListIterator(this._iterator);
 

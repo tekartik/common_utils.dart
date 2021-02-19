@@ -6,8 +6,8 @@ export 'package:tekartik_common_utils/model/src/model.dart'
 export 'package:tekartik_common_utils/model/src/model_list.dart'
     show ModelListBase, asModelList;
 
-/// Model class to use as a [Map<String, dynamic>].
-abstract class Model implements Map<String, dynamic> {
+/// Model class to use as a [Map<String, Object?>].
+abstract class Model implements Map<String, Object?> {
   /// Get a value expecting a given type
   T? getValue<T>(String key);
 
@@ -46,19 +46,16 @@ abstract class ModelList implements List<Model?> {
 /// A model entry tells where a field exists and its value
 ///
 /// To use a mixin, check [ModelMixin].
-abstract class ModelEntry implements MapEntry<String, dynamic> {
+abstract class ModelEntry implements MapEntry<String, Object?> {
   /// Create a model with a given key and value
   factory ModelEntry(String key, dynamic value) {
     return ModelEntryImpl(key, value);
   }
 
-  /// Create a model. If map is null, the model
-  /// is an empty map
-  factory ModelEntry.fromMapEntry(MapEntry<dynamic, dynamic> mapEntry) {
+  /// Create a model.
+  factory ModelEntry.fromMapEntry(MapEntry<Object?, Object?> mapEntry) {
     if (mapEntry is ModelEntry) {
       return mapEntry;
-    } else if (mapEntry == null) {
-      return null;
     }
     return ModelEntryImpl.fromMapEntry(mapEntry);
   }
