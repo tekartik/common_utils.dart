@@ -118,6 +118,6 @@ String format0To1AsPercent(num? value) {
       centsDigitCount = 1;
       cents ~/= 10;
     }
-    return '${_stringPrefilled('${per100}', 2, '0')}.${_stringPrefilled('$cents', centsDigitCount, '0')}';
+    return '${_stringPrefilled('$per100', 2, '0')}.${_stringPrefilled('$cents', centsDigitCount, '0')}';
   }
 }
