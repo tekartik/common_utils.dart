@@ -17,6 +17,7 @@ dependencies:
 dev_dependencies:
   dev_test: '>=0.15.0'
   test: '>=1.16.3'
+  yaml:
   chrome_travis:
     git:
       url: git://github.com/tekartik/chrome_travis.dart
