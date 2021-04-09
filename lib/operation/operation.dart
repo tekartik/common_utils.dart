@@ -6,7 +6,7 @@ import 'package:synchronized/synchronized.dart';
 class Operation {
   /// The action to run (can return a future and in this case it is ran
   /// only one at a time)
-  final Function action;
+  final FutureOr<Object?> Function() action;
 
   /// The delay between each action
   final Duration? delay;

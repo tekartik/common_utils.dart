@@ -36,7 +36,7 @@ mixin ModelEntryMixin implements ModelEntry {
   String get key => _mapEntry.key;
 
   @override
-  dynamic get value => _mapEntry.value;
+  Object? get value => _mapEntry.value;
 
   @override
   String toString() => "ModelEntry($key: $value'})";

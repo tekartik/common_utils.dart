@@ -34,6 +34,8 @@ linter:
     # these rules are documented on and in the same order as
     # the Dart Lint rules page to make maintenance easier
     # http://dart-lang.github.io/linter/lints/
+    # new 2021-04-09
+    - avoid_dynamic_calls
     # new 2021-03-19
     - prefer_typing_uninitialized_variables
     # === error rules ===
