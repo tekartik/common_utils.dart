@@ -109,7 +109,7 @@ T getPartsMapValue<T>(Map map, Iterable<String> parts) {
   dynamic value = map;
   for (var part in parts) {
     if (value is Map) {
-      value = value[part];
+      value = (value as Map)[part];
     } else {
       return null;
     }

@@ -41,7 +41,7 @@ class TimeOfDay {
 
   int get milliseconds => (hour * 60 + minute) * 60 * 1000;
 
-  TimeOfDay([int hour = 0, int minute = 0]) {
+  TimeOfDay([this.hour = 0, this.minute = 0]) {
     while (minute < 0) {
       hour -= 1;
       minute += 60;
@@ -54,8 +54,6 @@ class TimeOfDay {
       hour += 24;
     }
     hour %= 24;
-    this.minute = minute;
-    this.hour = hour;
   }
 
   @override
