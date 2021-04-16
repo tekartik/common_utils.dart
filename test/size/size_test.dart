@@ -38,5 +38,29 @@ void main() {
             const Rect(Point<num>(1, 2), Size<num>(3, 4)));
       });
     });
+
+    group('utils', () {
+      test('sizeIntContainedWithRatio', () {
+        expect(
+            sizeIntContainedWithRatio(const Size(1, 2), 1), const Size(1, 1));
+        expect(
+            sizeIntContainedWithRatio(const Size(3, 3), 1.5), const Size(3, 2));
+        expect(
+            sizeIntContainedWithRatio(const Size(3, 3), 0.7), const Size(2, 3));
+      });
+      test('sizeIntContainedWithRatio', () {
+        expect(sizeIntCenteredRectWithRatio(const Size(1, 2), 1),
+            const Rect<int>(Point(0, 0), Size(1, 1)));
+
+        expect(sizeIntCenteredRectWithRatio(const Size(3, 3), 1.5),
+            const Rect<int>(Point(0, 0), Size(3, 2)));
+        expect(sizeIntCenteredRectWithRatio(const Size(3, 3), 3),
+            const Rect<int>(Point(0, 1), Size(3, 1)));
+        expect(sizeIntCenteredRectWithRatio(const Size(3, 3), 0.7),
+            const Rect<int>(Point(0, 0), Size(2, 3)));
+        expect(sizeIntCenteredRectWithRatio(const Size(3, 3), 0.334),
+            const Rect<int>(Point(1, 0), Size(1, 3)));
+      });
+    });
   });
 }

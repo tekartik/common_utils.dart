@@ -120,3 +120,11 @@ Size<int> sizeIntContainedWithRatio(Size<int> size, num ratio) {
   }
   return size;
 }
+
+Rect<int> sizeIntCenteredRectWithRatio(Size<int> size, num ratio) {
+  var innerSize = sizeIntContainedWithRatio(size, ratio);
+  return Rect<int>(
+      Point<int>((size.width - innerSize.width) ~/ 2,
+          (size.height - innerSize.height) ~/ 2),
+      innerSize);
+}
