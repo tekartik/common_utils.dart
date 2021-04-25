@@ -33,6 +33,7 @@ linter:
   rules:
     - avoid_dynamic_calls
     - avoid_empty_else
+    - avoid_relative_lib_imports
     - avoid_slow_async_io
     - camel_case_types
     - cancel_subscriptions
