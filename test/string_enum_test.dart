@@ -1,5 +1,5 @@
-import 'package:tekartik_common_utils/string_enum.dart';
 import 'package:dev_test/test.dart';
+import 'package:tekartik_common_utils/string_enum.dart';
 
 class TwoChoicesEnum extends StringEnum {
   const TwoChoicesEnum(String name) : super(name);
