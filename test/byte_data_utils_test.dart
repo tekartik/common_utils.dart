@@ -1,6 +1,7 @@
 import 'dart:typed_data';
-import 'package:test/test.dart';
+
 import 'package:tekartik_common_utils/byte_data_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('byte_data utils', () {

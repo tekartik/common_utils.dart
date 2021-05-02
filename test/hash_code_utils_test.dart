@@ -1,8 +1,8 @@
 library hash_code_utils_tests;
 
-import 'package:test/test.dart';
 //import 'package:unittest/vm_config.dart';
 import 'package:tekartik_common_utils/hash_code_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('hash_code', () {

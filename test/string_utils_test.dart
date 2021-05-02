@@ -1,6 +1,6 @@
-import 'package:test/test.dart';
 import 'package:tekartik_common_utils/string_utils.dart' as stru;
 import 'package:tekartik_common_utils/string_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('parseInt', () {

@@ -1,7 +1,7 @@
 //import 'package:quiver/strings.dart';
 
-import 'package:tekartik_common_utils/string_utils.dart';
 import 'package:tekartik_common_utils/date_time_utils.dart';
+import 'package:tekartik_common_utils/string_utils.dart';
 
 String formatYYYYdashMMdashDD(DateTime dateTime) {
   return "${dateTime.year.toString().padLeft(4, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
@@ -9,14 +9,14 @@ String formatYYYYdashMMdashDD(DateTime dateTime) {
 
 TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
   var dt = DateTime.now();
-  dt = DateTime(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
+  dt = DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toUtc();
   return TimeOfDay(dt.hour, dt.minute);
 }
 
 TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
   var dt = DateTime.now().toUtc();
-  dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour!, tod.minute!);
+  dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toLocal();
   return TimeOfDay(dt.hour, dt.minute);
 }
@@ -32,14 +32,14 @@ int dayOffsetUtcToLocal(int utcDayOffset) {
 /// Time of the day
 class TimeOfDay {
   /// Hour
-  int? hour;
+  int hour;
 
   /// minute.
-  int? minute;
+  int minute;
 
-  int get milliseconds => (hour! * 60 + minute!) * 60 * 1000;
+  int get milliseconds => (hour * 60 + minute) * 60 * 1000;
 
-  TimeOfDay([int hour = 0, int minute = 0]) {
+  TimeOfDay([this.hour = 0, this.minute = 0]) {
     while (minute < 0) {
       hour -= 1;
       minute += 60;
@@ -52,12 +52,10 @@ class TimeOfDay {
       hour += 24;
     }
     hour %= 24;
-    this.minute = minute;
-    this.hour = hour;
   }
 
   @override
-  int get hashCode => hour! + minute! * 13;
+  int get hashCode => hour + minute * 13;
 
   @override
   bool operator ==(o) {

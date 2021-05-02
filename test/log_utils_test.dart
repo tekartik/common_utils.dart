@@ -1,9 +1,9 @@
 library log_utils_test;
 
-import 'package:test/test.dart';
 //import 'package:unittest/vm_config.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tekartik_common_utils/log_utils.dart';
+import 'package:test/test.dart';
 
 void main() => defineTests();
 

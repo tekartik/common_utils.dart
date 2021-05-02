@@ -1,6 +1,6 @@
 name: tekartik_common_utils
-version: 0.11.0
-description: Common  pure dart utilities (not io or browser dependant)
+version: 0.11.0+1
+description: Common pure dart utilities (not io or browser dependant)
 author: Alexandre Roux Tekartik <alex@tekartik.com>
 homepage: https://github.com/tekartik/common_utils.dart
 publish_to: none
@@ -17,6 +17,7 @@ dependencies:
 dev_dependencies:
   dev_test: '>=0.15.0'
   test: '>=1.16.3'
+  yaml:
   chrome_travis:
     git:
       url: git://github.com/tekartik/chrome_travis.dart
