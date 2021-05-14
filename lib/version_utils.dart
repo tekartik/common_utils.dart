@@ -1,6 +1,7 @@
 library tekartik_version_utils;
 
 import 'package:pub_semver/pub_semver.dart';
+
 export 'package:pub_semver/pub_semver.dart';
 
 /// Regex that matches a version number at the beginning of a string.

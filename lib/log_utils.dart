@@ -1,6 +1,7 @@
 library tekartik_log_utils;
 
 import 'package:logging/logging.dart';
+
 export 'package:logging/logging.dart';
 
 /// quick replacement for `print()` - use `info()` or `debug()`
