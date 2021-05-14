@@ -13,7 +13,7 @@ dependencies:
     git:
       url: git://github.com/tekartik/common_utils.dart
       ref: null_safety
-    version: '>=0.9.8'
+    version: '>=0.11.1'
 ```
 
 ## Documentation
