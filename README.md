@@ -20,6 +20,10 @@ dependencies:
 
 * [Pedantic](https://github.com/tekartik/common_utils.dart/blob/master/doc/pedantic.md)
 
+```yaml
+# tekartik recommended lints (extension over google lints and pedantic)
+include: package:tekartik_common_utils/lib/recommended.yaml
+```
 ## Testing
 
 Test on all platforms

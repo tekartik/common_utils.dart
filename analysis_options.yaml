@@ -1,3 +1,6 @@
+# tekartik analysis_options extension to google lints/recommended
+include: package:tekartik_common_utils/lints/recommended.yaml
 # see <https://github.com/dart-lang/pedantic#enabled-lints>.
-include: lib/pedantic/analysis_options.strong_mode.yaml
+# include: lib/pedantic/analysis_options.strong_mode.yaml
+# include: lib/lints/recommended.yaml
 # include: lib/effective_dart/analysis_options.strong_mode.yaml
