@@ -22,7 +22,7 @@ dependencies:
 
 ```yaml
 # tekartik recommended lints (extension over google lints and pedantic)
-include: package:tekartik_common_utils/lib/recommended.yaml
+include: package:tekartik_common_utils/lints/recommended.yaml
 ```
 ## Testing
 
