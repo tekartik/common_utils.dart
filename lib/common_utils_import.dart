@@ -3,7 +3,6 @@ export 'dart:collection';
 export 'dart:convert';
 
 export 'package:meta/meta.dart';
-export 'package:pedantic/pedantic.dart';
 export 'package:synchronized/synchronized.dart';
 
 export 'async_utils.dart';
