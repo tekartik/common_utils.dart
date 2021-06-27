@@ -43,7 +43,7 @@ linter:
     - camel_case_types
     - cancel_subscriptions
     - curly_braces_in_flow_control_structures
-    - depend_on_referenced_packages
+    # - depend_on_referenced_packages
     - directives_ordering
     - empty_catches
     - hash_and_equals
