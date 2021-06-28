@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'map_utils.dart';
 
+export 'src/lazy_read_only_list.dart'
+    show LazyReadOnlyList, LazyReadOnlyListExt;
+
 T? first<T>(Iterable<T>? list) => listFirst(list);
 
 T? listFirst<T>(Iterable<T>? list) {
@@ -46,6 +49,7 @@ bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 /// True if list is not null and not
 @deprecated
 bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
+
 bool listIsNotEmpty(Iterable? list) => listLength(list) > 0;
 
 @Deprecated('use listTruncate')

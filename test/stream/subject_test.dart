@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:pedantic/pedantic.dart';
+import 'package:tekartik_common_utils/future_utils.dart';
 import 'package:tekartik_common_utils/stream_utils.dart';
 import 'package:test/test.dart';
 
@@ -21,7 +21,7 @@ void main() {
       // ignore: close_sinks
       final subject = Subject<int?>();
       subject.add(null);
-      unawaited(subject.close());
+      subject.close().unawait();
 
       await expectLater(subject.stream, emits(null));
     });
@@ -40,7 +40,7 @@ void main() {
     test('seeded null', () async {
       // ignore: close_sinks
       final subject = Subject<int?>.seeded();
-      unawaited(subject.close());
+      subject.close().unawait();
 
       await expectLater(subject.stream, emits(null));
     });

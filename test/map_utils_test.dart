@@ -58,10 +58,11 @@ void main() {
     });
 
     test('mapValue', () {
-      var map = <int, String?>{1: 'test'};
+      var map = <int, String>{1: 'test'};
       var value = mapValue(map, 1);
       expect(value, 'test');
       expect(mapValue(map, 1), 'test');
+      expect(mapValue(map, 2), isNull);
 
       var map2 = <String, Object?>{'test1': 1, 'test2': '2'};
       expect(mapValue(map2, 'test1'), 1);

@@ -32,13 +32,13 @@ Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
 ///
 /// if the map value is null and createIfNull is specified, the object is
 /// created and inserted in the map.
-V mapValue<K, V>(Map<K, V> map, K key, {V Function()? createIfNull}) {
+V? mapValue<K, V>(Map<K, V> map, K key, {V Function()? createIfNull}) {
   var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull();
     map[key] = value!;
   }
-  return value as V;
+  return value;
 }
 
 String? mapStringValue(Map map, String key, [String? defaultValue]) {

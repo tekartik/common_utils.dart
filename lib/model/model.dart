@@ -1,6 +1,7 @@
 import 'package:tekartik_common_utils/model/src/model.dart';
 import 'package:tekartik_common_utils/model/src/model_entry.dart';
 import 'package:tekartik_common_utils/model/src/model_list.dart';
+
 export 'package:tekartik_common_utils/model/src/model.dart'
     show ModelBase, asModel;
 export 'package:tekartik_common_utils/model/src/model_list.dart'

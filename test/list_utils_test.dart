@@ -137,5 +137,16 @@ void main() {
         [3]
       ]);
     });
+    test('LazyReadOnlyList', () {
+      Iterable<int> src = <int>[1];
+      var dst = LazyReadOnlyList<int, String>(src, (item) => item.toString());
+      expect(dst.isTransformed(0), isFalse);
+      expect(dst[0], '1');
+      expect(dst.isTransformed(0), isTrue);
+
+      src = <int>[1, 2];
+      var lazy = src.lazy<String>((src) => src.toString());
+      expect(lazy, ['1', '2']);
+    });
   });
 }

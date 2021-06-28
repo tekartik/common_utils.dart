@@ -28,25 +28,54 @@ Future<List<String>> getRules(String path) async {
   var rawRules = (yaml['linter'] as Map)['rules'];
   List<String> rules;
   if (rawRules is List) {
-    rules = rawRules.cast<String>();
+    rules = List<String>.from(rawRules.cast<String>())..sort();
     return rules;
   }
   throw UnsupportedError('invalid rawRules type ${rawRules.runtimeType}');
 }
 
+Future<void> _writeRules(String name, List<String> rules) async {
+  var sb = StringBuffer();
+  rules.forEach((element) {
+    sb.writeln('  - $element');
+  });
+  await Directory('.local').create(recursive: true);
+  await File(join('.local', '${name}_rules.txt')).writeAsString(sb.toString());
+}
+
 Future<void> main() async {
-  var rules = List<String>.from(await getRules(
-      join('lib', 'pedantic', 'analysis_options.strong_mode.yaml')))
-    ..sort();
+  var rules = await getRules(
+      join('lib', 'pedantic', 'analysis_options.strong_mode.yaml'));
+  await _writeRules('tekartik', rules);
 
   var dotPackagesMap = await getDotPackagesMap('.');
 
   var pedanticLibPath = Uri.parse(dotPackagesMap['pedantic']!).toFilePath();
+  var lintsLibPath = Uri.parse(dotPackagesMap['lints']!).toFilePath();
   var pedanticRules =
       await getRules(join(pedanticLibPath, 'analysis_options.1.11.0.yaml'));
+  await _writeRules('pedantic', pedanticRules);
+  var lintsRules = await getRules(join(lintsLibPath, 'recommended.yaml'));
+  await _writeRules('lints', lintsRules);
 
-  rules.removeWhere((element) => pedanticRules.contains(element));
-  rules.forEach((element) {
-    print('  - $element');
-  });
+  var diffRules = List<String>.from(rules);
+  diffRules.removeWhere((element) => pedanticRules.contains(element));
+  await _writeRules('pedantic_diff', diffRules);
+  diffRules = List<String>.from(rules);
+  diffRules.removeWhere((element) => lintsRules.contains(element));
+  await _writeRules('lints_diff', diffRules);
+  diffRules = List<String>.from(lintsRules);
+  diffRules.removeWhere((element) => pedanticRules.contains(element));
+  await _writeRules('lints_over_pedantic', diffRules);
+  diffRules = List<String>.from(pedanticRules);
+  diffRules.removeWhere((element) => lintsRules.contains(element));
+  await _writeRules('pedantic_over_lints', diffRules);
+
+  var all = <String>{}
+    ..addAll(rules)
+    ..addAll(pedanticRules)
+    ..addAll(lintsRules);
+  diffRules = List<String>.from(all)..sort();
+  diffRules.removeWhere((element) => lintsRules.contains(element));
+  await _writeRules('tekartik_recommended_over_lints', diffRules);
 }

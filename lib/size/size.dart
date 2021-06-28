@@ -111,6 +111,7 @@ class Size<T extends num> extends D2<T> {
   bool get isPortrait => !isLandscape;
 }
 
+/// Helper for contained rectangle size with ratio
 Size<int> sizeIntContainedWithRatio(Size<int> size, num ratio) {
   var sizeRatio = size.ratio;
   if (sizeRatio > ratio) {
@@ -119,4 +120,13 @@ Size<int> sizeIntContainedWithRatio(Size<int> size, num ratio) {
     return Size(size.width, size.width ~/ ratio);
   }
   return size;
+}
+
+/// Helper for centered rectangle
+Rect<int> sizeIntCenteredRectWithRatio(Size<int> size, num ratio) {
+  var innerSize = sizeIntContainedWithRatio(size, ratio);
+  return Rect<int>(
+      Point<int>((size.width - innerSize.width) ~/ 2,
+          (size.height - innerSize.height) ~/ 2),
+      innerSize);
 }

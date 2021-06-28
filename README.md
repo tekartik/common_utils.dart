@@ -13,13 +13,17 @@ dependencies:
     git:
       url: git://github.com/tekartik/common_utils.dart
       ref: null_safety
-    version: '>=0.9.8'
+    version: '>=0.11.1'
 ```
 
 ## Documentation
 
 * [Pedantic](https://github.com/tekartik/common_utils.dart/blob/master/doc/pedantic.md)
 
+```yaml
+# tekartik recommended lints (extension over google lints and pedantic)
+include: package:tekartik_common_utils/lints/recommended.yaml
+```
 ## Testing
 
 Test on all platforms
