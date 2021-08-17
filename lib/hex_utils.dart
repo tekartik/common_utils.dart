@@ -331,19 +331,19 @@ List<int> parseHexString(String text) {
   final data = <int>[];
   int? firstNibble;
 
-  text.codeUnits.forEach((int charCode) {
+  for (var charCode in text.codeUnits) {
     if (firstNibble == null) {
       firstNibble = hexCharValue(charCode);
     } else {
       var secondNibble = hexCharValue(charCode);
       if (secondNibble != null) {
-        data.add(firstNibble! * 16 + secondNibble);
+        data.add(firstNibble * 16 + secondNibble);
         firstNibble = null;
       } else {
         firstNibble = null;
       }
     }
-  });
+  }
   return data;
 }
 

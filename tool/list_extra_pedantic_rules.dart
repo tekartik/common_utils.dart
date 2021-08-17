@@ -25,27 +25,31 @@ Future<Map<String, String>> getDotPackagesMap(String packageRoot) async {
 
 Future<List<String>> getRules(String path) async {
   var yaml = loadYaml(await File(path).readAsString()) as Map;
-  var rawRules = (yaml['linter'] as Map)['rules'];
-  List<String> rules;
-  if (rawRules is List) {
-    rules = List<String>.from(rawRules.cast<String>())..sort();
-    return rules;
+  try {
+    var rawRules = (yaml['linter'] as Map)['rules'];
+    List<String> rules;
+    if (rawRules is List) {
+      rules = List<String>.from(rawRules.cast<String>())..sort();
+      return rules;
+    }
+    throw UnsupportedError('invalid rawRules type ${rawRules.runtimeType}');
+  } catch (e) {
+    stderr.writeln('fail to read linter rules in $path');
+    rethrow;
   }
-  throw UnsupportedError('invalid rawRules type ${rawRules.runtimeType}');
 }
 
 Future<void> _writeRules(String name, List<String> rules) async {
   var sb = StringBuffer();
-  rules.forEach((element) {
+  for (var element in rules) {
     sb.writeln('  - $element');
-  });
+  }
   await Directory('.local').create(recursive: true);
   await File(join('.local', '${name}_rules.txt')).writeAsString(sb.toString());
 }
 
 Future<void> main() async {
-  var rules = await getRules(
-      join('lib', 'pedantic', 'analysis_options.strong_mode.yaml'));
+  var rules = await getRules(join('lib', 'pedantic', 'analysis_options.yaml'));
   await _writeRules('tekartik', rules);
 
   var dotPackagesMap = await getDotPackagesMap('.');

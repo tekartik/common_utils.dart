@@ -58,8 +58,8 @@ class TimeOfDay {
   int get hashCode => hour + minute * 13;
 
   @override
-  bool operator ==(o) {
-    return o is TimeOfDay && o.hour == hour && o.minute == minute;
+  bool operator ==(Object other) {
+    return other is TimeOfDay && other.hour == hour && other.minute == minute;
   }
 
   @override

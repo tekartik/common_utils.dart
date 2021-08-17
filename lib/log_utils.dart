@@ -8,7 +8,7 @@ export 'package:logging/logging.dart';
 bool _quickLoggingSetup = false;
 
 /// To user when you want to make sure code is removed
-@deprecated
+@Deprecated('Dev only')
 void debugQuickLogging(Level level) {
   setupQuickLogging(level);
 }

@@ -47,7 +47,7 @@ bool isEmpty(Iterable list) => listIsEmpty(list);
 bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 
 /// True if list is not null and not
-@deprecated
+@Deprecated('Typo error')
 bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
 
 bool listIsNotEmpty(Iterable? list) => listLength(list) > 0;
@@ -83,14 +83,14 @@ List<T> listTruncate<T>(List<T> list, int len) => listSubList(list, 0, len);
 /// Clone list and list of list
 List<T> cloneList<T>(List<T> original) {
   var clone = <T>[];
-  original.forEach((dynamic item) {
+  for (var item in original) {
     if (item is List) {
-      item = cloneList(item);
+      item = cloneList(item) as T;
     } else if (item is Map) {
-      item = cloneMap(item);
+      item = cloneMap(item) as T;
     }
-    clone.add(item as T);
-  });
+    clone.add(item);
+  }
   return clone;
 }
 
@@ -99,11 +99,11 @@ List<T> cloneList<T>(List<T> original) {
 List<T> intersectList<T>(List<T> original1, List<T> original2) {
   var list = <T>[];
 
-  original1.forEach((element) {
+  for (var element in original1) {
     if (original2.contains(element)) {
       list.add(element);
     }
-  });
+  }
 
   return list;
 }
