@@ -155,6 +155,11 @@ void main() {
             [2, 3]
           ]),
           [1, 2, 3]);
+      expect(
+          listFlatten<int>([
+            [1]
+          ]),
+          const TypeMatcher<List<int>>());
     });
   });
 }
