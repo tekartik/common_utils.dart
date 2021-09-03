@@ -1,2 +1,3 @@
+# Deprecated: user lints/recommended
 # tekartik recommended lints (extension over google lints and pedantic)
 include: package:tekartik_common_utils/lints/recommended.yaml
