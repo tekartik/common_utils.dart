@@ -1,5 +1,5 @@
 name: tekartik_common_utils
-version: 0.12.2
+version: 0.13.0
 description: Common pure dart utilities (not io or browser dependant)
 homepage: https://github.com/tekartik/common_utils.dart
 publish_to: none
@@ -14,11 +14,13 @@ dependencies:
   meta: '>=1.3.0'
   lints: '>=1.0.1'
   cv: '>=0.1.0 <2.0.0'
-#    git:
-#      url: git://github.com/tekartik/cv.dart
-#      ref: null_safety
-#      path: packages/cv
-#    version: '>=0.1.1'
+  tekartik_app_lints:
+    git:
+      url: git://github.com/tekartik/app_common_utils.dart
+      ref: null_safety
+      path: app_lints
+    version: '>=0.1.0'
+
 dev_dependencies:
   pedantic: '>=1.10.0'
   dev_test: '>=0.15.0'
