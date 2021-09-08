@@ -1,6 +1,6 @@
-import 'package:pedantic/pedantic.dart';
-// ignore: deprecated_member_use, deprecated_member_use_from_same_package
-import 'package:tekartik_common_utils/completer/completer.dart';
+import 'dart:async';
+
+import 'package:tekartik_common_utils/completer/completer.dart'; // ignore: deprecated_member_use, deprecated_member_use_from_same_package
 import 'package:test/test.dart';
 
 class TestException implements Exception {}
