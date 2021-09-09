@@ -14,11 +14,11 @@ dependencies:
   meta: '>=1.3.0'
   lints: '>=1.0.1'
   cv: '>=0.1.0 <2.0.0'
-  tekartik_app_lints:
+  tekartik_lints:
     git:
-      url: git://github.com/tekartik/app_common_utils.dart
+      url: git://github.com/tekartik/common.dart
       ref: null_safety
-      path: app_lints
+      path: packages/lints
     version: '>=0.1.0'
 
 dev_dependencies:
