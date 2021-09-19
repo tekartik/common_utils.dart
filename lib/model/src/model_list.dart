@@ -114,6 +114,7 @@ mixin ModelListBaseMixin implements ModelList {
 
   @override
   void forEach(void Function(Model? element) f) =>
+      // ignore: avoid_function_literals_in_foreach_calls
       _list.forEach((item) => f(asModel(item)));
 
   @override

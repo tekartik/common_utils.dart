@@ -211,7 +211,7 @@ void main() {
     });
 
     test('returns onListen callback set in constructor', () async {
-      final testOnListen = () {};
+      void testOnListen() {}
       // ignore: close_sinks
       final StreamController<int?> subject =
           Subject<int>(onListen: testOnListen);
@@ -220,7 +220,7 @@ void main() {
     });
 
     test('sets onListen callback', () async {
-      final testOnListen = () {};
+      void testOnListen() {}
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 
@@ -232,7 +232,7 @@ void main() {
     });
 
     test('returns onCancel callback set in constructor', () async {
-      final onCancel = () => Future<void>.value(null);
+      Future<void> onCancel() => Future<void>.value(null);
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>(onCancel: onCancel);
 
@@ -240,7 +240,7 @@ void main() {
     });
 
     test('sets onCancel callback', () async {
-      final testOnCancel = () {};
+      void testOnCancel() {}
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 

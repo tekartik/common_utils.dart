@@ -10,7 +10,7 @@ const int hourInMillis = 60 * minuteInMillis;
 const int dayInMillis = 24 * hourInMillis;
 const int weekInMillis = 7 * dayInMillis;
 
-@deprecated
+@Deprecated('Do not use')
 DateTime newDateTimeClearTime(DateTime dt) {
   return DateTime(dt.year, dt.month, dt.day);
 }

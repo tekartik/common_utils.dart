@@ -1,4 +1,4 @@
-@deprecated
+@Deprecated('Do not use')
 library tekartik_common_utils_completer;
 
 import 'dart:async';

@@ -62,7 +62,7 @@ String? nonEmpty(String value, [String? defaultValue]) =>
 String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
-@deprecated
+@Deprecated('Do not use')
 String prefilled(String text, int len, String char) =>
     stringPrefilled(text, len, char);
 

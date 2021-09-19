@@ -66,7 +66,7 @@ dynamic compackAny(dynamic unpacked) {
       var allMap = true;
       for (var i = 0; i < list.length; i++) {
         var item = list[i];
-        if (!(item is Map)) {
+        if (item is! Map) {
           allMap = false;
           break;
         }
@@ -123,7 +123,7 @@ dynamic uncompackAny(dynamic packed) {
 
           if (key != _v) {
             if (key.toString().startsWith(_v)) {
-              map['${key.toString().substring(2)}'] = uncompackAny(value);
+              map[key.toString().substring(2)] = uncompackAny(value);
             }
           }
         });
@@ -146,7 +146,7 @@ class JsonUnpack {
     var columns = packed[_columns] as List<String>?;
     var rows = packed[_rows] as List<List>?;
     if (columns == null || rows == null) {
-      return null;
+      return;
     }
 
     final columnCount = columns.length;

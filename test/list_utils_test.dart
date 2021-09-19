@@ -148,5 +148,18 @@ void main() {
       var lazy = src.lazy<String>((src) => src.toString());
       expect(lazy, ['1', '2']);
     });
+    test('listFlatten', () {
+      expect(
+          listFlatten([
+            [1],
+            [2, 3]
+          ]),
+          [1, 2, 3]);
+      expect(
+          listFlatten<int>([
+            [1]
+          ]),
+          const TypeMatcher<List<int>>());
+    });
   });
 }
