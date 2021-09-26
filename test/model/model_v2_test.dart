@@ -20,7 +20,7 @@ void defineTests() {
     });
 
     test('value', () {
-      var model = NewModel();
+      var model = newModel();
       model.setValue('test', 'text');
       expect(model.getValue<String>('test'), 'text');
       expect(model.getModelEntry('test')!.value, 'text');
