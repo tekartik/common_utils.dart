@@ -18,5 +18,13 @@ void main() {
       expect(list, const TypeMatcher<Uint8List>());
       expect(identical(list, original), true);
     });
+    test('listStreamGetBytes', () async {
+      expect(
+          await listStreamGetBytes(Stream.fromIterable([
+            [1, 2],
+            [3]
+          ])),
+          [1, 2, 3]);
+    });
   });
 }
