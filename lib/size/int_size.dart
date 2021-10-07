@@ -36,12 +36,12 @@ class Rect extends size_common.Rect<int> {
   const Rect(size_common.Point<int> point, size_common.Size<int> size)
       : super(point, size);
 
-  /// Helper
+  /// Helper from left, top, width, height
   factory Rect.fromLTWH(int left, int top, int width, int height) {
     return Rect(Point(left, top), Size(width, height));
   }
 
-  /// Construct a rectangle from its left, top, right
+  /// Construct a rectangle from its left, top, right, bottom
   factory Rect.fromLTRB(int left, int top, int right, int bottom) {
     return Rect(Point(left, top), Size(right - left, bottom - top));
   }
