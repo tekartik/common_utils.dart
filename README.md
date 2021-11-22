@@ -11,8 +11,8 @@ In your `pubspec.yaml`:
 dependencies:
   tekartik_common_utils:
     git:
-      url: git://github.com/tekartik/common_utils.dart
-      ref: null_safety
+      url: https://github.com/tekartik/common_utils.dart
+      ref: dart2_3
     version: '>=0.11.1'
 ```
 

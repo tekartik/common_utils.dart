@@ -54,6 +54,23 @@ void main() {
         expect(sizeIntCenteredRectWithRatio(const Size(3, 3), 0.334),
             const Rect<int>(Point(1, 0), Size(1, 3)));
       });
+      test('sizeDoubleContainedWithRatio', () {
+        expect(sizeDoubleContainedWithRatio(const Size(1, 2), 1),
+            const Size<double>(1, 1));
+        expect(sizeDoubleContainedWithRatio(const Size(1.5, 2.5), 1),
+            const Size<double>(1.5, 1.5));
+        expect(sizeDoubleContainedWithRatio(const Size(3, 3), 1.5),
+            const Size<double>(3, 2));
+      });
+      test('sizeDoubleCenteredRectWithRatio', () {
+        expect(sizeDoubleCenteredRectWithRatio(const Size(1, 2), 1),
+            const Rect<double>(Point(0.0, 0.5), Size(1, 1)));
+
+        expect(sizeDoubleCenteredRectWithRatio(const Size(3, 3), 1.5),
+            const Rect<double>(Point(0, 0.5), Size(3, 2)));
+        expect(sizeDoubleCenteredRectWithRatio(const Size(3, 3), 3),
+            const Rect<double>(Point(0, 1), Size(3, 1)));
+      });
     });
   });
 }
