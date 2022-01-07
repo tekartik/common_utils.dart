@@ -27,6 +27,7 @@ int? stringParseStartingInt(String value) {
   if (end >= 0) {
     return int.parse(value.substring(0, end + 1));
   }
+  return null;
 }
 
 /// Find ending integer in a string
@@ -43,4 +44,5 @@ int? stringParseEndingInt(String value) {
   if (start < end) {
     return int.parse(value.substring(start, end));
   }
+  return null;
 }
