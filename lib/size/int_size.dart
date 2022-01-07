@@ -1,3 +1,5 @@
+import 'package:tekartik_common_utils/int_utils.dart';
+
 import 'size.dart' as size_common;
 
 abstract class D2 implements size_common.D2<int> {}
@@ -51,4 +53,23 @@ class Rect extends size_common.Rect<int> {
 Size sizeContainedWithRatio(Size size, num ratio) {
   var _size = size_common.sizeIntContainedWithRatio(size, ratio);
   return Size(_size.width, _size.height);
+}
+
+/// Parse size like 123x456
+Size? stringParseSize(String name) {
+  var parts = name.split('x');
+  if (parts.length > 1) {
+    // Find height
+    for (var i = parts.length - 1; i >= 1; i--) {
+      var height = stringParseStartingInt(parts[i]);
+      if (height != null) {
+        // Find width
+        var width = stringParseEndingInt(parts[i - 1]);
+        if (width != null) {
+          return Size(width, height);
+        }
+      }
+    }
+  }
+  return null;
 }

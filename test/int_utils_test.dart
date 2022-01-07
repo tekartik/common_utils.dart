@@ -23,4 +23,21 @@ void defineTests() {
     expect(parseInt('a', 2), 2);
     expect(parseInt(null, 3), 3);
   });
+
+  test('stringFindFirstInt', () {
+    expect(stringParseStartingInt(''), isNull);
+    expect(stringParseStartingInt('_'), isNull);
+    expect(stringParseStartingInt('1'), 1);
+    expect(stringParseStartingInt('1_'), 1);
+    expect(stringParseEndingInt('_1'), 1);
+    expect(stringParseStartingInt('1234567890'), 1234567890);
+  });
+  test('stringFindEndingInt', () {
+    expect(stringParseEndingInt(''), isNull);
+    expect(stringParseEndingInt('_'), isNull);
+    expect(stringParseEndingInt('1'), 1);
+    expect(stringParseEndingInt('1_'), isNull);
+    expect(stringParseEndingInt('_1'), 1);
+    expect(stringParseEndingInt('1234567890'), 1234567890);
+  });
 }

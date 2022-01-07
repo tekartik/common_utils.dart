@@ -76,6 +76,14 @@ void main() {
 
         expect(Rect.fromLTRB(1, 2, 4, 6), rct);
       });
+      test('stringParseSize', () {
+        expect(stringParseSize('1234'), isNull);
+        expect(stringParseSize(''), isNull);
+        expect(stringParseSize('x'), isNull);
+        expect(stringParseSize('xx'), isNull);
+        expect(stringParseSize('12x34'), Size(12, 34));
+        expect(stringParseSize('1_12x34_3x'), Size(12, 34));
+      });
     });
   });
 }
