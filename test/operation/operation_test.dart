@@ -9,6 +9,7 @@ void main() {
       var count = 0;
       var operation = Operation(action: () {
         count++;
+        return null;
       });
       operation.trigger();
       expect(count, 1);
@@ -23,6 +24,7 @@ void main() {
       var count = 0;
       var operation = Operation(action: () {
         count++;
+        return null;
       });
       operation.trigger();
       operation.trigger();
@@ -41,6 +43,7 @@ void main() {
       var operation = Operation(
           action: () {
             count++;
+            return null;
           },
           delay: const Duration(milliseconds: 100));
       operation.trigger();

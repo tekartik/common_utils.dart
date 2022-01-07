@@ -78,4 +78,5 @@ String stringPrefilled(String text, int len, String char) {
   return out.toString();
 }
 
-bool isDigit(String s, int idx) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
+/// True if the char at index is a digit
+bool isDigit(String s, [int idx = 0]) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
