@@ -19,7 +19,7 @@ abstract class D2<T extends num> {
   const D2(this.x, this.y);
 
   // x / y ratio
-  num get ratio => x / y;
+  double get ratio => x / y;
 
   @override
   String toString() => '${x}x$y';
