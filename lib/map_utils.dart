@@ -35,8 +35,8 @@ Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
 V? mapValue<K, V>(Map<K, V> map, K key, {V Function()? createIfNull}) {
   var value = map[key];
   if (value == null && createIfNull != null) {
-    value = createIfNull();
-    map[key] = value!;
+    value = createIfNull()!;
+    map[key] = value;
   }
   return value;
 }
