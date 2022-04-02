@@ -129,3 +129,15 @@ List<List<T>> listChunk<T>(List<T> list, int? chunkSize) {
 /// Flatten a list [[1],[2,3]] => [1,2,3]
 List<T> listFlatten<T>(Iterable<Iterable<T>> list) =>
     <T>[for (var sublist in list) ...sublist];
+
+/// List single or null.
+T? listSingleOrNull<T>(Iterable<T?> list) {
+  var iterator = list.iterator;
+  if (iterator.moveNext()) {
+    var current = iterator.current;
+    if (!iterator.moveNext()) {
+      return current;
+    }
+  }
+  return null;
+}

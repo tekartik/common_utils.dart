@@ -1,5 +1,5 @@
-import 'package:dev_test/test.dart' hide isEmpty;
 import 'package:tekartik_common_utils/list_utils.dart';
+import 'package:test/test.dart' hide isEmpty;
 
 void main() {
   group('list_utils', () {
@@ -160,6 +160,16 @@ void main() {
             [1]
           ]),
           const TypeMatcher<List<int>>());
+    });
+    test('listSingleOrNull', () {
+      expect(listSingleOrNull([]), isNull);
+      expect(listSingleOrNull([1]), 1);
+      expect(listSingleOrNull(['test']), 'test');
+      expect(listSingleOrNull(['test', 1]), isNull);
+      expect(listSingleOrNull([null]), isNull);
+      // handle iterable
+      Iterable<int> iterable = [1];
+      expect(listSingleOrNull(iterable), 1);
     });
   });
 }
