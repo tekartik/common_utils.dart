@@ -51,8 +51,8 @@ class Rect extends size_common.Rect<int> {
 
 /// Return the contained rectangle
 Size sizeContainedWithRatio(Size size, num ratio) {
-  var _size = size_common.sizeIntContainedWithRatio(size, ratio);
-  return Size(_size.width, _size.height);
+  var computedSize = size_common.sizeIntContainedWithRatio(size, ratio);
+  return Size(computedSize.width, computedSize.height);
 }
 
 /// Parse size like 123x456

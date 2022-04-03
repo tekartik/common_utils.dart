@@ -111,27 +111,27 @@ class Subject<T> extends Stream<T>
   @override
   StreamSubscription<T> listen(void Function(T event)? onData,
       {Function? onError, void Function()? onDone, bool? cancelOnError}) {
-    var _subscriptionController = StreamController<T>(sync: _sync);
-    var _internalSubscription = _controller.stream.listen((event) {
-      _subscriptionController.add(event);
+    var subscriptionController = StreamController<T>(sync: _sync);
+    var internalSubscription = _controller.stream.listen((event) {
+      subscriptionController.add(event);
     }, onDone: () {
-      _subscriptionController.close();
+      subscriptionController.close();
     }, onError: (Object error, [StackTrace? stackTrace]) {
-      _subscriptionController.addError(error, stackTrace);
+      subscriptionController.addError(error, stackTrace);
     });
-    _subscriptionController.onCancel = () {
-      _internalSubscription.cancel();
+    subscriptionController.onCancel = () {
+      internalSubscription.cancel();
     };
 
-    var subscription = _subscriptionController.stream.listen(onData,
+    var subscription = subscriptionController.stream.listen(onData,
         onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
     // Send initial data
     if (_error != null) {
-      _subscriptionController.addError(_error!, stackTrace);
+      subscriptionController.addError(_error!, stackTrace);
     } else {
       if (_seeded) {
-        _subscriptionController.add(value as T);
+        subscriptionController.add(value as T);
       }
     }
     return subscription;
