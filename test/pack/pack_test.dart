@@ -233,15 +233,15 @@ void main() {
     });
 
     test('json compack', () {
-      void _check(dynamic any) {
+      void check(dynamic any) {
         var compack = compackAny(any);
         compack = json.decode(json.encode(compack));
         expect(uncompackAny(compack), any);
       }
 
-      _check([]);
-      _check({});
-      _check({
+      check([]);
+      check({});
+      check({
         'test': [
           {'field1': 'text1', 'field2': 123456},
           {'field3': 'text3', 'field2': 789}
