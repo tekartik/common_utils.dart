@@ -16,7 +16,7 @@ void main() {
         await completer.future;
       } on CancelException catch (_) {}
     });
-    Future _testValue([bool? sync]) async {
+    Future testValue([bool? sync]) async {
       var completer = CancellableCompleter(value: 1, sync: sync);
       final value = completer.value;
       expect(identical(value, completer.future), isFalse);
@@ -38,16 +38,16 @@ void main() {
     }
 
     test('value', () {
-      return _testValue();
+      return testValue();
     });
     test('sync_value', () {
-      return _testValue(true);
+      return testValue(true);
     });
     test('async_value', () {
-      return _testValue(false);
+      return testValue(false);
     });
 
-    Future _testComplete([bool? sync]) async {
+    Future testComplete([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
 
       final value = completer.value;
@@ -77,16 +77,16 @@ void main() {
     }
 
     test('complete', () {
-      return _testComplete();
+      return testComplete();
     });
     test('sync_complete', () {
-      return _testComplete(true);
+      return testComplete(true);
     });
     test('async_complete', () {
-      return _testComplete(false);
+      return testComplete(false);
     });
 
-    Future _testCompleteError([bool? sync]) async {
+    Future testCompleteError([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
 
       final value = completer.value;
@@ -120,16 +120,16 @@ void main() {
     }
 
     test('complete_error', () {
-      return _testCompleteError();
+      return testCompleteError();
     });
     test('sync_complete_error', () {
-      return _testCompleteError(true);
+      return testCompleteError(true);
     });
     test('async_complete_error', () {
-      return _testCompleteError(false);
+      return testCompleteError(false);
     });
 
-    Future _testCancel([bool? sync]) async {
+    Future testCancel([bool? sync]) async {
       var completer = CancellableCompleter(sync: sync);
       final value = completer.value;
       expect(identical(value, completer.future), isTrue);
@@ -162,13 +162,13 @@ void main() {
     }
 
     test('cancel', () {
-      return _testCancel();
+      return testCancel();
     });
     test('sync_cancel', () {
-      return _testCancel(true);
+      return testCancel(true);
     });
     test('async_cancel', () {
-      return _testCancel(false);
+      return testCancel(false);
     });
   });
 }

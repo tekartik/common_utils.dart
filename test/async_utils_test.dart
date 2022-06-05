@@ -89,12 +89,12 @@ void main() {
 
     test('onceRunner', () async {
       var count = 0;
-      Future _count() async {
+      Future doCount() async {
         await sleep(5);
         count++;
       }
 
-      var runner = AsyncOnceRunner(_count);
+      var runner = AsyncOnceRunner(doCount);
       expect(count, 0);
       var future = runner.run();
       expect(runner.done, isFalse);
@@ -106,14 +106,14 @@ void main() {
 
     test('onceRunner fail', () async {
       var shouldFail = true;
-      Future _count() async {
+      Future doCount() async {
         await sleep(5);
         if (shouldFail) {
           throw 'should fail';
         }
       }
 
-      var runner = AsyncOnceRunner(_count);
+      var runner = AsyncOnceRunner(doCount);
       try {
         await runner.run();
         fail('should have failed');

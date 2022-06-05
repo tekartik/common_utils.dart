@@ -59,7 +59,7 @@ void defineTests() {
 
         var lists = <List>[list, modelList1, modelList2, baseModelList];
         // expect(model.getEntry('test'), ModelEntry('test', null));
-        void _test(Map value) {
+        void doTest(Map value) {
           for (var list in lists) {
             list.add(asModel(value));
             expect(list.last, value);
@@ -67,7 +67,7 @@ void defineTests() {
         }
 
         //_test(null);
-        _test({});
+        doTest({});
 
         list = <Model>[];
         list.add(asModel({'a': 1}));
@@ -87,7 +87,7 @@ void defineTests() {
 
       var maps = [map, model1, baseModel, model2];
 
-      void _test(dynamic value) {
+      void doTest(dynamic value) {
         for (var map in maps) {
           map['test'] = value;
           expect(map['test'], value);
@@ -98,9 +98,9 @@ void defineTests() {
       }
 
       //_test(null);
-      _test('a');
-      _test([]);
-      _test({});
+      doTest('a');
+      doTest([]);
+      doTest({});
       for (var map in maps) {
         map.remove('test');
         expect(map['test'], isNull);
