@@ -33,7 +33,7 @@ void defineTests() {
     });
 
     test('model', () {
-      var model = <K, V>{};
+      var model = newModel();
       expect(model.getModelEntry('test'), isNull);
       model['test'] = null;
       expect(model.getModelEntry('test')!.value, isNull);
@@ -81,7 +81,7 @@ void defineTests() {
 
     test('model_base', () {
       var map = {};
-      var model1 = <K, V>{};
+      var model1 = newModel();
       var baseModel = MyModel();
       var model2 = asModel({});
 
