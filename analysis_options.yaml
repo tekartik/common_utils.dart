@@ -1,6 +1,5 @@
 # tekartik recommended lints (extension over google lints and pedantic)
 include: package:tekartik_lints/recommended.yaml
 
-linter:
-  rules:
-    body_might_complete_normally_nullable: true
+# linter:
+#  rules:
