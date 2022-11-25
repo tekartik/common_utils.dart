@@ -10,10 +10,15 @@ void main() {
     });
 
     test('first', () {
+      // ignore: deprecated_member_use_from_same_package
       expect(first(null), isNull);
+      // ignore: deprecated_member_use_from_same_package
       expect(first([]), isNull);
+      // ignore: deprecated_member_use_from_same_package
       expect(first([null]), isNull);
+      // ignore: deprecated_member_use_from_same_package
       expect(first([1]), 1);
+      // ignore: deprecated_member_use_from_same_package
       expect(first([1, 2]), 1);
     });
 
