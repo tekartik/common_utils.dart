@@ -28,14 +28,6 @@ abstract class D2<T extends num> {
 /// Generic point definition
 class Point<T extends num> extends D2<T> {
   const Point(T x, T y) : super(x, y);
-
-  @override
-  int get hashCode => super.hashCode;
-
-  @override
-  bool operator ==(other) {
-    return other is Point<T> && super == (other);
-  }
 }
 
 /// A rectangle has a top left point and a size
@@ -107,15 +99,6 @@ class Size<T extends num> extends D2<T> {
   bool get isEmpty => x == 0 && y == 0;
 
   const Size(T width, T height) : super(width, height);
-
-  // const Size.empty() : super(0, 0);
-  @override
-  int get hashCode => super.hashCode;
-
-  @override
-  bool operator ==(other) {
-    return other is Size<T> && super == (other);
-  }
 
   bool get isLandscape => width > height;
 

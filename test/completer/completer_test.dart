@@ -97,6 +97,7 @@ void main() {
       var completed = false;
       unawaited(completer.future.catchError((_) {
         completed = true;
+        return null;
       }));
       completer.completeError(TestException());
       // Main difference between sync and async here
@@ -138,6 +139,7 @@ void main() {
       var cancelled = false;
       unawaited(completer.future.catchError((_) {
         cancelled = true;
+        return null;
       }));
       completer.cancel();
       // Main difference between sync and async here
