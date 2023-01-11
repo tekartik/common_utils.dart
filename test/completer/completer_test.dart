@@ -8,7 +8,7 @@ class TestException implements Exception {}
 void main() {
   group('completer', () {
     test('mini cancel', () async {
-      var completer = CancellableCompleter(sync: true);
+      var completer = CancellableCompleter<void>(sync: true);
       // This is needed to prevent a crash in unit test
       unawaited(completer.future.catchError((_) => null));
       completer.cancel();
@@ -48,7 +48,7 @@ void main() {
     });
 
     Future testComplete([bool? sync]) async {
-      var completer = CancellableCompleter(sync: sync);
+      var completer = CancellableCompleter<int>(sync: sync);
 
       final value = completer.value;
       expect(identical(value, completer.future), isTrue);
@@ -87,7 +87,7 @@ void main() {
     });
 
     Future testCompleteError([bool? sync]) async {
-      var completer = CancellableCompleter(sync: sync);
+      var completer = CancellableCompleter<Object?>(sync: sync);
 
       final value = completer.value;
       expect(identical(value, completer.future), isTrue);
@@ -130,7 +130,7 @@ void main() {
     });
 
     Future testCancel([bool? sync]) async {
-      var completer = CancellableCompleter(sync: sync);
+      var completer = CancellableCompleter<Object?>(sync: sync);
       final value = completer.value;
       expect(identical(value, completer.future), isTrue);
       expect(completer.isCancelled, isFalse);

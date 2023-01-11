@@ -20,7 +20,7 @@ class Cooperator {
         ..start();
       // Just don't make it 0, tested for best performance using Flutter
       // on a (non-recent) Nexus 5
-      return Future.delayed(const Duration(microseconds: 100));
+      return Future<void>.delayed(const Duration(microseconds: 100));
     } else {
       return null;
     }

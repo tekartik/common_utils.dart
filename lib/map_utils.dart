@@ -110,7 +110,7 @@ T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
   return value as T?;
 }
 
-void setPartsMapValue<T>(Map map, List<String> parts, value) {
+void setPartsMapValue(Map map, List<String> parts, Object? value) {
   for (var i = 0; i < parts.length - 1; i++) {
     var part = parts[i];
     dynamic sub = map[part];

@@ -1,19 +1,23 @@
-import 'package:tekartik_common_utils/list_utils.dart';
-import 'package:test/test.dart' hide isEmpty;
+import 'package:tekartik_common_utils/list_utils.dart' hide isEmpty;
+import 'package:test/test.dart';
+
+import 'map_utils_test.dart';
+
+List<Object?> get emptyList => <Object?>[];
 
 void main() {
   group('list_utils', () {
     test('isEmpty', () {
       expect(listIsEmpty(null), isTrue);
-      expect(listIsEmpty([]), isTrue);
+      expect(listIsEmpty(emptyList), isTrue);
       expect(listIsEmpty([null]), isFalse);
     });
 
     test('first', () {
       // ignore: deprecated_member_use_from_same_package
-      expect(first(null), isNull);
+      expect(first<Object?>(null), isNull);
       // ignore: deprecated_member_use_from_same_package
-      expect(first([]), isNull);
+      expect(first(emptyList), isNull);
       // ignore: deprecated_member_use_from_same_package
       expect(first([null]), isNull);
       // ignore: deprecated_member_use_from_same_package
@@ -24,23 +28,23 @@ void main() {
 
     test('listLength', () {
       expect(listLength(null), 0);
-      expect(listLength([]), 0);
+      expect(listLength(emptyList), 0);
       expect(listLength([null]), 1);
       expect(listLength([1]), 1);
       expect(listLength([1, 2]), 2);
     });
 
     test('listFirst', () {
-      expect(listFirst(null), isNull);
-      expect(listFirst([]), isNull);
+      expect(listFirst<Object?>(null), isNull);
+      expect(listFirst(emptyList), isNull);
       expect(listFirst([null]), isNull);
       expect(listFirst([1]), 1);
       expect(listFirst([1, 2]), 1);
     });
 
     test('listLast', () {
-      expect(listLast(null), isNull);
-      expect(listLast([]), isNull);
+      expect(listLast<Object?>(null), isNull);
+      expect(listLast(emptyList), isNull);
       expect(listLast([null]), isNull);
       expect(listLast([1]), 1);
       expect(listLast([1, 2]), 2);
@@ -55,54 +59,54 @@ void main() {
     });
 
     test('truncate', () {
-      expect(listTruncate([], 0), []);
-      expect(listTruncate([], -1), []);
-      expect(listTruncate([], 1), []);
+      expect(listTruncate([], 0), isEmpty);
+      expect(listTruncate([], -1), isEmpty);
+      expect(listTruncate([], 1), isEmpty);
       expect(listTruncate([1], 1), [1]);
       expect(listTruncate([1], 2), [1]);
-      expect(listTruncate([1], 0), []);
-      expect(listTruncate([1], -1), []);
-      expect(listTruncate([1, 2], -1), []);
-      expect(listTruncate([1, 2], 0), []);
+      expect(listTruncate([1], 0), isEmpty);
+      expect(listTruncate([1], -1), isEmpty);
+      expect(listTruncate([1, 2], -1), isEmpty);
+      expect(listTruncate([1, 2], 0), isEmpty);
       expect(listTruncate([1, 2], 1), [1]);
       expect(listTruncate([1, 2], 2), [1, 2]);
       expect(listTruncate([1, 2], 3), [1, 2]);
     });
 
     test('subList', () {
-      expect(listSubList([], 0), []);
-      expect(listSubList([], -1), []);
-      expect(listSubList([], 1), []);
-      expect(listSubList([1], 1), []);
-      expect(listSubList([1], 2), []);
+      expect(listSubList([], 0), isEmpty);
+      expect(listSubList([], -1), isEmpty);
+      expect(listSubList([], 1), isEmpty);
+      expect(listSubList([1], 1), isEmpty);
+      expect(listSubList([1], 2), isEmpty);
       expect(listSubList([1], 0), [1]);
       expect(listSubList([1], -1), [1]);
       expect(listSubList([1, 2], -1), [1, 2]);
       expect(listSubList([1, 2], 0), [1, 2]);
       expect(listSubList([1, 2], 1), [2]);
-      expect(listSubList([1, 2], 2), []);
-      expect(listSubList([1, 2], 3), []);
+      expect(listSubList([1, 2], 2), isEmpty);
+      expect(listSubList([1, 2], 3), isEmpty);
       expect(listSubList([1, 2], 1, 3), [2]);
       expect(listSubList([1, 2], 1, 2), [2]);
-      expect(listSubList([1, 2], 1, 1), []);
-      expect(listSubList([1, 2], 1, -1), []);
+      expect(listSubList([1, 2], 1, 1), isEmpty);
+      expect(listSubList([1, 2], 1, -1), isEmpty);
     });
 
     test('asList', () {
-      expect(asList(null), isNull);
-      expect(asList([]), []);
-      expect(asList({}), isNull);
-      expect(asList(1), isNull);
-      expect(asList([1]), [1]);
+      expect(asList<Object?>(null), isNull);
+      expect(asList<Object?>(emptyList), isEmpty);
+      expect(asList<Object?>(emptyMap), isNull);
+      expect(asList<Object?>(1), isNull);
+      expect(asList<Object?>([1]), [1]);
       expect(asList<String>([1]), isNull);
     });
 
     test('equals', () {
-      expect(cloneList([]), []);
-      expect(identical(cloneList([]), []), isFalse);
+      expect(cloneList(emptyList), isEmpty);
+      expect(identical(cloneList(emptyList), isEmpty), isFalse);
 
-      var list1 = [1, [], {}];
-      var listFrom = List.from(list1);
+      var list1 = [1, emptyList, emptyMap];
+      var listFrom = List<Object?>.from(list1);
       var list2 = cloneList(list1);
       expect(listFrom, list1);
       expect(list2, list1);
@@ -117,7 +121,7 @@ void main() {
     });
 
     test('chunk', () {
-      expect(listChunk([], null), []);
+      expect(listChunk([], null), isEmpty);
       expect(listChunk([1], null), [
         [1]
       ]);
@@ -167,7 +171,7 @@ void main() {
           const TypeMatcher<List<int>>());
     });
     test('listSingleOrNull', () {
-      expect(listSingleOrNull([]), isNull);
+      expect(listSingleOrNull(emptyList), isNull);
       expect(listSingleOrNull([1]), 1);
       expect(listSingleOrNull(['test']), 'test');
       expect(listSingleOrNull(['test', 1]), isNull);

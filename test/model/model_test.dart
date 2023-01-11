@@ -1,6 +1,8 @@
 import 'package:tekartik_common_utils/model/model.dart';
 import 'package:test/test.dart';
 
+import '../map_utils_test.dart';
+
 void main() => defineTests();
 
 class MyModel extends ModelBase {
@@ -80,7 +82,7 @@ void defineTests() {
     });
 
     test('model_base', () {
-      var map = {};
+      var map = <Object?, Object?>{};
       var model1 = Model();
       var baseModel = MyModel();
       var model2 = Model({});
@@ -99,7 +101,8 @@ void defineTests() {
 
       doTest(null);
       doTest('a');
-      doTest([]);
+      doTest(<Object?>[]);
+      // ignore: inference_failure_on_collection_literal
       doTest({});
       for (var map in maps) {
         map.remove('test');
@@ -112,9 +115,9 @@ void defineTests() {
 
     test('asModel', () {
       expect(asModel(null), null);
-      expect(asModel({}), {});
+      expect(asModel(emptyMap), isEmpty);
       expect(asModel({'test': 1}), {'test': 1});
-      expect(asModel({}), const TypeMatcher<Model>());
+      expect(asModel(emptyMap), const TypeMatcher<Model>());
     });
   });
 }

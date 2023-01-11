@@ -26,9 +26,9 @@ Map<String, List>? packList(Iterable<Map<String, Object?>>? list,
   var columns = columnSet.toList()..sort();
 
   // build the rows
-  var rows = [];
+  var rows = <List>[];
   for (var item in list) {
-    var row = [];
+    var row = <Object?>[];
     for (var column in columns) {
       var value = item[column];
       // Convert inner if needed

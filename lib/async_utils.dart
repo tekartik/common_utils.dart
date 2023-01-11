@@ -6,7 +6,7 @@ import 'list_utils.dart';
 
 // create a future delayed for [ms] milliseconds
 Future sleep([int ms = 0]) {
-  return Future.delayed(Duration(milliseconds: ms));
+  return Future<void>.delayed(Duration(milliseconds: ms));
 }
 
 Future<List?> waitAll(List<Future Function()>? computations) async {

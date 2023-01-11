@@ -98,8 +98,8 @@ mixin ModelBaseMixin implements Model {
       _map.map(f);
 
   @override
-  dynamic putIfAbsent(String key, Function() ifAbsent) =>
-      putIfAbsent(key, ifAbsent);
+  dynamic putIfAbsent(String key, Object? Function() ifAbsent) =>
+      _map.putIfAbsent(key, ifAbsent);
 
   @override
   dynamic remove(Object? key) => _map.remove(key);
@@ -109,12 +109,12 @@ mixin ModelBaseMixin implements Model {
       _map.removeWhere(predicate);
 
   @override
-  dynamic update(String key, Function(dynamic value) update,
-          {Function()? ifAbsent}) =>
-      _map.update(key, update);
+  dynamic update(String key, Object? Function(dynamic value) update,
+          {Object? Function()? ifAbsent}) =>
+      _map.update(key, update, ifAbsent: ifAbsent);
 
   @override
-  void updateAll(Function(String key, dynamic value) update) =>
+  void updateAll(Object? Function(String key, dynamic value) update) =>
       _map.updateAll(update);
 
   @override

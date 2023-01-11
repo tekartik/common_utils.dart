@@ -4,6 +4,8 @@ import 'package:tekartik_common_utils/model/src/model_entry.dart';
 import 'package:tekartik_common_utils/model/src/model_list.dart';
 import 'package:test/test.dart';
 
+import '../map_utils_test.dart';
+
 void main() => defineTests();
 
 class BaseModel
@@ -85,7 +87,7 @@ void defineTests() {
     });
 
     test('mixin', () {
-      var map = {};
+      var map = emptyMap;
       var model1 = Model();
       var baseModel = BaseModel();
       var model2 = Model({});

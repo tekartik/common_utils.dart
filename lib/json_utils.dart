@@ -38,7 +38,7 @@ dynamic parseJson(String? text) {
 //
 // safely encode map, list, primitive or null
 //
-String? encodeJson(var value) {
+String? encodeJson(Object? value) {
   if (value == null) {
     return null;
   }
