@@ -25,7 +25,7 @@ void main() {
       test('equals', () {
         expect(const common.Size<num>(1, 2), isNot(const Size(1, 2)));
         expect(const common.Size<int>(1, 2), const Size(1, 2));
-        expect(const My2D(1, 2), isNot(const Size(1, 2)));
+        expect(const My2D(1, 2), const Size(1, 2));
         expect(const MySize(1, 2), const Size(1, 2));
       });
       test('from', () {
@@ -36,8 +36,9 @@ void main() {
       test('equals', () {
         expect(const common.Point<num>(1, 2), isNot(const Point(1, 2)));
         expect(const common.Point<int>(1, 2), const Point(1, 2));
-        expect(const My2D(1, 2), isNot(const Point(1, 2)));
-        expect(const MyPoint(1, 2), const Point(1, 2));
+        expect(const My2D(1, 2), const Point(1, 2));
+        expect(const Point(1, 2), const My2D(1, 2));
+        expect(const MyPoint(1, 2), const My2D(1, 2));
       });
 
       test('from', () {

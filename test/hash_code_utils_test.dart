@@ -8,9 +8,9 @@ void main() {
   group('hash_code', () {
     test('safe_hash', () {
       expect(safeHashCode(null), 0);
-      expect(safeHashCode(0), 0);
-      expect(safeHashCode(1), 1);
-      expect(safeHashCode('hi'.hashCode), 'hi'.hashCode);
+      expect(safeHashCode(0), 0.hashCode);
+      expect(safeHashCode(1), 1.hashCode);
+      expect(safeHashCode('hi'), 'hi'.hashCode);
     });
   });
 }
