@@ -12,7 +12,7 @@ extension TekartikNumExt<T extends num> on T {
 
 /// never fails
 /// [value] could be a num or a String
-num? parseNum(dynamic value, [num? defaultValue]) {
+num? parseNum(Object? value, [num? defaultValue]) {
   if (value is num) {
     return value;
   } else if (value is String) {

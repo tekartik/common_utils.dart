@@ -20,7 +20,7 @@ class BaseModelEntry with ModelEntryMixin {}
 class BaseModelList
     with
 // to comment/uncomment for progressing implementation
-//      ListMixin<dynamic>,
+//      ListMixin<Object?>,
 // up to here
         ModelListBaseMixin {}
 
@@ -94,7 +94,7 @@ void defineTests() {
 
       var maps = [map, model1, baseModel, model2];
 
-      void doTest(dynamic value) {
+      void doTest(Object? value) {
         for (var map in maps) {
           map['test'] = value;
           expect(map['test'], value);

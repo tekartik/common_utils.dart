@@ -16,7 +16,7 @@ abstract class ModelBase with MapMixin<String, Object?>, ModelBaseMixin {
 }
 
 /// Only create the model if non null
-Model? asModel(dynamic map) => map is Map ? Model(map) : null;
+Model? asModel(Object? map) => map is Map ? Model(map) : null;
 
 mixin ModelBaseMixin implements Model {
   /// slow implementation for null value
@@ -24,7 +24,7 @@ mixin ModelBaseMixin implements Model {
   /// Returns null if it does not exists
   @override
   ModelEntry? getModelEntry(String key) {
-    dynamic value = _map[key];
+    var value = _map[key];
     if (value == null) {
       if (!containsKey(key)) {
         return null;
@@ -50,7 +50,7 @@ mixin ModelBaseMixin implements Model {
   Map<String, Object?> get _map => __map ??= <String, Object?>{};
 
   @override
-  dynamic operator [](Object? key) => _map[key as String];
+  Object? operator [](Object? key) => _map[key as String];
 
   @override
   void operator []=(String key, value) => _map[key] = value;
@@ -78,7 +78,7 @@ mixin ModelBaseMixin implements Model {
   Iterable<MapEntry<String, Object?>> get entries => _map.entries;
 
   @override
-  void forEach(void Function(String key, dynamic value) f) => _map.forEach(f);
+  void forEach(void Function(String key, Object? value) f) => _map.forEach(f);
 
   @override
   bool get isEmpty => _map.isEmpty;
@@ -94,27 +94,27 @@ mixin ModelBaseMixin implements Model {
 
   @override
   Map<K2, V2> map<K2, V2>(
-          MapEntry<K2, V2> Function(String key, dynamic value) f) =>
+          MapEntry<K2, V2> Function(String key, Object? value) f) =>
       _map.map(f);
 
   @override
-  dynamic putIfAbsent(String key, Object? Function() ifAbsent) =>
+  Object? putIfAbsent(String key, Object? Function() ifAbsent) =>
       _map.putIfAbsent(key, ifAbsent);
 
   @override
-  dynamic remove(Object? key) => _map.remove(key);
+  Object? remove(Object? key) => _map.remove(key);
 
   @override
-  void removeWhere(bool Function(String key, dynamic value) predicate) =>
+  void removeWhere(bool Function(String key, Object? value) predicate) =>
       _map.removeWhere(predicate);
 
   @override
-  dynamic update(String key, Object? Function(dynamic value) update,
+  Object? update(String key, Object? Function(Object? value) update,
           {Object? Function()? ifAbsent}) =>
       _map.update(key, update, ifAbsent: ifAbsent);
 
   @override
-  void updateAll(Object? Function(String key, dynamic value) update) =>
+  void updateAll(Object? Function(String key, Object? value) update) =>
       _map.updateAll(update);
 
   @override

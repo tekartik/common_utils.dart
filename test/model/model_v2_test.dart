@@ -89,7 +89,7 @@ void defineTests() {
 
       var maps = [map, model1, baseModel, model2];
 
-      void doTest(dynamic value) {
+      void doTest(Object? value) {
         for (var map in maps) {
           map['test'] = value;
           expect(map['test'], value);

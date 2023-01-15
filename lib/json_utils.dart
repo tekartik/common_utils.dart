@@ -26,7 +26,7 @@ List? parseJsonList(String? text, [List? defaultList]) {
 //
 // safely parse text
 //
-dynamic parseJson(String? text) {
+Object? parseJson(String? text) {
   if (text != null) {
     try {
       return json.decode(text);
@@ -49,9 +49,9 @@ String? encodeJson(Object? value) {
 // [data] can be map a list
 // if it is a string, it will try to parse it first
 //
-String? jsonPretty(dynamic data, [String? defaultString]) {
+String? jsonPretty(Object? data, [String? defaultString]) {
   if (data is String) {
-    dynamic parsed = parseJson(data);
+    var parsed = parseJson(data);
     if (parsed != null) {
       data = parsed;
     }

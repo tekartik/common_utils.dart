@@ -12,7 +12,7 @@ const String _v = r'$v';
 Map<String, List>? packList(Iterable<Map<String, Object?>>? list,
     {String? rowsField,
     String? columnsField,
-    dynamic Function(dynamic value)? innerPack}) {
+    Object? Function(Object? value)? innerPack}) {
   if (list == null) {
     return null;
   }
@@ -57,7 +57,7 @@ Map<String, Object?>? packItemList<T>(
 }
 
 /// Pack map and list in a compact way
-dynamic compackAny(dynamic unpacked) {
+Object? compackAny(Object? unpacked) {
   if (unpacked is List) {
     var list = unpacked;
     // Pack as list if more than 2 map elements (and only map)
@@ -106,7 +106,7 @@ bool _isMapCompacked(Map map) {
   return (keys.length == 2 && keys.contains(_r) && keys.contains(_c));
 }
 
-dynamic uncompackAny(dynamic packed) {
+Object? uncompackAny(Object? packed) {
   if (packed is Map) {
     var map = packed;
     if (_isMapCompacked(map)) {
@@ -171,7 +171,7 @@ class JsonUnpack {
 List<Map<String, Object?>>? unpackList(Map<String, Object?>? packed,
     {String? rowsField,
     String? columnsField,
-    dynamic Function(dynamic value)? innerUnpack}) {
+    Object? Function(Object? value)? innerUnpack}) {
   if (packed == null) {
     return null;
   }

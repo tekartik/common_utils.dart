@@ -80,6 +80,10 @@ void main() {
     });
 
     test('asMap', () {
+      expect(anyAsMapOrNull(null), isNull);
+    });
+
+    test('asMap', () {
       expect(asMap<Object?, Object?>(null), isNull);
       expect(asMap<Object?, Object?>(<int>[]), isNull);
       expect(asMap<String, Object?>(<Object?, Object?>{}), <String, Object?>{});

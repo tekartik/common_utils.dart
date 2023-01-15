@@ -29,7 +29,7 @@ T? listGet<T>(List<T>? list, int index) {
 }
 
 /// Safe way to get a list, never fails
-List<T>? asList<T>(dynamic value) {
+List<T>? asList<T>(Object? value) {
   if (value is List<T>) {
     return value;
   }

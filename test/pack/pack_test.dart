@@ -109,7 +109,7 @@ void main() {
     });
 
     test('uncompack', () {
-      dynamic uncompackAny(dynamic packed) {
+      Object? uncompackAny(Object? packed) {
         // devPrint(jsonEncode(packed));
         return pack.uncompackAny(packed);
       }
@@ -193,7 +193,7 @@ void main() {
       );
     });
 
-    void loop(dynamic unpacked) {
+    void loop(Object? unpacked) {
       var packed = compackAny(unpacked);
       var unpackResult = uncompackAny(packed);
       // devPrint(jsonEncode(unpacked));
@@ -236,7 +236,7 @@ void main() {
     });
 
     test('json compack', () {
-      void check(dynamic any) {
+      void check(Object? any) {
         var compack = compackAny(any);
         compack = json.decode(json.encode(compack));
         expect(uncompackAny(compack), any);
