@@ -18,7 +18,7 @@ abstract class Model implements Map<String, Object?> {
 
   /// Create a model. If map is null, the model
   /// is an empty map
-  factory Model([Map<dynamic, dynamic>? map]) {
+  factory Model([Map<Object?, Object?>? map]) {
     if (map is Model) {
       return map;
     }
@@ -31,12 +31,12 @@ abstract class Model implements Map<String, Object?> {
   ModelEntry? getModelEntry(String key);
 }
 
-/// List class to use as a [List<dynamic>].
+/// List class to use as a [List<Object?>].
 abstract class ModelList implements List<Model?> {
   /// Create a model. If list is null, the model
   /// is an empty list
 
-  factory ModelList([Iterable<dynamic>? iterable]) {
+  factory ModelList([Iterable<Object?>? iterable]) {
     if (iterable is ModelList) {
       return iterable;
     }
@@ -49,7 +49,7 @@ abstract class ModelList implements List<Model?> {
 /// To use a mixin, check [ModelMixin].
 abstract class ModelEntry implements MapEntry<String, Object?> {
   /// Create a model with a given key and value
-  factory ModelEntry(String key, dynamic value) {
+  factory ModelEntry(String key, Object? value) {
     return ModelEntryImpl(key, value);
   }
 

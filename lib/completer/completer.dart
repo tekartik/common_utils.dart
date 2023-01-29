@@ -44,7 +44,7 @@ abstract class CancellableCompleter<T> {
   FutureOr<T>? get value;
 
   /// The error if any
-  dynamic get error;
+  Object? get error;
 
   // Complete [with an error.
   void completeError(Object error, [StackTrace? stackTrace]);
@@ -67,7 +67,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
   Completer<T>? _completer;
   bool _isCancelled = false;
 
-  dynamic _error;
+  Object? _error;
   T? _value;
 
   /// Completes with the supplied values.
@@ -107,7 +107,7 @@ mixin CancellableCompleterMixin<T> implements CancellableCompleter<T> {
 
   /// The error if any
   @override
-  dynamic get error => _error;
+  Object? get error => _error;
 
   // Complete [with an error.
   @override

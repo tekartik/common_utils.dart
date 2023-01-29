@@ -24,7 +24,7 @@ class Operation {
         _pending = false;
         await action();
         if (delay != null) {
-          await Future.delayed(delay!);
+          await Future<void>.delayed(delay!);
         }
       });
     }

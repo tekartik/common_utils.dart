@@ -95,7 +95,7 @@ void main() {
       var list = List<int>.generate(256, (index) => index);
       //expect(hexPretty([0xff, 0xfe, 128, 127]), 'FF');
       expect(hexPrettyLines(null), null);
-      expect(hexPrettyLines([]), []);
+      expect(hexPrettyLines([]), isEmpty);
       expect(hexPrettyLines([0x00]), [
         '00 .. .. ..  .. .. .. ..  .. .. .. ..  .. .. .. ..  ?... .... .... ....'
       ]);

@@ -12,10 +12,10 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
-Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
+Map<K, V?> cloneMap<K extends Object?, V extends Object?>(Map<K, V> original) {
   final map = <K, V?>{};
   original.forEach((key, value) {
-    dynamic cloneValue;
+    Object? cloneValue;
     if (value is Map) {
       cloneValue = cloneMap(value);
     } else if (value is List) {
@@ -32,7 +32,8 @@ Map<K, V?> cloneMap<K, V>(Map<K, V> original) {
 ///
 /// if the map value is null and createIfNull is specified, the object is
 /// created and inserted in the map.
-V? mapValue<K, V>(Map<K, V> map, K key, {V Function()? createIfNull}) {
+V? mapValue<K extends Object?, V extends Object?>(Map<K, V> map, K key,
+    {V Function()? createIfNull}) {
   var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull()!;
@@ -62,8 +63,12 @@ int? mapIntValue(Map map, String key, [int? defaultValue]) {
   return defaultValue;
 }
 
+/// Can fail
+Map<K, V>? anyAsMap<K extends Object?, V extends Object?>(Object value) =>
+    anyAsMapOrNull(value)!;
+
 /// Safe way to get a map, never fails
-Map<K, V>? asMap<K, V>(dynamic value) {
+Map<K, V>? anyAsMapOrNull<K extends Object?, V extends Object?>(Object? value) {
   if (value is Map<K, V>) {
     return value;
   }
@@ -74,6 +79,11 @@ Map<K, V>? asMap<K, V>(dynamic value) {
   }
   return null;
 }
+
+/// Safe way to get a map, never fails
+/// @Deprecated prefere
+Map<K, V>? asMap<K extends Object?, V extends Object?>(Object? value) =>
+    anyAsMapOrNull(value);
 
 //bool mapBoolValue(Map map, String key, [bool defaultValue = false]) {
 //  if (map != null) {
@@ -99,7 +109,7 @@ T? mapValueFromParts<T>(Map map, Iterable<String> parts) =>
     getPartsMapValue(map, parts);
 
 T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
-  dynamic value = map;
+  Object? value = map;
   for (var part in parts) {
     if (value is Map) {
       value = value[part];
@@ -110,10 +120,10 @@ T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
   return value as T?;
 }
 
-void setPartsMapValue<T>(Map map, List<String> parts, value) {
+void setPartsMapValue(Map map, List<String> parts, Object? value) {
   for (var i = 0; i < parts.length - 1; i++) {
     var part = parts[i];
-    dynamic sub = map[part];
+    Object? sub = map[part];
     if (sub is! Map) {
       sub = <String, Object?>{};
       map[part] = sub;

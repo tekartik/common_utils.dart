@@ -13,7 +13,7 @@ class ModelEntryImpl with ModelEntryMixin implements ModelEntry {
     }
   }
 
-  ModelEntryImpl(String key, dynamic value) {
+  ModelEntryImpl(String key, Object? value) {
     _mapEntry = MapEntry<String, Object?>(key, value);
   }
 }

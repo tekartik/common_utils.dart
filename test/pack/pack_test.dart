@@ -9,11 +9,14 @@ import 'package:tekartik_common_utils/pack/pack.dart';
 import 'package:tekartik_common_utils/pack/pack.dart' as pack;
 import 'package:test/test.dart';
 
+import '../list_utils_test.dart';
+import '../map_utils_test.dart';
+
 void main() {
   group('json_pack', () {
     test('pack', () {
       expect(packList(null), isNull);
-      expect(packList([]), {'columns': [], 'rows': []});
+      expect(packList([]), {'columns': emptyList, 'rows': emptyList});
       expect(
           packList([
             {'field1': 'text1', 'field2': 123456}
@@ -40,7 +43,7 @@ void main() {
 
     test('compack', () {
       expect(compackAny(null), isNull);
-      expect(compackAny([]), []);
+      expect(compackAny(emptyList), isEmpty);
       expect(
           compackAny([
             {'field1': 'text1', 'field2': 123456}
@@ -106,17 +109,17 @@ void main() {
     });
 
     test('uncompack', () {
-      dynamic uncompackAny(dynamic packed) {
+      Object? uncompackAny(Object? packed) {
         // devPrint(jsonEncode(packed));
         return pack.uncompackAny(packed);
       }
 
       expect(uncompackAny(null), isNull);
-      expect(uncompackAny([]), []);
-      expect(uncompackAny({}), {});
+      expect(uncompackAny(emptyList), isEmpty);
+      expect(uncompackAny(emptyMap), emptyMap);
       expect(uncompackAny(1), 1);
       expect(uncompackAny(true), true);
-      expect(uncompackAny([]), const TypeMatcher<List>());
+      expect(uncompackAny(emptyList), const TypeMatcher<List>());
       expect(
           uncompackAny([
             {'field1': 'text1', 'field2': 123456}
@@ -190,7 +193,7 @@ void main() {
       );
     });
 
-    void loop(dynamic unpacked) {
+    void loop(Object? unpacked) {
       var packed = compackAny(unpacked);
       var unpackResult = uncompackAny(packed);
       // devPrint(jsonEncode(unpacked));
@@ -199,11 +202,11 @@ void main() {
     }
 
     test('loop', () {
-      loop({});
+      loop(emptyMap);
       loop(1);
       loop(true);
       loop('text');
-      loop([]);
+      loop(emptyList);
       loop({r'$c': 1, r'$r': 2});
       loop({r'$c': 1, r'$r': 2, r'$v': true});
       loop([
@@ -211,7 +214,7 @@ void main() {
         {
           'b': [
             {'a': 1},
-            {'b': []}
+            {'b': emptyList}
           ]
         }
       ]);
@@ -233,14 +236,14 @@ void main() {
     });
 
     test('json compack', () {
-      void check(dynamic any) {
+      void check(Object? any) {
         var compack = compackAny(any);
         compack = json.decode(json.encode(compack));
         expect(uncompackAny(compack), any);
       }
 
-      check([]);
-      check({});
+      check(emptyList);
+      check(emptyMap);
       check({
         'test': [
           {'field1': 'text1', 'field2': 123456},
@@ -252,7 +255,7 @@ void main() {
       expect(unpackList(null), isNull);
       expect(unpackList({}), isNull);
 
-      expect(unpackList({'columns': [], 'rows': []}), []);
+      expect(unpackList({'columns': [], 'rows': []}), isEmpty);
       expect(
           unpackList({
             'columns': ['field1', 'field2'],

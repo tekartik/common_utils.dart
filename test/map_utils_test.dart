@@ -3,10 +3,12 @@ library map_utils_tests;
 import 'package:tekartik_common_utils/map_utils.dart';
 import 'package:test/test.dart';
 
+Map<Object?, Object?> get emptyMap => <Object?, Object?>{};
+
 void main() {
   group('map utils', () {
     test('mergeMap', () {
-      var dst = {};
+      var dst = emptyMap;
       mergeMap(dst, {'test': 1});
       expect(dst['test'], 1);
     });
@@ -27,24 +29,28 @@ void main() {
           }
         }
       };
-      expect(mapValueFromParts(map, ['products', 'product', 'warranty']),
+      expect(
+          mapValueFromParts<String>(map, ['products', 'product', 'warranty']),
           'warranty');
-      expect(mapValueFromPath(map, 'products/product/warranty'), 'warranty');
+      expect(mapValueFromPath<String>(map, 'products/product/warranty'),
+          'warranty');
       expect(
-          mapValueFromParts(map, ['products', 'product', 'warrant']), isNull);
+          mapValueFromParts<Object?>(map, ['products', 'product', 'warrant']),
+          isNull);
       expect(
-          mapValueFromParts(map, ['products', 'product_', 'warrant']), isNull);
-      expect(mapValueFromPath(map, 'products/product/warrant'), null);
+          mapValueFromParts<Object?>(map, ['products', 'product_', 'warrant']),
+          isNull);
+      expect(mapValueFromPath<Object?>(map, 'products/product/warrant'), null);
     });
 
     test('partsMapValue', () {
-      var map = {};
-      expect(getPartsMapValue(map, ['test', 'sub']), null);
+      var map = emptyMap;
+      expect(getPartsMapValue<Object>(map, ['test', 'sub']), null);
       setPartsMapValue(map, ['test', 'sub'], 1);
       expect(map, {
         'test': {'sub': 1}
       });
-      expect(getPartsMapValue(map, ['test', 'sub']), 1);
+      expect(getPartsMapValue<int>(map, ['test', 'sub']), 1);
       setPartsMapValue(map, ['test', 'sub'], 2);
       expect(map, {
         'test': {'sub': 2}
@@ -74,9 +80,13 @@ void main() {
     });
 
     test('asMap', () {
-      expect(asMap(null), isNull);
-      expect(asMap([]), isNull);
-      expect(asMap({}), {});
+      expect(anyAsMapOrNull(null), isNull);
+    });
+
+    test('asMap', () {
+      expect(asMap<Object?, Object?>(null), isNull);
+      expect(asMap<Object?, Object?>(<int>[]), isNull);
+      expect(asMap<String, Object?>(<Object?, Object?>{}), <String, Object?>{});
       expect(asMap<String, Object?>({'test': 1}), {'test': 1});
       expect(asMap<String, Object?>({'test': 1}),
           const TypeMatcher<Map<String, Object?>>());

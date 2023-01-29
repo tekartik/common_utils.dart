@@ -230,7 +230,6 @@ String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
       }
     }
     // out.println(len);
-
   } while (readSize == blockSize);
 
   return out.toString();
@@ -320,7 +319,6 @@ String oldhexPretty(List<int> data) {
       }
     }
     // out.println(len);
-
   } while (readSize == blockSize);
 
   return out.toString();

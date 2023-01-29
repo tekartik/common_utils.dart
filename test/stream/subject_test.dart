@@ -108,7 +108,7 @@ void main() {
       subject.add(1);
       scheduleMicrotask(() => subject.close());
 
-      await expectLater(subject.stream, emitsInOrder(<dynamic>[1, emitsDone]));
+      await expectLater(subject.stream, emitsInOrder(<Object?>[1, emitsDone]));
       await expectLater(subject.isClosed, isTrue);
     });
 

@@ -29,7 +29,7 @@ DateTime dateTimeWithOffset(DateTime dt, int offset) {
 }
 
 // Support string, int or DateTime
-DateTime? anyToDateTime(dynamic date) {
+DateTime? anyToDateTime(Object? date) {
   try {
     if (date is DateTime) {
       return date;

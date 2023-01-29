@@ -173,7 +173,7 @@ class Subject<T> extends Stream<T>
       throw StateError('addStream active');
     }
     _addStreamActive = true;
-    var completer = Completer.sync();
+    var completer = Completer<void>.sync();
     // ignore: cancel_subscriptions
     StreamSubscription<T>? subscription;
 

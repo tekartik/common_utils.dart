@@ -1,6 +1,8 @@
 import 'package:tekartik_common_utils/model/model_v2.dart';
 import 'package:test/test.dart';
 
+import '../map_utils_test.dart';
+
 void main() => defineTests();
 
 class MyModel extends ModelBase {
@@ -80,14 +82,14 @@ void defineTests() {
     });
 
     test('model_base', () {
-      var map = {};
+      var map = <Object?, Object?>{};
       var model1 = newModel();
       var baseModel = MyModel();
       var model2 = asModel({});
 
       var maps = [map, model1, baseModel, model2];
 
-      void doTest(dynamic value) {
+      void doTest(Object? value) {
         for (var map in maps) {
           map['test'] = value;
           expect(map['test'], value);
@@ -99,8 +101,8 @@ void defineTests() {
 
       //_test(null);
       doTest('a');
-      doTest([]);
-      doTest({});
+      doTest(<Object?>[]);
+      doTest(<Object?, Object?>{});
       for (var map in maps) {
         map.remove('test');
         expect(map['test'], isNull);
@@ -112,7 +114,7 @@ void defineTests() {
 
     test('asModel', () {
       //expect(asModel(null), null);
-      expect(asModel({}), {});
+      expect(asModel(emptyMap), isEmpty);
       expect(asModel({'test': 1}), {'test': 1});
       expect(asModel({}), const TypeMatcher<Model>());
     });

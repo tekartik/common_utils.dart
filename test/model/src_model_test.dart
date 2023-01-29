@@ -4,6 +4,8 @@ import 'package:tekartik_common_utils/model/src/model_entry.dart';
 import 'package:tekartik_common_utils/model/src/model_list.dart';
 import 'package:test/test.dart';
 
+import '../map_utils_test.dart';
+
 void main() => defineTests();
 
 class BaseModel
@@ -18,7 +20,7 @@ class BaseModelEntry with ModelEntryMixin {}
 class BaseModelList
     with
 // to comment/uncomment for progressing implementation
-//      ListMixin<dynamic>,
+//      ListMixin<Object?>,
 // up to here
         ModelListBaseMixin {}
 
@@ -85,14 +87,14 @@ void defineTests() {
     });
 
     test('mixin', () {
-      var map = {};
+      var map = emptyMap;
       var model1 = Model();
       var baseModel = BaseModel();
       var model2 = Model({});
 
       var maps = [map, model1, baseModel, model2];
 
-      void doTest(dynamic value) {
+      void doTest(Object? value) {
         for (var map in maps) {
           map['test'] = value;
           expect(map['test'], value);

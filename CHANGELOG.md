@@ -1,3 +1,8 @@
+# 0.14.0
+
+* Dart sdk 2.18.0
+* using strict-types
+
 # 0.10.6
 
 - add `pack` utils to pack list of map in column rows

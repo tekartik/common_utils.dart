@@ -5,6 +5,7 @@ import 'map_utils.dart';
 export 'src/lazy_read_only_list.dart'
     show LazyReadOnlyList, LazyReadOnlyListExt;
 
+@Deprecated('User iterable extension TekartikIterableExt.firstOfNull')
 T? first<T>(Iterable<T>? list) => listFirst(list);
 
 T? listFirst<T>(Iterable<T>? list) {
@@ -28,7 +29,7 @@ T? listGet<T>(List<T>? list, int index) {
 }
 
 /// Safe way to get a list, never fails
-List<T>? asList<T>(dynamic value) {
+List<T>? asList<T>(Object? value) {
   if (value is List<T>) {
     return value;
   }

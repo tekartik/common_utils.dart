@@ -5,13 +5,13 @@ import 'package:tekartik_common_utils/model/model.dart';
 
 // last mixin wins
 class ModelListImpl extends ModelListBase implements ModelList {
-  ModelListImpl(Iterable<dynamic>? iterable) : super(iterable);
+  ModelListImpl(Iterable<Object?>? iterable) : super(iterable);
 }
 
 abstract class ModelListBase
     with ListMixin<Model?>, ModelListBaseMixin
     implements ModelList {
-  ModelListBase(Iterable<dynamic>? iterable) {
+  ModelListBase(Iterable<Object?>? iterable) {
     if (iterable != null) {
       if (iterable is List<Map?>) {
         __list = iterable;
@@ -23,7 +23,7 @@ abstract class ModelListBase
 }
 
 /// Only create the model if non null
-ModelList? asModelList(dynamic list) =>
+ModelList? asModelList(Object? list) =>
     list is Iterable ? ModelList(list) : null;
 
 mixin ModelListBaseMixin implements ModelList {
@@ -122,7 +122,7 @@ mixin ModelListBaseMixin implements ModelList {
       asModelList(_list.getRange(start, end))!;
 
   @override
-  int indexOf(dynamic element, [int start = 0]) =>
+  int indexOf(Object? element, [int start = 0]) =>
       _list.indexOf(asModel(element), start);
 
   @override
@@ -150,7 +150,7 @@ mixin ModelListBaseMixin implements ModelList {
   String join([String separator = '']) => _list.join(separator);
 
   @override
-  int lastIndexOf(dynamic element, [int? start]) =>
+  int lastIndexOf(Object? element, [int? start]) =>
       _list.lastIndexOf(asModel(element), start);
 
   @override

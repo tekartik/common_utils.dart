@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:tekartik_common_utils/json_utils.dart';
 import 'package:test/test.dart';
 
+import 'list_utils_test.dart';
+import 'map_utils_test.dart';
+
 void main() => defineTests();
 
 void defineTests() {
@@ -53,8 +56,8 @@ void defineTests() {
     expect(jsonPretty(null, 'nope'), 'nope');
     expect(jsonPretty('hi'), '"hi"');
     expect(jsonPretty(1), '1');
-    expect(jsonPretty({}), '{}');
-    expect(jsonPretty([]), '[]');
+    expect(jsonPretty(emptyMap), '{}');
+    expect(jsonPretty(emptyList), '[]');
     var obj = {
       'key': ['value']
     };
