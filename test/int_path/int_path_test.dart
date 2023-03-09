@@ -23,6 +23,10 @@ void main() {
       expect(intToInts(65535), [255, 255]);
       expect(intToInts(65536), [1, 0, 0]);
       expect(intToInts(65537), [1, 0, 1]);
+      expect(intToInts(pow(2, 52).toInt() - 1),
+          [15, 255, 255, 255, 255, 255, 255]);
+      expect(intToInts(-1), [16, 0, 0, 0, 0, 0, 0, 255]);
+      expect(intToInts(-2), [16, 0, 0, 0, 0, 0, 0, 254]);
     });
 
     test('intToPathParts', () {
