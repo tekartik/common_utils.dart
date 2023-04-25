@@ -86,4 +86,9 @@ void main() {
     expect(stringNonEmpty(null), isNull);
     expect(stringNonEmpty('123'), '123');
   });
+
+  test('extension', () {
+    expect(''.nonEmpty(), isNull);
+    expect('456'.nonEmpty(), '456');
+  });
 }

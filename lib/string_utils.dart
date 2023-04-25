@@ -5,9 +5,6 @@ import 'value_utils.dart' as value_utils;
 export 'bool_utils.dart' show parseBool;
 export 'int_utils.dart' show parseInt;
 
-@Deprecated('User stringIsEmpty')
-bool isEmpty(String text) => stringIsEmpty(text);
-
 /// True if null or empty
 bool stringIsEmpty(String? text) {
   return ((text == null) || text.isEmpty);
@@ -44,27 +41,12 @@ String? stringSubString(String? text, int start, [int? end]) {
 /// Truncate at max element.
 String? stringTruncate(String? text, int len) => stringSubString(text, 0, len);
 
-// Use default Value if null (default empty string)
-// might be deprecated for stringNonNull to avoid conflict
-@Deprecated('User stringNonNull')
-String? nonNull(String value, [String defaultValue = '']) =>
-    stringNonNull(value, defaultValue);
-
-String? stringNonNull(String? value, [String? defaultValue = '']) =>
-    value_utils.nonNull(value, defaultValue);
-
-// User defaul Value if empty (default null)
-// might be deprecated for stringNonNull to avoid conflict
-@Deprecated('User stringNonEmpty')
-String? nonEmpty(String value, [String? defaultValue]) =>
-    stringNonEmpty(value, defaultValue);
+/// Returns an empty string in the worst case
+String stringNonNull(String? value, [String? defaultValue = '']) =>
+    value_utils.nonNull(value, defaultValue ?? '');
 
 String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
-
-@Deprecated('Do not use')
-String prefilled(String text, int len, String char) =>
-    stringPrefilled(text, len, char);
 
 /// First
 String stringPrefilled(String text, int len, String char) {
@@ -79,4 +61,20 @@ String stringPrefilled(String text, int len, String char) {
 }
 
 /// True if the char at index is a digit
-bool isDigit(String s, [int idx = 0]) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
+/// To deprecate
+bool isDigit(String s, [int idx = 0]) => stringIsDigit(s, idx);
+
+bool stringIsDigit(String s, [int idx = 0]) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
+
+/// Common string extension
+extension TekartikCommonStringExtension on String {
+  /// Never returns an empty string.
+  String? nonEmpty([String? defaultValue]) =>
+      stringNonEmpty(this, defaultValue);
+
+  /// Remove extra blank space.
+  String? trimmedNonEmpty([String? defaultValue]) =>
+      trim().nonEmpty(defaultValue);
+
+  bool isDigit() => stringIsDigit(this);
+}
