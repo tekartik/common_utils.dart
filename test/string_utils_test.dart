@@ -73,7 +73,7 @@ void main() {
 
   test('nonNull', () {
     expect(stringNonNull('456', null), '456');
-    expect(stringNonNull(null, null), null);
+    expect(stringNonNull(null, null), '');
     expect(stringNonNull(null, '456'), '456');
     expect(stringNonNull(null), '');
   });
