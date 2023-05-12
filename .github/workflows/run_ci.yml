@@ -24,4 +24,4 @@ jobs:
           sdk: ${{ matrix.dart }}
       - run: dart --version
       - run: dart pub get
-      - run: dart run tool/run_ci.dart/
+      - run: dart run tool/run_ci.dart
