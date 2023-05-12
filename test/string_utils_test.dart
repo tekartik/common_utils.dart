@@ -73,7 +73,7 @@ void main() {
 
   test('nonNull', () {
     expect(stringNonNull('456', null), '456');
-    expect(stringNonNull(null, null), null);
+    expect(stringNonNull(null, null), '');
     expect(stringNonNull(null, '456'), '456');
     expect(stringNonNull(null), '');
   });
@@ -85,5 +85,10 @@ void main() {
     expect(stringNonEmpty(''), isNull);
     expect(stringNonEmpty(null), isNull);
     expect(stringNonEmpty('123'), '123');
+  });
+
+  test('extension', () {
+    expect(''.nonEmpty(), isNull);
+    expect('456'.nonEmpty(), '456');
   });
 }
