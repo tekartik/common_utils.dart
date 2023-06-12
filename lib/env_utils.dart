@@ -1,12 +1,12 @@
 // environment utils
-import 'package:tekartik_common_utils/foundation/constants.dart' as foundation;
+import 'package:tekartik_common_utils/src/assert_utils.dart' as assert_utils;
 
 /// Check whether in release mode
-bool get isRelease => !isDebug;
+bool get isRelease => assert_utils.isRelease;
 
 /// Check whether running in debug mode
 /// Use flutter way since 2023-06-12
-bool get isDebug => foundation.kDebugMode;
+bool get isDebug => assert_utils.isDebug;
 
 /// Special runtime trick to known whether we are in the javascript world
 const isRunningAsJavascript = identical(1, 1.0);
