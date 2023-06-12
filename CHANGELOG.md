@@ -1,3 +1,7 @@
+# 0.14.3
+
+* Use flutter way for isDebug
+
 # 0.14.0
 
 * Dart sdk 2.18.0
