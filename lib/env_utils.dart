@@ -1,23 +1,12 @@
 // environment utils
-
-bool? _isRelease;
-
-// http://stackoverflow.com/questions/29592826/detect-during-runtime-whether-the-application-is-in-release-mode-or-not
+import 'package:tekartik_common_utils/src/assert_utils.dart' as assert_utils;
 
 /// Check whether in release mode
-bool get isRelease {
-  if (_isRelease == null) {
-    _isRelease = true;
-    assert(() {
-      _isRelease = false;
-      return true;
-    }());
-  }
-  return _isRelease!;
-}
+bool get isRelease => assert_utils.isRelease;
 
 /// Check whether running in debug mode
-bool get isDebug => !isRelease;
+/// Use flutter way since 2023-06-12
+bool get isDebug => assert_utils.isDebug;
 
 /// Special runtime trick to known whether we are in the javascript world
 const isRunningAsJavascript = identical(1, 1.0);
