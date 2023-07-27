@@ -91,4 +91,17 @@ void main() {
     expect(''.nonEmpty(), isNull);
     expect('456'.nonEmpty(), '456');
   });
+  test('stringsCompareWithLastInt', () {
+    expect(
+        ['d', 'a3', 'a2', 'a3', 'b2', 'b1 ', 'd', 'c']
+          ..sort((v1, v2) => stringsCompareWithLastInt(v1, v2)),
+        ['a2', 'a3', 'a3', 'b1 ', 'b2', 'c', 'd', 'd']);
+  });
+  test('getLastInt', () {
+    expect(''.getLastInt(), isNull);
+    expect('1'.getLastInt(), 1);
+    expect('1 '.getLastInt(), 1);
+    expect('2 \r'.getLastInt(), 2);
+    expect('none\r'.getLastInt(), isNull);
+  });
 }

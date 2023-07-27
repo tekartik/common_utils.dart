@@ -1,4 +1,5 @@
 import 'package:tekartik_common_utils/list_utils.dart' hide isEmpty;
+
 import 'package:test/test.dart';
 
 import 'map_utils_test.dart';
@@ -179,6 +180,19 @@ void main() {
       // handle iterable
       Iterable<int> iterable = [1];
       expect(listSingleOrNull(iterable), 1);
+    });
+    test('flatten', () {
+      expect(
+          (<Iterable>[
+            [1],
+            [2, 3]
+          ].flatten()),
+          [1, 2, 3]);
+      expect(
+          ([
+            [1]
+          ].flatten()),
+          const TypeMatcher<List<int>>());
     });
   });
 }
