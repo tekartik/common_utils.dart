@@ -18,6 +18,10 @@ void defineTests() {
     expect(parseNum(null, 3), 3);
   });
   test('bounded', () {
+    expect(2.boundedMin(1), 2);
+    expect(2.boundedMin(3), 3);
+    expect(2.boundedMax(1), 1);
+    expect(2.boundedMax(3), 2);
     expect(2.bounded(1, 3), 2);
     expect(2.bounded(3, 4), 3);
     expect(2.bounded(0, 1), 1);

@@ -4,6 +4,11 @@ import 'map_utils.dart';
 
 export 'src/lazy_read_only_list.dart'
     show LazyReadOnlyList, LazyReadOnlyListExt;
+export 'src/list_utils_impl.dart'
+    show
+        TekartikCommonIterableExtension,
+        TekartikCommonIterableIterableExtension,
+        TekartikCommonListExtension;
 
 @Deprecated('User iterable extension TekartikIterableExt.firstOfNull')
 T? first<T>(Iterable<T>? list) => listFirst(list);

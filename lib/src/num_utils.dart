@@ -6,7 +6,17 @@ extension TekartikNumExt<T extends num> on T {
   ///
   /// maxValue is evaluated first.
   T bounded(T minValue, T maxValue) {
-    return max(minValue, min(maxValue, this));
+    return boundedMax(maxValue).boundedMin(minValue);
+  }
+
+  /// Min bounded value
+  T boundedMin(T minValue) {
+    return max(minValue, this);
+  }
+
+  /// Max bounded value
+  T boundedMax(T maxValue) {
+    return min(maxValue, this);
   }
 }
 

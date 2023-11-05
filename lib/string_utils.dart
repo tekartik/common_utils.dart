@@ -1,14 +1,18 @@
 import 'dart:math';
 
+import 'package:tekartik_common_utils/string_utils.dart';
+
 import 'value_utils.dart' as value_utils;
 
 export 'bool_utils.dart' show parseBool;
 export 'int_utils.dart' show parseInt;
-
-/// True if null or empty
-bool stringIsEmpty(String? text) {
-  return ((text == null) || text.isEmpty);
-}
+export 'src/string_utils.dart'
+    show
+        TekartikCommonStringExtension,
+        stringIsEmpty,
+        stringNonEmpty,
+        stringIsDigit,
+        stringsCompareWithLastInt;
 
 /// True if not null nor empty.
 bool stringIsNotEmpty(String? text) {
@@ -45,9 +49,6 @@ String? stringTruncate(String? text, int len) => stringSubString(text, 0, len);
 String stringNonNull(String? value, [String? defaultValue = '']) =>
     value_utils.nonNull(value, defaultValue ?? '');
 
-String? stringNonEmpty(String? value, [String? defaultValue]) =>
-    stringIsEmpty(value) ? defaultValue : value;
-
 /// First
 String stringPrefilled(String text, int len, String char) {
   var length = text.length;
@@ -63,18 +64,3 @@ String stringPrefilled(String text, int len, String char) {
 /// True if the char at index is a digit
 /// To deprecate
 bool isDigit(String s, [int idx = 0]) => stringIsDigit(s, idx);
-
-bool stringIsDigit(String s, [int idx = 0]) => (s.codeUnitAt(idx) ^ 0x30) <= 9;
-
-/// Common string extension
-extension TekartikCommonStringExtension on String {
-  /// Never returns an empty string.
-  String? nonEmpty([String? defaultValue]) =>
-      stringNonEmpty(this, defaultValue);
-
-  /// Remove extra blank space.
-  String? trimmedNonEmpty([String? defaultValue]) =>
-      trim().nonEmpty(defaultValue);
-
-  bool isDigit() => stringIsDigit(this);
-}
