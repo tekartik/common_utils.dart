@@ -27,7 +27,7 @@ abstract class D2<T extends num> {
 
 /// Generic point definition
 class Point<T extends num> extends D2<T> {
-  const Point(T x, T y) : super(x, y);
+  const Point(super.x, super.y);
 }
 
 /// A rectangle has a top left point and a size
@@ -98,7 +98,7 @@ class Size<T extends num> extends D2<T> {
 
   bool get isEmpty => x == 0 && y == 0;
 
-  const Size(T width, T height) : super(width, height);
+  const Size(super.width, super.height);
 
   bool get isLandscape => width > height;
 

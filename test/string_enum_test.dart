@@ -2,7 +2,7 @@ import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/string_enum.dart';
 
 class TwoChoicesEnum extends StringEnum {
-  const TwoChoicesEnum(String name) : super(name);
+  const TwoChoicesEnum(super.name);
   static final TwoChoicesEnum choice1 = const TwoChoicesEnum('choice1');
   static final TwoChoicesEnum choice2 = const TwoChoicesEnum('choice2');
 }

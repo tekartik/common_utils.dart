@@ -3,20 +3,19 @@ import 'package:tekartik_common_utils/size/size.dart' as common;
 import 'package:test/test.dart';
 
 class My2D extends common.D2<int> {
-  const My2D(int x, int y) : super(x, y);
+  const My2D(super.x, super.y);
 }
 
 class MySize extends common.Size<int> {
-  const MySize(int width, int height) : super(width, height);
+  const MySize(super.width, super.height);
 }
 
 class MyPoint extends common.Point<int> {
-  const MyPoint(int x, int y) : super(x, y);
+  const MyPoint(super.x, super.y);
 }
 
 class MyRect extends common.Rect<int> {
-  const MyRect(common.Point<int> point, common.Size<int> size)
-      : super(point, size);
+  const MyRect(super.point, super.size);
 }
 
 void main() {
