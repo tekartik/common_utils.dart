@@ -7,7 +7,7 @@ abstract class D2 implements size_common.D2<int> {}
 /// Integer sizes
 class Size extends size_common.Size<int> implements D2 {
   /// Create an int size with a given width & height
-  const Size(int width, int height) : super(width, height);
+  const Size(super.width, super.height);
 
   /// Wrap if needed
   factory Size.from(size_common.D2<int> size) {
@@ -21,7 +21,7 @@ class Size extends size_common.Size<int> implements D2 {
 /// Integer point
 class Point extends size_common.Point<int> implements D2 {
   /// Create an int point with a given [x] and [y]
-  const Point(int x, int y) : super(x, y);
+  const Point(super.x, super.y);
 
   /// Wrap if needed
   factory Point.from(size_common.D2<int> point) {
@@ -35,8 +35,7 @@ class Point extends size_common.Point<int> implements D2 {
 /// Integer rectangle
 class Rect extends size_common.Rect<int> {
   /// top left [point] and rectable [size]
-  const Rect(size_common.Point<int> point, size_common.Size<int> size)
-      : super(point, size);
+  const Rect(super.point, super.size);
 
   /// Helper from left, top, width, height
   factory Rect.fromLTWH(int left, int top, int width, int height) {
