@@ -1,6 +1,10 @@
 import 'package:tekartik_common_utils/list_utils.dart';
 
-extension TekartikCommonListExtension<T> on List<T> {}
+/// Common list extension.
+extension TekartikCommonListExtension<T> on List<T> {
+  /// If empty return null
+  List<T>? nonEmpty() => isNotEmpty ? this : null;
+}
 
 extension TekartikCommonIterableExtension<T> on Iterable<T> {}
 

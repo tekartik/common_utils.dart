@@ -194,5 +194,13 @@ void main() {
           ].flatten()),
           const TypeMatcher<List<int>>());
     });
+    test('nonEmpty', () {
+      List? nullList = emptyList;
+      expect(nullList.nonEmpty(), isNull);
+      nullList = null;
+      expect(nullList?.nonEmpty(), isNull);
+      nullList = [1];
+      expect(nullList.nonEmpty(), [1]);
+    });
   });
 }
