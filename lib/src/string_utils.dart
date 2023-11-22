@@ -1,3 +1,5 @@
+import 'package:tekartik_common_utils/string_utils.dart';
+
 bool stringIsDigit(String s, [int index = 0]) =>
     (s.codeUnitAt(index) ^ 0x30) <= 9;
 
@@ -30,6 +32,9 @@ extension TekartikCommonStringExtension on String {
     }
     return null;
   }
+
+  /// Truncate at max element.
+  String truncate(int len) => stringTruncate(this, len)!;
 }
 
 extension TekartikCommonStringPrvExtension on String {
