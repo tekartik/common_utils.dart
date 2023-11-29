@@ -2,7 +2,6 @@
 
 Dart common utilities with no io or browser code for shared tekartik projects
 
-
 ## Usage
 
 In your `pubspec.yaml`:
@@ -12,9 +11,11 @@ dependencies:
   tekartik_common_utils:
     git:
       url: https://github.com/tekartik/common_utils.dart
-      ref: dart2_3
+      ref: dart3a
     version: '>=0.11.1'
 ```
+
+Versioning follows [dart project versioning](https://github.com/tekartik/common.dart/blob/main/doc/tekartik_versioning.md) conventions.
 
 ## Documentation
 

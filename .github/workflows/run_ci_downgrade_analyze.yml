@@ -16,8 +16,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        dart: [stable]
+        include:
+          - os: ubuntu-latest
+          - dart: stable
+
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1.4
