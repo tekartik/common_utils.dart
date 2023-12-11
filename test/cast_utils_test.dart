@@ -7,6 +7,10 @@ void main() {
 
   group('cast_utils', () {
     test('castAsNullable', () {
+      expect(castAsNullable<int>(null), isNull);
+      expect(castAsNullable<int>(1), 1);
+      expect(castAsNullable<int?>(null), isNull);
+
       void nullableFunction(int? value) {}
       void nonNullFunction(int value) {}
       nonNullableInt = 1;
@@ -23,6 +27,7 @@ void main() {
       expect(castAsOrNull<int>(1), 1);
       expect(castAsOrNull<int>('1'), isNull);
       expect(castAsOrNull<int>(null), isNull);
+      expect(castAsOrNull<int?>(null), isNull);
     });
   });
 }
