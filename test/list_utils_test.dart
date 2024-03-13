@@ -202,5 +202,15 @@ void main() {
       nullList = [1];
       expect(nullList.nonEmpty(), [1]);
     });
+    test('nonNull', () {
+      List<int>? listOrNull;
+      // ignore: omit_local_variable_types
+      List<int> list = listOrNull.nonNull();
+      // ignore: omit_local_variable_types
+      List<String> stringList = (null as List<String>?).nonNull();
+      expect(list, isEmpty);
+      expect(stringList, isEmpty);
+      expect([1].nonNull(), [1]);
+    });
   });
 }

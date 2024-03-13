@@ -8,7 +8,8 @@ export 'src/list_utils_impl.dart'
     show
         TekartikCommonIterableExtension,
         TekartikCommonIterableIterableExtension,
-        TekartikCommonListExtension;
+        TekartikCommonListExtension,
+        TekartikCommonListOrNullExtension;
 
 @Deprecated('User iterable extension TekartikIterableExt.firstOfNull')
 T? first<T>(Iterable<T>? list) => listFirst(list);

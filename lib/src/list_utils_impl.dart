@@ -6,6 +6,12 @@ extension TekartikCommonListExtension<T> on List<T> {
   List<T>? nonEmpty() => isNotEmpty ? this : null;
 }
 
+/// Common list or null extension.
+extension TekartikCommonListOrNullExtension<T> on List<T>? {
+  /// If empty return null
+  List<T> nonNull() => this ?? <T>[];
+}
+
 extension TekartikCommonIterableExtension<T> on Iterable<T> {}
 
 /// Common iterable extension
