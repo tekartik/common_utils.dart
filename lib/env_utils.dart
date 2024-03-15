@@ -10,3 +10,6 @@ bool get isDebug => assert_utils.isDebug;
 
 /// Special runtime trick to known whether we are in the javascript world
 const isRunningAsJavascript = identical(1, 1.0);
+
+/// Borrowed from flutter (isRunningAsJavascript is false in wasm)
+const bool kDartIsWeb = bool.fromEnvironment('dart.library.js_util');
