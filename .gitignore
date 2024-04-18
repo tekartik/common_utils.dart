@@ -30,3 +30,4 @@ pubspec.lock
 # WebStorm
 .idea/
 .local/
+/example/env_utils_io/main.exe

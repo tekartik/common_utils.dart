@@ -1,5 +1,5 @@
 name: tekartik_common_utils
-version: 0.15.5
+version: 0.15.6
 description: Common pure dart utilities (not io or browser dependant)
 homepage: https://github.com/tekartik/common_utils.dart
 publish_to: none
@@ -22,6 +22,7 @@ dependencies:
     version: '>=0.1.0'
 
 dev_dependencies:
+  dev_build:
   dev_test: '>=0.16.1'
   test: '>=1.24.4'
   yaml:
@@ -29,6 +30,7 @@ dev_dependencies:
   build_test: '>=2.2.0'
   build_web_compilers: '>=4.0.4'
   process_run: '>=0.13.0'
+  web:
 
 dependency_overrides:
   # cv:
