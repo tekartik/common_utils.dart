@@ -71,6 +71,23 @@ void main() {
         expect(sizeDoubleCenteredRectWithRatio(const Size(3, 3), 3),
             const Rect<double>(Point(0, 1), Size(3, 1)));
       });
+      test('sizeDoubleCenteredRectWithRatioMinMax', () {
+        expect(sizeDoubleCenteredRectWithRatioMinMax(const Size(1, 2), 1, 2),
+            const Rect<double>(Point(0.0, 0.5), Size(1, 1)));
+        expect(sizeDoubleCenteredRectWithRatioMinMax(const Size(1, 2), 0.3, 2),
+            const Rect<double>(Point(0.0, 0.0), Size(1, 2)));
+        var rct =
+            sizeDoubleCenteredRectWithRatioMinMax(const Size(1, 2), 0.6, 2);
+        expect(rct.left, closeTo(0.0, 0.001));
+        expect(rct.top, closeTo(0.166, 0.001));
+        expect(rct.width, closeTo(1.0, 0.001));
+        expect(rct.height, closeTo(1.666, 0.001));
+        rct = sizeDoubleCenteredRectWithRatioMinMax(const Size(1, 2), 0.1, 0.4);
+        expect(rct.left, closeTo(0.1, 0.001));
+        expect(rct.top, closeTo(0.0, 0.001));
+        expect(rct.width, closeTo(0.8, 0.001));
+        expect(rct.height, closeTo(2.0, 0.001));
+      });
     });
   });
 }

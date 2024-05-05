@@ -1,3 +1,5 @@
+import 'package:tekartik_common_utils/src/num_utils.dart';
+
 export 'dart:math' show Point;
 
 /// Generic 2D value
@@ -143,4 +145,12 @@ Rect<double> sizeDoubleCenteredRectWithRatio(Size<double> size, num ratio) {
       Point<double>((size.width - innerSize.width) / 2,
           (size.height - innerSize.height) / 2),
       innerSize);
+}
+
+/// Helper for centered rectangle with a min and max ratio.
+Rect<double> sizeDoubleCenteredRectWithRatioMinMax(
+    Size<double> size, num ratioMin, num ratioMax) {
+  assert(ratioMin <= ratioMax);
+  var ratio = size.ratio.bounded(ratioMin.toDouble(), ratioMax.toDouble());
+  return sizeDoubleCenteredRectWithRatio(size, ratio);
 }
