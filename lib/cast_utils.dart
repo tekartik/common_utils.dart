@@ -1,1 +1,2 @@
-export 'src/cast_utils.dart' show castAsNullable, castAsOrNull;
+export 'src/cast_utils.dart'
+    show castAsNullable, castAsOrNull, TekartikObjectAsOrNullExtension;

@@ -29,5 +29,10 @@ void main() {
       expect(castAsOrNull<int>(null), isNull);
       expect(castAsOrNull<int?>(null), isNull);
     });
+    test('asOrNull', () {
+      expect(1.asOrNull<int>(), 1);
+      // ignore: dead_code
+      expect(null?.asOrNull<int>(), isNull);
+    });
   });
 }
