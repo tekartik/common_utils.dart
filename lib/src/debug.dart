@@ -1,5 +1,7 @@
 import 'package:tekartik_common_utils/env_utils.dart';
-import 'package:tekartik_common_utils/foundation/constants.dart';
+import 'package:tekartik_common_utils/foundation/constants.dart' as fundation;
+
+import 'env_utils.dart';
 
 Map<String, Object?> get debugEnvMap {
   var map = {
@@ -9,10 +11,11 @@ Map<String, Object?> get debugEnvMap {
     'kDartIoReleaseMode': kDartIoReleaseMode,
     'isRunningAsJavascript': isRunningAsJavascript,
     'kDartIsWeb': kDartIsWeb,
-    'kDebugMode': kDebugMode,
-    'kReleaseMode': kReleaseMode,
-    'kProfileMode': kProfileMode,
-    'kIsWeb': kIsWeb,
+    'kDebugMode': fundation.kDebugMode,
+    'kReleaseMode': fundation.kReleaseMode,
+    'kProfileMode': fundation.kProfileMode,
+    'kIsWeb': fundation.kIsWeb,
+    'kDartIsWebWasm': kDartIsWebWasm,
   };
   return map;
 }

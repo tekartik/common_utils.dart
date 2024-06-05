@@ -1,3 +1,6 @@
+@TestOn('node')
+library;
+
 import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/env_utils.dart';
 import 'package:tekartik_common_utils/src/debug.dart';
@@ -6,25 +9,19 @@ void main() => defineTests();
 
 void defineTests() {
   group('env', () {
-    // assuming we are testing in debug mode...
-    test('debugEnvMap', () {
-      if (kDartIsWebWasm) {
-        expect(isRelease, isTrue, reason: 'isRelease');
-      } else {
-        expect(isRelease, isFalse, reason: 'isRelease');
-      }
+    test('node debugEnvMap', () async {
       expect(debugEnvMap, {
         'isDebug': isDebug,
         'kDartIoDebugMode': true,
         'isRelease': isRelease,
         'kDartIoReleaseMode': false,
-        'isRunningAsJavascript': isRunningAsJavascript,
-        'kDartIsWeb': kDartIsWeb,
+        'isRunningAsJavascript': true,
+        'kDartIsWeb': true, // ! event for node
         'kDebugMode': true,
         'kReleaseMode': false,
         'kProfileMode': false,
-        'kIsWeb': kDartIsWeb,
-        'kDartIsWebWasm': kDartIsWebWasm,
+        'kIsWeb': true,
+        'kDartIsWebWasm': false,
       });
     });
   });

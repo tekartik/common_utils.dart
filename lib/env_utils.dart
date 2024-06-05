@@ -6,4 +6,5 @@ export 'src/env_utils.dart'
         kDartIsWeb,
         kDartIoReleaseMode,
         kDartIoProfileMode,
-        kDartIoDebugMode;
+        kDartIoDebugMode,
+        kDartIsWebWasm;

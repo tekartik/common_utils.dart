@@ -10,7 +10,7 @@ void main() => defineTests();
 
 void defineTests() {
   group('env', () {
-    test('io release', () async {
+    test('io release debugEnvMap', () async {
       await run('dart compile exe example/env_utils_io/main.dart');
       var text = (await run('./example/env_utils_io/main.exe')).first.outText;
       var map = jsonDecode(text) as Map;
@@ -24,7 +24,8 @@ void defineTests() {
         'kDebugMode': false,
         'kReleaseMode': true,
         'kProfileMode': false,
-        'kIsWeb': false
+        'kIsWeb': false,
+        'kDartIsWebWasm': false,
       });
     });
   });

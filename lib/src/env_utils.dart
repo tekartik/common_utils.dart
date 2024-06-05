@@ -22,3 +22,6 @@ const bool kDartIoProfileMode = bool.fromEnvironment('dart.vm.profile');
 
 /// Borrowed from flutter - not valid on the web if not flutter
 const bool kDartIoDebugMode = !kDartIoReleaseMode && !kDartIoProfileMode;
+
+/// True if we wasm
+const kDartIsWebWasm = kDartIsWeb && !isRunningAsJavascript;
