@@ -8,11 +8,8 @@ void defineTests() {
   group('env', () {
     // assuming we are testing in debug mode...
     test('debugEnvMap', () {
-      if (kDartIsWebWasm) {
-        expect(isRelease, isTrue, reason: 'isRelease');
-      } else {
-        expect(isRelease, isFalse, reason: 'isRelease');
-      }
+      expect(isRelease, isFalse, reason: 'isRelease');
+
       expect(debugEnvMap, {
         'isDebug': isDebug,
         'kDartIoDebugMode': true,

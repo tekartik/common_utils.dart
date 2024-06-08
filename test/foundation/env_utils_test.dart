@@ -10,15 +10,9 @@ void defineTests() {
   group('env', () {
     // assuming we are testing in debug mode...
     test('isRelease', () {
-      if (kDartIsWebWasm) {
-        expect(isRelease, isTrue, reason: 'isRelease');
-        expect(foundation.kDebugMode, true, reason: 'foundation.kDebugMode');
-      } else {
-        expect(isRelease, isFalse, reason: 'isRelease');
-        expect(foundation.kDebugMode, isDebug, reason: 'foundation.kDebugMode');
-      }
+      expect(isRelease, isFalse, reason: 'isRelease');
+      expect(foundation.kDebugMode, true, reason: 'foundation.kDebugMode');
       expect(isDebug, !isRelease, reason: 'isDebug');
-
       expect(assert_utils.isDebug, isDebug, reason: 'assert_utils.isDebug');
     });
   });
