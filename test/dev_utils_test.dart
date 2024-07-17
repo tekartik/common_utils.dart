@@ -1,7 +1,7 @@
 library dev_utils_test;
 
-import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/dev_utils.dart';
+import 'package:test/test.dart';
 
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
 void main() => defineTests(true);

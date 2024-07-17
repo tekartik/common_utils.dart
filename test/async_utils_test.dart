@@ -4,8 +4,8 @@
 
 import 'dart:async';
 
-import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/async_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('async', () {

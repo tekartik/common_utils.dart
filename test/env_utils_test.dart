@@ -1,6 +1,6 @@
-import 'package:dev_test/test.dart';
 import 'package:tekartik_common_utils/env_utils.dart';
 import 'package:tekartik_common_utils/src/debug.dart';
+import 'package:test/test.dart';
 
 void main() => defineTests();
 

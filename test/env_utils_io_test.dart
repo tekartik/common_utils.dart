@@ -3,8 +3,8 @@ library;
 
 import 'dart:convert';
 
-import 'package:dev_test/test.dart';
 import 'package:process_run/shell.dart';
+import 'package:test/test.dart';
 
 void main() => defineTests();
 
