@@ -4,6 +4,14 @@ import 'package:tekartik_common_utils/list_utils.dart';
 extension TekartikCommonListExtension<T> on List<T> {
   /// If empty return null
   List<T>? nonEmpty() => isNotEmpty ? this : null;
+
+  /// Get element at index or null
+  T? getOrNull(int index) {
+    if (index >= 0 && index < length) {
+      return this[index];
+    }
+    return null;
+  }
 }
 
 /// Common list or null extension.

@@ -212,5 +212,12 @@ void main() {
       expect(stringList, isEmpty);
       expect([1].nonNull(), [1]);
     });
+    test('getOrNull', () {
+      expect(<Object>[].getOrNull(0), isNull);
+      expect([1].getOrNull(0), 1);
+      expect([1].getOrNull(-1), isNull);
+      expect([1].getOrNull(1), isNull);
+      expect([1, 2].getOrNull(1), 2);
+    });
   });
 }

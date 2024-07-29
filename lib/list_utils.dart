@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:tekartik_common_utils/src/list_utils_impl.dart';
+
 import 'map_utils.dart';
 
 export 'src/lazy_read_only_list.dart'
@@ -27,12 +29,8 @@ int listLength(Iterable? list) {
 }
 
 /// Safe get at a given index
-T? listGet<T>(List<T>? list, int index) {
-  if (index >= 0 && index < listLength(list)) {
-    return list![index];
-  }
-  return null;
-}
+/// Deprecated, prefer using getOrNull
+T? listGet<T>(List<T>? list, int index) => list?.getOrNull(index);
 
 /// Safe way to get a list, never fails
 List<T>? asList<T>(Object? value) {
