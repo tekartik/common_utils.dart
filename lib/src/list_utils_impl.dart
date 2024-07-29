@@ -12,6 +12,16 @@ extension TekartikCommonListExtension<T> on List<T> {
     }
     return null;
   }
+
+  /// Get first where or null
+  T? firstWhereOrNull(bool Function(T element) test) {
+    for (var element in this) {
+      if (test(element)) {
+        return element;
+      }
+    }
+    return null;
+  }
 }
 
 /// Common list or null extension.

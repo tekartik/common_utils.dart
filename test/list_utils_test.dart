@@ -219,5 +219,11 @@ void main() {
       expect([1].getOrNull(1), isNull);
       expect([1, 2].getOrNull(1), 2);
     });
+    test('firstWhereOrNull', () {
+      bool check(int element) => element.isEven;
+      expect(<int>[].firstWhereOrNull(check), isNull);
+      expect(<int>[1].firstWhereOrNull(check), isNull);
+      expect(<int>[1, 2].firstWhereOrNull(check), 2);
+    });
   });
 }
