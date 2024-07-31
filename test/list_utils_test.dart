@@ -1,4 +1,4 @@
-import 'package:tekartik_common_utils/list_utils.dart' hide isEmpty;
+import 'package:tekartik_common_utils/list_utils.dart';
 
 import 'package:test/test.dart';
 
@@ -16,15 +16,15 @@ void main() {
 
     test('first', () {
       // ignore: deprecated_member_use_from_same_package
-      expect(first<Object?>(null), isNull);
+      expect(listFirst<Object?>(null), isNull);
       // ignore: deprecated_member_use_from_same_package
-      expect(first(emptyList), isNull);
+      expect(listFirst(emptyList), isNull);
       // ignore: deprecated_member_use_from_same_package
-      expect(first([null]), isNull);
+      expect(listFirst([null]), isNull);
       // ignore: deprecated_member_use_from_same_package
-      expect(first([1]), 1);
+      expect(listFirst([1]), 1);
       // ignore: deprecated_member_use_from_same_package
-      expect(first([1, 2]), 1);
+      expect(listFirst([1, 2]), 1);
     });
 
     test('listLength', () {

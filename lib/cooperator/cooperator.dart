@@ -3,8 +3,10 @@ import 'dart:async';
 /// Simple cooperate that checks every 4ms
 class Cooperator {
   // Cooperate mode
-  //
+  /// Whether to cooperate
   final bool cooperateOn = true;
+
+  /// Stopwatch to check for cooperation
   var cooperateStopWatch = Stopwatch()..start();
 
   /// Need to cooperate every 16 milliseconds, 4 looks good in experiments

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dev_build/build_support.dart';
 import 'package:process_run/shell.dart';
 

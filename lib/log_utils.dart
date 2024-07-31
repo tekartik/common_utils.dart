@@ -13,6 +13,7 @@ void debugQuickLogging(Level level) {
   setupQuickLogging(level);
 }
 
+/// Setup quick logging
 void setupQuickLogging([Level? level]) {
   if (!_quickLoggingSetup) {
     hierarchicalLoggingEnabled = true;
@@ -30,14 +31,18 @@ void setupQuickLogging([Level? level]) {
 
 class _PrintHandler {
   void call(LogRecord logRecord) {
+    // ignore: avoid_print
     print(
         '${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}');
   }
 }
 
 @Deprecated('Use logLevel')
-// ignore: non_constant_identifier_names
+
+/// ignore: non_constant_identifier_names
 final List<Level> LOG_LEVELS = logLevels;
+
+/// L
 final List<Level> logLevels = [
   Level.OFF,
   Level.SHOUT,
@@ -51,6 +56,7 @@ final List<Level> logLevels = [
   Level.ALL
 ];
 
+/// Parse a log level
 Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
   levelText = levelText.toUpperCase();
   for (var level in logLevels) {
@@ -65,6 +71,7 @@ Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
 
 Logger? _log;
 
+/// Default logger
 Logger? get log {
   _log ??= Logger('Quick');
   return _log;
@@ -81,6 +88,7 @@ String _stringPrefilled(String text, int len, String char) {
   return out.toString();
 }
 
+/// Format a timestamp in ms as mm.ss.sss
 String formatTimestampMs(num? timestamp) {
   // Allow 6 digits => 1000s
   final size = 6;

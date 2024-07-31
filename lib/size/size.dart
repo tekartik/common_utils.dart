@@ -4,7 +4,10 @@ export 'dart:math' show Point;
 
 /// Generic 2D value
 abstract class D2<T extends num> {
+  /// x value
   final T x;
+
+  /// y value
   final T y;
 
   @override
@@ -18,9 +21,10 @@ abstract class D2<T extends num> {
     return false;
   }
 
+  /// Create a 2D value
   const D2(this.x, this.y);
 
-  // x / y ratio
+  /// x / y ratio
   double get ratio => x / y;
 
   @override
@@ -29,6 +33,7 @@ abstract class D2<T extends num> {
 
 /// Generic point definition
 class Point<T extends num> extends D2<T> {
+  /// Create a point
   const Point(super.x, super.y);
 }
 
@@ -92,18 +97,25 @@ class Rect<T extends num> {
 
 /// Generic size
 class Size<T extends num> extends D2<T> {
+  /// width
   T get width => x;
 
+  /// height
   T get height => y;
 
+  /// if one dimension is 0
   bool get isAnyEmpty => x == 0 || y == 0;
 
+  /// if both dimensions are 0
   bool get isEmpty => x == 0 && y == 0;
 
+  /// Create a size
   const Size(super.width, super.height);
 
+  /// test if landscape
   bool get isLandscape => width > height;
 
+  /// test if portrait
   bool get isPortrait => !isLandscape;
 }
 

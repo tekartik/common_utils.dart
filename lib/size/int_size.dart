@@ -2,7 +2,8 @@ import 'package:tekartik_common_utils/int_utils.dart';
 
 import 'size.dart' as size_common;
 
-abstract class D2 implements size_common.D2<int> {}
+/// 2 dimension interface
+abstract interface class D2 implements size_common.D2<int> {}
 
 /// Integer sizes
 class Size extends size_common.Size<int> implements D2 {

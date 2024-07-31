@@ -5,6 +5,7 @@ int _upperACodeUnit = 'A'.codeUnitAt(0);
 int _lowerACodeUnit = 'a'.codeUnitAt(0);
 int _digit0CodeUnit = '0'.codeUnitAt(0);
 
+/// Return the hex value of a char code
 int? hexCharValue(int charCode) {
   if (charCode >= _upperACodeUnit && charCode < _upperACodeUnit + 6) {
     return charCode - _upperACodeUnit + 10;
@@ -38,18 +39,22 @@ int lohexCodeUint4(int value) {
   }
 }
 
+/// Return the high byte hex formated value like A
 int hex1CodeUint8(int value) {
   return hexCodeUint4((value & 0xF0) >> 4);
 }
 
+/// Return the low byte hex formated value like A
 int lohex1CodeUint8(int value) {
   return lohexCodeUint4((value & 0xF0) >> 4);
 }
 
+/// Return the low byte hex formated value like A
 int hex2CodeUint8(int value) {
   return hexCodeUint4(value);
 }
 
+/// Return the low byte hex formated value like A
 int lohex2CodeUint8(int value) {
   return lohexCodeUint4(value);
 }
@@ -74,6 +79,7 @@ String hexUint32(int value) {
   return hexUint16(value >> 16) + hexUint16(value);
 }
 
+/// Return the hex formated value like 12345678ABCD
 String hexQuickView(List<int>? data, [int? maxLen]) {
   if (data == null) {
     return '(null)';
@@ -101,6 +107,7 @@ String hexQuickView(List<int>? data, [int? maxLen]) {
   return out.toString();
 }
 
+/// hew pretty lines
 List<String>? hexPrettyLines(List<int>? data) {
   if (data == null) {
     return null;
@@ -123,6 +130,7 @@ List<String>? hexPrettyLines(List<int>? data) {
   return lines;
 }
 
+/// hex pretty
 String? hexPretty(List<int>? data) {
   if (data == null) {
     return null;
@@ -235,96 +243,7 @@ String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
   return out.toString();
 }
 
-String oldhexPretty(List<int> data) {
-  final blockSize = 16;
-  int readSize;
-  var lineIndex = 0;
-  var position = 0;
-  final out = StringBuffer();
-  do {
-    if (lineIndex++ > 0) {
-      out.writeln();
-    }
-    int i;
-    readSize = data.length - position;
-    if (readSize > blockSize) {
-      readSize = blockSize;
-    }
-
-    var buffer = data.sublist(position, position + readSize);
-    position += readSize;
-
-    for (i = 0; i < buffer.length; i++) {
-      if (i > 0) {
-        out.write(' ');
-        if ((i % 4) == 0) {
-          out.write(' ');
-        }
-        if ((i % 16) == 0) {
-          out.write(' ');
-        }
-      }
-      var charCode = buffer[i];
-      out.writeCharCode(hex1CodeUint8(charCode));
-      out.writeCharCode(hex2CodeUint8(charCode));
-    }
-
-    if (i > 0) {
-      for (; i < blockSize; i++) {
-        if (i > 0) {
-          out.write(' ');
-          if ((i % 4) == 0) {
-            out.write(' ');
-          }
-          if ((i % 16) == 0) {
-            out.write(' ');
-          }
-        }
-        out.write('..');
-      }
-    }
-
-    out.write('  ');
-
-    for (i = 0; i < readSize; i++) {
-      if (i > 0) {
-        if ((i % 4) == 0) {
-          out.write(' ');
-        }
-        if ((i % 16) == 0) {
-          out.write(' ');
-        }
-      }
-
-      final charCode = buffer[i];
-      bool isPrintable(int charCode) =>
-          charCode >= 32 && charCode <= 126; // not including delete
-      if (isPrintable(charCode)) {
-        out.writeCharCode(charCode);
-      } else {
-        out.write('?');
-      }
-    }
-    if (i > 0) {
-      for (; i < blockSize; i++) {
-        if (i > 0) {
-          if ((i % 4) == 0) {
-            out.write(' ');
-          }
-          if ((i % 16) == 0) {
-            out.write(' ');
-          }
-        }
-        out.write('.');
-      }
-    }
-    // out.println(len);
-  } while (readSize == blockSize);
-
-  return out.toString();
-}
-
-// parse any hex string
+/// parse any hex string
 List<int> parseHexString(String text) {
   final data = <int>[];
   int? firstNibble;

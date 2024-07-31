@@ -1,9 +1,13 @@
 import 'dart:collection';
 
+/// A map that keeps track of the last accessed keys.
 class LruMap<K, V> extends MapBase<K?, V> {
+  /// The maximum number of entries in the map.
   final int? maximumSize;
   final _map = <K, V>{};
   final _keys = <K>[];
+
+  /// A function that is called when an entry is removed from the map.
   final void Function(MapEntry<K?, V?> entry)? dispose;
 
   void _trigger(K key) {
@@ -11,6 +15,7 @@ class LruMap<K, V> extends MapBase<K?, V> {
     _keys.add(key);
   }
 
+  /// Create a LRU map with a maximum size.
   LruMap({this.maximumSize, this.dispose});
   @override
   V? operator [](Object? key) {

@@ -1,7 +1,11 @@
 library tekartik_string_enum;
 
+/// Base class for string enum
 abstract class StringEnum {
+  /// The value
   final String name;
+
+  /// Constructor
   const StringEnum(this.name);
 
   @override
@@ -20,5 +24,6 @@ abstract class StringEnum {
     return super == (other);
   }
 
+  /// The value
   String get value => name;
 }

@@ -1,8 +1,12 @@
 import 'package:tekartik_common_utils/common_utils_import.dart';
 import 'package:tekartik_common_utils/queue/fifo.dart';
 
+/// A stream poller event
 abstract class StreamPollerEvent<T> {
+  /// The data
   T get data;
+
+  /// Done
   bool get done;
 }
 
@@ -18,6 +22,7 @@ class _StreamPollerNext<T> implements StreamPollerEvent<T?> {
         data = event;
 }
 
+/// A stream poller
 class StreamPoller<T> {
   late StreamSubscription<T> _subscription;
   final bool _lastOnly;
@@ -33,6 +38,7 @@ class StreamPoller<T> {
     _triggetNext();
   }
 
+  /// Create a stream poller
   StreamPoller(Stream<T> stream, {bool? lastOnly})
       : _lastOnly = lastOnly == true {
     _subscription = stream.listen(_addEvent, onDone: cancel);
@@ -46,6 +52,7 @@ class StreamPoller<T> {
     }
   }
 
+  /// Get new event
   Future<StreamPollerEvent<T?>> getNext() async {
     var next = _events.pop();
     if (next != null) {
@@ -63,7 +70,7 @@ class StreamPoller<T> {
     });
   }
 
-// Make sure to cancel the pending completer
+  /// Make sure to cancel the pending completer
   Future cancel() async {
     _done = true;
     await _subscription.cancel();

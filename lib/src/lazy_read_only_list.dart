@@ -7,6 +7,7 @@ class LazyReadOnlyList<S, T> extends ListBase<T> {
   late final List<T?> _dstList;
   late final T Function(S src) _transform;
 
+  /// Create a lazy read-only list
   LazyReadOnlyList(Iterable<S> srcList, T Function(S src) transform) {
     _srcList =
         srcList is List ? srcList as List<S> : srcList.toList(growable: false);
@@ -41,6 +42,8 @@ class LazyReadOnlyList<S, T> extends ListBase<T> {
   }
 
   @visibleForTesting
+
+  /// Check if the item at the given index has been transformed
   bool isTransformed(int index) {
     return _transformedList[index];
   }

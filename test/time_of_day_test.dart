@@ -3,6 +3,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:tekartik_common_utils/src/date_time_utils.dart';
+import 'package:tekartik_common_utils/time_of_day.dart';
 import 'package:test/test.dart';
 
 void main() {

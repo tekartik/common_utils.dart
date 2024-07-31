@@ -1,5 +1,6 @@
 import 'package:tekartik_common_utils/foundation/constants.dart';
 
+/// Check whether running in release mode
 bool get isRelease => kReleaseMode;
 
 /// Check whether running in debug mode

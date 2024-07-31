@@ -4,11 +4,13 @@ import 'package:synchronized/synchronized.dart';
 
 import 'list_utils.dart';
 
-// create a future delayed for [ms] milliseconds
+/// create a future delayed for [ms] milliseconds
 Future sleep([int ms = 0]) {
   return Future<void>.delayed(Duration(milliseconds: ms));
 }
 
+/// Wait for all futures to complete
+/// @Deprecated('Use Future.wait')
 Future<List?> waitAll(List<Future Function()>? computations) async {
   if (listIsEmpty(computations)) {
     return null;
@@ -27,10 +29,13 @@ class AsyncOnceRunner {
   bool _done = false;
   final _lock = Lock();
 
+  /// Constructor
   AsyncOnceRunner(FutureOr Function() computation) : _computation = computation;
 
+  /// true if the operation has been done
   bool get done => _done;
 
+  /// Run the operation
   Future run() async {
     if (!_done) {
       await _lock.synchronized(() async {

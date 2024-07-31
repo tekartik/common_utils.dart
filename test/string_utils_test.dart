@@ -106,4 +106,17 @@ void main() {
     expect('2 \r'.getLastInt(), 2);
     expect('none\r'.getLastInt(), isNull);
   });
+
+  test('obfuscate', () async {
+    expect(''.obfuscate(), '');
+    expect('1'.obfuscate(), '*');
+    expect('1'.obfuscate(), '*');
+    expect('123456789'.obfuscate(), '12*****89');
+    expect('1234567890'.obfuscate(), '12******90');
+    expect('12345678901'.obfuscate(), '12*******01');
+    expect('123456789012'.obfuscate(), '123******012');
+    expect('12345678901234567890'.obfuscate(), '1234************7890');
+    expect('12345678901234567890'.obfuscate(lastAndFirstKeepCountMax: 5),
+        '12345**********67890');
+  });
 }

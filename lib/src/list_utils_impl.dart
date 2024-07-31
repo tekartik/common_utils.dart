@@ -12,6 +12,24 @@ extension TekartikCommonListExtension<T> on List<T> {
     }
     return null;
   }
+}
+
+/// Common list or null extension.
+extension TekartikCommonListOrNullExtension<T> on List<T>? {
+  /// If empty return null
+  List<T> nonNull() => this ?? <T>[];
+}
+
+/// Common iterable extension.
+extension TekartikCommonIterableExtension<T> on Iterable<T> {
+  /// Get first or null
+  T? get firstOrNull {
+    var iterator = this.iterator;
+    if (iterator.moveNext()) {
+      return iterator.current;
+    }
+    return null;
+  }
 
   /// Get first where or null
   T? firstWhereOrNull(bool Function(T element) test) {
@@ -23,14 +41,6 @@ extension TekartikCommonListExtension<T> on List<T> {
     return null;
   }
 }
-
-/// Common list or null extension.
-extension TekartikCommonListOrNullExtension<T> on List<T>? {
-  /// If empty return null
-  List<T> nonNull() => this ?? <T>[];
-}
-
-extension TekartikCommonIterableExtension<T> on Iterable<T> {}
 
 /// Common iterable extension
 extension TekartikCommonIterableIterableExtension<T> on Iterable<Iterable<T>> {

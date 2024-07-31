@@ -47,6 +47,7 @@ Map<String, List>? packList(Iterable<Map<String, Object?>>? list,
   return packed;
 }
 
+/// Pack a list of items
 Map<String, Object?>? packItemList<T>(
     List<T> list, Map<String, Object?> Function(T item) itemToJsonCallback) {
   var unpackedList = <Map<String, Object?>>[];
@@ -106,6 +107,7 @@ bool _isMapCompacked(Map map) {
   return (keys.length == 2 && keys.contains(_r) && keys.contains(_c));
 }
 
+/// Unpack map and list in a compact way
 Object? uncompackAny(Object? packed) {
   if (packed is Map) {
     var map = packed;
@@ -137,11 +139,15 @@ Object? uncompackAny(Object? packed) {
   return packed;
 }
 
+/// Json unpack
 class JsonUnpack {
+  /// Packed json
   Map packed;
 
+  /// Unpack a json
   JsonUnpack(this.packed);
 
+  /// forEach
   void forEach(void Function(Map item) callback) {
     var columns = packed[_columns] as List<String>?;
     var rows = packed[_rows] as List<List>?;

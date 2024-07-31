@@ -1,7 +1,5 @@
 # tekartik recommended lints (extension over google lints and pedantic)
-include: package:tekartik_lints/strict.yaml
+include: package:tekartik_lints/package.yaml
 
-analyzer:
-  language:
-    strict-casts: true
-    strict-inference: true
+linter:
+  rules:

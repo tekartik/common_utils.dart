@@ -3,6 +3,7 @@
 
 import 'package:tekartik_common_utils/num_utils.dart';
 
+/// Parse a boolean value, handling string and num different than 0
 bool? parseBool(Object? value, [bool? defaultBool]) {
   if (value is bool) {
     return value;

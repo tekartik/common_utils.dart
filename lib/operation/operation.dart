@@ -13,6 +13,7 @@ class Operation {
   final _lock = Lock();
   bool _pending = false;
 
+  /// Create an operation
   Operation({required this.action, this.delay});
 
   /// Trigger the action, if already running wait at least [delay] before

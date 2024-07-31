@@ -1,4 +1,4 @@
-import 'package:tekartik_common_utils/src/iterable_utils.dart';
+import 'package:tekartik_common_utils/iterable_utils.dart';
 import 'package:test/test.dart' hide isEmpty;
 
 void main() {

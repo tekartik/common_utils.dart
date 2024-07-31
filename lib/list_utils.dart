@@ -13,17 +13,17 @@ export 'src/list_utils_impl.dart'
         TekartikCommonListExtension,
         TekartikCommonListOrNullExtension;
 
-@Deprecated('User iterable extension TekartikIterableExt.firstOfNull')
-T? first<T>(Iterable<T>? list) => listFirst(list);
-
+/// @Deprecated('User iterable extension TekartikIterableExt.firstOrNull')
 T? listFirst<T>(Iterable<T>? list) {
   return listIsEmpty(list) ? null : list!.first;
 }
 
+/// @Deprecated('User iterable extension TekartikIterableExt.lastOrNull')
 T? listLast<T>(Iterable<T>? list) {
   return listIsEmpty(list) ? null : list!.last;
 }
 
+/// @Deprecated('User iterable extension TekartikIterableExt.length')
 int listLength(Iterable? list) {
   return list?.length ?? 0;
 }
@@ -45,9 +45,6 @@ List<T>? asList<T>(Object? value) {
   return null;
 }
 
-@Deprecated('use listIsEmpty')
-bool isEmpty(Iterable list) => listIsEmpty(list);
-
 /// True if list is null or empty
 bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 
@@ -55,9 +52,12 @@ bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 @Deprecated('Typo error')
 bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
 
+/// True if list is not null and not empty
 bool listIsNotEmpty(Iterable? list) => listLength(list) > 0;
 
 @Deprecated('use listTruncate')
+
+/// Truncate at max element.
 List<T>? truncate<T>(List<T> list, int maxCount) =>
     listTruncate(list, maxCount);
 

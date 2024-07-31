@@ -1,9 +1,12 @@
 import 'dart:async';
 
+/// A stream with a value
 abstract class StreamWithValue<T> extends Stream<T> {
+  /// The current value of the stream
   T? get value;
 }
 
+/// A stream controller with a value
 class Subject<T> extends Stream<T>
     implements StreamSink<T>, StreamController<T>, StreamWithValue<T> {
   final StreamController<T> _controller;
@@ -17,7 +20,7 @@ class Subject<T> extends Stream<T>
 
   // Error
   Object? _error;
-  StackTrace? stackTrace;
+  StackTrace? _stackTrace;
 
   bool _addStreamActive = false;
 
@@ -89,7 +92,7 @@ class Subject<T> extends Stream<T>
   void _addError(Object error, [StackTrace? stackTrace]) {
     _value = null;
     _error = error;
-    this.stackTrace = stackTrace;
+    this._stackTrace = stackTrace;
     _controller.addError(error, stackTrace);
   }
 
@@ -128,7 +131,7 @@ class Subject<T> extends Stream<T>
 
     // Send initial data
     if (_error != null) {
-      subscriptionController.addError(_error!, stackTrace);
+      subscriptionController.addError(_error!, _stackTrace);
     } else {
       if (_seeded) {
         subscriptionController.add(value as T);

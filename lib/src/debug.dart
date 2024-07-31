@@ -3,6 +3,7 @@ import 'package:tekartik_common_utils/foundation/constants.dart' as fundation;
 
 import 'env_utils.dart';
 
+/// debug environment map
 Map<String, Object?> get debugEnvMap {
   var map = {
     'isDebug': isDebug,

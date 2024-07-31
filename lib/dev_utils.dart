@@ -5,6 +5,7 @@ import 'package:tekartik_common_utils/env_utils.dart';
 
 void _devPrint(Object? object) {
   if (_devPrintEnabled) {
+    // ignore: avoid_print
     print(object);
   }
 }
@@ -16,11 +17,7 @@ set devPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
 /// Deprecated to prevent keeping the code used.
 @Deprecated('Dev only')
-void devPrint(Object? object) {
-  if (_devPrintEnabled) {
-    print(object);
-  }
-}
+void devPrint(Object? object) => _devPrint(object);
 
 /// Deprecated to prevent keeping the code used.
 ///
@@ -34,10 +31,8 @@ void _devError([Object? object]) {
   try {
     throw UnsupportedError('$object');
   } catch (e, st) {
-    if (_devPrintEnabled) {
-      print('# ERROR $object');
-      print(st);
-    }
+    _devPrint('# ERROR $object');
+    _devPrint(st);
     rethrow;
   }
 }
@@ -48,7 +43,7 @@ void _devError([Object? object]) {
 @Deprecated('Dev only')
 T? devDebugOnly<T>(T Function() action, {String? message}) {
   if (isDebug) {
-    print(
+    _devPrint(
         '[DEBUG_ONLY]${message != null ? ' $message' : ' debug only behavior'}');
     return action();
   } else {
@@ -57,23 +52,29 @@ T? devDebugOnly<T>(T Function() action, {String? message}) {
 }
 
 @Deprecated('Dev only')
+
+/// Dev only error print
 void devError([Object? object]) => _devError(object);
 
-// exported for testing
+/// exported for testing
 void debugDevPrint(Object? object) => _devPrint(object);
 
+/// exported for testing
 void debugDevError(Object? object) => _devError(object);
 
 set debugDevPrintEnabled(bool enabled) => _devPrintEnabled = enabled;
 
-// Simple class to add a debug flag
-// off by default
-// turning it on raises a warning so that you don't checkin code like that
+/// Simple class to add a debug flag
+/// off by default
+/// turning it on raises a warning so that you don't checkin code like that
 class DevFlag {
+  /// Explanation of the flag
   final String? explanation;
 
+  /// Constructor
   DevFlag([this.explanation]);
 
+  /// Is the flag on
   bool get on => _on ?? false;
   bool? _on;
 
@@ -81,6 +82,7 @@ class DevFlag {
   set on(bool on) {
     _on = on;
     if (_devPrintEnabled) {
+      // ignore: avoid_print
       print('Turning $this');
     }
   }

@@ -2,9 +2,13 @@ import 'package:path/path.dart' as path;
 import 'package:tekartik_common_utils/hex_utils.dart';
 
 // final _max = pow(2, 52).round();
+/// Max value
 final intPathMax = 0x000FFFFFFFFFFFFF;
+
+/// Min value
 final intPathMin = -0x000FFFFFFFFFFFFF;
 
+/// Shift right with support for negative values
 int intShiftRight(int value, int count) {
   if (count == 0) {
     return value;

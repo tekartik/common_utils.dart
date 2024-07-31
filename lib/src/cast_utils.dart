@@ -7,5 +7,6 @@ T? castAsOrNull<T extends Object?>(Object? object) =>
 
 /// Helper extension.
 extension TekartikObjectAsOrNullExtension on Object {
+  /// Safe cast
   T? asOrNull<T>() => castAsOrNull(this);
 }

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:tekartik_common_utils/string_utils.dart';
 
+/// True if the string is a digit
 bool stringIsDigit(String s, [int index = 0]) =>
     (s.codeUnitAt(index) ^ 0x30) <= 9;
 
@@ -8,6 +11,7 @@ bool stringIsEmpty(String? text) {
   return ((text == null) || text.isEmpty);
 }
 
+///
 String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
@@ -21,10 +25,16 @@ extension TekartikCommonStringExtension on String {
   String? trimmedNonEmpty([String? defaultValue]) =>
       trim().nonEmpty(defaultValue);
 
+  /// True if a string is a digit
   bool isDigit([int idx = 0]) => stringIsDigit(this);
 
+  /// Parse an int or throw
   int parseInt({int? radix}) => int.parse(this, radix: radix);
+
+  /// try parse an int
   int? tryParseInt({int? radix}) => int.tryParse(this, radix: radix);
+
+  /// Get the last int of a string.
   int? getLastInt() {
     var index = getLastIntIndex();
     if (index != null) {
@@ -35,10 +45,20 @@ extension TekartikCommonStringExtension on String {
 
   /// Truncate at max element.
   String truncate(int len) => stringTruncate(this, len)!;
+
+  /// Obfuscate a string by replacing all but the first and last 4 characters with '*'.
+  /// at least half of the characters are obfuscated.
+  String obfuscate({int lastAndFirstKeepCountMax = 4}) {
+    var keepCount = min(lastAndFirstKeepCountMax, length ~/ 4);
+    return '${substring(0, keepCount)}'
+        '${List<String>.generate(length - keepCount * 2, (_) => '*').join()}'
+        '${substring(length - keepCount)}';
+  }
 }
 
+/// Private extension
 extension TekartikCommonStringPrvExtension on String {
-  // null if none found
+  /// null if none found
   int? getLastIntIndex() {
     var endTrimmedIndex = trimRight().length - 1;
     var index = endTrimmedIndex;
@@ -80,6 +100,7 @@ int _compareInt(int? value1, int? value2) {
   }
 }
 
+/// Compare two strings with the last int part
 int stringsCompareWithLastInt(String? value1, String? value2,
     {bool? nullFirst = false}) {
   if (nullFirst ?? false) {

@@ -12,6 +12,7 @@ Map mergeMap(Map mapDst, Map mapSrc) {
   return mapDst;
 }
 
+/// Clone a map
 Map<K, V?> cloneMap<K extends Object?, V extends Object?>(Map<K, V> original) {
   final map = <K, V?>{};
   original.forEach((key, value) {
@@ -42,6 +43,7 @@ V? mapValue<K extends Object?, V extends Object?>(Map<K, V> map, K key,
   return value;
 }
 
+/// Get a map Value toString, default if not found or null.
 String? mapStringValue(Map map, String key, [String? defaultValue]) {
   var value = map[key]?.toString();
   if (value != null) {
@@ -50,6 +52,7 @@ String? mapStringValue(Map map, String key, [String? defaultValue]) {
   return defaultValue;
 }
 
+/// Get a map int value (parse string if needed), default if not found or null.
 int? mapIntValue(Map map, String key, [int? defaultValue]) {
   var value = map[key];
   if (value != null) {
@@ -99,15 +102,20 @@ Map<K, V>? asMap<K extends Object?, V extends Object?>(Object? value) =>
 //  return defaultValue;
 //}
 
+/// Dump a map
+@Deprecated('Dev only')
 void dumpMap(Map map) {
   map.forEach((key, value) {
+    // ignore: avoid_print
     print('$key = $value');
   });
 }
 
+/// Get a map value (to deprecate)
 T? mapValueFromParts<T>(Map map, Iterable<String> parts) =>
     getPartsMapValue(map, parts);
 
+/// Get a map value
 T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
   Object? value = map;
   for (var part in parts) {
@@ -120,6 +128,7 @@ T? getPartsMapValue<T>(Map map, Iterable<String> parts) {
   return value as T?;
 }
 
+/// Set a map value
 void setPartsMapValue(Map map, List<String> parts, Object? value) {
   for (var i = 0; i < parts.length - 1; i++) {
     var part = parts[i];
@@ -133,6 +142,7 @@ void setPartsMapValue(Map map, List<String> parts, Object? value) {
   map[parts.last] = value;
 }
 
+/// Get a map value at path separated by / (? why /)
 T? mapValueFromPath<T>(Map map, String path) {
   return mapValueFromParts(map, path.split('/'));
 }

@@ -2,6 +2,7 @@
 // [value] could be an int or a String
 import 'package:tekartik_common_utils/string_utils.dart';
 
+/// Parse an int from a value
 int? parseInt(Object? value, [int? defaultInt]) {
   if (value is int) {
     return value;
