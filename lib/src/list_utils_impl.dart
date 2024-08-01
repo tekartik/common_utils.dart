@@ -22,15 +22,6 @@ extension TekartikCommonListOrNullExtension<T> on List<T>? {
 
 /// Common iterable extension.
 extension TekartikCommonIterableExtension<T> on Iterable<T> {
-  /// Get first or null
-  T? get firstOrNull {
-    var iterator = this.iterator;
-    if (iterator.moveNext()) {
-      return iterator.current;
-    }
-    return null;
-  }
-
   /// Get first where or null
   T? firstWhereOrNull(bool Function(T element) test) {
     for (var element in this) {
