@@ -2,6 +2,7 @@
 library tekartik_dev_utils;
 
 import 'package:tekartik_common_utils/env_utils.dart';
+export 'src/debug.dart' show debugEnvMap;
 
 void _devPrint(Object? object) {
   if (_devPrintEnabled) {

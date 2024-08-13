@@ -23,6 +23,9 @@ void defineTests([bool disableOutput = true]) {
     test('devPrint', () {
       debugDevPrint('dev print message');
     });
+    test('debugEnvMap', () {
+      expect(debugEnvMap, isNotNull);
+    });
     test('devError', () {
       if (disableOutput) {
         debugDevPrintEnabled = false;
