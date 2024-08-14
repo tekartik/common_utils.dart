@@ -1,4 +1,4 @@
-@TestOn('browser && js')
+@TestOn('browser && wasm')
 library;
 
 import 'package:tekartik_common_utils/env_utils.dart';
@@ -15,13 +15,13 @@ void defineTests() {
         'kDartIoDebugMode': true,
         'isRelease': isRelease,
         'kDartIoReleaseMode': false,
-        'isRunningAsJavascript': true,
+        'isRunningAsJavascript': false,
         'kDartIsWeb': true,
         'kDebugMode': true,
         'kReleaseMode': false,
         'kProfileMode': false,
         'kIsWeb': true,
-        'kDartIsWebWasm': false,
+        'kDartIsWebWasm': true,
       });
     });
   });
