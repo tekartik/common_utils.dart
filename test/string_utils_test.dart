@@ -119,4 +119,10 @@ void main() {
     expect('12345678901234567890'.obfuscate(lastAndFirstKeepCountMax: 5),
         '12345**********67890');
   });
+  test('splitFirst', () {
+    expect(''.splitFirst(' '), ['']);
+    expect('a'.splitFirst(' '), ['a']);
+    expect('a b'.splitFirst(' '), ['a', 'b']);
+    expect('a b c'.splitFirst(' '), ['a', 'b c']);
+  });
 }

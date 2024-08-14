@@ -43,6 +43,17 @@ extension TekartikCommonStringExtension on String {
     return null;
   }
 
+  /// Split by first occurernce of a separator
+  ///
+  /// results has length 1 or 2
+  List<String> splitFirst(String separator) {
+    var index = indexOf(separator);
+    if (index >= 0) {
+      return [substring(0, index), substring(index + separator.length)];
+    }
+    return [this];
+  }
+
   /// Truncate at max element.
   String truncate(int len) => stringTruncate(this, len)!;
 
