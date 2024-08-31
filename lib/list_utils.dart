@@ -48,16 +48,13 @@ List<T>? asList<T>(Object? value) {
 /// True if list is null or empty
 bool listIsEmpty(Iterable? list) => listLength(list) == 0;
 
-/// True if list is not null and not
-@Deprecated('Typo error')
-bool listIsNoteEmpty(Iterable list) => listLength(list) > 0;
-
 /// True if list is not null and not empty
 bool listIsNotEmpty(Iterable? list) => listLength(list) > 0;
 
 @Deprecated('use listTruncate')
 
 /// Truncate at max element.
+@Deprecated('Use listTruncate')
 List<T>? truncate<T>(List<T> list, int maxCount) =>
     listTruncate(list, maxCount);
 
