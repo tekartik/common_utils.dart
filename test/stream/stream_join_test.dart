@@ -7,6 +7,14 @@ void main() {
   Stream<Object?> emptyStream() => Stream.fromIterable(<Object?>[]);
   Stream<int?> oneIntStream([int value = 1]) =>
       Stream.fromIterable(<int?>[value]);
+  Stream<int?> oneError([Object error = 'error']) {
+    Future<int?> throwError() async {
+      throw error;
+    }
+
+    return Stream.fromFuture(throwError());
+  }
+
   Stream<String> oneStringStream([String value = '2']) =>
       Stream.fromIterable(<String>[value]);
   Stream<String?> anotherOptionalStringStream([String? value = '3']) =>
@@ -16,6 +24,16 @@ void main() {
       (int?, String) value;
       value = await streamJoin2(oneIntStream(), oneStringStream()).first;
       expect(value, equals((1, '2')));
+    });
+    test('streamJoin2AndError', () async {
+      (StreamJoinItem<int?>, StreamJoinItem<int?>) value;
+      value = await streamJoin2OrError(oneIntStream(), oneError('error')).first;
+      expect(
+          value,
+          equals((
+            StreamJoinItem(value: 1),
+            StreamJoinItem<int?>(error: 'error')
+          )));
     });
     test('streamJoin3', () async {
       (int?, String, String?) value;
