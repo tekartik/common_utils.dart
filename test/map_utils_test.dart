@@ -83,6 +83,14 @@ void main() {
       expect(anyAsMapOrNull(null), isNull);
     });
 
+    test('keySortedMap', () {
+      var map = <String, Object?>{'b': 2, 'a': 1};
+      expect(map.keys.first, 'b');
+      var sortedMap = map.keySortedMap();
+      expect(sortedMap, map);
+      expect(sortedMap.keys.first, 'a');
+    });
+
     test('asMap', () {
       expect(asMap<Object?, Object?>(null), isNull);
       expect(asMap<Object?, Object?>(<int>[]), isNull);

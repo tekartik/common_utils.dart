@@ -1,6 +1,7 @@
 library tekartik_utils.map_utils;
 
 import 'list_utils.dart';
+export 'src/map_utils.dart' show TekartikStringObjectMapExtension;
 
 /// content from mapSrc is merge into mapDst overriding it if needed
 /// @returns mapDst
