@@ -12,6 +12,7 @@ bool get isDebug => assert_utils.isDebug;
 const isRunningAsJavascript = identical(1, 1.0);
 
 /// Borrowed from flutter (isRunningAsJavascript is false in wasm)
+/// Work in non-flutter environment too
 const bool kDartIsWeb = bool.fromEnvironment('dart.library.js_util');
 
 /// Borrowed from flutter - not valid on the web if not flutter
