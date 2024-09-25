@@ -1,5 +1,5 @@
 /// Development helpers to generate warning in code
-library tekartik_dev_utils;
+library;
 
 import 'package:tekartik_common_utils/env_utils.dart';
 export 'src/debug.dart' show debugEnvMap;

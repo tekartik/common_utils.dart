@@ -1,4 +1,4 @@
-library tekartik_string_enum;
+library;
 
 /// Base class for string enum
 abstract class StringEnum {

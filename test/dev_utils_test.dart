@@ -1,4 +1,4 @@
-library dev_utils_test;
+library;
 
 import 'package:tekartik_common_utils/dev_utils.dart';
 import 'package:test/test.dart';

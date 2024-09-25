@@ -1,4 +1,4 @@
-library log_utils_test;
+library;
 
 //import 'package:unittest/vm_config.dart';
 import 'package:logging/logging.dart' as log;

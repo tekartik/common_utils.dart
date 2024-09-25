@@ -1,4 +1,4 @@
-library version_utils_test;
+library;
 
 //import 'package:unittest/vm_config.dart';
 import 'package:tekartik_common_utils/version_utils.dart';

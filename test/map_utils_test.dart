@@ -1,4 +1,4 @@
-library map_utils_tests;
+library;
 
 import 'package:tekartik_common_utils/map_utils.dart';
 import 'package:test/test.dart';

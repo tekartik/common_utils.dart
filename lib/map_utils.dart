@@ -1,4 +1,4 @@
-library tekartik_utils.map_utils;
+library;
 
 import 'list_utils.dart';
 export 'src/map_utils.dart' show TekartikStringObjectMapExtension;

@@ -13,7 +13,7 @@ dependencies:
   synchronized: '>=3.1.0'
   meta: '>=1.3.0'
   lints: '>=2.1.1'
-  cv: '>=0.1.0'
+  cv: '>=1.0.0'
   tekartik_lints:
     git:
       url: https://github.com/tekartik/common.dart
@@ -31,5 +31,5 @@ dev_dependencies:
   web: '>=0.5.1'
 
 dependency_overrides:
-  # cv:
-  #  path: ../../../github.com/tekartik/cv.dart/packages/cv
+  lints: '>=5.1.0'
+  web: '>=1.1.0'

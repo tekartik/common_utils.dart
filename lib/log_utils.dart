@@ -1,4 +1,4 @@
-library tekartik_log_utils;
+library;
 
 import 'package:logging/logging.dart';
 
