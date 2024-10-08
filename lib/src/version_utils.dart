@@ -64,7 +64,7 @@ List<Object> _bumpPreReleaseOrBuild(List<Object> list) {
     var (index, item) = part;
 
     if (item is int) {
-      return List.of(list)..[index] = item + 1;
+      return List.of(list)..[list.length - 1 - index] = item + 1;
     }
   }
   return [...list, 0];
@@ -86,5 +86,48 @@ extension TekartikVersionExt on Version {
       return Version(major, minor, patch,
           build: _bumpPreReleaseOrBuild(build).join('.'));
     }
+  }
+
+  /// Bump a version
+  /// If nothing is specified, it will bump the build or prelease number if present
+  /// or the patch version if no build or prelease is present.
+  Version bump({bool? patch, bool? minor, bool? major, bool? ext}) {
+    major ??= false;
+    minor ??= false;
+
+    patch ??= false;
+
+    ext ??= false;
+    var version = this;
+
+    if (!patch && !minor && !major && !ext) {
+      if (version.isPreRelease || version.build.isNotEmpty) {
+        ext = true;
+      } else {
+        patch = true;
+      }
+    }
+    var majorVersion = version.major;
+    var minorVersion = version.minor;
+    var patchVersion = version.patch;
+    if (major) {
+      majorVersion++;
+      minorVersion = 0;
+      patchVersion = 0;
+    } else if (minor) {
+      minorVersion++;
+      patchVersion = 0;
+    } else if (patch) {
+      patchVersion++;
+    }
+    version = Version(majorVersion, minorVersion, patchVersion,
+        pre:
+            (ext && version.isPreRelease) ? version.preRelease.join('.') : null,
+        build:
+            (ext && version.build.isNotEmpty) ? version.build.join('.') : null);
+    if (ext) {
+      version = version.nextPreReleaseOrBuild;
+    }
+    return version;
   }
 }
