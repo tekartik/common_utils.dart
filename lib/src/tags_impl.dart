@@ -81,8 +81,15 @@ class _Tags implements Tags {
 /// Tags condition (tag1 && tag2 && !tag3 || tag4 && (tag1 && tag4).
 abstract class TagsCondition {
   /// Parse a tags condition.
-  /// Don't assume precedence, use parenthesis.
+  ///
+  /// Don't assume precedence, use parenthesis, don't mix && and || without parenthesis.
+  ///
+  /// empty expression means always true
   factory TagsCondition(String expression) {
+    expression = expression.trim();
+    if (expression.isEmpty) {
+      return _TagsConditionAlwaysTrue();
+    }
     return _parseTagsCondition(expression.trim());
   }
 
@@ -138,6 +145,19 @@ abstract interface class TagsConditionSealed implements TagsCondition {}
 mixin _TagsConditionMixin implements TagsCondition {
   @override
   String toString() => 'Condition(${toText()})';
+}
+
+class _TagsConditionAlwaysTrue
+    with _TagsConditionMixin
+    implements TagsCondition {
+  @override
+  bool check(Tags tags) => true;
+
+  @override
+  String toText() => _toInnerText();
+
+  @override
+  String _toInnerText() => '';
 }
 
 class _TagsConditionTag

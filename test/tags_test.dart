@@ -50,6 +50,11 @@ Future<void> main() async {
       expect(_t('test2, test1').toText(), 'test2,test1');
       expect((_t('test2, test1')..sort()).toText(), 'test1,test2');
     });
+    test('condition none', () {
+      expect(_c('').toText(), '');
+      expect(_c('  ').toText(), '');
+      expect(_c('').check(_t('any')), isTrue);
+    });
     test('simple', () {
       var tags = _t('test');
       expect(_c('test').check(tags), isTrue);
