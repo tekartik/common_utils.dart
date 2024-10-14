@@ -11,6 +11,7 @@ export 'src/list_utils_impl.dart'
         TekartikCommonIterableExtension,
         TekartikCommonIterableIterableExtension,
         TekartikCommonListExtension,
+        TekartikCommonListListExtension,
         TekartikCommonListOrNullExtension;
 
 /// @Deprecated('User iterable extension TekartikIterableExt.firstOrNull')

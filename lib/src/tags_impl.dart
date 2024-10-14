@@ -1,0 +1,274 @@
+import 'package:meta/meta.dart';
+import 'package:tekartik_common_utils/list_utils.dart';
+import 'package:tekartik_common_utils/string_utils.dart';
+
+/// Tags are a list or trimmed string.
+abstract class Tags {
+  /// Tags from a list of strings.
+  factory Tags.fromList({List<String>? tags}) {
+    return _Tags(tags);
+  }
+
+  /// Tags from a string (tags are comma separated).
+  factory Tags.fromText(String? text) {
+    if (text == null) {
+      return _Tags(null);
+    } else {
+      return _Tags(text.split(',').map((String tag) => tag.trim()).toList());
+    }
+  }
+
+  /// Tags as a list of strings.
+  List<String> toList();
+}
+
+/// Tags extension.
+extension TagsExt on Tags {
+  /// Tags as a string (tags are comma separated).
+  String toText() {
+    return toList().join(',');
+  }
+
+  /// Tags as a string (tags are comma separated) or null if empty.
+  String? toTextOrNull() => toText().nonEmpty();
+
+  /// Tags as a list of strings or null if empty.
+  List<String>? toListOrNull() => toList().nonEmpty();
+
+  /// Check if the tags contain a given tag.
+  bool has(String tag) {
+    return toList().contains(tag);
+  }
+
+  /// Add a tag if not already present, return true if added.
+  bool add(String tag) {
+    if (has(tag)) {
+      return false;
+    }
+    toList().add(tag);
+    return true;
+  }
+
+  /// Remove a tag if present, return true if removed.
+  bool remove(String tag) {
+    return toList().remove(tag);
+  }
+}
+
+class _Tags implements Tags {
+  final List<String> tags;
+
+  _Tags(List<String>? tags) : tags = List.of(tags ?? <String>[]);
+
+  @override
+  List<String> toList() => tags;
+
+  @override
+  String toString() => 'Tags(${toText()})';
+}
+
+/// Tags condition (tag1 && tag2 && !tag3 || tag4 && (tag1 && tag4).
+abstract class TagsCondition {
+  /// Parse a tags condition.
+  /// Don't assume precedence, use parenthesis.
+  factory TagsCondition(String expression) {
+    return _parseTagsCondition(expression.trim());
+  }
+
+  /// Check if the tags match the condition.
+  bool check(Tags tags);
+
+  /// Text representation of the condition.
+  String toText();
+
+  String _toInnerText();
+}
+
+/// A condition is either single or multi
+@visibleForTesting
+abstract class TagsConditionSingle implements TagsCondition {}
+
+/// A condition is either single or multi
+@visibleForTesting
+abstract interface class TagsConditionMulti implements TagsCondition {}
+
+class _TagsConditionTag implements TagsConditionSingle {
+  final String tag;
+
+  _TagsConditionTag(this.tag);
+
+  @override
+  bool check(Tags tags) {
+    return tags.has(tag);
+  }
+
+  @override
+  String toText() => tag;
+
+  @override
+  String _toInnerText() => tag;
+}
+
+mixin _TagsConditionMixin implements TagsCondition {
+  @override
+  String toString() => 'Condition(${toText()})';
+}
+
+abstract class _TagsConditionSingleBase
+    with _TagsConditionMixin
+    implements TagsConditionSingle {
+  final TagsCondition condition;
+
+  _TagsConditionSingleBase(this.condition);
+
+  @override
+  String toText() => _toInnerText();
+
+  @override
+  String _toInnerText() => condition._toInnerText();
+}
+
+abstract class _TagsConditionMultiBase
+    with _TagsConditionMixin
+    implements TagsConditionMulti {
+  List<TagsCondition> conditions;
+
+  _TagsConditionMultiBase(this.conditions);
+
+  List<String> conditionTexts() =>
+      conditions.map((condition) => condition._toInnerText()).toList();
+
+  @override
+  String _toInnerText() => '(${toText()})';
+}
+
+class _TagsConditionAny extends _TagsConditionMultiBase
+    implements _TagsConditionOr {
+  _TagsConditionAny(super.conditions);
+
+  @override
+  bool check(Tags tags) {
+    for (var condition in conditions.toList()) {
+      if (condition.check(tags)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
+  String toText() => conditionTexts().join(' || ');
+}
+
+class _TagsConditionAll extends _TagsConditionMultiBase
+    implements _TagsConditionAnd {
+  _TagsConditionAll(super.conditions);
+
+  @override
+  bool check(Tags tags) {
+    for (var condition in conditions.toList()) {
+      if (!condition.check(tags)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  String toText() {
+    var conditionTexts = this.conditionTexts();
+    return conditionTexts.join(' && ');
+  }
+}
+
+abstract class _TagsConditionOr implements TagsConditionMulti {
+  factory _TagsConditionOr(TagsCondition condition1, TagsCondition condition2) {
+    return _TagsConditionAny([condition1, condition2]);
+  }
+}
+
+abstract class _TagsConditionAnd implements TagsConditionMulti {
+  factory _TagsConditionAnd(
+      TagsCondition condition1, TagsCondition condition2) {
+    return _TagsConditionAll([condition1, condition2]);
+  }
+}
+
+class _TagsConditionNot extends _TagsConditionSingleBase {
+  _TagsConditionNot(super.condition);
+
+  @override
+  bool check(Tags tags) {
+    return !condition.check(tags);
+  }
+
+  @override
+  String _toInnerText() => '!${condition._toInnerText()}';
+}
+
+const _or = '||';
+const _and = '&&';
+var _allOperators = [_or, _and];
+
+/// Assumed trimmed
+TagsCondition _parseTagsCondition(String expression) {
+  var parts = expression.splitFirst(' ');
+  var token = parts.first;
+  var firstChar = token[0];
+
+  var not = firstChar == '!';
+
+  TagsCondition wrapCondition(TagsCondition condition) {
+    if (not) {
+      return _TagsConditionNot(condition);
+    }
+    return condition;
+  }
+
+  if (not) {
+    token = token.substring(1);
+  }
+  if (token.isEmpty) {
+    throw ArgumentError('Missing tag or expression after ! in "$expression"');
+  }
+  late TagsCondition firstCondition;
+  late String afterFirstCondition;
+  if (firstChar == '(') {
+    var endIndex = expression.lastIndexOf(')');
+    if (endIndex == -1) {
+      throw ArgumentError('Missing matching ) in "$expression"');
+    }
+    firstCondition = wrapCondition(
+        _parseTagsCondition(expression.substring(1, endIndex).trim()));
+    afterFirstCondition = expression.substring(endIndex + 1).trim();
+  } else if (_allOperators.contains(token)) {
+    throw ArgumentError('Unexpected operator "$token" found in "$expression"');
+  } else {
+    firstCondition = _TagsConditionTag(token);
+    if (parts.length == 1) {
+      return wrapCondition(firstCondition);
+    }
+    afterFirstCondition = parts.last.trim();
+  }
+
+  if (afterFirstCondition.isEmpty) {
+    return wrapCondition(firstCondition);
+  }
+
+  /// expect condition
+  parts = afterFirstCondition.splitFirst(' ');
+  var operator = parts.first;
+  var secondCondition = parts.last.trim();
+
+  if (!_allOperators.contains(operator)) {
+    throw ArgumentError('Missing operator in "$expression"');
+  }
+  var subExpression = _parseTagsCondition(secondCondition);
+  if (operator == _or) {
+    return wrapCondition(_TagsConditionOr(firstCondition, subExpression));
+  } else if (operator == _and) {
+    return wrapCondition(_TagsConditionAnd(firstCondition, subExpression));
+  } else {
+    throw ArgumentError('Missing operators token "$operator" in "$expression"');
+  }
+}
