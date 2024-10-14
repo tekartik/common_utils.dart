@@ -5,7 +5,7 @@ import 'package:tekartik_common_utils/string_utils.dart';
 /// Tags are a list or trimmed string.
 abstract class Tags {
   /// Tags from a list of strings.
-  factory Tags.fromList({List<String>? tags}) {
+  factory Tags.fromList(List<String>? tags) {
     return _Tags(tags);
   }
 
@@ -84,14 +84,6 @@ abstract class TagsCondition {
   /// Private
   String _toInnerText();
 
-  /// Private
-  factory TagsCondition._any(List<TagsCondition> conditions) {
-    assert(conditions.isNotEmpty);
-    if (conditions.length == 1) {
-      return conditions.first;
-    }
-    return _TagsConditionAny(conditions);
-  }
   factory TagsCondition._or(
       TagsCondition condition1, TagsCondition condition2) {
     if (condition2 is _TagsConditionAny) {
@@ -105,15 +97,6 @@ abstract class TagsCondition {
     }
     return _TagsConditionAny([condition1, condition2]);
   }
-
-  factory TagsCondition._all(List<TagsCondition> conditions) {
-    assert(conditions.isNotEmpty);
-    if (conditions.length == 1) {
-      return conditions.first;
-    }
-    return _TagsConditionAll(conditions);
-  }
-
   factory TagsCondition._and(
       TagsCondition condition1, TagsCondition condition2) {
     if (condition2 is _TagsConditionAll) {

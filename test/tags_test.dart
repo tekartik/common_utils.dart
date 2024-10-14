@@ -4,17 +4,27 @@ import 'package:tekartik_common_utils/src/tags_impl.dart'
 import 'package:tekartik_common_utils/tags.dart';
 import 'package:test/test.dart' hide Tags;
 
-Tags _t(String text) => Tags.fromText(text);
+Tags _t(String? text) => Tags.fromText(text);
 
 TagsCondition _c(String expression) => TagsCondition(expression);
 
 Future<void> main() async {
   group('tags', () {
     test('tags', () {
+      expect(_t(null).toText(), '');
+      expect(_t(null).toTextOrNull(), isNull);
+      expect(_t(null).toList(), <String>[]);
+      expect(_t(null).toListOrNull(), isNull);
       expect(_t('test').toText(), 'test');
       expect(_t(' test ').toText(), 'test');
-      expect(_t('test1, test2').toText(), 'test1,test2');
-      expect(_t(' test1, test2 ').toText(), 'test1,test2');
+      var tags = _t('test1, test2');
+      expect(tags.toText(), 'test1,test2');
+      expect(tags.toTextOrNull(), 'test1,test2');
+      expect(tags.toList(), ['test1', 'test2']);
+      expect(tags.toListOrNull(), ['test1', 'test2']);
+      expect(Tags.fromList(null).toText(), '');
+      expect(Tags.fromList(['test1']).toText(), 'test1');
+      expect(Tags.fromList(['test1', 'test2']).toText(), 'test1,test2');
     });
     test('simple', () {
       var tags = _t('test');
