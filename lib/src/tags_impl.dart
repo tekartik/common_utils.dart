@@ -81,18 +81,74 @@ abstract class TagsCondition {
   /// Text representation of the condition.
   String toText();
 
+  /// Private
   String _toInnerText();
+
+  /// Private
+  factory TagsCondition._any(List<TagsCondition> conditions) {
+    assert(conditions.isNotEmpty);
+    if (conditions.length == 1) {
+      return conditions.first;
+    }
+    return _TagsConditionAny(conditions);
+  }
+  factory TagsCondition._or(
+      TagsCondition condition1, TagsCondition condition2) {
+    if (condition2 is _TagsConditionAny) {
+      return _TagsConditionAny([condition1, ...condition2.conditions]);
+    } else if (condition1 is _TagsConditionAny) {
+      return _TagsConditionAny([...condition1.conditions, condition1]);
+    } else if (condition1 is _TagsConditionAll ||
+        condition2 is _TagsConditionAll) {
+      throw ArgumentError(
+          'You cannot mixed || and && operator without parenthesis');
+    }
+    return _TagsConditionAny([condition1, condition2]);
+  }
+
+  factory TagsCondition._all(List<TagsCondition> conditions) {
+    assert(conditions.isNotEmpty);
+    if (conditions.length == 1) {
+      return conditions.first;
+    }
+    return _TagsConditionAll(conditions);
+  }
+
+  factory TagsCondition._and(
+      TagsCondition condition1, TagsCondition condition2) {
+    if (condition2 is _TagsConditionAll) {
+      return _TagsConditionAll([condition1, ...condition2.conditions]);
+    } else if (condition1 is _TagsConditionAll) {
+      return _TagsConditionAll([...condition1.conditions, condition1]);
+    } else if (condition1 is _TagsConditionAny ||
+        condition2 is _TagsConditionAny) {
+      throw ArgumentError(
+          'You cannot mixed && and || operator without parenthesis');
+    }
+    return _TagsConditionAll([condition1, condition2]);
+  }
 }
 
 /// A condition is either single or multi
 @visibleForTesting
-abstract class TagsConditionSingle implements TagsCondition {}
+abstract class TagsConditionSingle implements TagsConditionSealed {}
 
 /// A condition is either single or multi
 @visibleForTesting
 abstract interface class TagsConditionMulti implements TagsCondition {}
 
-class _TagsConditionTag implements TagsConditionSingle {
+/// A sealed condition
+@visibleForTesting
+abstract interface class TagsConditionSealed implements TagsCondition {}
+
+mixin _TagsConditionMixin implements TagsCondition {
+  @override
+  String toString() => 'Condition(${toText()})';
+}
+
+class _TagsConditionTag
+    with _TagsConditionMixin
+    implements TagsConditionSingle {
   final String tag;
 
   _TagsConditionTag(this.tag);
@@ -107,11 +163,6 @@ class _TagsConditionTag implements TagsConditionSingle {
 
   @override
   String _toInnerText() => tag;
-}
-
-mixin _TagsConditionMixin implements TagsCondition {
-  @override
-  String toString() => 'Condition(${toText()})';
 }
 
 abstract class _TagsConditionSingleBase
@@ -142,8 +193,7 @@ abstract class _TagsConditionMultiBase
   String _toInnerText() => '(${toText()})';
 }
 
-class _TagsConditionAny extends _TagsConditionMultiBase
-    implements _TagsConditionOr {
+class _TagsConditionAny extends _TagsConditionMultiBase {
   _TagsConditionAny(super.conditions);
 
   @override
@@ -160,8 +210,7 @@ class _TagsConditionAny extends _TagsConditionMultiBase
   String toText() => conditionTexts().join(' || ');
 }
 
-class _TagsConditionAll extends _TagsConditionMultiBase
-    implements _TagsConditionAnd {
+class _TagsConditionAll extends _TagsConditionMultiBase {
   _TagsConditionAll(super.conditions);
 
   @override
@@ -181,17 +230,21 @@ class _TagsConditionAll extends _TagsConditionMultiBase
   }
 }
 
-abstract class _TagsConditionOr implements TagsConditionMulti {
-  factory _TagsConditionOr(TagsCondition condition1, TagsCondition condition2) {
-    return _TagsConditionAny([condition1, condition2]);
-  }
-}
+class _TagConditionSealed
+    with _TagsConditionMixin
+    implements TagsConditionSealed {
+  final TagsCondition condition;
 
-abstract class _TagsConditionAnd implements TagsConditionMulti {
-  factory _TagsConditionAnd(
-      TagsCondition condition1, TagsCondition condition2) {
-    return _TagsConditionAll([condition1, condition2]);
-  }
+  _TagConditionSealed(this.condition);
+
+  @override
+  String _toInnerText() => condition._toInnerText();
+
+  @override
+  bool check(Tags tags) => condition.check(tags);
+
+  @override
+  String toText() => condition.toText();
 }
 
 class _TagsConditionNot extends _TagsConditionSingleBase {
@@ -204,6 +257,25 @@ class _TagsConditionNot extends _TagsConditionSingleBase {
 
   @override
   String _toInnerText() => '!${condition._toInnerText()}';
+}
+
+/// Find macthing end parentheses
+int findMatchingEndParenthesis(String expression, int startIndex) {
+  var index = startIndex;
+  var count = 1;
+  while (index < expression.length) {
+    var chr = expression[index];
+    if (chr == '(') {
+      count++;
+    } else if (chr == ')') {
+      count--;
+      if (count == 0) {
+        return index;
+      }
+    }
+    index++;
+  }
+  return -1;
 }
 
 const _or = '||';
@@ -227,6 +299,8 @@ TagsCondition _parseTagsCondition(String expression) {
 
   if (not) {
     token = token.substring(1);
+    expression = expression.substring(1);
+    firstChar = token[0];
   }
   if (token.isEmpty) {
     throw ArgumentError('Missing tag or expression after ! in "$expression"');
@@ -234,11 +308,11 @@ TagsCondition _parseTagsCondition(String expression) {
   late TagsCondition firstCondition;
   late String afterFirstCondition;
   if (firstChar == '(') {
-    var endIndex = expression.lastIndexOf(')');
+    var endIndex = findMatchingEndParenthesis(expression, 1);
     if (endIndex == -1) {
       throw ArgumentError('Missing matching ) in "$expression"');
     }
-    firstCondition = wrapCondition(
+    firstCondition = _TagConditionSealed(
         _parseTagsCondition(expression.substring(1, endIndex).trim()));
     afterFirstCondition = expression.substring(endIndex + 1).trim();
   } else if (_allOperators.contains(token)) {
@@ -265,9 +339,9 @@ TagsCondition _parseTagsCondition(String expression) {
   }
   var subExpression = _parseTagsCondition(secondCondition);
   if (operator == _or) {
-    return wrapCondition(_TagsConditionOr(firstCondition, subExpression));
+    return wrapCondition(TagsCondition._or(firstCondition, subExpression));
   } else if (operator == _and) {
-    return wrapCondition(_TagsConditionAnd(firstCondition, subExpression));
+    return wrapCondition(TagsCondition._and(firstCondition, subExpression));
   } else {
     throw ArgumentError('Missing operators token "$operator" in "$expression"');
   }
