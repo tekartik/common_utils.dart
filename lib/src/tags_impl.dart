@@ -18,26 +18,31 @@ abstract class Tags {
     }
   }
 
+  /// Empty tag list
+  factory Tags() => Tags.fromList(null);
+
   /// Tags as a list of strings.
   List<String> toList();
+
+  List<String> get _tags;
 }
 
 /// Tags extension.
 extension TagsExt on Tags {
   /// Tags as a string (tags are comma separated).
   String toText() {
-    return toList().join(',');
+    return _tags.join(',');
   }
 
   /// Tags as a string (tags are comma separated) or null if empty.
   String? toTextOrNull() => toText().nonEmpty();
 
   /// Tags as a list of strings or null if empty.
-  List<String>? toListOrNull() => toList().nonEmpty();
+  List<String>? toListOrNull() => _tags.nonEmpty();
 
   /// Check if the tags contain a given tag.
   bool has(String tag) {
-    return toList().contains(tag);
+    return _tags.contains(tag);
   }
 
   /// Add a tag if not already present, return true if added.
@@ -45,23 +50,29 @@ extension TagsExt on Tags {
     if (has(tag)) {
       return false;
     }
-    toList().add(tag);
+    _tags.add(tag);
     return true;
   }
 
   /// Remove a tag if present, return true if removed.
   bool remove(String tag) {
-    return toList().remove(tag);
+    return _tags.remove(tag);
+  }
+
+  /// Sort the tags
+  void sort() {
+    _tags.sort();
   }
 }
 
 class _Tags implements Tags {
-  final List<String> tags;
+  @override
+  final List<String> _tags;
 
-  _Tags(List<String>? tags) : tags = List.of(tags ?? <String>[]);
+  _Tags(List<String>? tags) : _tags = List.of(tags ?? <String>[]);
 
   @override
-  List<String> toList() => tags;
+  List<String> toList() => _tags;
 
   @override
   String toString() => 'Tags(${toText()})';

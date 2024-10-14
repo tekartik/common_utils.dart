@@ -26,6 +26,30 @@ Future<void> main() async {
       expect(Tags.fromList(['test1']).toText(), 'test1');
       expect(Tags.fromList(['test1', 'test2']).toText(), 'test1,test2');
     });
+    test('has/add/remove', () {
+      var tags = Tags();
+      expect(tags.has('test1'), isFalse);
+      expect(tags.add('test1'), isTrue);
+      expect(tags.has('test1'), isTrue);
+      expect(tags.add('test1'), isFalse);
+      expect(tags.has('test1'), isTrue);
+      expect(tags.remove('test1'), isTrue);
+      expect(tags.has('test1'), isFalse);
+      expect(tags.remove('test1'), isFalse);
+      expect(tags.has('test1'), isFalse);
+
+      expect(tags.add('test1'), isTrue);
+      expect(tags.add('test2'), isTrue);
+      expect(tags.has('test1'), isTrue);
+      expect(tags.has('test2'), isTrue);
+      expect(tags.toList(), ['test1', 'test2']);
+      expect(tags.add('test1'), isFalse);
+      expect(tags.add('test2'), isFalse);
+    });
+    test('sort', () {
+      expect(_t('test2, test1').toText(), 'test2,test1');
+      expect((_t('test2, test1')..sort()).toText(), 'test1,test2');
+    });
     test('simple', () {
       var tags = _t('test');
       expect(_c('test').check(tags), isTrue);
