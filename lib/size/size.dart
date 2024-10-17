@@ -1,4 +1,4 @@
-import 'package:tekartik_common_utils/src/num_utils.dart';
+import 'package:tekartik_common_utils/num_utils.dart';
 
 export 'dart:math' show Point;
 
