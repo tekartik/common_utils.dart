@@ -26,6 +26,7 @@ void defineTests() {
         'kProfileMode': false,
         'kIsWeb': false,
         'kDartIsWebWasm': false,
+        'kDartIsWebJs': false,
       });
     });
   });
