@@ -26,3 +26,6 @@ const bool kDartIoDebugMode = !kDartIoReleaseMode && !kDartIoProfileMode;
 
 /// True if we wasm
 const kDartIsWebWasm = kDartIsWeb && !isRunningAsJavascript;
+
+/// True in web js
+const kDartIsWebJs = kDartIsWeb && isRunningAsJavascript;

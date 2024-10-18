@@ -17,6 +17,7 @@ Map<String, Object?> get debugEnvMap {
     'kProfileMode': fundation.kProfileMode,
     'kIsWeb': fundation.kIsWeb,
     'kDartIsWebWasm': kDartIsWebWasm,
+    'kDartIsWebJs': kDartIsWebJs,
   };
   return map;
 }
