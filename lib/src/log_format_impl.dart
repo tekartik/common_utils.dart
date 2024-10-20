@@ -87,7 +87,7 @@ class _Converter {
   }
 
   _Converter({this.options = const LogFormatOptions()});
-  Map<String, Object?> jsObjectToMap(Map map, {int? depth}) {
+  Map<String, Object?> _innerMapToMap(Map map, {int? depth}) {
     // Stop
     if (depth == 0) {
       return {'.': '.'};
@@ -120,9 +120,11 @@ class _Converter {
       return _convertBasicValue(value);
     }
     if (value is List) {
-      return jsArrayToList(value, depth: depth);
+      return _innerListToList(value, depth: depth);
     } else if (value is Map) {
-      return jsObjectToMap(value, depth: depth);
+      return _innerMapToMap(value, depth: depth);
+    } else if (value is CvModel) {
+      return _innerMapToMap(value.toMap(), depth: depth);
     }
     return logTruncateString(value.toString());
   }
@@ -134,7 +136,7 @@ class _Converter {
     return depth - 1;
   }
 
-  List jsArrayToList(List list, {int? depth}) {
+  List _innerListToList(List list, {int? depth}) {
     if (depth == 0) {
       return ['..'];
     }

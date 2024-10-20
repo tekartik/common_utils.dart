@@ -1,9 +1,11 @@
 library;
 
+import 'package:cv/cv.dart';
 import 'package:tekartik_common_utils/src/log_format_impl.dart';
 import 'package:test/test.dart';
 
-Object? anyToJsAny(Object? any) => logFormatConvert(any);
+const _unknownMap = {'.': '.'};
+const _unknownList = ['..'];
 
 void main() {
   group('log_format', () {
@@ -28,14 +30,34 @@ void main() {
       final list2 = [list1, map2];
       expect(logFormatConvert(map2), map2);
       expect(logFormatConvert(list2, options: const LogFormatOptions()), list2);
+
+      expect(logFormatConvert(CvModelEmpty()), newModel());
     });
 
-    test('asCollectionDepth', () {
+    test('logFormatConvert with depth', () {
       expect(logFormatConvert(null, options: const LogFormatOptions(depth: 0)),
           isNull);
       expect(logFormatConvert(1, options: const LogFormatOptions(depth: 0)), 1);
       expect(logFormatConvert(null, options: const LogFormatOptions(depth: 1)),
           isNull);
+      expect(
+          logFormatConvert(newModel(),
+              options: const LogFormatOptions(depth: 0)),
+          _unknownMap);
+      expect(
+          logFormatConvert({'key1': 1, 'key2': newModel(), 'key3': <int>[]},
+              options: const LogFormatOptions(depth: 1)),
+          {'key1': 1, 'key2': _unknownMap, 'key3': _unknownList});
+
+      expect(logFormatConvert([], options: const LogFormatOptions(depth: 0)),
+          _unknownList);
+      expect(
+          logFormatConvert([
+            1,
+            <int>[],
+            {'test': 1}
+          ], options: const LogFormatOptions(depth: 1)),
+          [1, _unknownList, _unknownMap]);
 
       var map1 = {'int': 1, 'string': 'text'};
       var list1 = [1, 'test', null, 1.1, map1];
@@ -81,6 +103,7 @@ void main() {
       expect(logFormat('null'), 'null');
       expect(logFormat(<String, Object?>{}), '{}');
       expect(logFormat(<int>[]), '[]');
+      expect(logFormat(CvModelEmpty()), '{}');
     });
   });
 }
