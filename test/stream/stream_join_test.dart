@@ -42,6 +42,13 @@ void main() {
           .first;
       expect(value, equals((1, '2', null)));
     });
+    test('streamJoin4', () async {
+      (int?, String, String?, int?) value;
+      value = await streamJoin4(oneIntStream(), oneStringStream(),
+              anotherOptionalStringStream(null), oneIntStream(10))
+          .first;
+      expect(value, equals((1, '2', null, 10)));
+    });
     test('streamJoinAll', () {
       expect(emptyStream(), emitsInOrder([emitsDone]));
       expect(streamJoinAll([emptyStream()]), emitsInOrder([emitsDone]));
