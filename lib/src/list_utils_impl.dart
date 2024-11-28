@@ -44,3 +44,14 @@ extension TekartikCommonIterableIterableExtension<T> on Iterable<Iterable<T>> {
   /// [[1], [2, 3]].flatten() => [1, 2, 3]
   List<T> flatten() => listFlatten<T>(this);
 }
+
+/// Find the list of chunk sizes to split a list of a given length
+List<int> listLengthChunkSizes(int length, int chunkMaxSize) {
+  var fullChunkCount = length ~/ chunkMaxSize;
+  var list = List.filled(fullChunkCount, chunkMaxSize, growable: true);
+  var remaining = length - fullChunkCount * chunkMaxSize;
+  if (remaining > 0) {
+    list.add(remaining);
+  }
+  return list;
+}
