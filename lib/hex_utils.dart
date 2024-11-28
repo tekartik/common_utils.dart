@@ -1,4 +1,5 @@
 import 'dart:math';
+export 'src/hex_utils.dart' show parseHexBytes;
 
 ///
 int _upperACodeUnit = 'A'.codeUnitAt(0);
