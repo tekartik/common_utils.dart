@@ -18,7 +18,19 @@ final _fourNumberStartVersion = RegExp(r'^' // Start at beginning.
 final _fourNumberCompleteVersion =
     RegExp('${_fourNumberStartVersion.pattern}\$');
 
-/// Add support for version X, X.X not supported in platform version
+/// Parse a version or return null, add support for version X.X, X.X.X.X
+Version? parseVersionOrNull(String? text) {
+  if (text == null) {
+    return null;
+  }
+  try {
+    return parseVersion(text);
+  } on FormatException catch (_) {
+    return null;
+  }
+}
+
+/// Add support for version X.X, X.X.X.X not supported in platform version
 Version parseVersion(String text) {
   try {
     return Version.parse(text);
