@@ -17,12 +17,21 @@ void defineTests() {
       expect(parseVersion('4.3.1.5'), Version(4, 3, 1, build: '5'));
     });
 
-    test('parseVersionOrNull', () {
+    test('parseVersionOrNull default', () {
       expect(parseVersionOrNull(null), isNull);
       expect(parseVersionOrNull('4.3.1'), Version(4, 3, 1));
       expect(parseVersionOrNull('4.3'), Version(4, 3, 0));
       expect(parseVersionOrNull('4.3.1.5'), Version(4, 3, 1, build: '5'));
       expect(parseVersionOrNull('4'), isNull);
+    });
+    test('parseVersionOrNull strict', () {
+      expect(parseVersionOrNull(null, strict: true), isNull);
+      expect(parseVersionOrNull('4.3.1', strict: true), Version(4, 3, 1));
+      expect(parseVersionOrNull('4.3', strict: true), Version(4, 3, 0));
+      expect(parseVersionOrNull('4.3.1.5', strict: true),
+          Version(4, 3, 1, build: '5'));
+      expect(
+          () => parseVersionOrNull('4', strict: true), throwsFormatException);
     });
 
     test('parse', () {

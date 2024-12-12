@@ -19,13 +19,17 @@ final _fourNumberCompleteVersion =
     RegExp('${_fourNumberStartVersion.pattern}\$');
 
 /// Parse a version or return null, add support for version X.X, X.X.X.X
-Version? parseVersionOrNull(String? text) {
+/// if strict, null or valid version are allowed
+Version? parseVersionOrNull(String? text, {bool? strict}) {
   if (text == null) {
     return null;
   }
   try {
     return parseVersion(text);
   } on FormatException catch (_) {
+    if (strict ?? false) {
+      rethrow;
+    }
     return null;
   }
 }
