@@ -1,5 +1,10 @@
 import 'dart:math';
-export 'src/hex_utils.dart' show parseHexBytes;
+export 'src/hex_utils.dart'
+    show
+        parseHexBytes,
+        TekartikUint8ListToHexExt,
+        TekartikUint32ToHexExt,
+        TekartikStringFromHexExt;
 
 ///
 int _upperACodeUnit = 'A'.codeUnitAt(0);
@@ -270,6 +275,14 @@ List<int> parseHexString(String text) {
 /// returns null if data is null
 ///
 String? toHexString(List<int>? data) {
+  return toHexStringOrNull(data);
+}
+
+///
+/// convert [data] to "01A1..."
+/// returns null if data is null
+///
+String? toHexStringOrNull(List<int>? data) {
   if (data == null) {
     return null;
   }

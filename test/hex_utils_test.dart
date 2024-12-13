@@ -1,4 +1,6 @@
+import 'package:tekartik_common_utils/byte_utils.dart';
 import 'package:tekartik_common_utils/hex_utils.dart';
+import 'package:tekartik_common_utils/src/hex_utils.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -145,6 +147,16 @@ void main() {
       expect(toLohexString([0x01, 0x83, 0x3d, 0x79]), '01833d79');
       expect(toLohexString([]), '');
       expect(toLohexString(null), null);
+    });
+    test('int extension', () {
+      expect(0x1234.uint32ToHex(), '00001234');
+      expect(0x123456aF.uint32ToUint8List(), [0x12, 0x34, 0x56, 0xaf]);
+      expect(0x1234.uint32ToHex(), '00001234');
+      expect(0x123f.uint32ToHex(), '0000123F');
+      expect('123456eF'.hexParseUint32(), 0x123456ef);
+      expect('1234cD'.hexParseUint8List(), [0x12, 0x34, 0xcD]);
+      expect(asUint8List([0x12, 0x34, 0x56, 0xaf]).toHexString(), '123456AF');
+      expect(asUint8List([0x12, 0x34, 0x56, 0xaf]).toUint32(), 0x123456AF);
     });
   });
 }
