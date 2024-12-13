@@ -1,6 +1,5 @@
 import 'package:tekartik_common_utils/byte_utils.dart';
 import 'package:tekartik_common_utils/hex_utils.dart';
-import 'package:tekartik_common_utils/src/hex_utils.dart';
 import 'package:test/test.dart';
 
 void main() {
