@@ -26,7 +26,7 @@ extension TekartikUint8ListToHexExt on Uint8List {
 /// Convert to hex
 extension TekartikUint32ToHexExt on int {
   /// Convert 1,2,3 to 010203
-  String uint32ToHex() {
+  String uint32ToHexString() {
     return uint32ToUint8List().toHexString();
   }
 
