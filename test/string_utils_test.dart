@@ -125,4 +125,10 @@ void main() {
     expect('a b'.splitFirst(' '), ['a', 'b']);
     expect('a b c'.splitFirst(' '), ['a', 'b c']);
   });
+  test('matchesStringList', () {
+    expect(['a', 'b', 'c'].matchesStringList(['a', 'b', 'c']), isTrue);
+    expect(['a', 'b', 'c'].matchesStringList(['a', 'b', 'd']), isFalse);
+    expect(['a', 'b', 'c'].matchesStringList(['a', 'b']), isFalse);
+    expect(['a', 'b', 'c'].matchesStringList(['a', 'b', 'c', 'd']), isFalse);
+  });
 }

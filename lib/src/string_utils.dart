@@ -16,6 +16,22 @@ String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
 /// Common string extension
+extension TekartikCommonStringListExtension on List<String> {
+  /// Compare two lists of strings
+  bool matchesStringList(List<String> other) {
+    if (other.length != length) {
+      return false;
+    }
+    for (var i = 0; i < length; i++) {
+      if (this[i] != other[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+/// Common string extension
 extension TekartikCommonStringExtension on String {
   /// Never returns an empty string.
   String? nonEmpty([String? defaultValue]) =>

@@ -9,6 +9,7 @@ export 'int_utils.dart' show parseInt;
 export 'src/string_utils.dart'
     show
         TekartikCommonStringExtension,
+        TekartikCommonStringListExtension,
         stringIsEmpty,
         stringNonEmpty,
         stringIsDigit,
