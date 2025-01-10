@@ -225,5 +225,13 @@ void main() {
       expect(<int>[1].firstWhereOrNull(check), isNull);
       expect(<int>[1, 2].firstWhereOrNull(check), 2);
     });
+    test('listEquals', () {
+      expect(listEquals([], []), isTrue);
+      expect(listEquals([], null), isFalse);
+      expect(listEquals([1], [1]), isTrue);
+      expect(listEquals([1, 'a'], [1, 'a']), isTrue);
+      expect(listEquals([1, 'a'], [1, 'b']), isFalse);
+      expect(listEquals([1, 'a'], [1]), isFalse);
+    });
   });
 }
