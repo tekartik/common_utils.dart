@@ -93,6 +93,7 @@ void main() {
     expect('123'.truncate(2), '12');
     expect('123'.truncate(2, ellipsis: true), '12…');
     expect('123'.truncate(3, ellipsis: true), '123');
+    expect('12\r\n'.truncate(3, ellipsis: true), '12…');
     expect('123'.truncate(4), '123');
   });
   test('stringsCompareWithLastInt', () {

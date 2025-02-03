@@ -48,7 +48,7 @@ String? stringTruncate(String? text, int len, {bool? ellipsis}) {
   if (text != null) {
     var existingLen = text.length;
     if (existingLen > len) {
-      return '${text.substring(0, len)}${(ellipsis ?? false) ? '…' : ''}';
+      return '${text.substring(0, len).trimRight()}${(ellipsis ?? false) ? '…' : ''}';
     }
   }
   return text;
