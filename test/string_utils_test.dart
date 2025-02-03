@@ -91,6 +91,8 @@ void main() {
     expect(''.nonEmpty(), isNull);
     expect('456'.nonEmpty(), '456');
     expect('123'.truncate(2), '12');
+    expect('123'.truncate(2, ellipsis: true), '12…');
+    expect('123'.truncate(3, ellipsis: true), '123');
     expect('123'.truncate(4), '123');
   });
   test('stringsCompareWithLastInt', () {

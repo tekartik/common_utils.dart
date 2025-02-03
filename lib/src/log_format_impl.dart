@@ -63,10 +63,10 @@ class LogFormatOptions {
 }
 
 /// Truncate a string
-String logTruncateString(String value, {int? length}) {
+String logTruncateString(String value, {int? length, bool? ellipsis}) {
   length ??= logBasicTypeTruncateLength;
   if (length != null) {
-    return value.truncate(length);
+    return value.truncate(length, ellipsis: ellipsis);
   }
   return value;
 }
@@ -165,7 +165,7 @@ String logFormat(Object? value, {LogFormatOptions? options}) {
   }
   options ??= globalLogFormatOptions;
   if (options.finalTypeTruncateLength != null) {
-    return text.truncate(options.finalTypeTruncateLength!);
+    return text.truncate(options.finalTypeTruncateLength!, ellipsis: true);
   }
   return text;
 }

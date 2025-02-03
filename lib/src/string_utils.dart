@@ -71,7 +71,8 @@ extension TekartikCommonStringExtension on String {
   }
 
   /// Truncate at max element.
-  String truncate(int len) => stringTruncate(this, len)!;
+  String truncate(int len, {bool? ellipsis}) =>
+      stringTruncate(this, len, ellipsis: ellipsis)!;
 
   /// Obfuscate a string by replacing all but the first and last 4 characters with '*'.
   /// at least half of the characters are obfuscated.
