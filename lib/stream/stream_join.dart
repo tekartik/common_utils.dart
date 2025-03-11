@@ -10,7 +10,8 @@ class StreamJoinItem<T> {
 
   /// Constructor
   StreamJoinItem({this.value, this.error}) {
-    assert(value != null || error != null);
+    // Value can be null!
+    // assert(value != null || error != null);
   }
 
   /// Cast
@@ -23,7 +24,7 @@ class StreamJoinItem<T> {
 
   @override
   int get hashCode {
-    return value?.hashCode ?? error!.hashCode;
+    return value?.hashCode ?? error?.hashCode ?? 0;
   }
 
   @override

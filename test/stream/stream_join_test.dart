@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   Stream<Object?> emptyStream() => Stream.fromIterable(<Object?>[]);
-  Stream<int?> oneIntStream([int value = 1]) =>
+  Stream<int?> oneIntStream([int? value = 1]) =>
       Stream.fromIterable(<int?>[value]);
   Stream<int?> oneError([Object error = 'error']) {
     Future<int?> throwError() async {
@@ -100,6 +100,15 @@ void main() {
             [1, 3, 6],
             emitsDone
           ]));
+    });
+    test('streamJoinNull', () async {
+      var value =
+          await streamJoin2(oneIntStream(null), oneStringStream()).first;
+      expect(value, equals((null, '2')));
+      var item =
+          await streamJoin2OrError(oneIntStream(null), oneStringStream()).first;
+      expect(
+          item, equals((StreamJoinItem<int?>(), StreamJoinItem(value: '2'))));
     });
   });
 }
