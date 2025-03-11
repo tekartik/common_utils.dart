@@ -1,5 +1,5 @@
 platforms:
-  - node
+  # - node - since 2025-03-11 intellij keeps on failing with node, trying to run dart2wasm mode
   - vm
   - chrome
 compilers:

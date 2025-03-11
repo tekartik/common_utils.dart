@@ -1,4 +1,5 @@
 import 'dart:async';
+export 'stream_join_gen.dart';
 
 /// Join item for [streamJoinAllOrError ]
 class StreamJoinItem<T> {
@@ -33,6 +34,22 @@ class StreamJoinItem<T> {
       return value == other.value && error == other.error;
     }
     return super == other;
+  }
+
+  @override
+  String toString() {
+    var sb = StringBuffer('Item(');
+    if (error != null) {
+      sb.write('error: $error');
+    }
+    if (error == null || value != null) {
+      if (error != null) {
+        sb.write(', ');
+      }
+      sb.write('${value ?? '<null>'}');
+    }
+    sb.write(')');
+    return sb.toString();
   }
 }
 
@@ -138,14 +155,6 @@ Stream<(T1, T2)> streamJoin2<T1 extends Object?, T2 extends Object?>(
       .map((event) => (event[0] as T1, event[1] as T2));
 }
 
-/// Join 2 streams
-Stream<(StreamJoinItem<T1>, StreamJoinItem<T2>)>
-    streamJoin2OrError<T1 extends Object?, T2 extends Object?>(
-        Stream<T1> stream1, Stream<T2> stream2) {
-  return streamJoinAllOrError<Object?>([stream1, stream2])
-      .map((event) => (event[0].cast<T1>(), event[1].cast<T2>()));
-}
-
 /// Join 3 streams
 Stream<(T1, T2, T3)>
     streamJoin3<T1 extends Object?, T2 extends Object?, T3 extends Object?>(
@@ -154,33 +163,11 @@ Stream<(T1, T2, T3)>
       .map((event) => (event[0] as T1, event[1] as T2, event[2] as T3));
 }
 
-/// Join 3 streams
-Stream<(StreamJoinItem<T1>, StreamJoinItem<T2>, StreamJoinItem<T3>)>
-    streamJoin3OrError<T1 extends Object?, T2 extends Object?,
-            T3 extends Object?>(
-        Stream<T1> stream1, Stream<T2> stream2, Stream<T3> stream3) {
-  return streamJoinAllOrError<Object?>([stream1, stream2, stream3]).map(
-      (event) =>
-          (event[0].cast<T1>(), event[1].cast<T2>(), event[2].cast<T3>()));
-}
-
 /// Join 4 streams
 Stream<(T1, T2, T3, T4)> streamJoin4<T1 extends Object?, T2 extends Object?,
         T3 extends Object?, T4 extends Object?>(Stream<T1> stream1,
     Stream<T2> stream2, Stream<T3> stream3, Stream<T4> stream4) {
   return streamJoinAll<Object?>([stream1, stream2, stream3, stream4]).map(
       (event) =>
-          (event[0] as T1, event[1] as T2, event[2] as T3, event[3] as T4));
-}
-
-/// Join 4 streams
-Stream<(T1, T2, T3, T4)> streamJoin4OrError<T1 extends Object?,
-        T2 extends Object?, T3 extends Object?, T4 extends Object?>(
-    Stream<T1> stream1,
-    Stream<T2> stream2,
-    Stream<T3> stream3,
-    Stream<T4> stream4) {
-  return streamJoinAllOrError<Object?>([stream1, stream2, stream3, stream4])
-      .map((event) =>
           (event[0] as T1, event[1] as T2, event[2] as T3, event[3] as T4));
 }

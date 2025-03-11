@@ -34,6 +34,7 @@ void main() {
             StreamJoinItem(value: 1),
             StreamJoinItem<int?>(error: 'error')
           )));
+      expect(value.values, equals((1, null)));
     });
     test('streamJoin3', () async {
       (int?, String, String?) value;
@@ -42,11 +43,28 @@ void main() {
           .first;
       expect(value, equals((1, '2', null)));
     });
+    test('streamJoin3OrError', () async {
+      (int?, String?, String?) value;
+      value = (await streamJoin3OrError(oneIntStream(), oneStringStream(),
+                  anotherOptionalStringStream(null))
+              .first)
+          .values;
+      expect(value, equals((1, '2', null)));
+    });
     test('streamJoin4', () async {
       (int?, String, String?, int?) value;
       value = await streamJoin4(oneIntStream(), oneStringStream(),
               anotherOptionalStringStream(null), oneIntStream(10))
           .first;
+      expect(value, equals((1, '2', null, 10)));
+    });
+
+    test('streamJoin4OrError', () async {
+      (int?, String?, String?, int?) value;
+      value = (await streamJoin4OrError(oneIntStream(), oneStringStream(),
+                  anotherOptionalStringStream(null), oneIntStream(10))
+              .first)
+          .values;
       expect(value, equals((1, '2', null, 10)));
     });
     test('streamJoinAll', () {
@@ -105,10 +123,22 @@ void main() {
       var value =
           await streamJoin2(oneIntStream(null), oneStringStream()).first;
       expect(value, equals((null, '2')));
-      var item =
+      var items =
           await streamJoin2OrError(oneIntStream(null), oneStringStream()).first;
       expect(
-          item, equals((StreamJoinItem<int?>(), StreamJoinItem(value: '2'))));
+          items, equals((StreamJoinItem<int?>(), StreamJoinItem(value: '2'))));
+      var items3 = await streamJoin3OrError(
+        oneIntStream(null),
+        oneStringStream('test'),
+        oneError(),
+      ).first;
+      expect(
+          items3.toString(), '(Item(<null>), Item(test), Item(error: error))');
+      var items4 = await streamJoin4OrError(oneIntStream(null),
+              oneStringStream('test'), oneIntStream(5), oneError())
+          .first;
+      expect(items4.toString(),
+          '(Item(<null>), Item(test), Item(5), Item(error: error))');
     });
   });
 }
