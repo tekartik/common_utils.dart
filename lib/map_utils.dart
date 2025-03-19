@@ -68,7 +68,7 @@ int? mapIntValue(Map map, String key, [int? defaultValue]) {
 }
 
 /// Can fail
-Map<K, V>? anyAsMap<K extends Object?, V extends Object?>(Object value) =>
+Map<K, V> anyAsMap<K extends Object?, V extends Object?>(Object value) =>
     anyAsMapOrNull(value)!;
 
 /// Safe way to get a map, never fails
@@ -85,7 +85,7 @@ Map<K, V>? anyAsMapOrNull<K extends Object?, V extends Object?>(Object? value) {
 }
 
 /// Safe way to get a map, never fails
-/// @Deprecated prefere
+/// @Deprecated prefer anyAsMapOrNull or anyAsMap
 Map<K, V>? asMap<K extends Object?, V extends Object?>(Object? value) =>
     anyAsMapOrNull(value);
 
