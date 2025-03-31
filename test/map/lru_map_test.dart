@@ -48,4 +48,13 @@ void main() {
     expect(lruMap[1], isNull);
     expect(lruMap[2], 'two');
   });
+
+  test('clear', () {
+    var lruMap = LruMap<int, String>(maximumSize: 3);
+    lruMap[1] = 'one';
+    lruMap[2] = 'two';
+    expect(lruMap.length, 2);
+    lruMap.clear();
+    expect(lruMap.length, 0);
+  });
 }

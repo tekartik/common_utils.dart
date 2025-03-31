@@ -43,7 +43,7 @@ class LruMap<K, V> extends MapBase<K?, V> {
 
   @override
   void clear() {
-    for (var key in _keys) {
+    for (var key in List.of(_keys)) {
       _dispose(key);
     }
   }
