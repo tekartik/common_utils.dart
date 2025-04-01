@@ -46,6 +46,12 @@ void defineTests([bool disableOutput = true]) {
       expect(devWarning(3), 3);
     });
 
+    test('devTrue/devFalse', () {
+      // ignore: invalid_use_of_do_not_submit_member
+      expect(devTrue, isTrue);
+      // ignore: invalid_use_of_do_not_submit_member
+      expect(devFalse, isFalse);
+    });
     test('DevFlag', () {
       var debug = DevFlag();
       expect(debug.on, isFalse);

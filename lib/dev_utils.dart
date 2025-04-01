@@ -3,6 +3,8 @@ library;
 
 import 'package:tekartik_common_utils/env_utils.dart';
 export 'src/debug.dart' show debugEnvMap;
+// ignore: invalid_use_of_do_not_submit_member
+export 'src/dev_utils.dart' show devTrue, devFalse;
 
 void _devPrint(Object? object) {
   if (_devPrintEnabled) {
