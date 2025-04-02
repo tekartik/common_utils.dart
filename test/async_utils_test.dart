@@ -5,6 +5,8 @@
 import 'dart:async';
 
 import 'package:tekartik_common_utils/async_utils.dart';
+import 'package:tekartik_common_utils/future_utils.dart';
+
 import 'package:test/test.dart';
 
 void main() {
@@ -133,6 +135,101 @@ void main() {
       await runner.run();
       expect(runner.done, isTrue);
       await runner.run();
+    });
+    test('safe completer', () async {
+      var completer = Completer<bool>();
+      completer.safeComplete(true);
+      expect(completer.isCompleted, isTrue);
+      completer.safeComplete(false);
+      completer.safeCompleteError(false);
+      expect(completer.isCompleted, isTrue);
+
+      try {
+        completer.complete(false);
+        fail('should have failed');
+      } catch (e) {
+        // } on StateError catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+
+      expect(await completer.future, isTrue);
+
+      try {
+        completer.completeError('error');
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+
+      completer = Completer<bool>();
+      completer.future.catchError((Object e) {
+        // print('catch $e');
+        return false;
+      }).unawait();
+
+      completer.safeCompleteError('error');
+
+      expect(completer.isCompleted, isTrue);
+      completer.safeComplete(false);
+      completer.safeCompleteError('safe_error');
+      expect(completer.isCompleted, isTrue);
+
+      try {
+        completer.complete(false);
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+
+      try {
+        completer.completeError('error');
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+
+      await expectLater(completer.future, throwsA('error'));
+    });
+    test('safe controller', () async {
+      var controller = StreamController<bool>();
+      var futureList = controller.stream.toList();
+      controller.safeAdd(true);
+      controller.close().unawait();
+      controller.safeAdd(false);
+      controller.safeAddError('safe_error');
+      try {
+        controller.add(false);
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+      try {
+        controller.addError('safe_error');
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+      expect(await futureList, [true]);
+
+      controller = StreamController<bool>();
+      futureList = controller.stream.toList();
+      controller.safeAddError('error');
+      controller.close().unawait();
+      controller.safeAdd(false);
+      controller.safeAddError('safe_error');
+      try {
+        controller.add(false);
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+      try {
+        controller.addError('safe_error');
+        fail('should have failed');
+      } catch (e) {
+        expect(e, isNot(isA<TestFailure>()));
+      }
+      await expectLater(futureList, throwsA('error'));
     });
   });
 }

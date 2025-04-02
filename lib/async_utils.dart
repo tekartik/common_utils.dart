@@ -4,6 +4,9 @@ import 'package:synchronized/synchronized.dart';
 
 import 'list_utils.dart';
 
+export 'src/async_utils.dart'
+    show TekartikCommonCompleterExt, TekartikCommonStreamControllerExt;
+
 /// create a future delayed for [ms] milliseconds
 Future sleep([int ms = 0]) {
   return Future<void>.delayed(Duration(milliseconds: ms));
