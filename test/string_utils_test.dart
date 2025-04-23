@@ -134,4 +134,29 @@ void main() {
     expect(['a', 'b', 'c'].matchesStringList(['a', 'b']), isFalse);
     expect(['a', 'b', 'c'].matchesStringList(['a', 'b', 'c', 'd']), isFalse);
   });
+  test('alpha', () {
+    expect(''.isDigit(), isFalse);
+    expect('1T'.isDigit(), isTrue);
+    expect('1T'.isOnlyDigit(), isFalse);
+    expect('12'.isOnlyDigit(), isTrue);
+    expect('azAZ09'.isOnlyAlphaNumeric(), isTrue);
+  });
+  group('text_utils', () {
+    test('beginsWithWhitespaces', () async {
+      expect('test '.beginsWithWhitespaces(), false);
+      expect(' test'.beginsWithWhitespaces(), true);
+      expect(''.beginsWithWhitespaces(), false);
+    });
+    test('endsWithWhitespaces', () async {
+      expect(' test'.endsWithWhitespaces(), false);
+      expect('test '.endsWithWhitespaces(), true);
+      expect(''.endsWithWhitespaces(), false);
+    });
+    test('beginsOrEndsWithWhitespaces', () async {
+      expect(' test'.beginsOrEndsWithWhitespaces(), true);
+      expect('test '.beginsOrEndsWithWhitespaces(), true);
+      expect('test'.beginsOrEndsWithWhitespaces(), false);
+      expect(''.beginsOrEndsWithWhitespaces(), false);
+    });
+  });
 }

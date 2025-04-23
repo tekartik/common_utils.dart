@@ -3,8 +3,12 @@ import 'dart:math';
 import 'package:tekartik_common_utils/string_utils.dart';
 
 /// True if the string is a digit
-bool stringIsDigit(String s, [int index = 0]) =>
-    (s.codeUnitAt(index) ^ 0x30) <= 9;
+bool stringIsDigit(String s, [int index = 0]) {
+  if (index >= s.length) {
+    return false;
+  }
+  return (s.codeUnitAt(index) ^ 0x30) <= 9;
+}
 
 /// True if null or empty
 bool stringIsEmpty(String? text) {
@@ -40,9 +44,6 @@ extension TekartikCommonStringExtension on String {
   /// Remove extra blank space.
   String? trimmedNonEmpty([String? defaultValue]) =>
       trim().nonEmpty(defaultValue);
-
-  /// True if a string is a digit
-  bool isDigit([int idx = 0]) => stringIsDigit(this);
 
   /// Parse an int or throw
   int parseInt({int? radix}) => int.parse(this, radix: radix);
@@ -102,7 +103,7 @@ extension TekartikCommonStringPrvExtension on String {
 
     while (index >= 0) {
       var chr = substring(index, index + 1);
-      if (!chr.isDigit(index)) {
+      if (!chr.isDigit()) {
         return intOrNull();
       }
       foundOne = true;
@@ -163,4 +164,120 @@ int stringsCompareWithLastInt(String? value1, String? value2,
     }
   }
   return value1.compareTo(value2);
+}
+
+//
+// utils
+//
+
+///
+/// Returns `true` if [rune] represents a whitespace character.
+///
+/// The definition of whitespace matches that used in [String.trim] which is
+/// based on Unicode 6.2. This maybe be a different set of characters than the
+/// environment's [RegExp] definition for whitespace, which is given by the
+/// ECMAScript standard: http://ecma-international.org/ecma-262/5.1/#sec-15.10
+///
+/// from quiver
+///
+bool runeIsWhitespace(int rune) => ((rune >= 0x0009 && rune <= 0x000D) ||
+    rune == 0x0020 ||
+    rune == 0x0085 ||
+    rune == 0x00A0 ||
+    rune == 0x1680 ||
+    rune == 0x180E ||
+    (rune >= 0x2000 && rune <= 0x200A) ||
+    rune == 0x2028 ||
+    rune == 0x2029 ||
+    rune == 0x202F ||
+    rune == 0x205F ||
+    rune == 0x3000 ||
+    rune == 0xFEFF);
+
+/// Returns `true` if [rune] represents a digit character.
+bool runeIsDigit(int rune) => (rune >= 0x0030 && rune <= 0x0039);
+
+/// Returns `true` if [rune] represents a letter character from a to z.
+bool runeIsLowerAlpha(int rune) => (rune >= 0x0061 && rune <= 0x007A);
+
+/// Returns `true` if [rune] represents a letter character from A to Z.
+bool runeIsUpperAlpha(int rune) => (rune >= 0x0041 && rune <= 0x005A);
+
+/// Returns `true` if [rune] represents a letter character from a to z or A to Z.
+bool runeIsAlpha(int rune) => runeIsLowerAlpha(rune) || runeIsUpperAlpha(rune);
+
+/// Returns `true` if [rune] represents a letter or digit character.
+bool runeIsAlphaNumeric(int rune) => runeIsAlpha(rune) || runeIsDigit(rune);
+
+/// Alphanumeric string extension
+extension TekartikAlphaNumericStringExtension on String {
+  /// Returns `true` if the string contains only letter or digit characters.
+  bool isOnlyAlphaNumeric() {
+    if (isEmpty) {
+      return false;
+    }
+    for (var rune in runes) {
+      if (!runeIsAlphaNumeric(rune)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// True if a string is a digit (assuming single character)
+  bool isDigit([int idx = 0]) => stringIsDigit(this, idx);
+
+  /// Returns `true` if the string contains only digit characters (and at least one)
+  bool isOnlyDigit() {
+    if (isEmpty) {
+      return false;
+    }
+    for (var rune in runes) {
+      if (!runeIsDigit(rune)) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+/// Whitespace string extension
+extension TekartikWhitespaceStringExtension on String {
+  /// Must contains at least 1 !
+  bool isOnlyWhitespaces() {
+    if (isEmpty) {
+      return false;
+    }
+    for (var rune in runes) {
+      if (!runeIsWhitespace(rune)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// Returns `true` if the string begins with a whitespace character.
+  bool beginsWithWhitespaces() {
+    if (isEmpty) {
+      return false;
+    }
+    return runeIsWhitespace(runes.first);
+  }
+
+  /// Return `true` if the string ends with a whitespace character.
+  bool endsWithWhitespaces() {
+    if (isEmpty) {
+      return false;
+    }
+    return runeIsWhitespace(runes.last);
+  }
+
+  /// Returns `true` if the string begins or ends with a whitespace character.
+  bool beginsOrEndsWithWhitespaces() {
+    if (isEmpty) {
+      return false;
+    }
+    var runes = this.runes;
+    return runeIsWhitespace(runes.first) || runeIsWhitespace(runes.last);
+  }
 }

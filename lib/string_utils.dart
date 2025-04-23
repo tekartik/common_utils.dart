@@ -10,6 +10,8 @@ export 'src/string_utils.dart'
     show
         TekartikCommonStringExtension,
         TekartikCommonStringListExtension,
+        TekartikAlphaNumericStringExtension,
+        TekartikWhitespaceStringExtension,
         stringIsEmpty,
         stringNonEmpty,
         stringIsDigit,
