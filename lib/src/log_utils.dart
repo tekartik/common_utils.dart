@@ -72,7 +72,8 @@ Level parseLogLevel(String levelText, [Level defaultLevel = Level.OFF]) {
 Logger? _log;
 
 /// Default logger
-@Deprecated('do not use')
+@Deprecated(
+    'Use compatLogger instead - and import json_utils.dart - or do not use it, will be removed')
 Logger? get log => compatLogger;
 
 /// Default logger compat
