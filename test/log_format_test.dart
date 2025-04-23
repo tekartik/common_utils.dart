@@ -1,7 +1,8 @@
 library;
 
 import 'package:cv/cv.dart';
-import 'package:tekartik_common_utils/src/log_format_impl.dart';
+import 'package:tekartik_common_utils/log_format.dart';
+
 import 'package:test/test.dart';
 
 const _unknownMap = {'.': '.'};

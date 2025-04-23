@@ -1,7 +1,7 @@
 library;
 
 //import 'package:unittest/vm_config.dart';
-import 'package:logging/logging.dart' as log;
+import 'package:logging/logging.dart' as logging;
 import 'package:tekartik_common_utils/log_utils.dart';
 import 'package:test/test.dart';
 
@@ -12,9 +12,9 @@ void defineTests() {
 
   group('log', () {
     test('parse level', () {
-      expect(parseLogLevel('info'), equals(log.Level.INFO));
-      expect(parseLogLevel('fine'), equals(log.Level.FINE));
-      expect(parseLogLevel('dummy'), equals(log.Level.OFF));
+      expect(parseLogLevel('info'), equals(logging.Level.INFO));
+      expect(parseLogLevel('fine'), equals(logging.Level.FINE));
+      expect(parseLogLevel('dummy'), equals(logging.Level.OFF));
     });
 
     test('format timestamp', () {
@@ -26,6 +26,8 @@ void defineTests() {
       expect(formatTimestampMs(123456), equals('23.456'));
       expect(formatTimestampMs(1.6), equals('00.002'));
       expect(formatTimestampMs(999.9), equals('01.000'));
+      expect(formatTimestampMs(99999), equals('99.999'));
+      expect(formatTimestampMs(100000), equals('00.000'));
       expect(formatTimestampMs(123456.4), equals('23.456'));
     });
 
@@ -42,6 +44,12 @@ void defineTests() {
       expect(format0To1AsPercent(0.99), equals('99.00'));
       expect(format0To1AsPercent(0.9999), equals('99.99'));
       expect(format0To1AsPercent(0.99999), equals('100.0'));
+    });
+
+    test('compatLogger', () {
+      compatLogger.log(Level.ALL, 'Compat logger');
+      // ignore: deprecated_member_use_from_same_package
+      log?.log(Level.ALL, 'Compat logger');
     });
   });
 }
