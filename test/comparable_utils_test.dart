@@ -31,5 +31,9 @@ void main() {
       expect(version2.bounded(version3, version1), version3);
       expect(version2.bounded(version1, version1), version1);
     });
+    test('insertionPoint', () {
+      expect([1, 1].findInsertionIndex(1), 0);
+      expect([1, 2].findInsertionIndex(3), 2);
+    });
   });
 }
