@@ -98,9 +98,10 @@ void main() {
   });
   test('stringsCompareWithLastInt', () {
     expect(
-        ['d', 'a3', 'a2', 'a3', 'b2', 'b1 ', 'd', 'c']
-          ..sort((v1, v2) => stringsCompareWithLastInt(v1, v2)),
-        ['a2', 'a3', 'a3', 'b1 ', 'b2', 'c', 'd', 'd']);
+      ['d', 'a3', 'a2', 'a3', 'b2', 'b1 ', 'd', 'c']
+        ..sort((v1, v2) => stringsCompareWithLastInt(v1, v2)),
+      ['a2', 'a3', 'a3', 'b1 ', 'b2', 'c', 'd', 'd'],
+    );
   });
   test('getLastInt', () {
     expect(''.getLastInt(), isNull);
@@ -119,8 +120,10 @@ void main() {
     expect('12345678901'.obfuscate(), '12*******01');
     expect('123456789012'.obfuscate(), '123******012');
     expect('12345678901234567890'.obfuscate(), '1234************7890');
-    expect('12345678901234567890'.obfuscate(lastAndFirstKeepCountMax: 5),
-        '12345**********67890');
+    expect(
+      '12345678901234567890'.obfuscate(lastAndFirstKeepCountMax: 5),
+      '12345**********67890',
+    );
   });
   test('splitFirst', () {
     expect(''.splitFirst(' '), ['']);

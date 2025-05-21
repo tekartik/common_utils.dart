@@ -46,20 +46,22 @@ class LogFormatOptions {
   final int? listTruncateLength;
 
   /// Constructor
-  const LogFormatOptions(
-      {this.basicTypeTruncateLength,
-      this.finalTypeTruncateLength,
-      this.mapTruncateLength,
-      this.listTruncateLength,
-      this.depth});
+  const LogFormatOptions({
+    this.basicTypeTruncateLength,
+    this.finalTypeTruncateLength,
+    this.mapTruncateLength,
+    this.listTruncateLength,
+    this.depth,
+  });
 
   /// Constructor with default options.
-  const LogFormatOptions.defaultOptions(
-      {this.basicTypeTruncateLength = _logBasicTypeTruncateLengthDefault,
-      this.finalTypeTruncateLength = _logFinalTypeTruncateLengthDefault,
-      this.mapTruncateLength = _logMapTruncateLengthDefault,
-      this.listTruncateLength = _logListTruncateLengthDefault,
-      this.depth = _logTruncateDepthDefault});
+  const LogFormatOptions.defaultOptions({
+    this.basicTypeTruncateLength = _logBasicTypeTruncateLengthDefault,
+    this.finalTypeTruncateLength = _logFinalTypeTruncateLengthDefault,
+    this.mapTruncateLength = _logMapTruncateLengthDefault,
+    this.listTruncateLength = _logListTruncateLengthDefault,
+    this.depth = _logTruncateDepthDefault,
+  });
 }
 
 /// Truncate a string

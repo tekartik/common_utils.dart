@@ -15,7 +15,7 @@ void defineTests() {
     var obj = <String, Object?>{'key': 'value'};
     expect(parseJsonObject('{"key":"value"}'), equals(obj));
     obj = {
-      'key': ['value']
+      'key': ['value'],
     };
     expect(parseJsonObject('{"key":["value"]}'), equals(obj));
     expect(parseJsonObject('{key:"value"}'), isNull);
@@ -28,7 +28,7 @@ void defineTests() {
     expect(parseJsonList(null), equals(null));
     expect(parseJsonList('456'), equals(null));
     var list = [
-      {'key': 'value'}
+      {'key': 'value'},
     ];
     expect(parseJsonList('[{"key":"value"}]'), equals(list));
     expect(parseJsonList('{"key":"value"}'), isNull);
@@ -59,7 +59,7 @@ void defineTests() {
     expect(jsonPretty(emptyMap), '{}');
     expect(jsonPretty(emptyList), '[]');
     var obj = {
-      'key': ['value']
+      'key': ['value'],
     };
     expect(jsonPretty(obj), '''
 {

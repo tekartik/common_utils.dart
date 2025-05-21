@@ -18,8 +18,8 @@ class _StreamPollerNext<T> implements StreamPollerEvent<T?> {
   final bool done;
 
   _StreamPollerNext({T? event, bool? done})
-      : done = done ?? false,
-        data = event;
+    : done = done ?? false,
+      data = event;
 }
 
 /// A stream poller
@@ -40,7 +40,7 @@ class StreamPoller<T> {
 
   /// Create a stream poller
   StreamPoller(Stream<T> stream, {bool? lastOnly})
-      : _lastOnly = lastOnly == true {
+    : _lastOnly = lastOnly == true {
     _subscription = stream.listen(_addEvent, onDone: cancel);
   }
 
@@ -62,12 +62,14 @@ class StreamPoller<T> {
       return _StreamPollerNext(done: _done);
     }
 
-    return await _lock.synchronized(() async {
-      _completer = Completer.sync();
-      await _completer!.future;
-    }).then((_) async {
-      return await getNext();
-    });
+    return await _lock
+        .synchronized(() async {
+          _completer = Completer.sync();
+          await _completer!.future;
+        })
+        .then((_) async {
+          return await getNext();
+        });
   }
 
   /// Make sure to cancel the pending completer

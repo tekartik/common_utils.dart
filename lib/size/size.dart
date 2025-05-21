@@ -56,7 +56,9 @@ class Rect<T extends num> {
   /// Construct a rectangle from its left, top, right, bottom
   factory Rect.fromLTRB(T left, T top, T right, T bottom) {
     return Rect(
-        Point(left, top), Size((right - left) as T, (bottom - top) as T));
+      Point(left, top),
+      Size((right - left) as T, (bottom - top) as T),
+    );
   }
 
   /// left
@@ -145,23 +147,32 @@ Size<double> sizeDoubleContainedWithRatio(Size<double> size, num ratio) {
 Rect<int> sizeIntCenteredRectWithRatio(Size<int> size, num ratio) {
   var innerSize = sizeIntContainedWithRatio(size, ratio);
   return Rect<int>(
-      Point<int>((size.width - innerSize.width) ~/ 2,
-          (size.height - innerSize.height) ~/ 2),
-      innerSize);
+    Point<int>(
+      (size.width - innerSize.width) ~/ 2,
+      (size.height - innerSize.height) ~/ 2,
+    ),
+    innerSize,
+  );
 }
 
 /// Helper for centered rectangle
 Rect<double> sizeDoubleCenteredRectWithRatio(Size<double> size, num ratio) {
   var innerSize = sizeDoubleContainedWithRatio(size, ratio);
   return Rect<double>(
-      Point<double>((size.width - innerSize.width) / 2,
-          (size.height - innerSize.height) / 2),
-      innerSize);
+    Point<double>(
+      (size.width - innerSize.width) / 2,
+      (size.height - innerSize.height) / 2,
+    ),
+    innerSize,
+  );
 }
 
 /// Helper for centered rectangle with a min and max ratio.
 Rect<double> sizeDoubleCenteredRectWithRatioMinMax(
-    Size<double> size, num ratioMin, num ratioMax) {
+  Size<double> size,
+  num ratioMin,
+  num ratioMax,
+) {
   assert(ratioMin <= ratioMax);
   var ratio = size.ratio.bounded(ratioMin.toDouble(), ratioMax.toDouble());
   return sizeDoubleCenteredRectWithRatio(size, ratio);

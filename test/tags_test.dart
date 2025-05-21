@@ -75,7 +75,8 @@ Future<void> main() async {
     });
     test('complex', () {
       var condition = _c(
-          '(test1 || (test2 && test3) ||  (test4 && test5 && test6)) && (test7 || (test8 && test9))');
+        '(test1 || (test2 && test3) ||  (test4 && test5 && test6)) && (test7 || (test8 && test9))',
+      );
       expect(condition.check(_t('test1, test7')), isTrue);
       expect(condition.check(_t('test1, test5')), isFalse);
       expect(condition.check(_t('test1, test6')), isFalse);
@@ -106,8 +107,10 @@ Future<void> main() async {
 
       expect(_c('(  test1)').toText(), 'test1');
       expect(_c('!(  test1)').toText(), '!test1');
-      expect(_c('!(  test1  &&  test2  && test3)  || test4 ').toText(),
-          '!((test1 && test2 && test3) || test4)');
+      expect(
+        _c('!(  test1  &&  test2  && test3)  || test4 ').toText(),
+        '!((test1 && test2 && test3) || test4)',
+      );
 
       /// precedence
       expect(() => _c('test1 && test2 || test3'), throwsArgumentError);
@@ -129,25 +132,27 @@ Future<void> main() async {
         'test1 || (test2 && test3)',
         '(test2 && test3) || test1',
         '(test1 || test2 || test3) && test4 && (test5 || test6 || test7)',
-        '(test1 && test2 && test3) || test4 || (test5 && test6 && test7)'
+        '(test1 && test2 && test3) || test4 || (test5 && test6 && test7)',
       ]) {
         roundTrip(expression);
       }
     });
 
-    test('quick', () {
-      var tags = _t('test1, test2');
-      var condition = _c('test1 || (test2 && test3)');
-      // ignore: avoid_print
-      print(tags);
-      // ignore: avoid_print
-      print(condition);
-      // ignore: avoid_print
-      print(condition.check(tags));
-    },
-        skip: //
-            true
-        //        devWarning(false)
-        );
+    test(
+      'quick',
+      () {
+        var tags = _t('test1, test2');
+        var condition = _c('test1 || (test2 && test3)');
+        // ignore: avoid_print
+        print(tags);
+        // ignore: avoid_print
+        print(condition);
+        // ignore: avoid_print
+        print(condition.check(tags));
+      },
+      skip: //
+          true,
+      //        devWarning(false)
+    );
   });
 }

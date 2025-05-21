@@ -36,8 +36,10 @@ DateTime newDateTimeClearTime(DateTime dt) {
 
 /// New local date with offset
 DateTime dateTimeWithOffset(DateTime dt, int offset) {
-  return DateTime.fromMillisecondsSinceEpoch(dt.millisecondsSinceEpoch + offset,
-      isUtc: dt.isUtc);
+  return DateTime.fromMillisecondsSinceEpoch(
+    dt.millisecondsSinceEpoch + offset,
+    isUtc: dt.isUtc,
+  );
 }
 
 /// minutes:seconds
@@ -53,8 +55,9 @@ String formatTimestampMinSeconds(int timestamp) {
 DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
   // make sure it goes after now, then go backwards
   // now.timeZoneName;
-  var begginingOfDay = dateTimeWithTimeCleared(now)
-      .add(Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
+  var begginingOfDay = dateTimeWithTimeCleared(
+    now,
+  ).add(Duration(milliseconds: dayStartOffset + 2 * dayInMillis));
 
   while (now.isBefore(begginingOfDay)) {
     begginingOfDay = begginingOfDay.add(const Duration(days: -1));
@@ -75,7 +78,7 @@ int reverseDateCompare(DateTime? dateTime1, DateTime? dateTime2) {
   } else if (dateTime2 != null) {
     return 1;
   }
-// keep as is
+  // keep as is
   return 0;
 }
 

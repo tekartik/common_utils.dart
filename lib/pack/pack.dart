@@ -9,10 +9,12 @@ const String _v = r'$v';
 /// Convert to
 /// { "columns": ["column1", "column2"],
 /// "rows": [["row1_col1", "row1_col2"],["row2_col1", "row2_col2"]]
-Map<String, List>? packList(Iterable<Map<String, Object?>>? list,
-    {String? rowsField,
-    String? columnsField,
-    Object? Function(Object? value)? innerPack}) {
+Map<String, List>? packList(
+  Iterable<Map<String, Object?>>? list, {
+  String? rowsField,
+  String? columnsField,
+  Object? Function(Object? value)? innerPack,
+}) {
   if (list == null) {
     return null;
   }
@@ -49,7 +51,9 @@ Map<String, List>? packList(Iterable<Map<String, Object?>>? list,
 
 /// Pack a list of items
 Map<String, Object?>? packItemList<T>(
-    List<T> list, Map<String, Object?> Function(T item) itemToJsonCallback) {
+  List<T> list,
+  Map<String, Object?> Function(T item) itemToJsonCallback,
+) {
   var unpackedList = <Map<String, Object?>>[];
   for (var item in list) {
     unpackedList.add(itemToJsonCallback(item));
@@ -74,10 +78,11 @@ Object? compackAny(Object? unpacked) {
       }
       if (allMap) {
         return packList(
-            list.map((item) => (item as Map).cast<String, Object?>()),
-            rowsField: _r,
-            columnsField: _c,
-            innerPack: compackAny);
+          list.map((item) => (item as Map).cast<String, Object?>()),
+          rowsField: _r,
+          columnsField: _c,
+          innerPack: compackAny,
+        );
       }
     }
     return list.map(compackAny).toList();
@@ -112,8 +117,12 @@ Object? uncompackAny(Object? packed) {
   if (packed is Map) {
     var map = packed;
     if (_isMapCompacked(map)) {
-      return unpackList(map.cast<String, Object?>(),
-          rowsField: _r, columnsField: _c, innerUnpack: uncompackAny);
+      return unpackList(
+        map.cast<String, Object?>(),
+        rowsField: _r,
+        columnsField: _c,
+        innerUnpack: uncompackAny,
+      );
     } else {
       if (map.keys.contains(_r) && map.keys.contains(_c)) {
         // Remove values and copy them again
@@ -174,10 +183,12 @@ class JsonUnpack {
 /// Convert to
 /// { "columns": ["column1", "column2"],
 /// "rows": [["row1_col1", "row1_col2"],["row2_col1", "row2_col2"]]
-List<Map<String, Object?>>? unpackList(Map<String, Object?>? packed,
-    {String? rowsField,
-    String? columnsField,
-    Object? Function(Object? value)? innerUnpack}) {
+List<Map<String, Object?>>? unpackList(
+  Map<String, Object?>? packed, {
+  String? rowsField,
+  String? columnsField,
+  Object? Function(Object? value)? innerUnpack,
+}) {
   if (packed == null) {
     return null;
   }

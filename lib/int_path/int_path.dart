@@ -58,8 +58,10 @@ String intPartToHex(int value) {
   if (value < 16) {
     return String.fromCharCode(hexCodeUint4(value));
   }
-  return String.fromCharCodes(
-      [_hexAbove16CodeUint4((value & 0xF0) >> 4), hex2CodeUint8(value)]);
+  return String.fromCharCodes([
+    _hexAbove16CodeUint4((value & 0xF0) >> 4),
+    hex2CodeUint8(value),
+  ]);
 }
 
 final int _upperFCodeUnit = 'F'.codeUnitAt(0);

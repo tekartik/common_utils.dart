@@ -10,8 +10,10 @@ void main() {
     });
     test('locationSearchGetArguments', () {
       var uri = Uri.parse('http://localhost:8080/path?test=1#fragment');
-      expect(uri.removeParametersAndFragment().toString(),
-          'http://localhost:8080/path');
+      expect(
+        uri.removeParametersAndFragment().toString(),
+        'http://localhost:8080/path',
+      );
     });
   });
 }

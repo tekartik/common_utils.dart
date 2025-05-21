@@ -15,7 +15,7 @@ target=android-22
         'avd.ini.encoding': 'UTF-8',
         'path': '/home/alex/.android/avd/Nexus_7_API_22.avd',
         'path.rel': 'avd/Nexus_7_API_22.avd',
-        'target': 'android-22'
+        'target': 'android-22',
       });
     });
   });

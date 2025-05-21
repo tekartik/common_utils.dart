@@ -33,8 +33,11 @@ void main() {
     test('two_race_condition', () async {
       var stream = Stream<bool>.fromIterable([true, false]);
       var poller = StreamPoller<bool>(stream);
-      var list = await Future.wait(
-          [poller.getNext(), poller.getNext(), poller.getNext()]);
+      var list = await Future.wait([
+        poller.getNext(),
+        poller.getNext(),
+        poller.getNext(),
+      ]);
       expect(list[0].data, isTrue);
       expect(list[1].data, isFalse);
       expect(list[2].data, isNull);

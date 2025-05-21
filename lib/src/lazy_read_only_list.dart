@@ -42,7 +42,6 @@ class LazyReadOnlyList<S, T> extends ListBase<T> {
   }
 
   @visibleForTesting
-
   /// Check if the item at the given index has been transformed
   bool isTransformed(int index) {
     return _transformedList[index];

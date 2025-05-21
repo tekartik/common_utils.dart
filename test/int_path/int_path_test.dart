@@ -23,8 +23,15 @@ void main() {
       expect(intToInts(65535), [255, 255]);
       expect(intToInts(65536), [1, 0, 0]);
       expect(intToInts(65537), [1, 0, 1]);
-      expect(intToInts(pow(2, 52).toInt() - 1),
-          [15, 255, 255, 255, 255, 255, 255]);
+      expect(intToInts(pow(2, 52).toInt() - 1), [
+        15,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+      ]);
       expect(intToInts(-1), [16, 0, 0, 0, 0, 0, 0, 255]);
       expect(intToInts(-2), [16, 0, 0, 0, 0, 0, 0, 254]);
     });
@@ -47,19 +54,31 @@ void main() {
       expect(65536 * 65536, 4294967296);
       expect(intToFilePath(4294967295), join('Z4', 'UF', 'UF', 'UF', 'UF'));
       expect(intToFilePath(4294967296), join('Z5', '1', '0', '0', '0', '0'));
-      expect(intToFilePath(pow(2, 52).toInt() - 1),
-          joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
+      expect(
+        intToFilePath(pow(2, 52).toInt() - 1),
+        joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']),
+      );
 
-      expect(intToFilePath(intPathMax),
-          joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
-      expect(intToFilePath(intPathMin),
-          joinAll(['Z8', 'F', 'U0', '0', '0', '0', '0', '1', '1']));
-      expect(intToFilePath(-1),
-          joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UF']));
-      expect(intToFilePath(-2),
-          joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UE']));
-      expect(intToFilePath(pow(2, 51).toInt() - 1),
-          joinAll(['Z7', '7', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']));
+      expect(
+        intToFilePath(intPathMax),
+        joinAll(['Z7', 'F', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']),
+      );
+      expect(
+        intToFilePath(intPathMin),
+        joinAll(['Z8', 'F', 'U0', '0', '0', '0', '0', '1', '1']),
+      );
+      expect(
+        intToFilePath(-1),
+        joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UF']),
+      );
+      expect(
+        intToFilePath(-2),
+        joinAll(['Z8', 'G0', '0', '0', '0', '0', '0', '0', 'UE']),
+      );
+      expect(
+        intToFilePath(pow(2, 51).toInt() - 1),
+        joinAll(['Z7', '7', 'UF', 'UF', 'UF', 'UF', 'UF', 'UF']),
+      );
     });
   });
 }

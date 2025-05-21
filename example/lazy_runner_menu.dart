@@ -39,8 +39,7 @@ Future<void> main(List<String> args) async {
         runner.trigger();
         await sleep(200);
         runner.trigger();
-      }()
-          .unawait();
+      }().unawait();
       await sleep(5000);
       runner.dispose();
 
@@ -63,8 +62,7 @@ Future<void> main(List<String> args) async {
         runner.trigger();
         await sleep(200);
         runner.trigger();
-      }()
-          .unawait();
+      }().unawait();
       await sleep(5000);
       runner.dispose();
 
@@ -80,7 +78,8 @@ Future<void> main(List<String> args) async {
       );
 
       print(
-          'Delay 1s during 5s triggerd twice after 0.5s, 1.5s trigger 6 times every 200ms');
+        'Delay 1s during 5s triggerd twice after 0.5s, 1.5s trigger 6 times every 200ms',
+      );
       () async {
         await sleep(500);
         runner.trigger();
@@ -98,8 +97,7 @@ Future<void> main(List<String> args) async {
         runner.trigger();
         await sleep(200);
         runner.trigger();
-      }()
-          .unawait();
+      }().unawait();
       await sleep(5000);
       runner.dispose();
 

@@ -47,7 +47,8 @@ void _devError([Object? object]) {
 T? devDebugOnly<T>(T Function() action, {String? message}) {
   if (isDebug) {
     _devPrint(
-        '[DEBUG_ONLY]${message != null ? ' $message' : ' debug only behavior'}');
+      '[DEBUG_ONLY]${message != null ? ' $message' : ' debug only behavior'}',
+    );
     return action();
   } else {
     return null;
@@ -55,7 +56,6 @@ T? devDebugOnly<T>(T Function() action, {String? message}) {
 }
 
 @Deprecated('Dev only')
-
 /// Dev only error print
 void devError([Object? object]) => _devError(object);
 

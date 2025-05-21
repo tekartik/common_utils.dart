@@ -56,8 +56,9 @@ Future<void> main() async {
 
   var pedanticLibPath = Uri.parse(dotPackagesMap['pedantic']!).toFilePath();
   var lintsLibPath = Uri.parse(dotPackagesMap['lints']!).toFilePath();
-  var pedanticRules =
-      await getRules(join(pedanticLibPath, 'analysis_options.1.11.0.yaml'));
+  var pedanticRules = await getRules(
+    join(pedanticLibPath, 'analysis_options.1.11.0.yaml'),
+  );
   await _writeRules('pedantic', pedanticRules);
   var lintsRules = await getRules(join(lintsLibPath, 'recommended.yaml'));
   await _writeRules('lints', lintsRules);
@@ -75,10 +76,11 @@ Future<void> main() async {
   diffRules.removeWhere((element) => lintsRules.contains(element));
   await _writeRules('pedantic_over_lints', diffRules);
 
-  var all = <String>{}
-    ..addAll(rules)
-    ..addAll(pedanticRules)
-    ..addAll(lintsRules);
+  var all =
+      <String>{}
+        ..addAll(rules)
+        ..addAll(pedanticRules)
+        ..addAll(lintsRules);
   diffRules = List<String>.from(all)..sort();
   diffRules.removeWhere((element) => lintsRules.contains(element));
   await _writeRules('tekartik_recommended_over_lints', diffRules);

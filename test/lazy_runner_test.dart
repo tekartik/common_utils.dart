@@ -6,15 +6,19 @@ void main() {
   group('Lazy runner', () {
     test('periodic', () async {
       var runner = LazyRunner.periodic(
-          duration: const Duration(milliseconds: 10), action: (count) async {});
+        duration: const Duration(milliseconds: 10),
+        action: (count) async {},
+      );
       await sleep(50);
       expect(runner.count, lessThan(6));
       expect(runner.count, greaterThan(2));
     });
     test('trigger', () async {
-      var runner = LazyRunner(action: (count) async {
-        await sleep(20);
-      });
+      var runner = LazyRunner(
+        action: (count) async {
+          await sleep(20);
+        },
+      );
       for (var i = 0; i < 10; i++) {
         await sleep(5);
         runner.trigger();

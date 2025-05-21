@@ -17,16 +17,18 @@ void main() {
     expect(lruMap.length, 0);
   });
 
-  test('LruMap disposes least recently used item when maximum size is reached',
-      () {
-    var lruMap = LruMap<int, String>(maximumSize: 2);
-    lruMap[1] = 'one';
-    lruMap[2] = 'two';
-    lruMap[3] = 'three';
-    expect(lruMap[1], isNull);
-    expect(lruMap[2], 'two');
-    expect(lruMap[3], 'three');
-  });
+  test(
+    'LruMap disposes least recently used item when maximum size is reached',
+    () {
+      var lruMap = LruMap<int, String>(maximumSize: 2);
+      lruMap[1] = 'one';
+      lruMap[2] = 'two';
+      lruMap[3] = 'three';
+      expect(lruMap[1], isNull);
+      expect(lruMap[2], 'two');
+      expect(lruMap[3], 'three');
+    },
+  );
 
   test('LruMap updates order of keys when a key is accessed', () {
     var lruMap = LruMap<int, String>(maximumSize: 2);

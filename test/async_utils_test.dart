@@ -25,58 +25,64 @@ void main() {
       expect(await waitAll([]), isNull);
       expect(await waitAll([() async {}]), [null]);
       expect(
-          await waitAll([
-            () async {
-              return 0;
-            }
-          ]),
-          [0]);
+        await waitAll([
+          () async {
+            return 0;
+          },
+        ]),
+        [0],
+      );
       expect(
-          await waitAll([
-            () async {},
-            () async {
-              await sleep(1);
-            }
-          ]),
-          [null, null]);
+        await waitAll([
+          () async {},
+          () async {
+            await sleep(1);
+          },
+        ]),
+        [null, null],
+      );
       expect(
-          await waitAll([
-            () async {
-              return 0;
-            },
-            () async {
-              await sleep(1);
-              return 1;
-            }
-          ]),
-          [0, 1]);
+        await waitAll([
+          () async {
+            return 0;
+          },
+          () async {
+            await sleep(1);
+            return 1;
+          },
+        ]),
+        [0, 1],
+      );
       expect(
-          await waitAll([
-            () async {
-              return 0;
-            },
-            () async {
-              await sleep(1);
-            }
-          ]),
-          [0, null]);
+        await waitAll([
+          () async {
+            return 0;
+          },
+          () async {
+            await sleep(1);
+          },
+        ]),
+        [0, null],
+      );
       expect(
-          waitAll([
-            () async {
-              throw 'fail';
-            }
-          ]),
-          throwsA('fail'));
+        waitAll([
+          () async {
+            throw 'fail';
+          },
+        ]),
+        throwsA('fail'),
+      );
       expect(
-          waitAll([
-            () async {
-              return 0;
-            },
-            () async {
-              throw 'fail';
-            }
-          ]),
-          throwsA('fail'));
+        waitAll([
+          () async {
+            return 0;
+          },
+          () async {
+            throw 'fail';
+          },
+        ]),
+        throwsA('fail'),
+      );
 
       Future<int> f1() async {
         return 1;

@@ -9,7 +9,9 @@ void defineTests() {
     expect(() => int.parse('a'), throwsA(const TypeMatcher<FormatException>()));
     expect(int.parse('3'), 3);
     expect(
-        () => int.parse('3.14'), throwsA(const TypeMatcher<FormatException>()));
+      () => int.parse('3.14'),
+      throwsA(const TypeMatcher<FormatException>()),
+    );
   });
 
   test('parseInt', () {

@@ -19,7 +19,9 @@ Future<List?> waitAll(List<Future Function()>? computations) async {
     return null;
   }
   final futures = List<Future>.generate(
-      computations!.length, (int index) => computations[index]());
+    computations!.length,
+    (int index) => computations[index](),
+  );
   return Future.wait(futures);
 }
 

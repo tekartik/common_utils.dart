@@ -25,43 +25,48 @@ class Subject<T> extends Stream<T>
   bool _addStreamActive = false;
 
   /// Seed value even if null
-  Subject.seeded(
-      {T? value,
-      void Function()? onListen,
-      void Function()? onCancel,
-      bool? sync})
-      : this._(
-            value: value,
-            seeded: true,
-            onListen: onListen,
-            onCancel: onCancel,
-            sync: sync);
+  Subject.seeded({
+    T? value,
+    void Function()? onListen,
+    void Function()? onCancel,
+    bool? sync,
+  }) : this._(
+         value: value,
+         seeded: true,
+         onListen: onListen,
+         onCancel: onCancel,
+         sync: sync,
+       );
 
   // Value is seeded if non null
-  Subject._(
-      {T? value,
-      bool seeded = false,
-      void Function()? onListen,
-      void Function()? onCancel,
-      bool? sync})
-      : _value = value,
-        _seeded = seeded,
-        _sync = sync == true,
-        _controller = StreamController<T>.broadcast(
-            onListen: onListen, onCancel: onCancel, sync: true);
+  Subject._({
+    T? value,
+    bool seeded = false,
+    void Function()? onListen,
+    void Function()? onCancel,
+    bool? sync,
+  }) : _value = value,
+       _seeded = seeded,
+       _sync = sync == true,
+       _controller = StreamController<T>.broadcast(
+         onListen: onListen,
+         onCancel: onCancel,
+         sync: true,
+       );
 
   /// Create a subject, seeded if non null
-  Subject(
-      {T? value,
-      void Function()? onListen,
-      void Function()? onCancel,
-      bool? sync})
-      : this._(
-            value: value,
-            seeded: value != null,
-            onListen: onListen,
-            onCancel: onCancel,
-            sync: sync);
+  Subject({
+    T? value,
+    void Function()? onListen,
+    void Function()? onCancel,
+    bool? sync,
+  }) : this._(
+         value: value,
+         seeded: value != null,
+         onListen: onListen,
+         onCancel: onCancel,
+         sync: sync,
+       );
 
   @override
   bool get isClosed => _controller.isClosed;
@@ -112,22 +117,34 @@ class Subject<T> extends Stream<T>
   Stream<T> get stream => this;
 
   @override
-  StreamSubscription<T> listen(void Function(T event)? onData,
-      {Function? onError, void Function()? onDone, bool? cancelOnError}) {
+  StreamSubscription<T> listen(
+    void Function(T event)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) {
     var subscriptionController = StreamController<T>(sync: _sync);
-    var internalSubscription = _controller.stream.listen((event) {
-      subscriptionController.add(event);
-    }, onDone: () {
-      subscriptionController.close();
-    }, onError: (Object error, [StackTrace? stackTrace]) {
-      subscriptionController.addError(error, stackTrace);
-    });
+    var internalSubscription = _controller.stream.listen(
+      (event) {
+        subscriptionController.add(event);
+      },
+      onDone: () {
+        subscriptionController.close();
+      },
+      onError: (Object error, [StackTrace? stackTrace]) {
+        subscriptionController.addError(error, stackTrace);
+      },
+    );
     subscriptionController.onCancel = () {
       internalSubscription.cancel();
     };
 
-    var subscription = subscriptionController.stream.listen(onData,
-        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+    var subscription = subscriptionController.stream.listen(
+      onData,
+      onError: onError,
+      onDone: onDone,
+      cancelOnError: cancelOnError,
+    );
 
     // Send initial data
     if (_error != null) {
@@ -180,28 +197,33 @@ class Subject<T> extends Stream<T>
     // ignore: cancel_subscriptions
     StreamSubscription<T>? subscription;
 
-    subscription = source.listen((event) {
-      _add(event);
-    }, onError: (Object error, [StackTrace? stackTrace]) {
-      _addError(error, stackTrace);
-      if (cancelOnError == true) {
+    subscription = source.listen(
+      (event) {
+        _add(event);
+      },
+      onError: (Object error, [StackTrace? stackTrace]) {
+        _addError(error, stackTrace);
+        if (cancelOnError == true) {
+          if (subscription != null) {
+            subscription!.cancel().then((_) {
+              _addStreamActive = false;
+              completer.completeError(error, stackTrace);
+            });
+            subscription = null;
+          }
+        }
+      },
+      onDone: () {
         if (subscription != null) {
           subscription!.cancel().then((_) {
             _addStreamActive = false;
-            completer.completeError(error, stackTrace);
+            completer.complete();
           });
           subscription = null;
         }
-      }
-    }, onDone: () {
-      if (subscription != null) {
-        subscription!.cancel().then((_) {
-          _addStreamActive = false;
-          completer.complete();
-        });
-        subscription = null;
-      }
-    }, cancelOnError: cancelOnError);
+      },
+      cancelOnError: cancelOnError,
+    );
     return completer.future;
   }
 

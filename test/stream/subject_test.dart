@@ -59,19 +59,20 @@ void main() {
     });
 
     test(
-        'emits the most recently emitted item to every subscriber that subscribe to the subject directly',
-        () async {
-      // ignore: close_sinks
-      final subject = Subject<int>();
+      'emits the most recently emitted item to every subscriber that subscribe to the subject directly',
+      () async {
+        // ignore: close_sinks
+        final subject = Subject<int>();
 
-      subject.add(1);
-      subject.add(2);
-      subject.add(3);
+        subject.add(1);
+        subject.add(2);
+        subject.add(3);
 
-      await expectLater(subject, emits(3));
-      await expectLater(subject, emits(3));
-      await expectLater(subject, emits(3));
-    });
+        await expectLater(subject, emits(3));
+        await expectLater(subject, emits(3));
+        await expectLater(subject, emits(3));
+      },
+    );
 
     test('can synchronously get the latest value', () async {
       // ignore: close_sinks
@@ -142,25 +143,28 @@ void main() {
       await expectLater(subject.stream, emits(3));
     });
 
-    test('allows items to be added once addStream is completes with an error',
-        () async {
-      // ignore: close_sinks
-      final StreamController<int?> subject = Subject<int>();
+    test(
+      'allows items to be added once addStream is completes with an error',
+      () async {
+        // ignore: close_sinks
+        final StreamController<int?> subject = Subject<int>();
 
-      // ignore: close_sinks
-      var controller = StreamController<int>();
-      var stream = controller.stream;
-      controller.addError(Exception());
-      await expectLater(
-          subject.addStream(stream, cancelOnError: true), throwsException);
+        // ignore: close_sinks
+        var controller = StreamController<int>();
+        var stream = controller.stream;
+        controller.addError(Exception());
+        await expectLater(
+          subject.addStream(stream, cancelOnError: true),
+          throwsException,
+        );
 
-      subject.add(1);
+        subject.add(1);
 
-      await expectLater(subject.stream, emits(1));
-    });
+        await expectLater(subject.stream, emits(1));
+      },
+    );
 
-    test('does not allow events to be added when addStream is active',
-        () async {
+    test('does not allow events to be added when addStream is active', () async {
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 
@@ -171,8 +175,7 @@ void main() {
       await expectLater(() => subject.add(1), throwsStateError);
     });
 
-    test('does not allow errors to be added when addStream is active',
-        () async {
+    test('does not allow errors to be added when addStream is active', () async {
       // ignore: close_sinks
       final StreamController<int?> subject = Subject<int>();
 
@@ -183,38 +186,43 @@ void main() {
       await expectLater(() => subject.addError(Error()), throwsStateError);
     });
 
-    test('does not allow subject to be closed when addStream is active',
-        () async {
-      // ignore: close_sinks
-      final StreamController<int?> subject = Subject<int>();
+    test(
+      'does not allow subject to be closed when addStream is active',
+      () async {
+        // ignore: close_sinks
+        final StreamController<int?> subject = Subject<int>();
 
-      // Purposely don't wait for the future to complete, then try to add items
-      // ignore: unawaited_futures
-      subject.addStream(Stream<int>.fromIterable(<int>[1, 2, 3]));
+        // Purposely don't wait for the future to complete, then try to add items
+        // ignore: unawaited_futures
+        subject.addStream(Stream<int>.fromIterable(<int>[1, 2, 3]));
 
-      await expectLater(() => subject.close(), throwsStateError);
-    });
+        await expectLater(() => subject.close(), throwsStateError);
+      },
+    );
 
     test(
-        'does not allow addStream to add items when previous addStream is active',
-        () async {
-      // ignore: close_sinks
-      final StreamController<int?> subject = Subject<int>();
+      'does not allow addStream to add items when previous addStream is active',
+      () async {
+        // ignore: close_sinks
+        final StreamController<int?> subject = Subject<int>();
 
-      // Purposely don't wait for the future to complete, then try to add items
-      // ignore: unawaited_futures
-      subject.addStream(Stream<int>.fromIterable(<int>[1, 2, 3]));
+        // Purposely don't wait for the future to complete, then try to add items
+        // ignore: unawaited_futures
+        subject.addStream(Stream<int>.fromIterable(<int>[1, 2, 3]));
 
-      await expectLater(
+        await expectLater(
           () => subject.addStream(Stream<int>.fromIterable(<int>[1])),
-          throwsStateError);
-    });
+          throwsStateError,
+        );
+      },
+    );
 
     test('returns onListen callback set in constructor', () async {
       void testOnListen() {}
       // ignore: close_sinks
-      final StreamController<int?> subject =
-          Subject<int>(onListen: testOnListen);
+      final StreamController<int?> subject = Subject<int>(
+        onListen: testOnListen,
+      );
 
       await expectLater(subject.onListen, testOnListen);
     });
@@ -310,21 +318,23 @@ void main() {
       await expectLater(subject.stream, equals(subject.stream));
     });
 
-    test('adding to sink has same behavior as adding to Subject itself',
-        () async {
-      // ignore: close_sinks
-      final subject = Subject<int>();
+    test(
+      'adding to sink has same behavior as adding to Subject itself',
+      () async {
+        // ignore: close_sinks
+        final subject = Subject<int>();
 
-      subject.sink.add(1);
+        subject.sink.add(1);
 
-      expect(subject.value, 1);
+        expect(subject.value, 1);
 
-      subject.sink.add(2);
-      subject.sink.add(3);
+        subject.sink.add(2);
+        subject.sink.add(3);
 
-      await expectLater(subject.stream, emits(3));
-      await expectLater(subject.stream, emits(3));
-      await expectLater(subject.stream, emits(3));
-    });
+        await expectLater(subject.stream, emits(3));
+        await expectLater(subject.stream, emits(3));
+        await expectLater(subject.stream, emits(3));
+      },
+    );
   });
 }

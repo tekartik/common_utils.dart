@@ -25,21 +25,26 @@ void main() {
             'home': 'home',
             'specs': 'specs',
             'warranty': 'warranty',
-            'related': 'related'
-          }
-        }
+            'related': 'related',
+          },
+        },
       };
       expect(
-          mapValueFromParts<String>(map, ['products', 'product', 'warranty']),
-          'warranty');
-      expect(mapValueFromPath<String>(map, 'products/product/warranty'),
-          'warranty');
+        mapValueFromParts<String>(map, ['products', 'product', 'warranty']),
+        'warranty',
+      );
       expect(
-          mapValueFromParts<Object?>(map, ['products', 'product', 'warrant']),
-          isNull);
+        mapValueFromPath<String>(map, 'products/product/warranty'),
+        'warranty',
+      );
       expect(
-          mapValueFromParts<Object?>(map, ['products', 'product_', 'warrant']),
-          isNull);
+        mapValueFromParts<Object?>(map, ['products', 'product', 'warrant']),
+        isNull,
+      );
+      expect(
+        mapValueFromParts<Object?>(map, ['products', 'product_', 'warrant']),
+        isNull,
+      );
       expect(mapValueFromPath<Object?>(map, 'products/product/warrant'), null);
     });
 
@@ -48,16 +53,16 @@ void main() {
       expect(getPartsMapValue<Object>(map, ['test', 'sub']), null);
       setPartsMapValue(map, ['test', 'sub'], 1);
       expect(map, {
-        'test': {'sub': 1}
+        'test': {'sub': 1},
       });
       expect(getPartsMapValue<int>(map, ['test', 'sub']), 1);
       setPartsMapValue(map, ['test', 'sub'], 2);
       expect(map, {
-        'test': {'sub': 2}
+        'test': {'sub': 2},
       });
       setPartsMapValue(map, ['test', 'sub2'], 3);
       expect(map, {
-        'test': {'sub': 2, 'sub2': 3}
+        'test': {'sub': 2, 'sub2': 3},
       });
       setPartsMapValue(map, ['test'], 1);
       expect(map, {'test': 1});
@@ -96,10 +101,14 @@ void main() {
       expect(asMap<Object?, Object?>(<int>[]), isNull);
       expect(asMap<String, Object?>(<Object?, Object?>{}), <String, Object?>{});
       expect(asMap<String, Object?>({'test': 1}), {'test': 1});
-      expect(asMap<String, Object?>({'test': 1}),
-          const TypeMatcher<Map<String, Object?>>());
-      expect(asMap<String, int>(<String, Object?>{'test': 1}),
-          const TypeMatcher<Map<String, int>>());
+      expect(
+        asMap<String, Object?>({'test': 1}),
+        const TypeMatcher<Map<String, Object?>>(),
+      );
+      expect(
+        asMap<String, int>(<String, Object?>{'test': 1}),
+        const TypeMatcher<Map<String, int>>(),
+      );
       try {
         expect(asMap<String, String>({'test': 1}), isNull);
       } catch (_) {

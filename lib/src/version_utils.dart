@@ -1,22 +1,26 @@
 import 'package:pub_semver/pub_semver.dart';
 
 /// Regex that matches a version number at the beginning of a string.
-final _startVersion = RegExp(r'^' // Start at beginning.
-    r'(\d+).((\d+))?' // Version number.
-    );
+final _startVersion = RegExp(
+  r'^' // Start at beginning.
+  r'(\d+).((\d+))?', // Version number.
+);
 
 /// Like [_startVersion] but matches the entire string.
 final _completeVersion = RegExp('${_startVersion.pattern}\$');
 
 // Handle String with 4 numbers
 /// Regex that matches a version number at the beginning of a string.
-final _fourNumberStartVersion = RegExp(r'^' // Start at beginning.
-        r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)') // Version number.
-    ;
+final _fourNumberStartVersion = RegExp(
+  r'^' // Start at beginning.
+  r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)',
+) // Version number.
+;
 
 /// Like [_startVersion] but matches the entire string.
-final _fourNumberCompleteVersion =
-    RegExp('${_fourNumberStartVersion.pattern}\$');
+final _fourNumberCompleteVersion = RegExp(
+  '${_fourNumberStartVersion.pattern}\$',
+);
 
 /// Parse a version or return null, add support for version X.X, X.X.X.X
 /// if strict, null or valid version are allowed
@@ -96,11 +100,19 @@ extension TekartikVersionExt on Version {
   /// Bump the last number in either pre release or build
   Version get nextPreReleaseOrBuild {
     if (isPreRelease) {
-      return Version(major, minor, patch,
-          pre: _bumpPreReleaseOrBuild(preRelease).join('.'));
+      return Version(
+        major,
+        minor,
+        patch,
+        pre: _bumpPreReleaseOrBuild(preRelease).join('.'),
+      );
     } else {
-      return Version(major, minor, patch,
-          build: _bumpPreReleaseOrBuild(build).join('.'));
+      return Version(
+        major,
+        minor,
+        patch,
+        build: _bumpPreReleaseOrBuild(build).join('.'),
+      );
     }
   }
 
@@ -136,11 +148,13 @@ extension TekartikVersionExt on Version {
     } else if (patch) {
       patchVersion++;
     }
-    version = Version(majorVersion, minorVersion, patchVersion,
-        pre:
-            (ext && version.isPreRelease) ? version.preRelease.join('.') : null,
-        build:
-            (ext && version.build.isNotEmpty) ? version.build.join('.') : null);
+    version = Version(
+      majorVersion,
+      minorVersion,
+      patchVersion,
+      pre: (ext && version.isPreRelease) ? version.preRelease.join('.') : null,
+      build: (ext && version.build.isNotEmpty) ? version.build.join('.') : null,
+    );
     if (ext) {
       version = version.nextPreReleaseOrBuild;
     }

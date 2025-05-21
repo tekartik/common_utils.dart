@@ -124,27 +124,27 @@ void main() {
     test('chunk', () {
       expect(listChunk([], null), isEmpty);
       expect(listChunk([1], null), [
-        [1]
+        [1],
       ]);
       expect(listChunk([1], 0), [
-        [1]
+        [1],
       ]);
       expect(listChunk([1, 2], 0), [
-        [1, 2]
+        [1, 2],
       ]);
       expect(listChunk([1, 2], 2), [
-        [1, 2]
+        [1, 2],
       ]);
       expect(listChunk([1, 2], 3), [
-        [1, 2]
+        [1, 2],
       ]);
       expect(listChunk([1, 2], 1), [
         [1],
-        [2]
+        [2],
       ]);
       expect(listChunk([1, 2, 3], 2), [
         [1, 2],
-        [3]
+        [3],
       ]);
     });
     test('LazyReadOnlyList', () {
@@ -160,16 +160,18 @@ void main() {
     });
     test('listFlatten', () {
       expect(
-          listFlatten([
-            [1],
-            [2, 3]
-          ]),
-          [1, 2, 3]);
+        listFlatten([
+          [1],
+          [2, 3],
+        ]),
+        [1, 2, 3],
+      );
       expect(
-          listFlatten<int>([
-            [1]
-          ]),
-          const TypeMatcher<List<int>>());
+        listFlatten<int>([
+          [1],
+        ]),
+        const TypeMatcher<List<int>>(),
+      );
     });
     test('listSingleOrNull', () {
       expect(listSingleOrNull(emptyList), isNull);
@@ -183,16 +185,18 @@ void main() {
     });
     test('flatten', () {
       expect(
-          (<Iterable>[
-            [1],
-            [2, 3]
-          ].flatten()),
-          [1, 2, 3]);
+        (<Iterable>[
+          [1],
+          [2, 3],
+        ].flatten()),
+        [1, 2, 3],
+      );
       expect(
-          ([
-            [1]
-          ].flatten()),
-          const TypeMatcher<List<int>>());
+        ([
+          [1],
+        ].flatten()),
+        const TypeMatcher<List<int>>(),
+      );
     });
     test('nonEmpty', () {
       List? nullList = emptyList;

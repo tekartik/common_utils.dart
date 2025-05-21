@@ -37,8 +37,9 @@ extension StreamJoinItemList3Ext<T1 extends Object?, T2 extends Object?> on (
     }
 
     var classId = '$i';
-    var typeDef =
-        forEach((index) => 'T${itemId(index)} extends Object?').join(', ');
+    var typeDef = forEach(
+      (index) => 'T${itemId(index)} extends Object?',
+    ).join(', ');
 
     /// Stream<T1> stream1, Stream<T2> stream2, Stream<T3> stream3
     var streamArgs = forEach((index) {
@@ -59,13 +60,15 @@ extension StreamJoinItemList3Ext<T1 extends Object?, T2 extends Object?> on (
     add(') {');
     //  /// item1
     //  StreamJoinItem<T1> get item1 => $1;
-    add(forEach((index) {
-      var id = itemId(index);
-      return '''
+    add(
+      forEach((index) {
+        var id = itemId(index);
+        return '''
       /// item$id
       StreamJoinItem<T$id> get item$id => \$$id;
       ''';
-    }).join('\n'));
+      }).join('\n'),
+    );
 
     // /// grouped values
     // (T1?, T2?) get values {

@@ -29,8 +29,7 @@ abstract class LazyRunner {
   factory LazyRunner.periodic({
     required Duration duration,
     required LazyRunnerFunction action,
-  }) =>
-      _PeriodicLazyRunner(duration: duration, action: action);
+  }) => _PeriodicLazyRunner(duration: duration, action: action);
 
   /// Dispose
   void dispose();

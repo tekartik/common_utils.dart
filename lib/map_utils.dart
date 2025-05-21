@@ -34,8 +34,11 @@ Map<K, V?> cloneMap<K extends Object?, V extends Object?>(Map<K, V> original) {
 ///
 /// if the map value is null and createIfNull is specified, the object is
 /// created and inserted in the map.
-V? mapValue<K extends Object?, V extends Object?>(Map<K, V> map, K key,
-    {V Function()? createIfNull}) {
+V? mapValue<K extends Object?, V extends Object?>(
+  Map<K, V> map,
+  K key, {
+  V Function()? createIfNull,
+}) {
   var value = map[key];
   if (value == null && createIfNull != null) {
     value = createIfNull()!;

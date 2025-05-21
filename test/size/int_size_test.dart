@@ -47,25 +47,38 @@ void main() {
     group('rect', () {
       test('equals', () {
         expect(
-            const common.Rect<num>(
-                common.Point<num>(1, 2), common.Size<num>(3, 4)),
-            isNot(const Rect(Point(1, 2), Size(3, 4))));
+          const common.Rect<num>(
+            common.Point<num>(1, 2),
+            common.Size<num>(3, 4),
+          ),
+          isNot(const Rect(Point(1, 2), Size(3, 4))),
+        );
         expect(
-            const common.Rect<int>(
-                common.Point<int>(1, 2), common.Size<int>(3, 4)),
-            const Rect(Point(1, 2), Size(3, 4)));
-        expect(const MyRect(MyPoint(1, 2), MySize(3, 4)),
-            const Rect(Point(1, 2), Size(3, 4)));
+          const common.Rect<int>(
+            common.Point<int>(1, 2),
+            common.Size<int>(3, 4),
+          ),
+          const Rect(Point(1, 2), Size(3, 4)),
+        );
+        expect(
+          const MyRect(MyPoint(1, 2), MySize(3, 4)),
+          const Rect(Point(1, 2), Size(3, 4)),
+        );
       });
       test('Rect', () {
         var rct = const Rect(Point(1, 2), Size(3, 4));
         expect(Rect.fromLTWH(1, 2, 3, 4), rct);
         expect(
-            const common.Rect<int>(
-                common.Point<int>(1, 2), common.Size<int>(3, 4)),
-            rct);
+          const common.Rect<int>(
+            common.Point<int>(1, 2),
+            common.Size<int>(3, 4),
+          ),
+          rct,
+        );
         expect(
-            const Rect(common.Point<int>(1, 2), common.Size<int>(3, 4)), rct);
+          const Rect(common.Point<int>(1, 2), common.Size<int>(3, 4)),
+          rct,
+        );
 
         expect(rct.left, 1);
         expect(rct.top, 2);

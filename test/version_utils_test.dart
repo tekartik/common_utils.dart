@@ -28,10 +28,14 @@ void defineTests() {
       expect(parseVersionOrNull(null, strict: true), isNull);
       expect(parseVersionOrNull('4.3.1', strict: true), Version(4, 3, 1));
       expect(parseVersionOrNull('4.3', strict: true), Version(4, 3, 0));
-      expect(parseVersionOrNull('4.3.1.5', strict: true),
-          Version(4, 3, 1, build: '5'));
       expect(
-          () => parseVersionOrNull('4', strict: true), throwsFormatException);
+        parseVersionOrNull('4.3.1.5', strict: true),
+        Version(4, 3, 1, build: '5'),
+      );
+      expect(
+        () => parseVersionOrNull('4', strict: true),
+        throwsFormatException,
+      );
     });
 
     test('parse', () {

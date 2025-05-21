@@ -7,10 +7,12 @@ void main() {
   group('operation', () {
     test('first_action', () async {
       var count = 0;
-      var operation = Operation(action: () {
-        count++;
-        return null;
-      });
+      var operation = Operation(
+        action: () {
+          count++;
+          return null;
+        },
+      );
       operation.trigger();
       expect(count, 1);
       operation.trigger();
@@ -22,10 +24,12 @@ void main() {
     });
     test('multiple_triggers', () async {
       var count = 0;
-      var operation = Operation(action: () {
-        count++;
-        return null;
-      });
+      var operation = Operation(
+        action: () {
+          count++;
+          return null;
+        },
+      );
       operation.trigger();
       operation.trigger();
       expect(count, 1);
@@ -41,11 +45,12 @@ void main() {
     test('delay', () async {
       var count = 0;
       var operation = Operation(
-          action: () {
-            count++;
-            return null;
-          },
-          delay: const Duration(milliseconds: 100));
+        action: () {
+          count++;
+          return null;
+        },
+        delay: const Duration(milliseconds: 100),
+      );
       operation.trigger();
       operation.trigger();
       expect(count, 1);

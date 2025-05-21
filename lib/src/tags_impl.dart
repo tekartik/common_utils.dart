@@ -103,7 +103,9 @@ abstract class TagsCondition {
   String _toInnerText();
 
   factory TagsCondition._or(
-      TagsCondition condition1, TagsCondition condition2) {
+    TagsCondition condition1,
+    TagsCondition condition2,
+  ) {
     if (condition2 is _TagsConditionAny) {
       return _TagsConditionAny([condition1, ...condition2.conditions]);
     } else if (condition1 is _TagsConditionAny) {
@@ -111,12 +113,15 @@ abstract class TagsCondition {
     } else if (condition1 is _TagsConditionAll ||
         condition2 is _TagsConditionAll) {
       throw ArgumentError(
-          'You cannot mixed || and && operator without parenthesis');
+        'You cannot mixed || and && operator without parenthesis',
+      );
     }
     return _TagsConditionAny([condition1, condition2]);
   }
   factory TagsCondition._and(
-      TagsCondition condition1, TagsCondition condition2) {
+    TagsCondition condition1,
+    TagsCondition condition2,
+  ) {
     if (condition2 is _TagsConditionAll) {
       return _TagsConditionAll([condition1, ...condition2.conditions]);
     } else if (condition1 is _TagsConditionAll) {
@@ -124,7 +129,8 @@ abstract class TagsCondition {
     } else if (condition1 is _TagsConditionAny ||
         condition2 is _TagsConditionAny) {
       throw ArgumentError(
-          'You cannot mixed && and || operator without parenthesis');
+        'You cannot mixed && and || operator without parenthesis',
+      );
     }
     return _TagsConditionAll([condition1, condition2]);
   }
@@ -327,7 +333,8 @@ TagsCondition _parseTagsCondition(String expression) {
       throw ArgumentError('Missing matching ) in "$expression"');
     }
     firstCondition = _TagConditionSealed(
-        _parseTagsCondition(expression.substring(1, endIndex).trim()));
+      _parseTagsCondition(expression.substring(1, endIndex).trim()),
+    );
     afterFirstCondition = expression.substring(endIndex + 1).trim();
   } else if (_allOperators.contains(token)) {
     throw ArgumentError('Unexpected operator "$token" found in "$expression"');

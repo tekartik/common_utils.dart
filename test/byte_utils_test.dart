@@ -20,11 +20,14 @@ void main() {
     });
     test('listStreamGetBytes', () async {
       expect(
-          await listStreamGetBytes(Stream.fromIterable([
+        await listStreamGetBytes(
+          Stream.fromIterable([
             [1, 2],
-            [3]
-          ])),
-          [1, 2, 3]);
+            [3],
+          ]),
+        ),
+        [1, 2, 3],
+      );
     });
   });
 }

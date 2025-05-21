@@ -33,12 +33,12 @@ class _PrintHandler {
   void call(LogRecord logRecord) {
     // ignore: avoid_print
     print(
-        '${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}');
+      '${logRecord.time} ${logRecord.loggerName} ${logRecord.level} ${logRecord.message}',
+    );
   }
 }
 
 @Deprecated('Use logLevels')
-
 /// ignore: non_constant_identifier_names
 final List<Level> LOG_LEVELS = logLevels;
 
@@ -53,7 +53,7 @@ final List<Level> logLevels = [
   Level.FINE,
   Level.FINER,
   Level.FINEST,
-  Level.ALL
+  Level.ALL,
 ];
 
 /// Parse a log level
@@ -73,7 +73,8 @@ Logger? _log;
 
 /// Default logger
 @Deprecated(
-    'Use compatLogger instead - and import json_utils.dart - or do not use it, will be removed')
+  'Use compatLogger instead - and import json_utils.dart - or do not use it, will be removed',
+)
 Logger? get log => compatLogger;
 
 /// Default logger compat
