@@ -97,7 +97,7 @@ class Subject<T> extends Stream<T>
   void _addError(Object error, [StackTrace? stackTrace]) {
     _value = null;
     _error = error;
-    this._stackTrace = stackTrace;
+    _stackTrace = stackTrace;
     _controller.addError(error, stackTrace);
   }
 
