@@ -1,5 +1,5 @@
 name: tekartik_common_utils
-version: 0.15.18
+version: 1.0.0
 description: Common pure dart utilities (not io or browser dependant)
 homepage: https://github.com/tekartik/common_utils.dart
 publish_to: none
