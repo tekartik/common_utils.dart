@@ -1,4 +1,4 @@
 /// Duration helpers
 library;
 
-export 'src/duration_utils.dart' show TekartikNumDurationExtensions;
+export 'src/duration_utils.dart' show TekartikNumDurationExtension;

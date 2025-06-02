@@ -5,7 +5,7 @@
 /// 3.seconds // equivalent to Duration(milliseconds: 3000)
 /// 1.5.days // equivalent to Duration(hours: 36)
 /// ```
-extension TekartikNumDurationExtensions on num {
+extension TekartikNumDurationExtension on num {
   /// Microseconds
   Duration get microseconds => Duration(microseconds: round());
 
