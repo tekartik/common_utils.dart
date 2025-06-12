@@ -19,6 +19,17 @@ void main() {
       expect(sw.elapsedMilliseconds, lessThan(3000));
       await sleep();
     });
+    test('sleepAtLeast', () async {
+      final sw = Stopwatch();
+      await expectLater(
+        () => sw.sleepAtLeast(100),
+        throwsA(isA<AssertionError>()),
+      );
+      sw.start();
+      await sw.sleepAtLeast(50);
+      expect(sw.elapsedMilliseconds, greaterThan(30));
+      expect(sw.elapsedMilliseconds, lessThan(3000));
+    });
 
     test('waitAll', () async {
       expect(await waitAll(null), isNull);
