@@ -5,7 +5,7 @@ homepage: https://github.com/tekartik/common_utils.dart
 publish_to: none
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 dependencies:
   path: ">=1.9.0"
   logging: '>=1.2.0'

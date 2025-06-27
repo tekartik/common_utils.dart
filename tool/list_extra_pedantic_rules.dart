@@ -76,11 +76,10 @@ Future<void> main() async {
   diffRules.removeWhere((element) => lintsRules.contains(element));
   await _writeRules('pedantic_over_lints', diffRules);
 
-  var all =
-      <String>{}
-        ..addAll(rules)
-        ..addAll(pedanticRules)
-        ..addAll(lintsRules);
+  var all = <String>{}
+    ..addAll(rules)
+    ..addAll(pedanticRules)
+    ..addAll(lintsRules);
   diffRules = List<String>.from(all)..sort();
   diffRules.removeWhere((element) => lintsRules.contains(element));
   await _writeRules('tekartik_recommended_over_lints', diffRules);

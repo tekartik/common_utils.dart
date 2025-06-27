@@ -9,8 +9,9 @@ class LazyReadOnlyList<S, T> extends ListBase<T> {
 
   /// Create a lazy read-only list
   LazyReadOnlyList(Iterable<S> srcList, T Function(S src) transform) {
-    _srcList =
-        srcList is List ? srcList as List<S> : srcList.toList(growable: false);
+    _srcList = srcList is List
+        ? srcList as List<S>
+        : srcList.toList(growable: false);
     _transform = transform;
     _transformedList = List.generate(length, (index) => false);
     _dstList = List.generate(length, (index) => null);

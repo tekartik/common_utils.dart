@@ -11,11 +11,12 @@ final _completeVersion = RegExp('${_startVersion.pattern}\$');
 
 // Handle String with 4 numbers
 /// Regex that matches a version number at the beginning of a string.
-final _fourNumberStartVersion = RegExp(
-  r'^' // Start at beginning.
-  r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)',
-) // Version number.
-;
+final _fourNumberStartVersion =
+    RegExp(
+      r'^' // Start at beginning.
+      r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)',
+    ) // Version number.
+    ;
 
 /// Like [_startVersion] but matches the entire string.
 final _fourNumberCompleteVersion = RegExp(
