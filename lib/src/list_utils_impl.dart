@@ -37,6 +37,16 @@ extension TekartikCommonIterableExtension<T> on Iterable<T> {
     }
     return null;
   }
+
+  /// Contains any element from another iterable.
+  bool containsAny(Iterable<T> other) {
+    for (var element in other) {
+      if (contains(element)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 /// Common iterable extension
