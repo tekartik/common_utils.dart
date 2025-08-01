@@ -5,7 +5,6 @@ export 'package:logging/logging.dart';
 
 export 'src/log_utils.dart'
     show
-        log,
         parseLogLevel,
         logLevels,
         compatLogger,

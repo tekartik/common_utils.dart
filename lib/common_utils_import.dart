@@ -12,5 +12,5 @@ export 'dev_utils.dart';
 export 'future_utils.dart';
 export 'int_utils.dart';
 export 'json_utils.dart';
-export 'log_utils.dart' hide compatLogger;
+export 'log_utils.dart' show format0To1AsPercent, formatTimestampMs;
 export 'version_utils.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_statements
 library;
 
 //import 'package:unittest/vm_config.dart';
@@ -11,6 +12,20 @@ void defineTests() {
   //useVMConfiguration();
 
   group('log', () {
+    test('api', () {
+      // Unfortunately from log_utils...that we start deprecating
+      // ignore: deprecated_member_use_from_same_package
+      compatLogger;
+      Logger;
+      Level;
+      // ignore: deprecated_member_use_from_same_package
+      debugQuickLogging;
+      setupQuickLogging;
+      parseLogLevel;
+      logLevels;
+      formatTimestampMs;
+      format0To1AsPercent;
+    });
     test('parse level', () {
       expect(parseLogLevel('info'), equals(logging.Level.INFO));
       expect(parseLogLevel('fine'), equals(logging.Level.FINE));
@@ -48,8 +63,6 @@ void defineTests() {
 
     test('compatLogger', () {
       compatLogger.log(Level.ALL, 'Compat logger');
-      // ignore: deprecated_member_use_from_same_package
-      log?.log(Level.ALL, 'Compat logger');
     });
   });
 }
