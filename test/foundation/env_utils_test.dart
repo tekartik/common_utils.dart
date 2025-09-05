@@ -11,7 +11,11 @@ void defineTests() {
     // assuming we are testing in debug mode...
     test('isRelease', () {
       expect(isRelease, isFalse, reason: 'isRelease');
-      expect(foundation.kDebugMode, true, reason: 'foundation.kDebugMode');
+      expect(
+        foundation.kFlutterDebugMode,
+        true,
+        reason: 'foundation.kFlutterDebugMode',
+      );
       expect(isDebug, !isRelease, reason: 'isDebug');
       expect(assert_utils.isDebug, isDebug, reason: 'assert_utils.isDebug');
     });

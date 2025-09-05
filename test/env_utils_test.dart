@@ -1,4 +1,5 @@
 import 'package:tekartik_common_utils/env_utils.dart';
+import 'package:tekartik_common_utils/foundation/constants.dart';
 import 'package:tekartik_common_utils/src/debug.dart';
 import 'package:test/test.dart';
 
@@ -17,10 +18,10 @@ void defineTests() {
         'kDartIoReleaseMode': false,
         'isRunningAsJavascript': isRunningAsJavascript,
         'kDartIsWeb': kDartIsWeb,
-        'kDebugMode': true,
-        'kReleaseMode': false,
-        'kProfileMode': false,
-        'kIsWeb': kDartIsWeb,
+        'kFlutterDebugMode': true,
+        'kFlutterReleaseMode': false,
+        'kFlutterProfileMode': false,
+        'kFlutterIsWeb': kFlutterIsWeb,
         'kDartIsWebWasm': kDartIsWebWasm,
         'kDartIsWebJs': kDartIsWebJs,
       });

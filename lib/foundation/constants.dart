@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 /// A constant that is true if the application was compiled in release mode.
 ///
 /// More specifically, this is a constant that is true if the application was
@@ -19,7 +21,10 @@
 ///
 ///  * [kDebugMode], which is true in debug builds.
 ///  * [kProfileMode], which is true in profile builds.
-const bool kReleaseMode = bool.fromEnvironment('dart.vm.product');
+const bool kFlutterReleaseMode = bool.fromEnvironment('dart.vm.product');
+@Deprecated('Use kFlutterReleaseMode')
+/// compat
+const bool kReleaseMode = kFlutterReleaseMode;
 
 /// A constant that is true if the application was compiled in profile mode.
 ///
@@ -34,7 +39,11 @@ const bool kReleaseMode = bool.fromEnvironment('dart.vm.product');
 ///
 ///  * [kDebugMode], which is true in debug builds.
 ///  * [kReleaseMode], which is true in release builds.
-const bool kProfileMode = bool.fromEnvironment('dart.vm.profile');
+const bool kFlutterProfileMode = bool.fromEnvironment('dart.vm.profile');
+
+/// compat
+@Deprecated('Use kFlutterProfileMode')
+const bool kProfileMode = kFlutterProfileMode;
 
 /// A constant that is true if the application was compiled in debug mode.
 ///
@@ -58,14 +67,28 @@ const bool kProfileMode = bool.fromEnvironment('dart.vm.profile');
 ///
 ///  * [kReleaseMode], which is true in release builds.
 ///  * [kProfileMode], which is true in profile builds.
-const bool kDebugMode = !kReleaseMode && !kProfileMode;
+///
+/// Not valid in dart environment
+const bool kFlutterDebugMode = !kReleaseMode && !kProfileMode;
+
+/// compat
+@Deprecated('Use kFlutterDebugMode')
+const bool kDebugMode = kFlutterDebugMode;
 
 /// The epsilon of tolerable double precision error.
 ///
 /// This is used in various places in the framework to allow for floating point
 /// precision loss in calculations. Differences below this threshold are safe to
 /// disregard.
-const double precisionErrorTolerance = 1e-10;
+const double kFlutterPrecisionErrorTolerance = 1e-10;
+
+/// compat
+@Deprecated('Use kFlutterPrecisionErrorTolerance')
+const double precisionErrorTolerance = kFlutterPrecisionErrorTolerance;
 
 /// A constant that is true if the application was compiled to run on the web.
-const bool kIsWeb = bool.fromEnvironment('dart.library.js_util');
+const bool kFlutterIsWeb = bool.fromEnvironment('dart.library.js_util');
+
+/// Compat
+@Deprecated('Use kFlutterIsWeb')
+const bool kIsWeb = kFlutterIsWeb;
