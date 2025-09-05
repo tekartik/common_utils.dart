@@ -17,10 +17,10 @@ void defineTests() {
         'kDartIoReleaseMode': false,
         'isRunningAsJavascript': true,
         'kDartIsWeb': true, // ! event for node
-        'kDebugMode': true,
-        'kReleaseMode': false,
-        'kProfileMode': false,
-        'kIsWeb': true,
+        'kFlutterDebugMode': true,
+        'kFlutterReleaseMode': false,
+        'kFlutterProfileMode': false,
+        'kFlutterIsWeb': true,
         'kDartIsWebWasm': false,
         'kDartIsWebJs': true,
       });
