@@ -11,8 +11,8 @@ dependencies:
   tekartik_common_utils:
     git:
       url: https://github.com/tekartik/common_utils.dart
-      ref: dart3a
-    version: '>=0.15.8'
+      # tag_pattern: "tekartik_common_utils/v{{version}}"
+    version: '^1.0.0'
 ```
 
 Versioning follows [dart project versioning](https://github.com/tekartik/common.dart/blob/main/doc/tekartik_versioning.md) conventions.
