@@ -1,5 +1,3 @@
 # tekartik recommended lints (extension over google lints and pedantic)
 include: package:tekartik_lints/package.yaml
 
-linter:
-  rules:
