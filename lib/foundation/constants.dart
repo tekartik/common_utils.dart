@@ -87,7 +87,7 @@ const double kFlutterPrecisionErrorTolerance = 1e-10;
 const double precisionErrorTolerance = kFlutterPrecisionErrorTolerance;
 
 /// A constant that is true if the application was compiled to run on the web.
-const bool kFlutterIsWeb = bool.fromEnvironment('dart.library.js_util');
+const bool kFlutterIsWeb = bool.fromEnvironment('dart.library.js_interop');
 
 /// Compat
 @Deprecated('Use kFlutterIsWeb')

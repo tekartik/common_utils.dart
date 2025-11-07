@@ -13,7 +13,7 @@ const isRunningAsJavascript = identical(1, 1.0);
 
 /// Borrowed from flutter (isRunningAsJavascript is false in wasm)
 /// Work in non-flutter environment too
-const bool kDartIsWeb = bool.fromEnvironment('dart.library.js_util');
+const bool kDartIsWeb = bool.fromEnvironment('dart.library.js_interop');
 
 /// Borrowed from flutter - not valid on the web if not flutter
 const bool kDartIoReleaseMode = bool.fromEnvironment('dart.vm.product');
