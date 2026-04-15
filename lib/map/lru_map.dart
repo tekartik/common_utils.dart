@@ -8,7 +8,7 @@ class LruMap<K, V> extends MapBase<K?, V> {
   final _keys = <K>[];
 
   /// A function that is called when an entry is removed from the map.
-  final void Function(MapEntry<K?, V?> entry)? dispose;
+  final void Function(MapEntry<K, V> entry)? dispose;
 
   void _trigger(K key) {
     _keys.remove(key);
@@ -26,7 +26,9 @@ class LruMap<K, V> extends MapBase<K?, V> {
   void _dispose(K key) {
     if (dispose != null) {
       var value = _map[key];
-      dispose!(MapEntry(key, value));
+      if (value != null) {
+        dispose!(MapEntry(key, value));
+      }
     }
     _keys.remove(key);
     _map.remove(key);
