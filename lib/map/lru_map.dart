@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 /// A map that keeps track of the last accessed keys.
-class LruMap<K, V> extends MapBase<K?, V> {
+class LruMap<K, V> extends MapBase<K, V> {
   /// The maximum number of entries in the map.
   final int? maximumSize;
   final _map = <K, V>{};
@@ -35,7 +35,7 @@ class LruMap<K, V> extends MapBase<K?, V> {
   }
 
   @override
-  void operator []=(K? key, V value) {
+  void operator []=(K key, V value) {
     if (maximumSize != null && !_keys.contains(key) && length >= maximumSize!) {
       _dispose(_keys.first);
     }
