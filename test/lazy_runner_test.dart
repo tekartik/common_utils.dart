@@ -9,8 +9,10 @@ void main() {
         duration: const Duration(milliseconds: 10),
         action: (count) async {},
       );
-      await sleep(50);
-      expect(runner.count, lessThan(6));
+      // Value 50 and less than 6 was not ok once
+      // in dart run build_runner test
+      await sleep(60);
+      expect(runner.count, lessThan(7));
       expect(runner.count, greaterThan(2));
     });
     test('trigger', () async {
