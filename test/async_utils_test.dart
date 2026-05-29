@@ -78,10 +78,10 @@ void main() {
       expect(
         waitAll([
           () async {
-            throw 'fail';
+            throw StateError('fail');
           },
         ]),
-        throwsA('fail'),
+        throwsA(isA<StateError>()),
       );
       expect(
         waitAll([
@@ -89,10 +89,10 @@ void main() {
             return 0;
           },
           () async {
-            throw 'fail';
+            throw StateError('fail');
           },
         ]),
-        throwsA('fail'),
+        throwsA(isA<StateError>()),
       );
 
       Future<int> f1() async {
@@ -128,7 +128,7 @@ void main() {
       Future doCount() async {
         await sleep(5);
         if (shouldFail) {
-          throw 'should fail';
+          throw StateError('should fail');
         }
       }
 
@@ -137,7 +137,7 @@ void main() {
         await runner.run();
         fail('should have failed');
       } catch (e) {
-        expect(e, 'should fail');
+        expect(e, isA<StateError>());
       }
       expect(runner.done, isFalse);
 
@@ -145,7 +145,7 @@ void main() {
         await runner.run();
         fail('should have failed');
       } catch (e) {
-        expect(e, 'should fail');
+        expect(e, isA<StateError>());
       }
 
       shouldFail = false;

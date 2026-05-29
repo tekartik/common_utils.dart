@@ -9,6 +9,7 @@ void main() {
       Stream.fromIterable(<int?>[value]);
   Stream<int?> oneError([Object error = 'error']) {
     Future<int?> throwError() async {
+      // ignore: only_throw_errors
       throw error;
     }
 

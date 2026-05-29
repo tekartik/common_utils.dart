@@ -40,14 +40,12 @@ class Subject<T> extends Stream<T>
 
   // Value is seeded if non null
   Subject._({
-    T? value,
-    bool seeded = false,
+    this._value,
+    this._seeded = false,
     void Function()? onListen,
     void Function()? onCancel,
     bool? sync,
-  }) : _value = value,
-       _seeded = seeded,
-       _sync = sync == true,
+  }) : _sync = sync == true,
        _controller = StreamController<T>.broadcast(
          onListen: onListen,
          onCancel: onCancel,
