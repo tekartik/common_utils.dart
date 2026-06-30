@@ -1,3 +1,4 @@
+import 'package:tekartik_common_utils/async_utils.dart';
 import 'package:tekartik_common_utils/map/expiring_lru_map.dart';
 import 'package:tekartik_common_utils/map/lru_map.dart';
 import 'package:test/test.dart';
@@ -61,17 +62,19 @@ void main() {
     expect(lruMap.length, 0);
   });
 
-  test('LruMap.expiring factory creates an ExpiringLruMap', () {
+  test('LruMap.expiring factory creates an ExpiringLruMap', () async {
     var stopwatch = Stopwatch()..start();
     // Typed as LruMap to verify the factory return type.
     // ignore: omit_local_variable_types
     LruMap<int, String> lruMap = LruMap<int, String>.expiring(
       maximumSize: 2,
-      duration: const Duration(milliseconds: 1),
+      duration: const Duration(milliseconds: 100),
       stopwatch: stopwatch,
     );
     expect(lruMap, isA<ExpiringLruMap<int, String>>());
     lruMap[1] = 'one';
     expect(lruMap[1], 'one');
+    await sleep(150);
+    expect(lruMap[1], isNull);
   });
 }
