@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'expiring_lru_map.dart';
+
 /// A map that keeps track of the last accessed keys.
 class LruMap<K, V> extends MapBase<K, V> {
   /// The maximum number of entries in the map.
@@ -17,6 +19,16 @@ class LruMap<K, V> extends MapBase<K, V> {
 
   /// Create a LRU map with a maximum size.
   LruMap({this.maximumSize, this.dispose});
+
+  /// Create an LRU map whose entries expire after [duration].
+  ///
+  /// This is a convenience constructor returning an [ExpiringLruMap].
+  factory LruMap.expiring({
+    required Duration duration,
+    int? maximumSize,
+    void Function(MapEntry<K, V> entry)? dispose,
+    Stopwatch? stopwatch,
+  }) = ExpiringLruMap<K, V>;
   @override
   V? operator [](Object? key) {
     _trigger(key as K);
