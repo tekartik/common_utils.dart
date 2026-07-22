@@ -38,20 +38,18 @@ extension TekartikComparableBoundedExt<T extends Comparable> on T {
 
 /// Helper for sorted list
 extension TekartikComparableListExt<T extends Comparable> on List<T> {
-  /// Finds the index at which [item] should be inserted into the sorted [list]
+  /// Finds the index at which [item] should be inserted into the sorted `list`
   /// to maintain the sorted order.
   ///
   /// The list must be sorted in ascending order according to the natural ordering
   /// of its elements (using `compareTo`).
   ///
-  /// Args:
-  ///   list: The sorted list of comparable items.
-  ///   item: The comparable item to find the insertion index for.
+  ///   [item]: The comparable item to find the insertion index for.
   ///
   /// Returns:
   ///   The index where [item] should be inserted. This index `i` satisfies the
-  ///   condition: all elements `list[j]` where `j < i` are less than or equal to
-  ///   [item], and all elements `list[k]` where `k >= i` are greater than or equal
+  ///   condition: all elements in `this` at index `j` where `j < i` are less than or equal to
+  ///   [item], and all elements at index `k` where `k >= i` are greater than or equal
   ///   to [item].
   int findInsertionIndex(T item) {
     var list = this;

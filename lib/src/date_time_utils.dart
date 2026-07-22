@@ -51,7 +51,7 @@ String formatTimestampMinSeconds(int timestamp) {
   return '${minutes.toString()}:${seconds.toString().padLeft(2, '0')}';
 }
 
-/// [datStartOffset] is the offset from utc, return a utc time, now can be anything
+/// [dayStartOffset] is the offset from utc, return a utc time, now can be anything
 DateTime findBeginningOfDay(DateTime now, int dayStartOffset) {
   // make sure it goes after now, then go backwards
   // now.timeZoneName;

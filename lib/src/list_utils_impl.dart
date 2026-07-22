@@ -16,7 +16,7 @@ extension TekartikCommonListExtension<T> on List<T> {
 
 /// Common list list extension.
 extension TekartikCommonListListExtension<T> on List<List<T>> {
-  /// [[1], [2, 3]].flatten() => [1, 2, 3]
+  /// `[[1], [2, 3]].flatten()` => `[1, 2, 3]`
   List<T> flatten() => listFlatten<T>(this);
 }
 
@@ -51,7 +51,7 @@ extension TekartikCommonIterableExtension<T> on Iterable<T> {
 
 /// Common iterable extension
 extension TekartikCommonIterableIterableExtension<T> on Iterable<Iterable<T>> {
-  /// [[1], [2, 3]].flatten() => [1, 2, 3]
+  /// `[[1], [2, 3]].flatten()` => `[1, 2, 3]`
   List<T> flatten() => listFlatten<T>(this);
 }
 
