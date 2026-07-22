@@ -5,6 +5,7 @@ TimeOfDay timeOfDayLocalToUtc(TimeOfDay tod) {
   var dt = DateTime.now();
   dt = DateTime(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toUtc();
+
   return TimeOfDay(dt.hour, dt.minute);
 }
 
@@ -13,6 +14,7 @@ TimeOfDay timeOfDayUtcToLocal(TimeOfDay tod) {
   var dt = DateTime.now().toUtc();
   dt = DateTime.utc(dt.year, dt.month, dt.day, tod.hour, tod.minute);
   dt = dt.toLocal();
+
   return TimeOfDay(dt.hour, dt.minute);
 }
 
@@ -67,6 +69,7 @@ class TimeOfDay {
         minute = int.parse(parts[1]);
       }
     } catch (_) {}
+
     return TimeOfDay(hour, minute);
   }
 }

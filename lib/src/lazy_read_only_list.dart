@@ -5,6 +5,7 @@ class LazyReadOnlyList<S, T> extends ListBase<T> {
   late final List<S> _srcList;
   late final List<bool> _transformedList;
   late final List<T?> _dstList;
+
   late final T Function(S src) _transform;
 
   /// Create a lazy read-only list

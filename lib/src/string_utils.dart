@@ -15,7 +15,7 @@ bool stringIsEmpty(String? text) {
   return ((text == null) || text.isEmpty);
 }
 
-///
+/// Empty string are returned as null (or default value)
 String? stringNonEmpty(String? value, [String? defaultValue]) =>
     stringIsEmpty(value) ? defaultValue : value;
 
@@ -109,6 +109,7 @@ extension TekartikCommonStringPrvExtension on String {
       foundOne = true;
       index--;
     }
+
     return intOrNull();
   }
 }
@@ -173,7 +174,6 @@ int stringsCompareWithLastInt(
 // utils
 //
 
-///
 /// Returns `true` if [rune] represents a whitespace character.
 ///
 /// The definition of whitespace matches that used in [String.trim] which is
@@ -182,7 +182,6 @@ int stringsCompareWithLastInt(
 /// ECMAScript standard: http://ecma-international.org/ecma-262/5.1/#sec-15.10
 ///
 /// from quiver
-///
 bool runeIsWhitespace(int rune) =>
     ((rune >= 0x0009 && rune <= 0x000D) ||
     rune == 0x0020 ||
@@ -265,6 +264,7 @@ extension TekartikWhitespaceStringExtension on String {
     if (isEmpty) {
       return false;
     }
+
     return runeIsWhitespace(runes.first);
   }
 
@@ -273,6 +273,7 @@ extension TekartikWhitespaceStringExtension on String {
     if (isEmpty) {
       return false;
     }
+
     return runeIsWhitespace(runes.last);
   }
 
@@ -282,6 +283,7 @@ extension TekartikWhitespaceStringExtension on String {
       return false;
     }
     var runes = this.runes;
+
     return runeIsWhitespace(runes.first) || runeIsWhitespace(runes.last);
   }
 }

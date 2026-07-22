@@ -1,4 +1,7 @@
-/// Parse ini lines from file
+/// Parses key-value pairs from INI file [contents].
+///
+/// Skips blank lines and comment lines starting with `#`. Splits lines on `=` into trimmed key-value pairs.
+/// Returns a map of parsed key-value string pairs.
 Map<String, String> parseIniLines(Iterable<String> contents) {
   final results = <String, String>{};
 

@@ -23,6 +23,7 @@ class Operation {
       _pending = true;
       _lock.synchronized(() async {
         _pending = false;
+
         await action();
         if (delay != null) {
           await Future<void>.delayed(delay!);

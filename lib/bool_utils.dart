@@ -3,7 +3,10 @@
 
 import 'package:tekartik_common_utils/num_utils.dart';
 
-/// Parse a boolean value, handling string and num different than 0
+/// Parses a boolean from [value].
+///
+/// Handles `bool`, `num` (where non-zero is `true`), and strings like `'true'`, `'false'`,
+/// or numeric strings. If [value] cannot be parsed, returns [defaultBool].
 bool? parseBool(Object? value, [bool? defaultBool]) {
   if (value is bool) {
     return value;

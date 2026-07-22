@@ -60,6 +60,7 @@ String intPartToHex(int value) {
   }
   return String.fromCharCodes([
     _hexAbove16CodeUint4((value & 0xF0) >> 4),
+
     hex2CodeUint8(value),
   ]);
 }

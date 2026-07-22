@@ -24,7 +24,6 @@ Future<List?> waitAll(List<Future Function()>? computations) async {
   return Future.wait(futures);
 }
 
-///
 /// Run an operation only once
 class AsyncOnceRunner {
   final FutureOr Function() _computation;

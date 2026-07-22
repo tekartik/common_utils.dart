@@ -57,6 +57,7 @@ class Rect<T extends num> {
   factory Rect.fromLTRB(T left, T top, T right, T bottom) {
     return Rect(
       Point(left, top),
+
       Size((right - left) as T, (bottom - top) as T),
     );
   }
@@ -175,5 +176,6 @@ Rect<double> sizeDoubleCenteredRectWithRatioMinMax(
 ) {
   assert(ratioMin <= ratioMax);
   var ratio = size.ratio.bounded(ratioMin.toDouble(), ratioMax.toDouble());
+
   return sizeDoubleCenteredRectWithRatio(size, ratio);
 }

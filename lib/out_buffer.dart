@@ -1,16 +1,16 @@
-/// Simple buffer to keep the last lines
+/// A fixed-size line buffer that retains only the last appended lines.
 class OutBuffer {
   late int _maxLineCount;
 
-  /// List of lines
+  /// The current list of stored lines.
   List<String> lines = [];
 
-  /// Create a buffer with a max line count
+  /// Creates an [OutBuffer] holding at most [maxLineCount] lines.
   OutBuffer(int maxLineCount) {
     _maxLineCount = maxLineCount;
   }
 
-  /// Add a line
+  /// Adds a line of [text] to the buffer, trimming oldest lines if capacity is exceeded.
   void add(String text) {
     lines.add(text);
     while (lines.length > _maxLineCount) {

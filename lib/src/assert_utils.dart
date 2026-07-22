@@ -8,6 +8,7 @@ bool? _isRelease;
 bool get isRelease {
   if (_isRelease == null) {
     _isRelease = true;
+
     assert(() {
       _isRelease = false;
       return true;

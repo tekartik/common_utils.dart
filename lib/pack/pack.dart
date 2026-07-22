@@ -11,6 +11,7 @@ Map<String, List>? packList(
   Iterable<Map<String, Object?>>? list, {
   String? rowsField,
   String? columnsField,
+
   Object? Function(Object? value)? innerPack,
 }) {
   if (list == null) {
@@ -50,12 +51,14 @@ Map<String, List>? packList(
 /// Pack a list of items
 Map<String, Object?>? packItemList<T>(
   List<T> list,
+
   Map<String, Object?> Function(T item) itemToJsonCallback,
 ) {
   var unpackedList = <Map<String, Object?>>[];
   for (var item in list) {
     unpackedList.add(itemToJsonCallback(item));
   }
+
   return packList(unpackedList);
 }
 
@@ -172,6 +175,7 @@ class JsonUnpack {
           item[columns[i]] = value;
         }
       }
+
       callback(item);
     }
   }
@@ -183,6 +187,7 @@ List<Map<String, Object?>>? unpackList(
   Map<String, Object?>? packed, {
   String? rowsField,
   String? columnsField,
+
   Object? Function(Object? value)? innerUnpack,
 }) {
   if (packed == null) {

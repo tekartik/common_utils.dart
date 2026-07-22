@@ -138,6 +138,7 @@ abstract class TagsCondition {
 
 /// A condition is either single or multi
 @visibleForTesting
+/// Class representing [TagsConditionSingle].
 abstract class TagsConditionSingle implements TagsConditionSealed {}
 
 /// A condition is either single or multi

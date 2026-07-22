@@ -6,7 +6,6 @@ export 'src/hex_utils.dart'
         TekartikUint32ToHexExt,
         TekartikStringFromHexExt;
 
-///
 int _upperACodeUnit = 'A'.codeUnitAt(0);
 int _lowerACodeUnit = 'a'.codeUnitAt(0);
 int _digit0CodeUnit = '0'.codeUnitAt(0);
@@ -222,6 +221,7 @@ String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
       }
 
       final charCode = buffer[i];
+
       bool isPrintable(int charCode) =>
           charCode >= 32 && charCode <= 126; // not including delete
       if (isPrintable(charCode)) {
@@ -270,18 +270,14 @@ List<int> parseHexString(String text) {
   return data;
 }
 
-///
 /// convert [data] to "01A1..."
 /// returns null if data is null
-///
 String? toHexString(List<int>? data) {
   return toHexStringOrNull(data);
 }
 
-///
 /// convert [data] to "01A1..."
 /// returns null if data is null
-///
 String? toHexStringOrNull(List<int>? data) {
   if (data == null) {
     return null;
@@ -293,10 +289,8 @@ String? toHexStringOrNull(List<int>? data) {
   return sb.toString();
 }
 
-///
 /// convert [data] to "01a1..."
 /// returns null if data is null
-///
 String? toLohexString(List<int>? data) {
   if (data == null) {
     return null;

@@ -15,6 +15,7 @@ class Size extends size_common.Size<int> implements D2 {
     if (size is Size) {
       return size;
     }
+
     return Size(size.x, size.y);
   }
 }
@@ -29,6 +30,7 @@ class Point extends size_common.Point<int> implements D2 {
     if (point is Point) {
       return point;
     }
+
     return Point(point.x, point.y);
   }
 }
@@ -52,6 +54,7 @@ class Rect extends size_common.Rect<int> {
 /// Return the contained rectangle
 Size sizeContainedWithRatio(Size size, num ratio) {
   var computedSize = size_common.sizeIntContainedWithRatio(size, ratio);
+
   return Size(computedSize.width, computedSize.height);
 }
 

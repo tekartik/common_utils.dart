@@ -27,7 +27,9 @@ class Subject<T> extends Stream<T>
   /// Seed value even if null
   Subject.seeded({
     T? value,
+
     void Function()? onListen,
+
     void Function()? onCancel,
     bool? sync,
   }) : this._(
@@ -42,7 +44,9 @@ class Subject<T> extends Stream<T>
   Subject._({
     this._value,
     this._seeded = false,
+
     void Function()? onListen,
+
     void Function()? onCancel,
     bool? sync,
   }) : _sync = sync == true,
@@ -55,7 +59,9 @@ class Subject<T> extends Stream<T>
   /// Create a subject, seeded if non null
   Subject({
     T? value,
+
     void Function()? onListen,
+
     void Function()? onCancel,
     bool? sync,
   }) : this._(
@@ -118,6 +124,7 @@ class Subject<T> extends Stream<T>
   StreamSubscription<T> listen(
     void Function(T event)? onData, {
     Function? onError,
+
     void Function()? onDone,
     bool? cancelOnError,
   }) {

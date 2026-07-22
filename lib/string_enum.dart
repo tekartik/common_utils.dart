@@ -1,11 +1,11 @@
 library;
 
-/// Base class for string enum
+/// Base class for custom string-backed enum implementations.
 abstract class StringEnum {
-  /// The value
+  /// The string identifier or value of this enum constant.
   final String name;
 
-  /// Constructor
+  /// Creates a [StringEnum] with the given string [name].
   const StringEnum(this.name);
 
   @override
@@ -24,6 +24,6 @@ abstract class StringEnum {
     return super == (other);
   }
 
-  /// The value
+  /// The string value of this enum constant, identical to [name].
   String get value => name;
 }

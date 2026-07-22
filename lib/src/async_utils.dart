@@ -44,6 +44,7 @@ extension TekartikStopwatchExt on Stopwatch {
     assert(isRunning);
     if (elapsedMilliseconds < milliseconds) {
       final remaining = milliseconds - elapsedMilliseconds;
+
       await sleep(remaining);
     }
   }

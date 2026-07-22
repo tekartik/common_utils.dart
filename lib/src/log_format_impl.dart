@@ -128,6 +128,7 @@ class _Converter {
     } else if (value is CvModel) {
       return _innerMapToMap(value.toMap(), depth: depth);
     }
+
     return logTruncateString(value.toString());
   }
 

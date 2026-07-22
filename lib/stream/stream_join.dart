@@ -117,6 +117,7 @@ Stream<List<StreamJoinItem<T>>> streamJoinAllOrError<T>(
 
       var allFilled = false;
       var subscriptions = <StreamSubscription>[];
+
       void addItem(int index, StreamJoinItem<T> item) {
         if (!allFilled) {
           filled[index] = true;

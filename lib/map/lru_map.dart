@@ -26,6 +26,7 @@ class LruMap<K, V> extends MapBase<K, V> {
   factory LruMap.expiring({
     required Duration duration,
     int? maximumSize,
+
     void Function(MapEntry<K, V> entry)? dispose,
     Stopwatch? stopwatch,
   }) = ExpiringLruMap<K, V>;
