@@ -1,7 +1,12 @@
 platforms:
-  # - node - since 2025-03-11 intellij keeps on failing with node, trying to run dart2wasm mode
+  - node
   - vm
   - chrome
 compilers:
   - dart2js
   - dart2wasm
+# no wasm support on node yet
+override_platforms:
+  node:
+    settings:
+      compilers: [dart2js]
