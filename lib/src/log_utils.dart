@@ -1,6 +1,7 @@
 library;
 
 import 'package:logging/logging.dart';
+import 'package:tekartik_common_utils/string_utils.dart' show stringPrefilled;
 
 export 'package:logging/logging.dart';
 
@@ -83,17 +84,6 @@ Logger get compatLogger {
   return _log!;
 }
 
-String _stringPrefilled(String text, int len, String char) {
-  var length = text.length;
-  final out = StringBuffer();
-  while (length < len) {
-    out.write(char);
-    length += char.length;
-  }
-  out.write(text);
-  return out.toString();
-}
-
 /// Format a ms timestamp in ms as sss.ms from 00.000 to 99.999
 String formatTimestampMs(num? timestamp) {
   // Allow 6 digits => 1000s
@@ -101,7 +91,7 @@ String formatTimestampMs(num? timestamp) {
   //String txt;
 
   if (timestamp == null) {
-    return _stringPrefilled('(null)', size, ' ');
+    return stringPrefilled('(null)', size, ' ');
   } else {
     var s = (timestamp ~/ 1000);
     var ms = (timestamp - s * 1000).round();
@@ -109,7 +99,7 @@ String formatTimestampMs(num? timestamp) {
       s += 1;
       ms = 0;
     }
-    return '${_stringPrefilled('${s % 100}', 2, '0')}.${_stringPrefilled('$ms', 3, '0')}';
+    return '${stringPrefilled('${s % 100}', 2, '0')}.${stringPrefilled('$ms', 3, '0')}';
   }
 }
 
@@ -119,7 +109,7 @@ String format0To1AsPercent(num? value) {
   //String txt;
 
   if (value == null) {
-    return _stringPrefilled('(nul)', 5, ' ');
+    return stringPrefilled('(nul)', 5, ' ');
   } else {
     var per10000 = value * 10000;
     var per100 = per10000 ~/ 100;
@@ -133,6 +123,6 @@ String format0To1AsPercent(num? value) {
       centsDigitCount = 1;
       cents ~/= 10;
     }
-    return '${_stringPrefilled('$per100', 2, '0')}.${_stringPrefilled('$cents', centsDigitCount, '0')}';
+    return '${stringPrefilled('$per100', 2, '0')}.${stringPrefilled('$cents', centsDigitCount, '0')}';
   }
 }

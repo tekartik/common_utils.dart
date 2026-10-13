@@ -138,6 +138,26 @@ void main() {
       expect(disposed.map((e) => e.key), [1]);
     });
 
+    test('iterations skip expired entries', () {
+      var stopwatch = FakeStopwatch();
+      var map = ExpiringLruMap<int, String>(
+        duration: const Duration(seconds: 10),
+        stopwatch: stopwatch,
+      );
+      map[1] = 'one';
+      stopwatch.advance(const Duration(seconds: 5));
+      map[2] = 'two';
+      map[3] = 'three';
+      expect(map.toString(), '{1: one, 2: two, 3: three}');
+      expect(map.values, ['one', 'two', 'three']);
+      expect(map.keys, [1, 2, 3]);
+
+      stopwatch.advance(const Duration(seconds: 6)); // 1 -> 11s, 2/3 -> 6s
+      expect(map.containsValue('one'), isFalse);
+      expect(map.toString(), '{2: two, 3: three}');
+      expect(map.entries.map((entry) => entry.value), ['two', 'three']);
+    });
+
     test('purge removes expired entries', () {
       var stopwatch = FakeStopwatch();
       var map = ExpiringLruMap<int, String>(

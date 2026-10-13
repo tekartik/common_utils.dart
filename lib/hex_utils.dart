@@ -97,13 +97,7 @@ String hexQuickView(List<int>? data, [int? maxLen]) {
   final out = StringBuffer();
   for (var i = 0; i < maxLen; i++) {
     if (i > 0) {
-      out.write(' ');
-      if ((i % 4) == 0) {
-        out.write(' ');
-      }
-      if ((i % 16) == 0) {
-        out.write(' ');
-      }
+      _writeByteSeparator(out, i, ' ');
     }
     final charCode = data[i];
     out.writeCharCode(hex1CodeUint8(charCode));
@@ -125,8 +119,7 @@ List<String>? hexPrettyLines(List<int>? data) {
     if (sb != null) {
       lines.add(sb.toString());
     }
-    sb = StringBuffer();
-    return sb;
+    return sb = StringBuffer();
   });
   if (sb!.isNotEmpty) {
     // last line
@@ -149,24 +142,36 @@ String? hexPretty(List<int>? data) {
     } else {
       sb!.writeln();
     }
-    return sb;
+    return sb!;
   });
   return sb.toString();
 }
 
-String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
+/// Write the separator before the byte at [index] (> 0): [separator], plus
+/// one more space every 4 bytes and another one every 16 bytes.
+void _writeByteSeparator(StringBuffer out, int index, String separator) {
+  out.write(separator);
+  if ((index % 4) == 0) {
+    out.write(' ');
+  }
+  if ((index % 16) == 0) {
+    out.write(' ');
+  }
+}
+
+bool _isPrintable(int charCode) =>
+    charCode >= 32 && charCode <= 126; // not including delete
+
+String _hexPretty(List<int> data, StringBuffer Function() newLine) {
   final blockSize = 16;
   int readSize;
   var lineIndex = 0;
   var position = 0;
-  //StringBuffer out = new StringBuffer();
   var out = newLine();
   do {
     if (lineIndex++ > 0) {
-      //out.writeln();
       out = newLine();
     }
-    int i;
     readSize = data.length - position;
     if (readSize > blockSize) {
       readSize = blockSize;
@@ -178,72 +183,38 @@ String _hexPretty(List<int> data, StringBuffer? Function() newLine) {
     final buffer = data.sublist(position, position + readSize);
     position += readSize;
 
-    for (i = 0; i < buffer.length; i++) {
+    // Hex values, '..' after the end of the data
+    for (var i = 0; i < blockSize; i++) {
       if (i > 0) {
-        out!.write(' ');
-        if ((i % 4) == 0) {
-          out.write(' ');
-        }
-        if ((i % 16) == 0) {
-          out.write(' ');
-        }
+        _writeByteSeparator(out, i, ' ');
       }
-      final charCode = buffer[i];
-      out!.writeCharCode(hex1CodeUint8(charCode));
-      out.writeCharCode(hex2CodeUint8(charCode));
-    }
-
-    if (i > 0) {
-      for (; i < blockSize; i++) {
-        if (i > 0) {
-          out!.write(' ');
-          if ((i % 4) == 0) {
-            out.write(' ');
-          }
-          if ((i % 16) == 0) {
-            out.write(' ');
-          }
-        }
-        out!.write('..');
-      }
-    }
-
-    out!.write('  ');
-
-    for (i = 0; i < readSize; i++) {
-      if (i > 0) {
-        if ((i % 4) == 0) {
-          out.write(' ');
-        }
-        if ((i % 16) == 0) {
-          out.write(' ');
-        }
-      }
-
-      final charCode = buffer[i];
-
-      bool isPrintable(int charCode) =>
-          charCode >= 32 && charCode <= 126; // not including delete
-      if (isPrintable(charCode)) {
-        out.writeCharCode(charCode);
+      if (i < readSize) {
+        final charCode = buffer[i];
+        out.writeCharCode(hex1CodeUint8(charCode));
+        out.writeCharCode(hex2CodeUint8(charCode));
       } else {
-        out.write('?');
+        out.write('..');
       }
     }
-    if (i > 0) {
-      for (; i < blockSize; i++) {
-        if (i > 0) {
-          if ((i % 4) == 0) {
-            out.write(' ');
-          }
-          if ((i % 16) == 0) {
-            out.write(' ');
-          }
+
+    out.write('  ');
+
+    // Printable characters, '.' after the end of the data
+    for (var i = 0; i < blockSize; i++) {
+      if (i > 0) {
+        _writeByteSeparator(out, i, '');
+      }
+      if (i < readSize) {
+        final charCode = buffer[i];
+        if (_isPrintable(charCode)) {
+          out.writeCharCode(charCode);
+        } else {
+          out.write('?');
         }
+      } else {
         out.write('.');
       }
     }
-    // out.println(len);
   } while (readSize == blockSize);
 
   return out.toString();

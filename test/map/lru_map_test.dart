@@ -53,6 +53,59 @@ void main() {
     expect(lruMap[2], 'two');
   });
 
+  test('LruMap reading a missing key does not add it', () {
+    var lruMap = LruMap<int, String>(maximumSize: 2);
+    lruMap[1] = 'one';
+    expect(lruMap[2], isNull);
+    expect(lruMap.length, 1);
+    expect(lruMap.containsKey(2), isFalse);
+    lruMap[3] = 'three';
+    expect(lruMap[1], 'one');
+    expect(lruMap[3], 'three');
+  });
+
+  test('LruMap iterations do not change the order of keys', () {
+    var lruMap = LruMap<int, String>(maximumSize: 3);
+    lruMap[1] = 'one';
+    lruMap[2] = 'two';
+    lruMap[3] = 'three';
+    expect(lruMap.toString(), '{1: one, 2: two, 3: three}');
+    expect(lruMap.values, ['one', 'two', 'three']);
+    expect(lruMap.entries.map((entry) => entry.key), [1, 2, 3]);
+    var forEachValues = <String>[];
+    lruMap.forEach((key, value) => forEachValues.add(value));
+    expect(forEachValues, ['one', 'two', 'three']);
+    expect(lruMap.containsValue('one'), isTrue);
+    expect(lruMap.containsValue('four'), isFalse);
+    expect(lruMap.map((key, value) => MapEntry(value, key)), {
+      'one': 1,
+      'two': 2,
+      'three': 3,
+    });
+    expect(lruMap.keys, [1, 2, 3]);
+    // 1 is still the least recently used
+    lruMap[4] = 'four';
+    expect(lruMap.keys, [2, 3, 4]);
+  });
+
+  test('LruMap updateAll and removeWhere', () {
+    var disposed = <int>[];
+    var lruMap = LruMap<int, String>(
+      maximumSize: 3,
+      dispose: (entry) => disposed.add(entry.key),
+    );
+    lruMap[1] = 'one';
+    lruMap[2] = 'two';
+    lruMap[3] = 'three';
+    lruMap.updateAll((key, value) => value.toUpperCase());
+    expect(lruMap.keys, [1, 2, 3]);
+    expect(lruMap.values, ['ONE', 'TWO', 'THREE']);
+    lruMap.removeWhere((key, value) => key.isOdd);
+    expect(lruMap.keys, [2]);
+    expect(lruMap.values, ['TWO']);
+    expect(disposed, [1, 3]);
+  });
+
   test('clear', () {
     var lruMap = LruMap<int, String>(maximumSize: 3);
     lruMap[1] = 'one';

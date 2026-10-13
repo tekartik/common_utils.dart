@@ -109,7 +109,7 @@ abstract class TagsCondition {
     if (condition2 is _TagsConditionAny) {
       return _TagsConditionAny([condition1, ...condition2.conditions]);
     } else if (condition1 is _TagsConditionAny) {
-      return _TagsConditionAny([...condition1.conditions, condition1]);
+      return _TagsConditionAny([...condition1.conditions, condition2]);
     } else if (condition1 is _TagsConditionAll ||
         condition2 is _TagsConditionAll) {
       throw ArgumentError(
@@ -125,7 +125,7 @@ abstract class TagsCondition {
     if (condition2 is _TagsConditionAll) {
       return _TagsConditionAll([condition1, ...condition2.conditions]);
     } else if (condition1 is _TagsConditionAll) {
-      return _TagsConditionAll([...condition1.conditions, condition1]);
+      return _TagsConditionAll([...condition1.conditions, condition2]);
     } else if (condition1 is _TagsConditionAny ||
         condition2 is _TagsConditionAny) {
       throw ArgumentError(
