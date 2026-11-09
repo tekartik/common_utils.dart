@@ -20,7 +20,8 @@ class StreamJoinItem<T> {
     if (this is StreamJoinItem<R>) {
       return this as StreamJoinItem<R>;
     }
-    return StreamJoinItem<R>(value: value as R, error: error);
+    // value is null for an error item, R can be non nullable.
+    return StreamJoinItem<R>(value: value as R?, error: error);
   }
 
   @override
@@ -54,6 +55,9 @@ class StreamJoinItem<T> {
 }
 
 /// Join all streams into one. First emit when all values are received once.
+///
+/// The errors of the streams are forwarded, use [streamJoinAllOrError] to
+/// get them as items.
 Stream<List<T>> streamJoinAll<T>(List<Stream<T>> streams) {
   late StreamController<List<T>> controller;
   controller = StreamController<List<T>>(
@@ -80,6 +84,7 @@ Stream<List<T>> streamJoinAll<T>(List<Stream<T>> streams) {
                 controller.add(List<T>.from(values));
               }
             },
+            onError: controller.addError,
             onDone: () {
               done[index] = true;
 
@@ -103,7 +108,8 @@ Stream<List<T>> streamJoinAll<T>(List<Stream<T>> streams) {
   return controller.stream;
 }
 
-/// Join all streams into one. First emit when all values are received once.
+/// Join all streams into one, an error being an item
+/// ([StreamJoinItem.error]). First emit when all values are received once.
 Stream<List<StreamJoinItem<T>>> streamJoinAllOrError<T>(
   List<Stream<T>> streams,
 ) {

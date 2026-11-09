@@ -78,8 +78,9 @@ web and Flutter. For parsing and collections see
   a background loop; `trigger()` requests a run and further triggers arriving
   during a run coalesce into exactly one extra run. `LazyRunner.periodic(
   duration: ..., action: ...)` also fires on its own every `duration` (first
-  run after `duration`; `trigger()` to run now). Errors are swallowed — set
-  `debugLazyRunner = true` to print them. Always `dispose()`.
+  run after `duration`; `trigger()` to run now). Errors of the action are
+  swallowed: printed only in debug mode (asserts on) or with
+  `debugLazyRunner = true`; catch them in the action. Always `dispose()`.
   `Operation(action: ..., delay: ...)` is the simpler sibling: `trigger()`
   while a run is pending is ignored, and `delay` enforces a minimum gap
   between runs.

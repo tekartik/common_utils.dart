@@ -1,6 +1,7 @@
 /// Parses key-value pairs from INI file [contents].
 ///
-/// Skips blank lines and comment lines starting with `#`. Splits lines on `=` into trimmed key-value pairs.
+/// Skips blank lines and comment lines starting with `#`. Splits lines on the
+/// first `=` into trimmed key-value pairs (a value can contain `=`).
 /// Returns a map of parsed key-value string pairs.
 Map<String, String> parseIniLines(Iterable<String> contents) {
   final results = <String, String>{};
@@ -12,7 +13,10 @@ Map<String, String> parseIniLines(Iterable<String> contents) {
       // Discard anything that isn't simple name=value
       .where((String l) => l.contains('='))
       // Split into name/value
-      .map<List<String>>((String l) => l.split('='));
+      .map<List<String>>((String l) {
+        var index = l.indexOf('=');
+        return [l.substring(0, index), l.substring(index + 1)];
+      });
 
   for (var property in properties) {
     results[property[0].trim()] = property[1].trim();

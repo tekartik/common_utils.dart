@@ -94,9 +94,12 @@ collections see `tekartik-common-utils-values`; for streams and runners see
 * Tags, from `tags.dart`: `Tags.fromText('a,b')` / `Tags.fromList([...])` /
   `Tags()`, then `has`, `add`, `remove` (they return whether something
   changed), `sort`, `toList`/`toListOrNull`, `toText`/`toTextOrNull`.
-  `TagsCondition('a && (b || !c)')` parses a boolean expression and
+  `Tags.fromText` trims each tag and drops the empty ones (`''` gives no
+  tag). `TagsCondition('a && (b || !c)')` parses a boolean expression and
   `check(tags)` evaluates it; an empty expression is always true and mixing
-  `&&` with `||` without parentheses throws. `package:test` also exports a
+  `&&` with `||` without parentheses throws. A leading `!` applies to the
+  whole rest of the expression: `!a && b` is `!(a && b)`; write `(!a) && b`
+  to negate only `a`. `package:test` also exports a
   `Tags` class: in tests write `import 'package:test/test.dart' hide Tags;`.
 * Anti-patterns: using `isDebug` where a compile-time constant is needed
   (it is a runtime getter, no tree shaking); committing `devPrint` /

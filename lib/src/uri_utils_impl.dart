@@ -15,11 +15,13 @@ Map<String, String> locationSearchGetArguments(String? search) {
 extension TekartikUriExtension on Uri {
   /// Remove parameters and fragment
   Uri removeParametersAndFragment() {
+    // Only pass the authority parts the uri has: an empty host or the
+    // default port would add an empty authority (`///a` for `/a`).
     return Uri(
       scheme: scheme,
-      userInfo: userInfo,
-      host: host,
-      port: port,
+      userInfo: hasAuthority ? userInfo : null,
+      host: hasAuthority ? host : null,
+      port: hasPort ? port : null,
       path: path,
     );
   }

@@ -99,7 +99,7 @@ class _Converter {
     var count = 0;
     for (var entry in map.entries) {
       if ((options.mapTruncateLength != null) &&
-          (count++ > options.mapTruncateLength!)) {
+          (count++ >= options.mapTruncateLength!)) {
         break;
       }
       var key = _truncateString(entry.key.toString());
@@ -119,7 +119,7 @@ class _Converter {
 
   Object _convertInner(Object value, {int? depth}) {
     if (value.runtimeType.isBasicType) {
-      return _convertBasicValue(value);
+      return _convertBasicValue(value, length: options.basicTypeTruncateLength);
     }
     if (value is List) {
       return _innerListToList(value, depth: depth);
@@ -129,7 +129,7 @@ class _Converter {
       return _innerMapToMap(value.toMap(), depth: depth);
     }
 
-    return logTruncateString(value.toString());
+    return _truncateString(value.toString());
   }
 
   int? _nextDepth(int? depth) {
@@ -144,7 +144,8 @@ class _Converter {
       return ['..'];
     }
     _innerCollections.add(list);
-    return list
+    var listTruncateLength = options.listTruncateLength;
+    return (listTruncateLength == null ? list : list.take(listTruncateLength))
         .map((e) => _convertInnerOrNull(e, depth: _nextDepth(depth)))
         .toList();
   }

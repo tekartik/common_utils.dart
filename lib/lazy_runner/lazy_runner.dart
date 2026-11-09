@@ -15,7 +15,11 @@ extension LazyRunnerExtension on LazyRunner {
   int get count => (this as _LazyRunner).count;
 }
 
-/// Lazy runner
+/// Lazy runner: runs its action in the background on [trigger], the
+/// triggers arriving during a run give a single next run.
+///
+/// The errors of the action are not rethrown (printed in debug mode or with
+/// [debugLazyRunner]), catch them in the action. Call [dispose] when done.
 abstract class LazyRunner {
   /// Trigger the action
   void trigger();
@@ -45,12 +49,21 @@ class _PeriodicLazyRunner extends _LazyRunner {
 
   @override
   Future<void> _waitTrigger() async {
-    try {
-      await super._waitTrigger().timeout(duration);
-    } on TimeoutException catch (_) {
-      if (_debug) {
-        _log('duration timeout $duration');
+    // Complete the pending trigger at the end of the period (a timeout
+    // would leave one more waiter on it at each period).
+    var triggerCompleter = _triggerCompleter;
+    var timer = Timer(duration, () {
+      if (!triggerCompleter.isCompleted) {
+        if (_debug) {
+          _log('duration timeout $duration');
+        }
+        triggerCompleter.complete();
       }
+    });
+    try {
+      await super._waitTrigger();
+    } finally {
+      timer.cancel();
     }
   }
 

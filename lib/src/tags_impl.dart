@@ -9,12 +9,18 @@ abstract class Tags {
     return _Tags(tags);
   }
 
-  /// Tags from a string (tags are comma separated).
+  /// Tags from a string (tags are comma separated, empty tags are ignored).
   factory Tags.fromText(String? text) {
     if (text == null) {
       return _Tags(null);
     } else {
-      return _Tags(text.split(',').map((String tag) => tag.trim()).toList());
+      return _Tags(
+        text
+            .split(',')
+            .map((String tag) => tag.trim())
+            .where((tag) => tag.isNotEmpty)
+            .toList(),
+      );
     }
   }
 
@@ -78,11 +84,15 @@ class _Tags implements Tags {
   String toString() => 'Tags(${toText()})';
 }
 
-/// Tags condition (tag1 && tag2 && !tag3 || tag4 && (tag1 && tag4).
+/// Tags condition, such as `tag1 && (tag2 || tag3) && (!tag4)`.
 abstract class TagsCondition {
   /// Parse a tags condition.
   ///
-  /// Don't assume precedence, use parenthesis, don't mix && and || without parenthesis.
+  /// Don't assume precedence, use parenthesis, don't mix && and || without
+  /// parenthesis (it throws an [ArgumentError]).
+  ///
+  /// A leading `!` applies to the rest of the expression: `!a && b` is
+  /// `!(a && b)`, write `(!a) && b` to negate `a` only.
   ///
   /// empty expression means always true
   factory TagsCondition(String expression) {

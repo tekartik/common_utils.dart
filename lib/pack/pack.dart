@@ -133,10 +133,10 @@ Object? uncompackAny(Object? packed) {
         packed.forEach((key, value) {
           // remove the root for sure, typically set to true
 
-          if (key != _v) {
-            if (key.toString().startsWith(_v)) {
-              map[key.toString().substring(2)] = uncompackAny(value);
-            }
+          // Only the escaped keys ($v$v...): compackAny also kept the
+          // original $v... keys, restoring them would invent a key.
+          if (key.toString().startsWith('$_v$_v')) {
+            map[key.toString().substring(2)] = uncompackAny(value);
           }
         });
       }
@@ -159,8 +159,9 @@ class JsonUnpack {
 
   /// forEach
   void forEach(void Function(Map item) callback) {
-    var columns = packed[_columns] as List<String>?;
-    var rows = packed[_rows] as List<List>?;
+    // cast: once json decoded, they are List<dynamic>.
+    var columns = (packed[_columns] as List?)?.cast<String>();
+    var rows = (packed[_rows] as List?)?.cast<List>();
     if (columns == null || rows == null) {
       return;
     }

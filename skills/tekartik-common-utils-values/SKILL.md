@@ -80,6 +80,10 @@ JSON, hex/bytes, dates and durations. For streams, futures and caches see
   deprecated — use the extensions or `listTruncate`.
   `LazyReadOnlyList` / `iterable.lazy((e) => ...)` build a read-only list
   whose elements are transformed on first read and cached.
+* `cloneList` / `cloneMap` deep copy json like content (`List<Object?>`,
+  `Map<String, Object?>`); a nested typed collection
+  (`cloneList<List<int>>`, `cloneMap<String, Map<String, int>>`) throws a
+  `TypeError`.
 * Maps: `mapValue(map, key, createIfNull: () => ...)` memoizes,
   `anyAsMap`/`anyAsMapOrNull` retype a decoded JSON `Map` to
   `Map<String, Object?>`, `getPartsMapValue`/`setPartsMapValue` walk nested
@@ -102,7 +106,7 @@ JSON, hex/bytes, dates and durations. For streams, futures and caches see
   (all computed in microseconds, so fractions work). `TimeOfDay` normalizes
   hour/minute and parses/prints `HH:mm`.
 * Other small helpers that live in this package: `parseIniLines` for
-  `key=value` files, `locationSearchGetArguments` plus
+  `key=value` files (split on the first `=`), `locationSearchGetArguments` plus
   `uri.removeParametersAndFragment()` in `uri_utils.dart`, `safeHashCode`,
   the `StringEnum` base class, `Tags`/`TagsCondition` in `tags.dart`,
   `packList`/`unpackList`/`compackAny` in `pack/pack.dart`, the generic

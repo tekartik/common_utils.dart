@@ -3,7 +3,7 @@ import 'package:pub_semver/pub_semver.dart';
 /// Regex that matches a version number at the beginning of a string.
 final _startVersion = RegExp(
   r'^' // Start at beginning.
-  r'(\d+).((\d+))?', // Version number.
+  r'(\d+)\.(\d+)', // Version number.
 );
 
 /// Like [_startVersion] but matches the entire string.
@@ -14,7 +14,7 @@ final _completeVersion = RegExp('${_startVersion.pattern}\$');
 final _fourNumberStartVersion =
     RegExp(
       r'^' // Start at beginning.
-      r'(\d+).(\d+).(\d+).([0-9A-Za-z-]*)',
+      r'(\d+)\.(\d+)\.(\d+)\.([0-9A-Za-z-]*)',
     ) // Version number.
     ;
 

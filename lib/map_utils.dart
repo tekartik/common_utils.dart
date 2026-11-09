@@ -14,6 +14,9 @@ Map mergeMap(Map mapDst, Map mapSrc) {
 }
 
 /// Clone a map
+///
+/// For json like content (`Map<String, Object?>`): a nested typed collection
+/// (`Map<String, Map<String, int>>`) throws a [TypeError].
 Map<K, V?> cloneMap<K extends Object?, V extends Object?>(Map<K, V> original) {
   final map = <K, V?>{};
   original.forEach((key, value) {

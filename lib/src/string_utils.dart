@@ -130,7 +130,11 @@ int _compareInt(int? value1, int? value2) {
   }
 }
 
-/// Compare two strings with the last int part
+/// Compare two strings with the last int part (`item2` before `item10`), a
+/// list sort comparator.
+///
+/// Nulls come first. [nullFirst] true reverses the whole order (not only
+/// the nulls).
 int stringsCompareWithLastInt(
   String? value1,
   String? value2, {
@@ -151,7 +155,7 @@ int stringsCompareWithLastInt(
     }
   }
   var intIndex1 = value1.getLastIntIndex();
-  var intIndex2 = value1.getLastIntIndex();
+  var intIndex2 = value2.getLastIntIndex();
   if (intIndex1 != null && intIndex2 != null) {
     var textPart1 = value1.substring(0, intIndex1);
     var textPart2 = value2.substring(0, intIndex2);

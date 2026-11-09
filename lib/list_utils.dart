@@ -84,6 +84,9 @@ List<T> listSubList<T>(List<T> list, int start, [int? end]) {
 List<T> listTruncate<T>(List<T> list, int len) => listSubList(list, 0, len);
 
 /// Clone list and list of list
+///
+/// For json like content (`List<Object?>`): a nested typed collection
+/// (`List<List<int>>`) throws a [TypeError].
 List<T> cloneList<T>(List<T> original) {
   var clone = <T>[];
   for (var item in original) {
